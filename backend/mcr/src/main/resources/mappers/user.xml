@@ -13,7 +13,7 @@
 						name,
 						age,
 						email,
-						gender
+						gender 
 				)
 				value (
 						#{id},

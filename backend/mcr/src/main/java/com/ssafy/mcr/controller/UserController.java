@@ -52,7 +52,7 @@ public class UserController {
 		try {
 			userService.addUser(user);
 			result.status = true;
-			result.data = user.getId() + "회원이 추가되었습니다.";
+			result.data = user.getId() + " 회원이 추가되었습니다.";
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -71,7 +71,7 @@ public class UserController {
 		try {
 			userService.deleteUser(id);
 			result.status = true;
-			result.data = id + "회원이 삭제되었습니다.";
+			result.data = id + " 회원이 삭제되었습니다.";
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -90,7 +90,7 @@ public class UserController {
 		try {
 			userService.modifyUser(user);
 			result.status = true;
-			result.data = user.getId() + "회원이 수정되었습니다.";
+			result.data = user.getId() + " 회원이 수정되었습니다.";
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -109,7 +109,7 @@ public class UserController {
 		try {
 			User user = userService.getUserbyId(id);
 			result.status = true;
-			result.data = id + "회원정보를 리턴합니다.";
+			result.data = id + " 회원정보를 리턴합니다.";
 			result.object = user;
 		} catch (Exception e) {
 			e.printStackTrace();
