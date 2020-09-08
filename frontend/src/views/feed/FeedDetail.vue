@@ -2,8 +2,19 @@
   <div>
 
     <div id="">
-		<div class="trail pl-5 ml-5 pt-5 mt-5">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+		<hr>
+		<hr>
+		<hr>
+		<hr>
+		<hr>
+		<div class="trail pl-5 ml-5">
+			<div style="background-color: red; width :50%" class="inline-div countsort">
+				<iframe class="p-3 video" width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+			</div>
+			<div class="inline-div pl-3 ml-3" style="height : 100%;">
+				
+			</div>
+			
 		</div>
 	</div>
 <div class="container">
@@ -60,18 +71,72 @@
 <div id="copyright" class="container">
 	<p>&copy; Untitled. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
 </div>
+
+<vue-word-cloud
+  style="
+    height: 480px;
+    width: 640px;
+  "
+  :words="[['romance', 19], ['horror', 3], ['fantasy', 7], ['adventure', 3]]"
+  :color="([, weight]) => weight > 10 ? 'DeepPink' : weight > 5 ? 'RoyalBlue' : 'Indigo'"
+  font-family="Roboto"
+/>
   </div>
 </template>
-
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vuewordcloud"></script>
 <script>
+import VueWordCloud from 'vuewordcloud';
 export default {
-
+	
+	components: {
+    [VueWordCloud.name]: VueWordCloud,
+  },
+  data() {
+      return {
+		
+      }
+	},
 }
 </script>
 
 <style scoped>
+.countsort{
+
+	position : relative;
+
+	width : 100%;
+
+	height : 0;
+	padding-bottom: 50px;
+	margin-bottom: 50px;
+	padding-bottom : 26.25%;
+
+}
 
 
+.video{
+
+	position : absolute;
+
+	top : 0;
+
+	left : 0;
+
+	width : 100%;
+
+	height : 100%;
+
+}
+
+
+
+
+.inline-div{
+	display: inline-block;
+  
+    border: 1px solid blue;
+}
 	html, body
 {
 	height: 100%;
@@ -538,7 +603,7 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 	.trail{
 		width: 90%;
 		height: 400px;
-		background-color: bisque;
+		background-color: black;
 	
 	}
 </style>
