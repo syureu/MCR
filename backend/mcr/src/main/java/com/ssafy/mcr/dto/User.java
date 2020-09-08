@@ -1,18 +1,11 @@
 package com.ssafy.mcr.dto;
 
 public class User {
-	private String name;
+	private int userNo;
 	private String id;
 	private String password;
-	private String email;
-	private int age;
-	private boolean gender;
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	private String birthday;
+	
 	public String getId() {
 		return id;
 	}
@@ -25,29 +18,22 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getEmail() {
-		return email;
+	public int getUserNo() {
+		return userNo;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
-	public int getAge() {
-		return age;
+	public String getBirthday() {
+		return birthday;
 	}
-	public void setAge(int age) {
-		this.age = age;
-	}
-	public boolean isGender() {
-		return gender;
-	}
-	public void setGender(boolean gender) {
-		this.gender = gender;
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
 	}
 	@Override
 	public String toString() {
-		return "User [name=" + name + ", id=" + id + ", password=" + password + ", email=" + email + ", age=" + age
-				+ ", gender=" + gender + "]";
+		return "User [userNo=" + userNo + ", id=" + id + ", password=" + password + ", birthday=" + birthday + "]";
 	}
-
+	
 	
 }
