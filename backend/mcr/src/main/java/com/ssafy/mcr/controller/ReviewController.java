@@ -29,7 +29,9 @@ import org.springframework.web.bind.annotation.RestController;
 //import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.mcr.dto.BasicResponse;
 import com.ssafy.mcr.dto.Movie;
+import com.ssafy.mcr.dto.Review;
 import com.ssafy.mcr.service.MovieService;
+import com.ssafy.mcr.service.ReviewService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -38,25 +40,25 @@ import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins = { "http://localhost:8081" })
 @RestController
-@RequestMapping("/movie")
-public class MovieController {
+@RequestMapping("/review")
+public class ReviewController {
 
 
 	@Autowired
-	MovieService movieService;
+	ReviewService reviewService;
 
-	@ApiOperation(value="영화의 정보를 입력받아 데이터베이스에 저장합니다.")
+	@ApiOperation(value="리뷰를 입력받아 데이터베이스에 저장합니다.")
 	@PostMapping()
-	public Object registMovie(@RequestBody Movie movie) {
-		System.out.println("영화 입력 진입");
-		System.out.println(movie.toString());
+	public Object registMovie(@RequestBody Review review) {
+		System.out.println("리뷰 입력 진입");
+		System.out.println(review.toString());
 		ResponseEntity response = null;
 		final BasicResponse result = new BasicResponse();
 		try {
-			movieService.addMovie(movie);
+			reviewService.addReview(review);
 			result.status = true;
-			result.data = movie.getMovieNmOg() + "가 데이터베이스에 추가되었습니다.";
-			result.object = movie; 
+			result.data = "리뷰가 데이터베이스에 추가되었습니다.";
+			result.object = review; 
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -66,17 +68,17 @@ public class MovieController {
 		return response;
 	}
 	
-	@ApiOperation(value="영화의 고유번호(movieCd)로 해당 영화정보를 데이터 베이스에서 삭제합니다.")
+	@ApiOperation(value="리뷰의 고유번호(reviewNo)로 해당 리뷰를 데이터 베이스에서 삭제합니다.")
 	@DeleteMapping()
-	public Object deleteMovie(@RequestParam String movieCd) {
+	public Object deleteMovie(@RequestParam int reviewNo) {
 		ResponseEntity response = null;
-		System.out.println("영화 삭제 진입");
+		System.out.println("리뷰 삭제 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
-			Movie movie = movieService.getMovieByMovieCd(movieCd);
-			movieService.deleteMovie(movieCd);
+			Review review = reviewService.getReviewbyNo(reviewNo);
+			reviewService.deleteReview(reviewNo);
 			result.status = true;
-			result.data = movie.getMovieNmOg() + "가  데이터베이스에서 삭제되었습니다.";
+			result.data = review.getReviewNo() + "번 리뷰가  데이터베이스에서 삭제되었습니다.";
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -86,18 +88,18 @@ public class MovieController {
 		return response;
 	}
 	
-	@ApiOperation(value="영화의 고유번호(movieCd)로 해당 영화정보를 데이터 베이스에서 수정합니다. (movieCd만 입력해도 사용가능)")
+	@ApiOperation(value="리뷰의 고유번호(reviewNo)로 해당 리뷰를 데이터 베이스에서 수정합니다.")
 	@PutMapping()
-	public Object updateMovie(@RequestBody Movie movie) {
+	public Object updateMovie(@RequestBody Review review) {
 		ResponseEntity response = null;
 		System.out.println("수정 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
-			movieService.modifyMovie(movie);
-			Movie mov = movieService.getMovieByMovieCd(movie.getMovieCd());
+			reviewService.modifyReview(review);
+			Review rev = reviewService.getReviewbyNo(review.getReviewNo());
 			result.status = true;
-			result.data = movie.getMovieNmOg() + "가 데이터베이스에서 수정되었습니다.";
-			result.object = mov;
+			result.data = review.getReviewNo() + "번 리뷰가 데이터베이스에서 수정되었습니다.";
+			result.object = rev;
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -107,17 +109,17 @@ public class MovieController {
 		return response;
 	}
 	
-	@ApiOperation(value="영화의 고유번호(movieCd)로 해당 영화정보를 데이터 베이스에서 검색합니다.")
-	@GetMapping("/bypk")
-	public Object getMovieByMovieCd(@RequestParam String movieCd) {
+	@ApiOperation(value="리뷰의 고유번호(reviewNo)로 데이터 베이스에서 리뷰를 검색합니다.")
+	@GetMapping("/byno")
+	public Object getMovieByMovieCd(@RequestParam int reviewNo) {
 		ResponseEntity response = null;
-		System.out.println("검색 진입");
+		System.out.println("no로 검색 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
-			Movie movie = movieService.getMovieByMovieCd(movieCd);
+			Review review = reviewService.getReviewbyNo(reviewNo);
 			result.status = true;
-			result.data = movie.getMovieNmOg() + "의 영화정보를 호출합니다.";
-			result.object = movie;
+			result.data = review.getReviewNo() + "번 리뷰를 호출합니다.";
+			result.object = review;
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -127,16 +129,16 @@ public class MovieController {
 		return response;
 	}
 	
-	@ApiOperation(value="영화의 제목으로 데이터 베이스에서 검색합니다.")
-	@GetMapping("/bytitle")
-	public Object getMovieBymovieNm(@RequestParam String movieNm) {
+	@ApiOperation(value="영화의 고유번호(movieCd)로 데이터 베이스에서 리뷰를 검색합니다.")
+	@GetMapping("/bymoviecd")
+	public Object getMovieBymovieNm(@RequestParam String movieCd) {
 		ResponseEntity response = null;
-		System.out.println("수정 진입");
+		System.out.println("영화제목으로 검색 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
-			List<Movie> list = movieService.getMovieBymovieNm(movieNm);
+			List<Review> list = reviewService.getReviewsByMovieCd(movieCd);
 			result.status = true;
-			result.data = movieNm + "이 포함된 영화정보를 호츌합니다.";
+			result.data = "영화리뷰를 호츌합니다.";
 			result.object = list;
 		} catch (Exception e) {
 			e.printStackTrace();
