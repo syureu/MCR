@@ -8,7 +8,7 @@
 
 <script>
 
-import navbar from '@/components/navbar/navbar.vue'
+import navbar from '@/components/navbar/Navbar.vue'
 export default {
   name: 'App',
   components: {
