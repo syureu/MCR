@@ -6,28 +6,27 @@
 
             <div class="modal-header">
                 <slot name="header">
-                <h3>로그인</h3> 
+                <h3>Login</h3> 
                 </slot>
             </div>
 
             <div class="modal-body">
                 <div class="form">
-                <label class="input-label" for="inputname">Email</label>
-                <input type="text" id="inputname" placeholder="이메일을 입력하세요." v-model="email">                
-                  
-                <label class="input-label" for="inputpassword">Password</label>
-                <input type="password" id="inputpassword" placeholder="패스워드를 입력하세요." v-model="password">    
+                    <label class="input-label" for="inputname">아이디</label>
+                    <input type="text" id="inputname" placeholder="이메일을 입력하세요." v-model="email">                
+                </div>
+                <div class="form">
+                    <label class="input-label" for="inputpassword">비밀번호</label>
+                    <input type="password" id="inputpassword" placeholder="패스워드를 입력하세요." v-model="password">    
                 </div>
             </div>
 
             <div class="modal-footer">
-                <slot name="footer">
-                default footer
+                <button class="modal-default-button" @click.native="login">로그인</button>
                 <button class="modal-default-button" @click="$emit('close')">
-                    OK
+                    취소
                 </button>
-                </slot>
-            </div>
+                </div>
             </div>
         </div>
         </div>
@@ -43,7 +42,12 @@ export default {
             password:"",
 
         }
-    }
+    },
+    methods: {
+      login(){
+            
+      }
+    },
 }
 </script>
 
@@ -65,12 +69,16 @@ export default {
     display: table-cell;
     vertical-align: middle;
   }
-
+  .form input{
+    float:right;
+    margin-right :10%;
+    width: 60%;
+  }
   .modal-container {
-    width: 300px;
+    width: 450px;
     margin: 0px auto;
     padding: 20px 30px;
-    background-color: #fff;
+    background-color: black;
     border-radius: 2px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
@@ -79,15 +87,26 @@ export default {
 
   .modal-header h3 {
     margin-top: 0;
-    color: #42b983;
+    color: red;
   }
 
   .modal-body {
     margin: 20px 0;
+    
+  }
+  .modal-body label{
+    color: white;
   }
 
   .modal-default-button {
     float: right;
+    background-color:black;
+    color:white;
+    border:0;
+    outline:0;
+  }
+  .modal-default-button:hover{
+    color:rgb(167, 7, 7);
   }
 
   

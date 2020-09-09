@@ -1,5 +1,5 @@
 <template>
-    <input type="text" id="user_id">
+    <input type="text" id="user_id"/>
 </template>
 
 <script>
