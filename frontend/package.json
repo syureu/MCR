@@ -13,6 +13,7 @@
     "dist": "^0.1.2",
     "vue": "^2.6.11",
     "vue-router": "^3.4.3",
+    "vue-star-rating": "^1.6.1",
     "vuewordcloud": "^18.7.12"
   },
   "devDependencies": {

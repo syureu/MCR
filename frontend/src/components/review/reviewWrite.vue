@@ -4,7 +4,7 @@
         <hr>
         <div id="content">
         <div id="line1">
-        <label id="lab" for="">내평점</label> <button id="togglebtn" @click="changetoggle">펼치기</button>
+        <label id="lab" for="">내평점</label> <button id="togglebtn" @click="changetoggle">{{ name }}</button>
         </div>
         <div id="incontainer" v-if="toggle==true" >
         <StarRating v-model="rating" v-bind:max-rating="10" :show-rating="temp"/>
@@ -25,13 +25,19 @@ export default {
         return {
             temp:false,
             rating:"",
-            toggle: true,
+            toggle: false,
+            name: "펼치기",
 
         }
     },
     methods:{
         changetoggle() {
-            this.toggle = !this.toggle
+            this.toggle = !this.toggle;
+            if(this.name == "펼치기"){
+                this.name = "접기";
+            } else {
+                this.name = "펼치기";
+            }
         }
     }
  }
@@ -48,7 +54,18 @@ export default {
         float: left;
     }
     #togglebtn{
+        color: black;
+        background-color: white;
         float: right;
+        margin-right : 10px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        border: 0;
+        outline: 0;
+        
+    }
+    #togglebtn:hover{
+        color: #96063b;
     }
     #incontainer{
         border: 2px solid black;
@@ -56,14 +73,13 @@ export default {
         padding : 10px;
     }
     #revcontainer{
-        background-color : #be9b24;
     }
     #revcontent {
             width: 90%;
             height: 100px;
             resize: none;
             margin-top : 20px;
-            border : 2px solid black;
+            border : 2px solid grey;
             margin-left: 10px;
             margin-right: 10px;
             margin-bottom: 10px;
