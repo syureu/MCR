@@ -70,32 +70,8 @@
      
     <!-- END OF MAIN CONTAINER -->
 
-    <!-- LINKS -->
-    <div class="link">
-      <div class="logos">
-        <a href="#"><i class="fab fa-facebook-square fa-2x logo"></i></a>
-        <a href="#"><i class="fab fa-instagram fa-2x logo"></i></a>
-        <a href="#"><i class="fab fa-twitter fa-2x logo"></i></a>
-        <a href="#"><i class="fab fa-youtube fa-2x logo"></i></a>
-      </div>
-      <div class="sub-links">
-        <ul>
-          <li><a href="#">Audio and Subtitles</a></li>
-          <li><a href="#">Audio Description</a></li>
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">Gift Cards</a></li>
-          <li><a href="#">Media Center</a></li>
-          <li><a href="#">Investor Relations</a></li>
-          <li><a href="#">Jobs</a></li>
-          <li><a href="#">Terms of Use</a></li>
-          <li><a href="#">Privacy</a></li>
-          <li><a href="#">Legal Notices</a></li>
-          <li><a href="#">Corporate Information</a></li>
-          <li><a href="#">Contact Us</a></li>
-        </ul>
-      </div>
-    </div>
-
+    
+    
   </div>
 </template>
 
@@ -112,123 +88,38 @@ export default {
   --dark: 	#686868;
 }
 
-html, body {
+.main-container  {
   width: 100vw;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  background-color: var(--primary);
+  min-height: 70vh;
+  margin: 0%;
+  padding: 5%;
+  background-color: black;
   color: var(--light);
   font-family: Arial, Helvetica, sans-serif;
   box-sizing: border-box;
   line-height: 1.4;
 }
 
-img {
+.main-container img {
   max-width: 100%;
 }
 
-h1 {
+.main-container h1 {
   padding-top: 60px;  
 }
 
-.wrapper {
+.main-container.wrapper {
   margin: 0;
   padding: 0;
 }
 
 /* HEADER */
-.header1 {
-  padding: 20px 20px 0 20px;
-  position: fixed;
-  top: 0;
-  display: grid;  
-  grid-gap:5px;
-  grid-template-columns: 1fr 4fr 1fr;
-  grid-template-areas: 
-   "nt mn mn sb . . . "; 
-  background-color: var(--light);
-  width: 100%;
-  margin-bottom: 0px;  
-}
-
-.netflixLogo {
-  grid-area: nt;
-  object-fit: cover;
-  width: 100px;
-  max-height: 100%;
-  
-  padding-left: 30px;
-  padding-top: 0px;  
-}
-
-.netflixLogo img {  
-  height: 35px;     
-}
-
-#logo {
-  color: #E50914;  
-  margin: 0; 
-  padding: 0; 
-}
-
-
-.main-nav {
-  grid-area: mn;
-  padding: 0 30px 0 20px;
-}
-
-.main-nav a {
-  color: var(--dark);
-  text-decoration: none;
-  margin: 5px;  
-}
-
-.main-nav a:hover {
-  color: red;
-}
-
-.sub-nav {
-  grid-area: sb;
-  padding: 0 40px 0 40px;
-}
-
-.sub-nav a {
-  color: var(--dark);
-  text-decoration: none;
-  margin: 5px;
-}
-
-.sub-nav a:hover {
-  color: red;
-}
-
 
 /* MAIN CONTIANER */
 .main-container {
   padding: 50px;
 }
 
-.box {
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: repeat(6, minmax(100px, 1fr));
-}
-
-.box a {
-  transition: transform .3s;  
-}
-
-.box a:hover {
-  transition: transform .3s;
-  -ms-transform: scale(1.4);
-  -webkit-transform: scale(1.4);  
-  transform: scale(1.4);
-}
-
-.box img {
-  border-radius: 2px;
-}
 
 /* LINKS */
 .link {

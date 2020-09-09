@@ -5,18 +5,17 @@
       </div>      
       <nav class="main-nav">              
         <LoginModal v-if="loginModal" @close="changeLogin" @change="changeModal"/>
-        <a href="#movies">기능</a>
-        <a href="#originals">기능</a>
-        <a href="#">기능</a>
-        <a target="_blank" href="https://codepen.io/cb2307/full/NzaOrm">기능</a>        
+       
+        <a href="#">한국영화</a>
+        <a href="#">미국영화</a>
+        <a href="#">유럽영화</a>
+        
       </nav>
       <nav class="sub-nav">
         <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
         <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
-        
         <a href="#" @click="changeLogin()">로그인</a>
-      
-        <a href="#">회원가입</a>        
+        <a href="#">회원가입</a>
       </nav>      
     </div>
 </template>
