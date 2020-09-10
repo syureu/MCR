@@ -1,7 +1,7 @@
 <template>
     <div class="main-container" >
       <div class="location" id="home">
-          <h1 id="home">님에게 추천하는 영화</h1>
+          <h1 id="home">하하하 님에게 추천하는 영화</h1>
           <div class="box">
             <a href=""><img src="https://lh3.googleusercontent.com/proxy/rTso2knMGRLF8F_1NdPr9Gl7mrPmEBB8061njQg9ZuJWJfTC3ziD2lytBbSAP-vZgt67K3hfmptOGruLsOYlYqqkcLLBbznY5P6ZJHAVGwbUXLYI0P1ojlDWetbqOf3hGnqjXLVWJ-4W78sro_96SbU" alt=""></a>
             <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p2.PNG?raw=true" alt=""></a>
@@ -105,6 +105,7 @@ export default {
 }
 
 .main-container h1 {
+  
   padding-top: 60px;  
 }
 
