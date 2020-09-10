@@ -11,9 +11,11 @@
     "core-js": "^3.6.5",
     "css-loader": "^4.2.2",
     "dist": "^0.1.2",
+    "jw-vue-pagination": "^1.0.3",
     "vue": "^2.6.11",
     "vue-router": "^3.4.3",
     "vue-star-rating": "^1.6.1",
+    "vuejs-paginate": "^2.1.0",
     "vuewordcloud": "^18.7.12"
   },
   "devDependencies": {
