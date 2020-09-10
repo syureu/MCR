@@ -1,6 +1,6 @@
 import main from './views/main.vue'
 import FeedDetail from './views/feed/FeedDetail.vue'
-
+import Qna from './views/qna/Qna.vue'
 
 export default [
  
@@ -17,5 +17,10 @@ export default [
         component : FeedDetail
     },
 
+    {
+        path : '/Qna',
+        name : 'Qna',
+        component : Qna
+    },
   
 ]

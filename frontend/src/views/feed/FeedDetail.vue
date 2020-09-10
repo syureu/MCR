@@ -65,9 +65,10 @@
 	</div>
 	
 </div>
+<div id="revcontainer" >
 <reviewWrite />
 <reviewList />
-
+</div>
 <div id="copyright" class="container">
 	<p>&copy; Untitled. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
 </div>
@@ -604,10 +605,13 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 
 
 
-	.trail{
-		width: 90%;
-		height: 400px;
-		background-color: black;
-	
-	}
+.trail{
+	width: 90%;
+	height: 400px;
+	background-color: black;
+
+}
+#revcontainer{
+	background-color: black;
+}
 </style>
