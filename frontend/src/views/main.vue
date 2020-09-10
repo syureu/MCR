@@ -114,7 +114,7 @@ export default {
   padding: 0;
 }
 
-/* HEADER */
+
 
 /* MAIN CONTIANER */
 .main-container {
