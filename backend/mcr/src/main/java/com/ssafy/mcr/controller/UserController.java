@@ -43,7 +43,7 @@ public class UserController {
 	UserService userService;
 
 	@ApiOperation(value="회원의 정보를 받아 회원정보를 생성(가입)합니다.")
-	@PostMapping()
+	@PostMapping("/post")
 	public Object sign(@RequestBody User user) {
 		System.out.println("생성 진입");
 		System.out.println(user.toString());
@@ -53,7 +53,6 @@ public class UserController {
 			userService.addUser(user);
 			result.status = true;
 			result.data = user.getId() + " 회원이 추가되었습니다.";
-			result.object = user;
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -64,7 +63,7 @@ public class UserController {
 	}
 	
 	@ApiOperation(value="회원의 ID를 받아 회원정보를 삭제합니다.")
-	@DeleteMapping()
+	@DeleteMapping("/delete")
 	public Object deleteUser(@RequestParam String id) {
 		ResponseEntity response = null;
 		System.out.println("삭제 진입");
@@ -83,17 +82,15 @@ public class UserController {
 	}
 	
 	@ApiOperation(value="회원의 ID를 받아 회원정보를 수정합니다.")
-	@PutMapping()
+	@PutMapping("/put")
 	public Object UpdateUser(@RequestBody User user) {
 		ResponseEntity response = null;
 		System.out.println("수정 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
 			userService.modifyUser(user);
-			User us = userService.getUserbyId(user.getId());
 			result.status = true;
 			result.data = user.getId() + " 회원이 수정되었습니다.";
-			result.object = us;
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -104,7 +101,7 @@ public class UserController {
 	}
 	
 	@ApiOperation(value="회원의 ID를 받아 회원정보를 검색(리턴)합니다")
-	@GetMapping()
+	@GetMapping("/get")
 	public Object UpdateUser(@RequestParam String id) {
 		ResponseEntity response = null;
 		System.out.println("수정 진입");

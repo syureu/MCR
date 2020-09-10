@@ -10,12 +10,18 @@
 		insert into user( 
 						id,
 						password,
-						birthday
+						name,
+						age,
+						email,
+						gender 
 				)
 				value (
 						#{id},
 						#{password},
-						#{birthday}
+						#{name},
+						#{age},
+						#{email},
+						#{gender}
 				) 
 	</insert>
 	
@@ -23,11 +29,12 @@
 	<update id="updateUser" parameterType="User">
 		update user 
 		   set 
-		   	   id = #{id},
-			   password = #{password},
-			   birthday = #{birthday}
+		   	   name=#{name},
+			   email = #{email},
+			   age = #{age},
+			   gender = #{gender}
 		 where 
-		 	   user_no = #{userNo}
+		 	   id = #{id}
 	</update>
 	
 	<!-- delete 처리 -->
