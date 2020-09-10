@@ -1,5 +1,6 @@
 import main from './views/main.vue'
 import FeedDetail from './views/feed/FeedDetail.vue'
+import Signup from './views/user/Signup.vue'
 import Qna from './views/qna/Qna.vue'
 
 export default [
@@ -21,6 +22,11 @@ export default [
         path : '/Qna',
         name : 'Qna',
         component : Qna
+    },
+    {
+        path : '/Signup',
+        name : 'Signup',
+        component : Signup
     },
   
 ]
