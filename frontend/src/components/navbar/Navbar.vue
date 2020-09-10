@@ -1,7 +1,7 @@
 <template>
       <div class="navbar">
       <div class="netflixLogo">
-        <a id="logo" href="#home"><img src="https://postfiles.pstatic.net/MjAyMDA5MDRfODcg/MDAxNTk5MTk2MzEyOTc0.pl2V80Z0RXDWOksTQNYBAbSpxFDfyd4bI54_3X6PE4kg.8PzKTA8eG5Jm6KqUcXjVKyTlz2ElQ7OSlECOaKLiBHwg.PNG.god85a/output-onlinepngtools.png?type=w966" alt="Logo Image"></a>
+        <a id="logo" href="/"><img src="../../assets/logo.png" alt="Logo Image"></a>
       </div>      
       <nav class="main-nav">              
         <LoginModal v-if="loginModal" @close="changeLogin" @change="changeModal"/>
@@ -14,8 +14,8 @@
       <nav class="sub-nav">
         <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
         <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
-        <a href="#" @click="changeLogin()">로그인</a>
-        <a href="#">회원가입</a>
+        <a href="#" @click="changeLogin">로그인</a>
+        <a href="#" @click="signup">회원가입</a>
       </nav>      
     </div>
 </template>
@@ -32,8 +32,14 @@ export default {
       }
 
     },methods:{
+      signup(){
+        this.$router.push({name:'Signup'})
+      },
       changeLogin () {
-      this.loginModal = !this.loginModal
+          this.loginModal = !this.loginModal
+      },
+      changeModal(){
+        this.loginModal = !this.loginModal
       }
     }
 }
@@ -65,7 +71,8 @@ export default {
 }
 
 .netflixLogo img {  
-  height: 35px;     
+  height: 70px; 
+
 }
 
 #logo {
@@ -79,6 +86,8 @@ export default {
 }
 
 .main-nav a {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 20px;
   color:white;
   text-decoration: none;
   margin: 5px;  
