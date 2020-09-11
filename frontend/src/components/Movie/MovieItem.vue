@@ -1,22 +1,23 @@
 <template>
-        <a  href=""><img :src="movie.Imgsrc" @click.native="changeDeatil"/></a>
+        <a href=""><img :src="movie.Imgsrc" @click.native="changeDeatil"/></a>
 </template>
 <script>
 export default {
-    name='MovieListItem',
+    
     props:{
         movie : Object
     },
     methods:{
         changeDeatil(){
-            this.$router.push(`/detailmovie/${this.movie.No}`)
+            this.$router.push(`/detailfeed/${this.movie.No}`)
         }
     }
 }
 </script>
 <style scoped>
 a {
-  transition: transform .3s;  
+  transition: transform .3s; 
+  display:flex; 
 }
 a:hover {
   transition: transform .3s;
@@ -25,6 +26,7 @@ a:hover {
   transform: scale(1.4);
 }
 img {
+  max-width: 100%;
   border-radius: 2px;
 }
 </style>
