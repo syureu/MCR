@@ -2,6 +2,7 @@ import main from './views/main.vue'
 import FeedDetail from './views/feed/FeedDetail.vue'
 import Signup from './views/user/Signup.vue'
 import Qna from './views/qna/Qna.vue'
+import ActorDetail from './views/actor/ActorDetail.vue'
 
 export default [
  
@@ -27,6 +28,12 @@ export default [
         path : '/Signup',
         name : 'Signup',
         component : Signup
+    },
+
+    {
+        path: '/ActorDetail',
+        name : 'ActorDetail',
+        component: ActorDetail
     },
   
 ]
