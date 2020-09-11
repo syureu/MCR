@@ -2,8 +2,7 @@ import main from './views/main.vue'
 import FeedDetail from './views/feed/FeedDetail.vue'
 import Signup from './views/user/Signup.vue'
 import Qna from './views/qna/Qna.vue'
-import ActorDetail from './views/actor/ActorDetail.vue'
-
+import Home from './views/home.vue'
 export default [
  
     {
@@ -29,11 +28,10 @@ export default [
         name : 'Signup',
         component : Signup
     },
-
     {
-        path: '/ActorDetail',
-        name : 'ActorDetail',
-        component: ActorDetail
-    },
+        path : '/Home',
+        name : 'Home',
+        component : Home
+    }
   
 ]

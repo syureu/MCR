@@ -1,12 +1,15 @@
 <template>
     <div class="main-container">
+        <br>
+        <br>
+
         <div class="location" id="home">
-            <MovieItemList :movies="LikeMovie"/>
+            <MovieItemList :name="title" :movies="LikeMovie"/>
         </div>
     </div>
 </template>
 <script>
-import MovieItemList from '@/components/movie/MovieItemList.vue'
+import MovieItemList from '@/components/Movie/MovieItemList.vue'
 
 export default {
     name : 'Home',
@@ -15,8 +18,21 @@ export default {
     },
     data(){
         return {
-            LikeMovie:[],
-            
+            LikeMovie:[
+                {
+                    "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p2.PNG?raw=true"
+                },
+                {
+                    "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p3.PNG?raw=true"
+                },
+                {
+                    "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p4.PNG?raw=true"
+                },
+                {
+                    "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p5.PNG?raw=true"
+                },
+            ],
+            title:"20대가좋아하는 영화"
         }
     },
     methods(){
@@ -24,3 +40,21 @@ export default {
     }
 }
 </script>
+<style scoped>
+    .main-container  {
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0%;
+  padding: 5%;
+  background-color: black;
+  color: var(--light);
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  line-height: 1.4;
+}
+
+.main-container img {
+  max-width: 100%;
+}
+
+</style>
