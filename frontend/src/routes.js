@@ -3,6 +3,8 @@ import FeedDetail from './views/feed/FeedDetail.vue'
 import Signup from './views/user/Signup.vue'
 import Qna from './views/qna/Qna.vue'
 import Home from './views/home.vue'
+import ActorDetail from './views/actor/ActorDetail.vue'
+
 export default [
  
     {
@@ -32,6 +34,12 @@ export default [
         path : '/Home',
         name : 'Home',
         component : Home
+    }, 
+    {
+        path : '/ActorDetail',
+        name : '/ActorDetail',
+        component : ActorDetail
     }
+
   
 ]
