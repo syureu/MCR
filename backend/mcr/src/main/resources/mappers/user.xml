@@ -10,12 +10,22 @@
 		insert into user( 
 						id,
 						password,
-						birthday
+						birthday,
+						age,
+						gender,
+						nation,
+						city,
+						role
 				)
 				value (
 						#{id},
 						#{password},
-						#{birthday}
+						#{birthday},
+						#{age},
+						#{gender},
+						#{nation},
+						#{city},
+						#{role}
 				) 
 	</insert>
 	
@@ -23,9 +33,14 @@
 	<update id="updateUser" parameterType="User">
 		update user 
 		   set 
-		   	   id = #{id},
-			   password = #{password},
-			   birthday = #{birthday}
+		   	   	id = #{id},
+			   	password = #{password},
+			   	birthday = #{birthday},
+			   	age = #{age},
+			   	gender = #{gender},
+				nation = #{nation},
+				city = #{city}
+				role = #{role}
 		 where 
 		 	   user_no = #{userNo}
 	</update>
@@ -47,6 +62,16 @@
 		  	user 
 		 where 
 		 	id = #{id} 
+	</select>
+	
+	<!-- id으로 select 처리 -->
+	<select id="selectUserByIdAndPwd" parameterType="string" resultType="User">
+		select 
+			* 
+		  from 
+		  	user 
+		 where 
+		 	id = #{id} and password = #{password}
 	</select>
 </mapper>
 

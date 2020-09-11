@@ -33,6 +33,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.selectUserById(id);
 	}
 
+	@Override
+	public User getUserbyIdandPwd(String id, String password) {
+		return userDao.selectUserByIdAndPwd(id, password);
+	}
+
 	
 
 }

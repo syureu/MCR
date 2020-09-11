@@ -5,7 +5,42 @@ public class User {
 	private String id;
 	private String password;
 	private String birthday;
+	private int age;
+	private boolean gender;
+	private String nation;
+	private String city;
+	private String role;
 	
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public boolean isGender() {
+		return gender;
+	}
+	public void setGender(boolean gender) {
+		this.gender = gender;
+	}
+	public String getNation() {
+		return nation;
+	}
+	public void setNation(String nation) {
+		this.nation = nation;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	public String getId() {
 		return id;
 	}
@@ -32,7 +67,8 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userNo=" + userNo + ", id=" + id + ", password=" + password + ", birthday=" + birthday + "]";
+		return "User [userNo=" + userNo + ", id=" + id + ", password=" + password + ", birthday=" + birthday + ", age="
+				+ age + ", gender=" + gender + ", nation=" + nation + ", city=" + city + ", role=" + role + "]";
 	}
 	
 	
