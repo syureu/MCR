@@ -3,6 +3,8 @@ package com.ssafy.mcr.controller;
 import java.util.Collections;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,9 +32,9 @@ public class LoginController {
 	JwtTokenProvider jwtTokenProvider;
 	
 	@PostMapping()
-	public Object defaultLogin(@RequestBody HashMap<String, String> loginInfo) {
+	public Object defaultLogin(@RequestBody HashMap<String, String> loginInfo, HttpServletResponse response) {
 		System.out.println(loginInfo.get("id") + " " + loginInfo.get("password"));
-		ResponseEntity response = null;
+		ResponseEntity response1 = null;
 		final BasicResponse result = new BasicResponse();
 		
 		try {
@@ -40,16 +42,17 @@ public class LoginController {
 			if (user == null) {
 				result.status = true;
 				result.data = "fail";
-				response = new ResponseEntity<>(result, HttpStatus.OK);
-				return response;
+				response1 = new ResponseEntity<>(result, HttpStatus.OK);
+				return response1;
 			}
 			
 			System.out.println(user);
 			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("jwtToken",
-					jwtTokenProvider.createToken(user.getId(), Collections.singletonList(user.getRole())));
-			jsonObject.put("id", user.getId());
-			jsonObject.put("password", user.getPassword());
+//			jsonObject.put("jwtToken",
+//					jwtTokenProvider.createToken(user.getId(), Collections.singletonList(user.getRole())));
+			jsonObject.put("userinfo", userService.getUserbyId(loginInfo.get("id")));
+			response.setHeader("jwsToken", jwtTokenProvider.createToken(user.getId(), Collections.singletonList(user.getRole())));
+			System.out.println(response.getHeader("jwsToken"));
 			result.status = true;
 			result.data = "success";
 			result.object = jsonObject;
@@ -58,7 +61,7 @@ public class LoginController {
 			result.status = true;
 			result.data = "fail";
 		}
-		response = new ResponseEntity<>(result, HttpStatus.OK);
-		return response;
+		response1 = new ResponseEntity<>(result, HttpStatus.OK);
+		return response1;
 	}
 }
