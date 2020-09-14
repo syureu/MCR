@@ -20,18 +20,22 @@ export default {
         return {
             LikeMovie:[
                 {
-                    "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p2.PNG?raw=true"
+                    "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p2.PNG?raw=true",
+                    "isFollwing" : false
                 },
                 {
-                    "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p3.PNG?raw=true"
+                    "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p3.PNG?raw=true",
+                    "isFollwing" : true
                 },
                 {
-                    "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p4.PNG?raw=true"
+                    "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p4.PNG?raw=true",
+                    "isFollwing" : false
                 },
                 {
-                    "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p5.PNG?raw=true"
+                    "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p5.PNG?raw=true",
+                    "isFollwing" : false
                 },
-            ],
+            ],  
             title:"20대가좋아하는 영화"
         }
     },

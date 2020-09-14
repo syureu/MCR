@@ -23,13 +23,13 @@ export default {
 <style scoped>
     .box {
   display: grid;
-  grid-gap: 20px;
+  grid-gap: 5px;
   grid-template-columns: repeat(6, minmax(100px, 1fr));
 }
 
 .content h1 {
-  
   padding-top: 60px;  
+    margin-bottom: 130px;
 }
 
 

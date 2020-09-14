@@ -1,4 +1,4 @@
-import main from './views/main.vue'
+// import main from './views/main.vue'
 import FeedDetail from './views/feed/FeedDetail.vue'
 import Signup from './views/user/Signup.vue'
 import Qna from './views/qna/Qna.vue'
@@ -7,11 +7,11 @@ import ActorDetail from './views/actor/ActorDetail.vue'
 
 export default [
  
-    {
-        path : '/',
-        name : 'main',
-        component : main
-    },
+    // {
+    //     path : '/',
+    //     name : 'main',
+    //     component : main
+    // },
 
 
     {
@@ -31,7 +31,7 @@ export default [
         component : Signup
     },
     {
-        path : '/Home',
+        path : '/',
         name : 'Home',
         component : Home
     }, 
