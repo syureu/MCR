@@ -12,7 +12,21 @@
 				<iframe class="p-3 video" width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 			</div>
 			<div class="inline-div pl-3 ml-3" style="height : 100%;">
-				
+				<div class="example">
+					<div class="tabs">
+					<TabItem
+						v-for="item in list"
+						v-bind="item" :key="item.id"
+						v-model="currentId"/>
+					</div>
+					<div class="contents">
+					<transition>
+						<section class="item" style="color : white" :key="currentId">
+						{{ current.content }}
+						</section>
+					</transition>
+					</div>
+				</div>
 			</div>
 			
 		</div>
@@ -88,29 +102,63 @@
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/vuewordcloud"></script>
 <script>
+import TabItem from './TabItem.vue'
 import VueWordCloud from 'vuewordcloud';
 import reviewWrite from '@/components/review/ReviewWrite.vue';
 import reviewList from '@/components/review/ReviewList.vue';
 export default {
 	
+	
 	components: {
     [VueWordCloud.name]: VueWordCloud,
 	reviewWrite,
 	reviewList,
+	TabItem,
   },
   data() {
       return {
-		
+		currentId: 1,
+      list: [
+        { id: 1, label: 'Tab1', content: '콘텐츠1' },
+        { id: 2, label: 'Tab2', content: '콘텐츠2' },
+        { id: 3, label: 'Tab3', content: '콘텐츠3' }
+      ]
       }
 	},
+	computed: {
+    current() {
+      return this.list.find(el => el.id === this.currentId) || {}
+    }
+  }
 }
 </script>
 
 <style scoped>
-#total{
-	background-color: black;
-	color: white;
+.contents {
+  position: relative;
+  overflow: hidden;
+  width: 280px;
+  border: 2px solid #000;
 }
+.item {
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+  transition: all 0.8s ease;
+}
+/* 트랜지션 전용 스타일 */
+.v-leave-active {
+  position: absolute;
+}
+.v-enter {
+  transform: translateX(-100%);
+}
+.v-leave-to {
+  transform: translateX(100%);
+}
+
+
+
 .countsort{
 
 	position : relative;
@@ -144,7 +192,7 @@ export default {
 .inline-div{
 	display: inline-block;
   
-    border: 1px solid blue;
+  
 }
 	html, body
 {

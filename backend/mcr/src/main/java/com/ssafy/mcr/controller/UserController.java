@@ -32,8 +32,8 @@ import io.swagger.annotations.ApiOperation;
 
 //import io.swagger.annotations.ApiImplicitParam;
 //import io.swagger.annotations.ApiImplicitParams;
-
-@CrossOrigin(origins = { "http://localhost:8081" })
+//http://localhost:3000/#/Signup
+@CrossOrigin(origins = { "http://localhost:3000" })
 @RestController
 @RequestMapping("/user")
 public class UserController {
