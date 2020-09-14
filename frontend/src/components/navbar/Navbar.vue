@@ -1,7 +1,7 @@
 <template>
       <div class="navbar">
       <div class="netflixLogo">
-        <a id="logo" href="#home"><img src="https://postfiles.pstatic.net/MjAyMDA5MDRfODcg/MDAxNTk5MTk2MzEyOTc0.pl2V80Z0RXDWOksTQNYBAbSpxFDfyd4bI54_3X6PE4kg.8PzKTA8eG5Jm6KqUcXjVKyTlz2ElQ7OSlECOaKLiBHwg.PNG.god85a/output-onlinepngtools.png?type=w966" alt="Logo Image"></a>
+        <a id="logo" href="/"><img src="../../assets/logo.png" alt="Logo Image"></a>
       </div>      
       <nav class="main-nav">              
         <LoginModal v-if="loginModal" @close="changeLogin" @change="changeModal"/>
@@ -11,11 +11,18 @@
         <a href="#">유럽영화</a>
         
       </nav>
+      <nav class="mid-nav">
+        <div class="box">
+          <input type="text" placeholder="영화를 검색하세요"/>
+        </div>
+      </nav>
       <nav class="sub-nav">
-        <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
-        <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
-        <a href="#" @click="changeLogin()">로그인</a>
-        <a href="#">회원가입</a>
+        <div v-if="!isLogin">
+          <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
+        <!-- <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a> -->
+        <a href="#" @click="changeLogin">로그인</a>
+        <a href="#" @click="signup">회원가입</a>
+        </div>
       </nav>      
     </div>
 </template>
@@ -28,12 +35,19 @@ export default {
     },
     data(){
       return {
-        loginModal : false
+        loginModal : false,
+        isLogin :false
       }
 
     },methods:{
+      signup(){
+        this.$router.push({name:'Signup'})
+      },
       changeLogin () {
-      this.loginModal = !this.loginModal
+          this.loginModal = !this.loginModal
+      },
+      changeModal(){
+        this.loginModal = !this.loginModal
       }
     }
 }
@@ -57,7 +71,7 @@ export default {
 .netflixLogo {
   grid-area: nt;
   object-fit: cover;
-  width: 100px;
+  width: 50px;
   max-height: 100%;
   
   padding-left: 30px;
@@ -65,7 +79,8 @@ export default {
 }
 
 .netflixLogo img {  
-  height: 35px;     
+  height: 50px; 
+
 }
 
 #logo {
@@ -77,8 +92,21 @@ export default {
   grid-area: mn;
   padding: 0 30px 0 20px;
 }
-
+.mid-nav{
+  margin-left: 85%;
+  grid-area: mn;
+}
+.mid-nav input{
+  background-color:rgb(48, 46, 46);
+  border-radius : 7px;
+  width : 200px;
+  height: 40px;
+  color:white;
+  border :0px;
+}
 .main-nav a {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 20px;
   color:white;
   text-decoration: none;
   margin: 5px;  

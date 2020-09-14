@@ -13,7 +13,8 @@
             <div class="modal-body">
                 <div class="form">
                     <label class="input-label" for="inputname">아이디</label>
-                    <input type="text" id="inputname" placeholder="이메일을 입력하세요." v-model="email">                
+                    <input type="text" id="inputname" placeholder="이메일을 입력하세요." v-model="userid">                
+                    <div v-if="errorData.userid" v-text="errorData.userid"></div>  
                 </div>
                 <div class="form">
                     <label class="input-label" for="inputpassword">비밀번호</label>
@@ -22,7 +23,7 @@
             </div>
 
             <div class="modal-footer">
-                <button class="modal-default-button" @click.native="login">로그인</button>
+                <button class="modal-default-button" @click="login">로그인</button>
                 <button class="modal-default-button" @click="$emit('close')">
                     취소
                 </button>
@@ -30,23 +31,57 @@
             </div>
         </div>
         </div>
+        
     </transition>
 </template>
 
 <script>
+// import * as EmailValidator from 'email-validator'
+import axios from 'axios'
+import URL from '@/util/http-common.js'
 export default {
     name : 'LoginModal',
     data() {
         return{ 
-            email:"",
+            userid:"",
             password:"",
-
+            errorData:{
+              userid : false,
+            }
         }
     },
     methods: {
+      formcheck(){
+        if(this.userid=== "" || (this.userid.length>0))
+          this.errorData.userid = "올바른 아이디 형식이 아닙니다."
+        else this.errorData.userid = false
+      },
       login(){
-            
-      }
+           this.formcheck()
+           let loginData={
+             userid: this.userid,
+             pw : this.password
+           } 
+      axios.post(`${URL.BASE_URL}/mcr/login`, loginData)
+      .then(res => {
+        if (res.data.status === true) {
+          console.log(res)
+          this.$session.set('jwstoken', res.headers.jwstoken)
+          this.$store.commit('login', res.data.object)
+          this.modalclose()
+        }
+        else {
+          alert('일치하는 회원정보가 없습니다.')
+        }
+      })
+      .catch(err => {
+        alert(err)
+      })
+    },
+
+    modalclose () {
+      this.$emit('close')
+    },
     },
 }
 </script>
