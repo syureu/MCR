@@ -46,15 +46,17 @@ public class UserController {
 	@PostMapping()
 	public Object sign(@RequestBody User user) {
 		System.out.println("생성 진입");
-		System.out.println(user.toString());
 		ResponseEntity response = null;
 		final BasicResponse result = new BasicResponse();
 		try {
 			userService.addUser(user);
+			System.out.println(user.toString());
+			System.out.println("디비저장성공");
 			result.status = true;
 			result.data = user.getUserid() + " 회원이 추가되었습니다.";
 			result.object = user;
 		} catch (Exception e) {
+			System.out.println("디비저장실패");
 			e.printStackTrace();
 			result.status = true;
 			result.data = "fail";
@@ -105,9 +107,9 @@ public class UserController {
 	
 	@ApiOperation(value="회원의 ID를 받아 회원정보를 검색(리턴)합니다")
 	@GetMapping()
-	public Object UpdateUser(@RequestParam String id) {
+	public Object SelectUser(@RequestParam String id) {
 		ResponseEntity response = null;
-		System.out.println("수정 진입");
+		System.out.println("검색 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
 			User user = userService.getUserbyId(id);
