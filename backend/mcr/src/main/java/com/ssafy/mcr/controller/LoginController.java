@@ -18,7 +18,7 @@ import com.ssafy.mcr.dto.BasicResponse;
 import com.ssafy.mcr.dto.User;
 import com.ssafy.mcr.service.UserService;
 
-@CrossOrigin(origins = { "http://localhost:8081" })
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/login")
 public class LoginController {
@@ -48,8 +48,8 @@ public class LoginController {
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("jwtToken",
 					jwtTokenProvider.createToken(user.getId(), Collections.singletonList(user.getRole())));
-			jsonObject.put("userId", user.getId());
-			jsonObject.put("userNo", user.getUserNo());
+			jsonObject.put("id", user.getId());
+			jsonObject.put("password", user.getPassword());
 			result.status = true;
 			result.data = "success";
 			result.object = jsonObject;
