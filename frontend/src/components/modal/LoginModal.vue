@@ -23,7 +23,7 @@
             </div>
 
             <div class="modal-footer">
-                <button class="modal-default-button" @click.native="login">로그인</button>
+                <button class="modal-default-button" @click="login">로그인</button>
                 <button class="modal-default-button" @click="$emit('close')">
                     취소
                 </button>
@@ -62,9 +62,10 @@ export default {
              userid: this.userid,
              pw : this.password
            } 
-      axios.post(`${URL.BASE_URL}/account/login`, loginData)
+      axios.post(`${URL.BASE_URL}/mcr/login`, loginData)
       .then(res => {
         if (res.data.status === true) {
+          console.log(res)
           this.$session.set('jwstoken', res.headers.jwstoken)
           this.$store.commit('login', res.data.object)
           this.modalclose()
