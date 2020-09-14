@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navbar/>
-    <router-view></router-view>
+    <router-view @navbar="navbar"></router-view>
     
   </div>
 </template>
@@ -13,6 +13,12 @@ export default {
   name: 'App',
   components: {
     navbar
+  },
+  methods: {
+    navbar() {
+      this.$store.dispatch('setNavbar')
+      console.log(this.$store)
+    }
   }
 }
 </script>
