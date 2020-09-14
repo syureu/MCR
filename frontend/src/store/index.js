@@ -12,6 +12,7 @@ export default new Vuex.Store({
   state: {
     // isLoggedIn: false,
     userData: null,
+    navbar: false,
   },
   mutations: {
     login(state, userData) {
@@ -26,12 +27,19 @@ export default new Vuex.Store({
     },
     
     setUserInfo(state, userinfo) {
-      state.userData.tel = userinfo.tel
-      
+      state.userData.birthday = userinfo.birthday
+      state.userData.age = userinfo.age
+      state.userData.gender = userinfo.gender
+      state.userData.nation = userinfo.nation
+      state.userData.city = userinfo.city
     }
   },
   actions: {
-    
+    setNavbar() {
+      setTimeout(() =>{
+        
+      })
+    }
   },
   modules: {
   },

@@ -1,4 +1,5 @@
-const IP ="http://192.168.219.137"
+const IP ="http://j3d104.p.ssafy.io"
+
 export default{
     BASE_URL: `${IP}:8080`,
     IMG_URL: `${IP}:3000`,

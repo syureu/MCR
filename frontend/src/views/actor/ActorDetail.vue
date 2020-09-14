@@ -38,9 +38,9 @@
             <h1 style="color:white; clear:both;">{{ name }} 배우의 출연작</h1>
             <hr style="background-color:white;">
 
-            <div id="actMovie" v-for="movie in movieInfo" :key="movie.name">
+            <div id="actMovie" v-for="movie in movieInfo" :key="movie.name" >
                 <div id="movitem">
-                <img id="movimg" :src="movie.imgurl" alt="" style="width:200px; height:300px">
+                <img id="movimg" :src="movie.imgurl" alt="" style="width:200px; height:300px"  @click="$router.push({name: 'FeedDetail', params: {movieno: movie.movieno}})">
                 <div id="movname">{{ movie.name }}</div>
                 </div>
             </div>
@@ -52,59 +52,120 @@
 </template>
 
 <script>
-
+import axios from 'axios'
+import HTTP from "@/util/http-common.js"
 export default {
+    name: 'ActorDetail',
     data(){
         return{
+            actorDetail: {
+                actorname:"",
+                job:"",
+                actorno:"",
+                birth:"",
+                sex:"",
+                imgUrl:"",
+            },
+            userno:"",
             name: '송강호',
             job : '영화배우',
             birth : '1967.01.17.대한민국 경남 김해시',
             sex : '남성',
             movieInfo: [
-                {name:'기생충' ,imgurl : 'https://t1.daumcdn.net/movie/cab3b02a7b274bd6838b80a5e481fedf1559021787090'},
-                {name:'마약왕' ,imgurl : 'https://t1.daumcdn.net/movie/358ea40235e240fea2f0b6ec7ef93c431543201035934'},
-                {name:'밀정' , imgurl: 'https://t1.daumcdn.net/movie/9ee4bab1a0f51fb4469b6162bad861f6d25056a7'},
-                {name:'택시운전사', imgurl: 'https://t1.daumcdn.net/movie/c98cf3e74671b88df0f2b31b516c0aaea2e1a816'},
-                {name:'사도', imgurl: 'https://t1.daumcdn.net/movie/f8356ef973b026e937354c6b67fc840afe967ad1'},
-                {name:'관상', imgurl: 'https://t1.daumcdn.net/cfile/276B3548521306AA13'},
-                {name:'변호인', imgurl: 'https://t1.daumcdn.net/cfile/22055D4A5285005C06'},
-                {name:'설국열차', imgurl: 'https://t1.daumcdn.net/cfile/036DD04B51B5236718'},
-                {name:'하울링', imgurl: 'https://t1.daumcdn.net/cfile/190315494F22159229'},
+                {name:'기생충' ,imgurl : 'https://t1.daumcdn.net/movie/cab3b02a7b274bd6838b80a5e481fedf1559021787090', movieno: '1'}, 
+                {name:'마약왕' ,imgurl : 'https://t1.daumcdn.net/movie/358ea40235e240fea2f0b6ec7ef93c431543201035934', movieno: '2'},
+                {name:'밀정' , imgurl: 'https://t1.daumcdn.net/movie/9ee4bab1a0f51fb4469b6162bad861f6d25056a7', movieno: '3'},
+                {name:'택시운전사', imgurl: 'https://t1.daumcdn.net/movie/c98cf3e74671b88df0f2b31b516c0aaea2e1a816', movieno: '4'},
+                {name:'사도', imgurl: 'https://t1.daumcdn.net/movie/f8356ef973b026e937354c6b67fc840afe967ad1', movieno: '5'},
+                {name:'관상', imgurl: 'https://t1.daumcdn.net/cfile/276B3548521306AA13', movieno: '6'},
+                {name:'변호인', imgurl: 'https://t1.daumcdn.net/cfile/22055D4A5285005C06', movieno: '7'},
+                {name:'설국열차', imgurl: 'https://t1.daumcdn.net/cfile/036DD04B51B5236718', movieno: '8'},
+                {name:'하울링', imgurl: 'https://t1.daumcdn.net/cfile/190315494F22159229', movieno: '9'},
             ],
             like_on : 1,
+            movieList:[],
         }
     },
     methods: {
         like(){
           if (this.like_on == 0) {
             this.like_on = 1;
-            // axios.post('http://localhost:8080/board/insertLike', null,
-            //   {
-                // params: { no:item.no }
-            //   }
-            // )
-            // .then(res => {
-            //   console.log(res)
-            // })
-            // .catch(res => {
-            //   console.log(res)
-            // })
+            axios.post(`${HTTP.BASE_URL}/actor/insertLike`, null,
+              {
+                params: { actorno:this.actorDetail.actorno, userno: this.userno }
+              }
+            )
+            .then(res => {
+              console.log(res)
+            })
+            .catch(res => {
+              console.log(res)
+            })
           }
           else {
             this.like_on = 0;
-            // axios.post('http://localhost:8080/board/deleteLike', null,
-            //   {
-            //     params: { no:item.no }
-            //   }
-            // )
-            // .then(res => {
-            //     console.log(res)
-            // })
-            // .catch(res => {
-            //     console.log(res)
-            // })
+            axios.post(`${HTTP.BASE_URL}/actor/deleteLike`, null,
+              {
+                params: { actorno:this.actorDetail.actorno, userno: this.userno }
+              }
+            )
+            .then(res => {
+                console.log(res)
+            })
+            .catch(res => {
+                console.log(res)
+            })
           }
     },
+    toMovieDetail() {
+        this.$router.push(`//${this.movieInfo.name}`)
+    }
+
+
+    },
+    created() {
+        if(this.$store.getters.geutUserData == null){
+            this.userno = 0;
+        } else{
+            this.userno = `${this.$store.getters.getUserData.userno}`
+        }
+        axios.get(`/actor/detail/actorno=${this.$route.params.actorno}&userno=${this.userno}`)
+        .then(res => {
+            if (res.data === 'fail') {
+                this.$router.push({
+                    name: 'Error',
+                    query: {
+                        status: 404
+                    }
+                })
+            }
+            this.actorDetail = {
+                actorname: res.data.actorname,
+                job: res.data.job,
+                actorno: res.data.actorno,
+                birth: res.data.birth,
+                sex: res.data.sex,
+                imgUrl: res.data.imgurl,
+            }
+        })
+        .catch(err => {
+            this.$router.push({
+                name: 'Error',
+                query: {
+                    status: 'unknown'
+                }
+            })
+            console.log(err)
+        })
+
+        axios.get(`${HTTP.BASE_URL}/movie/actor/${this.$route.params.actorDetail.actorno}`)
+        .then(res => {
+            this.movieList = res.data
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        axios.get(`${HTTP.BASE_URL}/user/${this.$route.params.userno}`)
     }
 }
 </script>
@@ -125,12 +186,12 @@ export default {
         padding: 45px;
     }
     #actDetailContainer {
-        background-color: black;
+        background-color:black;
         height:100%;
         
     }
     #innerContainer{
-        margin-top: 80px;
+        margin-top : 60px;
         margin-left : 200px;
         margin-right : 100px;
     }
