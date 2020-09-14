@@ -8,7 +8,7 @@ import VueSession from 'vue-session'
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 const router = new VueRouter({
-  // mode: 'history',
+  mode: 'history',
   store,
   routes,
 });

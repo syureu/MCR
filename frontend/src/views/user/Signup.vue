@@ -58,7 +58,7 @@
                             id="gender"
                             name="radio_answer"
                             type="radio"
-                            value="0"
+                            value="true"
               
                            >
                     <font class="pr-3" style="color : white;">남자</font>
@@ -66,7 +66,7 @@
                             id="gender"
                             name="radio_answer"
                             type="radio"
-                            value="1"
+                            value="false"
                            >
                     <font style="color : white;">여자</font>
                 </div>
@@ -89,6 +89,7 @@
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+import URL from '@/util/http-common.js'
 import axios from 'axios';
 export default {
     data () {
@@ -170,16 +171,19 @@ export default {
             }
            alert('가입완료')
            alert(this.birth)
-           axios.post('http://localhost:8080/mcr/user', [{
-            id: this.id,
-            password:this.password,
-            birthday:this.birth,
-            gender:this.gender,
-            nation:'대한민국',
-            city:'서울',
-            role:'user',
-            },
-           ])
+           
+            let user={
+                   userid: this.id,
+                   pw: this.password,
+                   birthday:this.birth,
+                gender:this.gender,
+                nation:'대한민국',
+                city:'서울',
+                role:'user',
+               }
+          
+
+           axios.post(`${URL.BASE_URL}/mcr/user`, user)    
       .then(res => {
         console.log(res)
         let msg="등록 처리시 문제가 발생하였습니다."
