@@ -8,14 +8,22 @@
 	<!-- insert 처리 -->
 	<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="userNo">
 		insert into user( 
-						id,
-						password,
-						birthday
+						userid	,
+						pw,
+						birthday,
+						gender,
+						nation,
+						city,
+						role
 				)
 				value (
-						#{id},
-						#{password},
-						#{birthday}
+						#{userid},
+						#{pw},
+						#{birthday},
+						#{gender},
+						#{nation},
+						#{city},
+						#{role}
 				) 
 	</insert>
 	
@@ -23,9 +31,13 @@
 	<update id="updateUser" parameterType="User">
 		update user 
 		   set 
-		   	   id = #{id},
-			   password = #{password},
-			   birthday = #{birthday}
+		   	   	userid = #{userid},
+			   	pw = #{pw},
+			   	birthday = #{birthday},
+			   	gender = #{gender},
+				nation = #{nation},
+				city = #{city}
+				role = #{role}
 		 where 
 		 	   user_no = #{userNo}
 	</update>
@@ -35,8 +47,8 @@
 		delete 
 			from user 
 		where 
-			id=#{id} and 
-		 	password = #{password}
+			userid = #{userid} and 
+		 	pw = #{pw}
 	</delete>
 	
 	<!-- id으로 select 처리 -->
@@ -46,7 +58,17 @@
 		  from 
 		  	user 
 		 where 
-		 	id = #{id} 
+		 	userid = #{userid} 
+	</select>
+	
+	<!-- id으로 select 처리 -->
+	<select id="selectUserByIdAndPwd" parameterType="string" resultType="User">
+		select 
+			* 
+		  from 
+		  	user 
+		 where 
+		 	userid = #{userid} and pw = #{pw}
 	</select>
 </mapper>
 

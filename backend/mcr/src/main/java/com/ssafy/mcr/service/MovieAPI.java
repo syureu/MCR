@@ -18,8 +18,8 @@ import com.ssafy.mcr.dto.MovieData;
 public class MovieAPI {
 
 	static HashMap<String, Object> movieListResult = new HashMap<String, Object>();
-	static final String URL ="http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=bad9f09132279c0b50a4c139fcd68b45";
-	static final String URLpage ="http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=bad9f09132279c0b50a4c139fcd68b45&curPage=";
+	static final String URL ="http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=74c39c052c622cb3cb5b1605714de8a5";
+	static final String URLpage ="http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=74c39c052c622cb3cb5b1605714de8a5&curPage=";
 	static String itemPerPage ="&itemPerPage=100";
 
 	public static Object totalCnt() throws JsonParseException, JsonMappingException, MalformedURLException, IOException {
@@ -45,7 +45,7 @@ public class MovieAPI {
 		List<Object> list = (List<Object>) movieListResult.get("movieList");
 		for(Object o : list) {
 			Map<String, Object> tmp = (Map<String, Object>)o;
-			String movieDetailUrl = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=430156241533f1d058c603178cc3ca0e&movieCd="+tmp.get("movieCd");
+			String movieDetailUrl = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=74c39c052c622cb3cb5b1605714de8a5&movieCd="+tmp.get("movieCd");
 //			System.out.println(curPage + " : " + tmp.get("movieCd"));
 			Map<String, Object> detail = mapper.readValue(
 					new URL(movieDetailUrl),

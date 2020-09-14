@@ -36,7 +36,7 @@ import io.swagger.annotations.ApiOperation;
 //import io.swagger.annotations.ApiImplicitParam;
 //import io.swagger.annotations.ApiImplicitParams;
 
-@CrossOrigin(origins = { "http://localhost:8081" })
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/movie")
 public class MovieController {
