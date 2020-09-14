@@ -45,7 +45,7 @@ export default {
         }
     },
     created() {
-        if(this.$store.getters.geutUserData == null){
+        if(this.$store.getters.getUserData == null){
             this.onlogin = false;
         } else{
             this.onlogin = true;
