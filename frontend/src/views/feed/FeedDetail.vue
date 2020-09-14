@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="total">
 
     <div id="">
 		<hr>
@@ -19,7 +19,8 @@
 	</div>
 <div class="container">
 	<div class="title">
-		<h2>Maecenas luctus lectus</h2>	
+		<h2>출연</h2>
+		<hr style="background-color:white;">	
 	</div>
 	<div class="boxA">
 		<div class="box">
@@ -106,12 +107,15 @@ export default {
 </script>
 
 <style scoped>
+#total{
+	background-color: black;
+	color: white;
+}
 .countsort{
 
 	position : relative;
 
 	width : 100%;
-
 	height : 0;
 	padding-bottom: 50px;
 	margin-bottom: 50px;
@@ -613,5 +617,6 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 }
 #revcontainer{
 	background-color: black;
+	margin: 15px;
 }
 </style>

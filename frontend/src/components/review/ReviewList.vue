@@ -164,7 +164,7 @@ export default {
         checkIndex(number) {
             const indexList = document.querySelectorAll('#paginator a')
             indexList[this.beforeIndex].setAttribute('style', '')
-            indexList[number].setAttribute('style', 'background-color: rgb(236,128,116); color: white;')
+            indexList[number].setAttribute('style', 'background-color: rgb(128,128,116); color: white;')
             this.beforeIndex = number
 
             const pageStart = Math.floor(this.pageNow / this.range) + 1
@@ -198,7 +198,7 @@ export default {
         checkIndex1(number1) {
             const indexList1 = document.querySelectorAll('#paginator1 a')
             indexList1[this.beforeIndex1].setAttribute('style', '')
-            indexList1[number1].setAttribute('style', 'background-color: rgb(236,128,116); color: white;')
+            indexList1[number1].setAttribute('style', 'background-color: rgb(128,128,116); color: white;')
             this.beforeIndex1 = number1
 
             const pageStart1 = Math.floor(this.pageNow1 / this.range1) + 1
@@ -248,8 +248,7 @@ export default {
         margin-right: 10px;
     }
 
-    .revContent{
-    }
+    
 
     #checkdiv{
         clear: both;
@@ -258,5 +257,21 @@ export default {
     }
     .page-item{
         margin-right: 5px;
+    }
+
+    .w3-bar{
+        margin-top: 50px;
+        text-align: center;
+    }
+
+    .w3-bar p {
+        display:inline-block;
+    }
+    .w3-bar a:hover{
+        background-color: white;
+        border-bottom: 1px solid white;
+    }
+    .w3-button{
+        margin-right: 10px;
     }
 </style>
