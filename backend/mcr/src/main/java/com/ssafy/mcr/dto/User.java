@@ -2,21 +2,14 @@ package com.ssafy.mcr.dto;
 
 public class User {
 	private int userNo;
-	private String id;
-	private String password;
+	private String userid;
+	private String pw;
 	private String birthday;
-	private int age;
 	private boolean gender;
 	private String nation;
 	private String city;
 	private String role;
 	
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}
 	public boolean isGender() {
 		return gender;
 	}
@@ -41,17 +34,11 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public String getId() {
-		return id;
+	public String getUserid() {
+		return userid;
 	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 	public int getUserNo() {
 		return userNo;
@@ -67,8 +54,14 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userNo=" + userNo + ", id=" + id + ", password=" + password + ", birthday=" + birthday + ", age="
-				+ age + ", gender=" + gender + ", nation=" + nation + ", city=" + city + ", role=" + role + "]";
+		return "User [userNo=" + userNo + ", userid=" + userid + ", pw=" + pw + ", birthday=" + birthday + ", gender="
+				+ gender + ", nation=" + nation + ", city=" + city + ", role=" + role + "]";
+	}
+	public String getPw() {
+		return pw;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
 	
 	

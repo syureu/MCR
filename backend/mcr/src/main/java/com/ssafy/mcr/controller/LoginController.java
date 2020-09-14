@@ -32,13 +32,14 @@ public class LoginController {
 	JwtTokenProvider jwtTokenProvider;
 	
 	@PostMapping()
-	public Object defaultLogin(@RequestBody HashMap<String, String> loginInfo, HttpServletResponse response) {
-		System.out.println(loginInfo.get("id") + " " + loginInfo.get("password"));
+	public Object defaultLogin(@RequestBody User loginData, HttpServletResponse response) {
+		System.out.println(loginData.toString());
+		System.out.println(loginData.getUserid() + " " + loginData.getPw());
 		ResponseEntity response1 = null;
 		final BasicResponse result = new BasicResponse();
 		
 		try {
-			User user = userService.getUserbyIdandPwd(loginInfo.get("id"), loginInfo.get("password"));
+			User user = userService.getUserbyIdandPwd(loginData.getUserid() ,loginData.getPw());
 			if (user == null) {
 				result.status = true;
 				result.data = "fail";
@@ -50,8 +51,8 @@ public class LoginController {
 			JSONObject jsonObject = new JSONObject();
 //			jsonObject.put("jwtToken",
 //					jwtTokenProvider.createToken(user.getId(), Collections.singletonList(user.getRole())));
-			jsonObject.put("userinfo", userService.getUserbyId(loginInfo.get("id")));
-			response.setHeader("jwsToken", jwtTokenProvider.createToken(user.getId(), Collections.singletonList(user.getRole())));
+			jsonObject.put("userinfo", userService.getUserbyId(loginData.getUserid()));
+			response.setHeader("jwsToken", jwtTokenProvider.createToken(user.getUserid(), Collections.singletonList(user.getRole())));
 			System.out.println(response.getHeader("jwsToken"));
 			result.status = true;
 			result.data = "success";

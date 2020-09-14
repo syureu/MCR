@@ -52,7 +52,7 @@ public class UserController {
 		try {
 			userService.addUser(user);
 			result.status = true;
-			result.data = user.getId() + " 회원이 추가되었습니다.";
+			result.data = user.getUserid() + " 회원이 추가되었습니다.";
 			result.object = user;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,9 +90,9 @@ public class UserController {
 		final BasicResponse result = new BasicResponse();
 		try {
 			userService.modifyUser(user);
-			User us = userService.getUserbyId(user.getId());
+			User us = userService.getUserbyId(user.getUserid());
 			result.status = true;
-			result.data = user.getId() + " 회원이 수정되었습니다.";
+			result.data = user.getUserid() + " 회원이 수정되었습니다.";
 			result.object = us;
 		} catch (Exception e) {
 			e.printStackTrace();

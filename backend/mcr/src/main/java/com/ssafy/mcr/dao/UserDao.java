@@ -9,7 +9,7 @@ import com.ssafy.mcr.dto.User;
 public interface UserDao {
 	public void insertUser(User user);
 	public void updateUser(User user);
-	public void deleteUser(String id);
-	public User selectUserById(String id);
-	public User selectUserByIdAndPwd(String id,String password);
+	public void deleteUser(String userid);
+	public User selectUserById(String userid);
+	public User selectUserByIdAndPwd(String userid,String pw);
 }
