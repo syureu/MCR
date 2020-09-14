@@ -11,7 +11,7 @@
 			<div style="background-color: red; width :50%" class="inline-div countsort">
 				<iframe class="p-3 video" width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 			</div>
-			<div class="inline-div pl-3 ml-3" style="height : 100%;">
+			<div class="inline-div pl-3 ml-3" style="height : 100%; position : absolute;">
 				<div class="example">
 					<div class="tabs">
 					<TabItem
@@ -21,8 +21,35 @@
 					</div>
 					<div class="contents">
 					<transition>
-						<section class="item" style="color : white" :key="currentId">
-						{{ current.content }}
+						<section class="item" style="color : white; height:500px" :key="currentId">
+							<div v-if="current.content==='콘텐츠3'">
+								<div  id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+									<ol class="carousel-indicators">
+										<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+										<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+										<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+									</ol>
+									<div class="carousel-inner">
+										<div class="carousel-item active">
+										<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/SV100408.JPG/1200px-SV100408.JPG" class="d-block w-100" alt="...">
+										</div>
+										<div class="carousel-item">
+										<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/SV100408.JPG/1200px-SV100408.JPG" class="d-block w-100" alt="...">
+										</div>
+										<div class="carousel-item">
+										<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/SV100408.JPG/1200px-SV100408.JPG" class="d-block w-100" alt="...">
+										</div>
+									</div>
+									<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										<span class="sr-only">Previous</span>
+									</a>
+									<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+										<span class="carousel-control-next-icon" aria-hidden="true"></span>
+										<span class="sr-only">Next</span>
+									</a>
+									</div>
+							</div>
 						</section>
 					</transition>
 					</div>
@@ -119,9 +146,9 @@ export default {
       return {
 		currentId: 1,
       list: [
-        { id: 1, label: 'Tab1', content: '콘텐츠1' },
-        { id: 2, label: 'Tab2', content: '콘텐츠2' },
-        { id: 3, label: 'Tab3', content: '콘텐츠3' }
+        { id: 1, label: '영화정보', content: '콘텐츠1' },
+        { id: 2, label: '줄거리', content: '콘텐츠2' },
+        { id: 3, label: '포토', content: '콘텐츠3' }
       ]
       }
 	},
