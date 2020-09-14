@@ -1,10 +1,12 @@
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -22,9 +24,19 @@ public class Miner {
                 .append("?api_key=")
                 .append(myApiKey)
                 .append("&language=en-US");
-        System.out.println(queryURL);
         HttpsURLConnection httpsConn = (HttpsURLConnection) new URL(queryURL.toString()).openConnection();
         httpsConn.setRequestMethod("GET");
+        System.out.println(jsonObject.get("id"));
         System.out.println(httpsConn.getResponseCode());
+
+        BufferedReader connIn = new BufferedReader(new InputStreamReader(httpsConn.getInputStream()));
+        String inline;
+        StringBuilder connSb = new StringBuilder();
+        while((inline = connIn.readLine()) != null) {
+            connSb.append(inline);
+        }
+        connIn.close();
+        httpsConn.disconnect();
+        System.out.println(connSb);
     }
 }
