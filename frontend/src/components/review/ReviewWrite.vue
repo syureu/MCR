@@ -1,10 +1,10 @@
 <template>
     <div id="revcontainer">
-        <div id="revtitle">리뷰</div>
+        <div id="revtitle" >리뷰</div>
         <hr id="hr1">
-        <div id="content">
-        <div id="line1">
-        <label id="lab" for="">내평점</label> <button id="togglebtn" @click="changetoggle">{{ name }}</button>
+        <div id="content" >
+        <div id="line1"  v-if="onlogin">
+        <label id="lab" for="" >내평점</label> <button id="togglebtn" @click="changetoggle">{{ name }}</button>
         </div>
         <div id="incontainer" v-if="toggle==true" >
         <StarRating v-model="rating" v-bind:max-rating="10" :show-rating="temp"/>
@@ -16,20 +16,22 @@
 </template>
 
 <script>
-
-
+// import HTTP from "@/util/http-common.js"
+// import axios from 'axios'
 import StarRating from 'vue-star-rating';
 export default {
+    name: 'ReviewWrite',
     components: {
         StarRating,
     },
     data(){
         return {
+            revwrite: null,
             temp:false,
             rating:"",
             toggle: false,
             name: "펼치기",
-
+            onlogin:false,
         }
     },
     methods:{
@@ -40,6 +42,13 @@ export default {
             } else {
                 this.name = "펼치기";
             }
+        }
+    },
+    created() {
+        if(this.$store.getters.geutUserData == null){
+            this.onlogin = false;
+        } else{
+            this.onlogin = true;
         }
     }
  }
