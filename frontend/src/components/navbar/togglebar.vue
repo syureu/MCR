@@ -1,5 +1,5 @@
 <template>
-    <i class="fas fa-bars" @click=""></i>
+    <i class="fas fa-bars" ></i>
 </template>
 <script>
 export default {

@@ -21,7 +21,7 @@ export default {
             LikeMovie:[
                 {
                     "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p2.PNG?raw=true",
-                    "isFollwing" : false
+                    "isFollwing" : false,
                 },
                 {
                     "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p3.PNG?raw=true",

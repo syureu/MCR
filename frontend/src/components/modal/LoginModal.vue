@@ -57,7 +57,7 @@ export default {
         else this.errorData.userid = false
       },
       login(){
-           this.formcheck()
+            
            let loginData={
              userid: this.userid,
              pw : this.password
