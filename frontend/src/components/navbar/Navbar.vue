@@ -65,6 +65,7 @@ export default {
   background-color: var(--light);
   width: 100%;
   margin-bottom: 0px;
+  z-index: 10;
   
   background-color:black;
 }
