@@ -36,7 +36,7 @@ export default [
         component : Home
     }, 
     {
-        path : '/ActorDetail',
+        path : '/ActorDetail/:personId',
         name : '/ActorDetail',
         component : ActorDetail
     }

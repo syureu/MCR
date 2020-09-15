@@ -2,10 +2,10 @@
     <div id="actDetailContainer">
         <div id="innerContainer">
             <div id="actorImg">
-                <img id="actimg" src="https://pds.joins.com/news/component/htmlphoto_mmdata/201906/10/htm_2019061010382817127.jpg">
+                <img id="actimg" :src="getImgUrl">
             </div>
             <div id="actorDetail" style="font-size:20px; border: 1px solid white; height:500px;">
-                <div id="actName" style="float:left; margin-right:10px;">이름 : {{ name }} &nbsp;&nbsp;&nbsp;&nbsp; </div>  <div>
+                <div id="actName" style="float:left; margin-right:10px;">이름 : {{ this.actorDetail.actorname }} &nbsp;&nbsp;&nbsp;&nbsp; </div>  <div v-if="this.$store.getters.getUserData != null">
                                         <svg      
                                         class="svg-inline--fa fa-heart fa-w-16 icon full"
                                         aria-hidden="true"
@@ -31,11 +31,11 @@
                                             />
                                         </svg> 
                                     </div><br><br>
-                <div>직업 : {{ job }}</div><br><br>
-                <div>출생 : {{ birth }}</div><br><br>
-                <div>성별 : {{ sex }}</div><br><br>
+                <div>직업 : {{ this.actorDetail.job }}</div><br><br>
+                <div>출생 : {{ this.actorDetail.birth }}</div><br><br>
+                <div>성별 : {{ this.actorDetail.sex }}</div><br><br>
             </div>
-            <h1 style="color:white; clear:both;">{{ name }} 배우의 출연작</h1>
+            <h1 style="color:white; clear:both;">{{ this.actorDetail.actorname }} 배우의 출연작</h1>
             <hr style="background-color:white;">
 
             <div id="actMovie" v-for="movie in movieInfo" :key="movie.name" >
@@ -86,6 +86,12 @@ export default {
             movieList:[],
         }
     },
+    computed: {
+        getImgUrl() {
+          return   `${this.actorDetail.imgUrl}`
+        },
+    },
+
     methods: {
         like(){
           if (this.like_on == 0) {
@@ -124,13 +130,19 @@ export default {
 
     },
     created() {
-        if(this.$store.getters.geutUserData == null){
+        if(this.$store.getters.getUserData == null){
             this.userno = 0;
         } else{
-            this.userno = `${this.$store.getters.getUserData.userno}`
+            this.userno = this.$store.getters.getUserData.userinfo.userNo
+            console.log(this.userno)
         }
-        axios.get(`/actor/detail/actorno=${this.$route.params.actorno}&userno=${this.userno}`)
+        axios.get(`${HTTP.BASE_URL}/mcr/daumactor` ,
+        {
+                params: { personId: `${this.$route.params.personId}` }
+        }
+        )
         .then(res => {
+             console.log(res.data.object.actorName)
             if (res.data === 'fail') {
                 this.$router.push({
                     name: 'Error',
@@ -140,32 +152,33 @@ export default {
                 })
             }
             this.actorDetail = {
-                actorname: res.data.actorname,
-                job: res.data.job,
-                actorno: res.data.actorno,
-                birth: res.data.birth,
-                sex: res.data.sex,
-                imgUrl: res.data.imgurl,
+                actorname: res.data.object.actorName,
+                job: res.data.object.job,
+                actorno: res.data.object.personId,
+                birth: res.data.object.birth,
+                sex: res.data.object.gender,
+                imgUrl: res.data.object.imgUrl,
             }
+            console.log(this.actorDetail)
         })
         .catch(err => {
-            this.$router.push({
-                name: 'Error',
-                query: {
-                    status: 'unknown'
-                }
-            })
+        //     this.$router.push({
+        //         name: 'Error',
+        //         query: {
+        //             status: 'unknown'
+        //         }
+        //     })
             console.log(err)
         })
-
-        axios.get(`${HTTP.BASE_URL}/movie/actor/${this.$route.params.actorDetail.actorno}`)
-        .then(res => {
-            this.movieList = res.data
-        })
-        .catch(err => {
-            console.log(err)
-        })
-        axios.get(`${HTTP.BASE_URL}/user/${this.$route.params.userno}`)
+       
+        // axios.get(`${HTTP.BASE_URL}/movie/actor/${this.$route.params.actorDetail.actorno}`)
+        // .then(res => {
+        //     this.movieList = res.data
+        // })
+        // .catch(err => {
+        //     console.log(err)
+        // })
+        // axios.get(`${HTTP.BASE_URL}/user/${this.$route.params.userno}`)
     }
 }
 </script>
@@ -184,6 +197,7 @@ export default {
         color: white;
         float:left;
         padding: 45px;
+        width: 40%;
     }
     #actDetailContainer {
         background-color:black;

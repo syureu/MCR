@@ -27,6 +27,7 @@ export default new Vuex.Store({
     },
     
     setUserInfo(state, userinfo) {
+      state.userData.userno = userinfo.userNo
       state.userData.birthday = userinfo.birthday
       state.userData.age = userinfo.age
       state.userData.gender = userinfo.gender
