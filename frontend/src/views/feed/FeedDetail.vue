@@ -1,19 +1,19 @@
 <template>
-  <div id="total">
+  <div id="total" style="background-color : black">
 
-    <div id="">
+    <div class="">
 		<hr>
 		<hr>
 		<hr>
 		<hr>
 		<hr>
 		<div class="trail pl-5 ml-5">
-			<div style="background-color: red; width :50%" class="inline-div countsort">
-				<iframe class="p-3 video" width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+			<div style="background-color: red; width :50%" class="inline-div countsort pt-3 mt-4">
+				<iframe wmode="Opaque" class="p-3 video " width="1560" height="315" :src="trailerURL1" frameborder="0" allow="autoplay;  encrypted-media" allowfullscreen></iframe>
 			</div>
-			<div class="inline-div pl-3 ml-3" style="height : 100%; position : absolute;">
+			<div class="inline-div pl-3 ml-3" style="height : 100%; width: auto; position : absolute;">
 				<div class="example">
-					<div class="tabs">
+					<div class="tabs" >
 					<TabItem
 						v-for="item in list"
 						v-bind="item" :key="item.id"
@@ -21,7 +21,7 @@
 					</div>
 					<div class="contents">
 					<transition>
-						<section class="item" style="color : white; height:500px" :key="currentId">
+						<section class="item" style="color : white; height:300px; width: auto" :key="currentId">
 							<div v-if="current.content==='콘텐츠3'">
 								<div  id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 									<ol class="carousel-indicators">
@@ -31,7 +31,7 @@
 									</ol>
 									<div class="carousel-inner">
 										<div class="carousel-item active">
-										<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/SV100408.JPG/1200px-SV100408.JPG" class="d-block w-100" alt="...">
+										<img src="https://image.chosun.com/sitedata/image/202005/11/2020051102594_0.jpg" style="max-width:100%; height:auto;" alt="...">
 										</div>
 										<div class="carousel-item">
 										<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/SV100408.JPG/1200px-SV100408.JPG" class="d-block w-100" alt="...">
@@ -128,6 +128,7 @@
 </template>
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/vuewordcloud"></script>
+<script type="text/javascript" src="https://unpkg.com/movie-trailer"></script>
 <script>
 import TabItem from './TabItem.vue'
 import VueWordCloud from 'vuewordcloud';
@@ -144,6 +145,8 @@ export default {
   },
   data() {
       return {
+		trailerURL1 : "",
+		trailerURL2 : "",
 		currentId: 1,
       list: [
         { id: 1, label: '영화정보', content: '콘텐츠1' },
@@ -156,22 +159,45 @@ export default {
     current() {
       return this.list.find(el => el.id === this.currentId) || {}
     }
-  }
+  },
+	created() {
+		
+	
+		const movieTrailer = require( 'movie-trailer' )
+		var a = "https://www.youtube.com/embed/"
+		// 'https://www.youtube.com/watch?v=isOGD_7hNIY'
+		// 'https://www.youtube.com/embed/isOGD_7hNIY'
+		this.trailerURL1 = 'https://www.youtube.com/embed/'
+
+		movieTrailer( '설국열차', ( error, response ) => { 
+			
+			this.trailerURL1 = this.trailerURL1 + response.substr(32) 
+		
+		} )
+		
+	
+	},
 }
 </script>
 
 <style scoped>
+div {
+	z-index: 1
+}
 .contents {
   position: relative;
   overflow: hidden;
-  width: 280px;
+
+  width: 530px;
   border: 2px solid #000;
 }
 .item {
   box-sizing: border-box;
-  padding: 10px;
-  width: 100%;
+  margin-bottom: 0px;
+  overflow:hidden;
+	height:auto;
   transition: all 0.8s ease;
+  background-color: red;
 }
 /* 트랜지션 전용 스타일 */
 .v-leave-active {

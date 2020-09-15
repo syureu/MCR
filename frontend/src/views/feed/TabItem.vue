@@ -1,5 +1,5 @@
 <template>
-  <button @click="$emit('input', id)" :class="[active, 'tab']">
+  <button @click="$emit('input', id)" :class="[active, 'tab']" style="vertical-align:middle">
     {{ label }}
   </button>
 </template>
@@ -19,17 +19,36 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .tab {
-  border-radius: 2px 2px 0 0;
-  background: #fff;
-  color: #311d0a;
-  line-height: 24px;
+    display: inline-block;
+  border-radius: 4px;
+  background-color: black;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  padding: 20px;
+  width: 100px;
+  height: 40px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
 }
+.tab span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+
 .tab:hover {
-  background: #eeeeee;
+  background: black;
+  text-decoration: underline;
+  color: red;
 }
 .active {
-  background: #f7c9c9;
+  background: black;
 }
 </style>

@@ -15,6 +15,7 @@
     "dist": "^0.1.2",
     "email-validator": "^2.0.4",
     "jw-vue-pagination": "^1.0.3",
+    "movie-trailer": "^2.0.6",
     "store": "^2.0.12",
     "vue": "^2.6.11",
     "vue-router": "^3.4.3",
