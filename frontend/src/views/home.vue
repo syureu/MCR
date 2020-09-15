@@ -39,7 +39,7 @@ export default {
             title:"20대가좋아하는 영화"
         }
     },
-    methods(){
+    methods:{
 
     }
 }

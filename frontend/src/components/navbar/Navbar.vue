@@ -13,12 +13,12 @@
       </nav>
       <nav class="mid-nav">
         <div class="box">
-          <input type="text" placeholder="영화를 검색하세요"/>
+        <input type="text" placeholder="영화를 검색하세요"/>
+        <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
         </div>
       </nav>
       <nav class="sub-nav">
         <div v-if="!isLogin">
-          <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
         <!-- <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a> -->
         <a href="#" @click="changeLogin">로그인</a>
         <a href="#" @click="signup">회원가입</a>
@@ -59,9 +59,9 @@ export default {
   top: 0;
   display: grid;  
   grid-gap:5px;
-  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-columns: 1fr 3fr 1fr 1fr;
   grid-template-areas: 
-   "nt mn mn sb . . . "; 
+   "nt mn mc sb . . . "; 
   background-color: var(--light);
   width: 100%;
   margin-bottom: 0px;
@@ -93,16 +93,26 @@ export default {
   padding: 0 30px 0 20px;
 }
 .mid-nav{
-  margin-left: 85%;
-  grid-area: mn;
+
+  grid-area:mc;
+  
 }
 .mid-nav input{
+  display:inline;
   background-color:rgb(48, 46, 46);
   border-radius : 7px;
-  width : 200px;
-  height: 40px;
+ 
   color:white;
-  border :0px;
+  border :0px;  
+}
+.mid-nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.mid-nav a:hover {
+  color: red;
 }
 .main-nav a {
   font-family: 'Noto Sans JP', sans-serif;
@@ -131,4 +141,30 @@ export default {
   color: red;
 }
 
+@media (max-width: 812px){
+  .navbar{
+    margin: 0;
+    padding: 20px 0 0 0;
+    position: static;
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-areas: 
+    ". nt ."    
+    ". . mn"
+    ". . sb";
+    text-align: center;
+    background-color:black;
+  }
+  .main-nav{
+    display:none;
+  }
+  .mid-nav{
+    grid-area: sb;
+    
+  }
+  .sub-nav{
+    grid-area:mn;
+  }
+}
 </style>

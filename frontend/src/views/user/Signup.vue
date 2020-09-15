@@ -14,7 +14,7 @@
           <div class="col-md-5 relative align-self-center">
 
               
-            <form action="#" class=" rounded pb_form_v1" name="vali">
+            <form action="#" class=" rounded " name="vali">
                 <h1 class="form-title " style="color :white;"><i class="fas fa-user-plus" style="color:#57efc4;"></i> <br> 회원가입  <hr></h1>
                 
                 <div class="form-group">
@@ -46,11 +46,29 @@
                 </div>
                 <div class="form-group">
                     <label for="birth" style="color: white">생년월일</label>
-                    <input class="form-control pb_height-50 reverse" 
+                    <input  class="form-control pb_height-50 reverse"
                             v-model="birth"
                             id="birth"
                             type="date"
                             :rules="[rules.required]">
+                </div>
+                <div class="form-group">
+                    <label for="gender" style="color: white" class="pr-5">성별</label>
+                    <input
+                            id="gender"
+                            name="radio_answer"
+                            type="radio"
+                            value="true"
+              
+                           >
+                    <font class="pr-3" style="color : white;">남자</font>
+                    <input 
+                            id="gender"
+                            name="radio_answer"
+                            type="radio"
+                            value="false"
+                           >
+                    <font style="color : white;">여자</font>
                 </div>
             </form>
         
@@ -71,7 +89,8 @@
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-
+import URL from '@/util/http-common.js'
+import axios from 'axios';
 export default {
     data () {
     return {
@@ -80,6 +99,7 @@ export default {
     password: "",
     passwordConfirm: "",
     birth: "",
+    gender: "",
     isSubmit: false,
     IdCheck: false,
     error: {
@@ -93,19 +113,7 @@ export default {
     rules: {
         required: value => (!!value) || '필수 입력사항입니다.',
       },
-    passwordRules: [
-        v => !!v || '영문,숫자 포함 8 자리이상이어야 합니다.',
-        v => /^(?=.*[a-z])(?=.*[0-9]).{8,16}$/.test(v) || 
-              '영문,숫자 포함 8 자리이상이어야 합니다.'
-      ],
-    checkPasswordRules: [
-        v => !!v || '필수 입력사항입니다.',
-        v => this.password === this.passwordConfirm || '비밀번호가 다릅니다.'
-      ],
-    emailRules: [
-        v => !!v || '필수 입력사항입니다.',
-        v => /.+@.+\..+/.test(v) || '이메일형식이 아닙니다.',
-      ],
+   
     }
     },
     watch:{
@@ -120,6 +128,8 @@ export default {
 
     },
     birth:function(v){
+    },
+    gender:function(v){
     },
  
     
@@ -146,12 +156,51 @@ export default {
         alert('생년월일을 입력해 주세요')
             isSubmit = true;
         }
+        else if(document.getElementsByName("radio_answer")[0].checked == false && document.getElementsByName("radio_answer")[1].checked == false){
+            alert('성별을 입력해주세요')
+            isSubmit = true;
+        }
         if(isSubmit === false){
+            
+            if (document.getElementsByName("radio_answer")[0].checked == true){
+                this.gender = document.getElementsByName("radio_answer")[0].value
+            }
+            else if(document.getElementsByName("radio_answer")[1].checked == true){
+                this.gender = document.getElementsByName("radio_answer")[1].value
+                alert(document.getElementsByName("radio_answer")[1].value)
+            }
            alert('가입완료')
+           alert(this.birth)
            
+            let user={
+                   userid: this.id,
+                   pw: this.password,
+                   birthday:this.birth,
+                gender:this.gender,
+                nation:'대한민국',
+                city:'서울',
+                role:'user',
+               }
+          
+
+           axios.post(`${URL.BASE_URL}/mcr/user`, user)    
+      .then(res => {
+        console.log(res)
+        let msg="등록 처리시 문제가 발생하였습니다."
+        if(res=='success'){
+            msg='등록이 완료되었습니다.';
+        }
+      })
+      .catch(error => {
+          console.log(this.id)
+        console.log(error)
+        console.log("가입실패");
+        alert("입력정보를 확인해주세요.")
+      })
         }
 
     },
+  
     
      
         
@@ -892,9 +941,9 @@ export default {
 
     .pb_form_v1 {
     padding: 50px;
-    -webkit-box-shadow: 1px 11px 68px -20px rgba(0, 0, 0, 0.75);
+    
     -moz-box-shadow: 1px 11px 68px -20px rgba(0, 0, 0, 0.75);
-    box-shadow: 1px 11px 68px -20px rgba(0, 0, 0, 0.75); }
+    }
     @media (max-width: 991px) {
         .pb_form_v1 {
         padding: 30px; } }

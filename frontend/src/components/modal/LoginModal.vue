@@ -67,7 +67,8 @@ export default {
         if (res.data.status === true) {
           console.log(res)
           this.$session.set('jwstoken', res.headers.jwstoken)
-          this.$store.commit('login', res.data.object) 
+          this.$store.commit('login', res.data.object)
+          console.log(this.$store.getters.getUserData.userinfo.birthday)
           this.modalclose()
         }
         else {
