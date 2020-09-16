@@ -8,7 +8,7 @@
         <hr>
         <hr>
         <div class="trail pl-5 ml-5">
-            <div style="background-color: gray; width :50%" class="inline-div countsort pt-3 mt-4">
+            <div style="background-color: grey; width :50%" class="inline-div countsort pt-3 mt-4">
                 <iframe wmode="Opaque" class="p-3 video " width="1560" height="315" :src="trailerURL1" frameborder="0" allow="autoplay;  encrypted-media" allowfullscreen></iframe>
             </div>
             <div class="inline-div pl-3 ml-3" style="height : 300px; width: auto; position : absolute;">
@@ -22,7 +22,23 @@
                     <div class="contents">
                     <transition>
                         <section class="item" style="color : white; height:300px; width: auto" :key="currentId">
-                            <div v-if="current.content==='콘텐츠3'">
+                            <div style="padding:12px;" v-if="current.content==='콘텐츠1'">
+								<div style="border: 5px solid black; border-radius: 8px; padding:13px;">
+								<img :src="this.movieDetail.imgurl" alt="" style="float:left; margin-right: 10px; border:10px solid black; border-radius:8px;">
+								<div style="float:left;">
+									<br>
+									{{ this.movieDetail.movieName }} | <i class="fas fa-star" style="color:yellow;"></i>&nbsp;{{ this.movieDetail.rate}} <br><br>
+									{{ this.movieDetail.genre }} | {{ this.movieDetail.movieOpeningDate}} <br><br>									{{ this.movieDetail.nation }}
+								</div>
+								<div style="clear:both;"></div>
+								</div>
+							</div>
+							<div style="padding:5px;" v-if="current.content==='콘텐츠2'">
+								<div style="margin:5px;padding:5px;height:280px;width:auto;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+								{{ this.movieDetail.overview }}
+								</div>
+							</div>
+							<div v-if="current.content==='콘텐츠3'">
                                 <div  id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                     <ol class="carousel-indicators">
                                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -59,7 +75,7 @@
         </div>
     </div>
 <div class="container">
-    <div class="title">
+    <div class="title" style="margin-top: 100px;">
         <h2 style="color: white;">출연</h2>
         <hr style="background-color:white;">    
     </div>
@@ -100,6 +116,9 @@ import TabItem from './TabItem.vue'
 import VueWordCloud from 'vuewordcloud';
 import reviewWrite from '@/components/review/ReviewWrite.vue';
 import reviewList from '@/components/review/ReviewList.vue';
+import axios from 'axios'
+import HTTP from "@/util/http-common.js"
+
 export default {
     
     
@@ -114,7 +133,8 @@ export default {
         title: '기생충',
         trailerURL1 : "",
         trailerURL2 : "",
-        currentId: 1,
+		currentId: 1,
+		userno: "",
         list: [
             { id: 1, label: '영화정보', content: '콘텐츠1' },
             { id: 2, label: '줄거리', content: '콘텐츠2' },
@@ -125,7 +145,18 @@ export default {
             { actorName: '이선균', role: '동익', personId: '14959', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2Fb066cbec9fe6d2268b3b89d129a731695a72c65e'},
             { actorName: '조여정', role: '연교', personId: '96410', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F26599548532B92372E2A19'},
             { actorName: '최우식', role: '기우', personId: '259139', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2F64c561c864938fda5f2b605b25f562e5d9996a3a'},
-        ],
+		],
+		movieDetail: {
+			movieName: "",
+			movieId: "",
+			rate : "",
+			genre: "",
+			movieOpeningDate: "",
+			runningTime : "",
+			overview: "",
+			imgurl: "",
+			nation: "",
+		},
         }
     },
     computed: {
@@ -134,22 +165,56 @@ export default {
     }
   },
     created() {
-        
-    
-        const movieTrailer = require( 'movie-trailer' )
-        var a = "https://www.youtube.com/embed/"
-        // 'https://www.youtube.com/watch?v=isOGD_7hNIY'
-        // 'https://www.youtube.com/embed/isOGD_7hNIY'
-        this.trailerURL1 = 'https://www.youtube.com/embed/'
+		if(this.$store.getters.getUserData == null){
+            this.userno = 0;
+        } else{
+            this.userno = this.$store.getters.getUserData.userinfo.userNo
+            console.log(this.userno)
+        }
+		axios.get(`${HTTP.BASE_URL}/mcr/daummovie` ,
+			{
+				params: { movieId: '42' }
+			}
+		)
+		.then(res => {
+			if (res.data === 'fail') {
+				this.$router.push({
+					name: 'Error',
+					query: {
+						status: 404
+					}
+				})
+			}
+			this.movieDetail = {
+			movieName: res.data.object.movieName,
+			rate : res.data.object.rate,
+			genre: res.data.object.genre,
+			movieOpeningDate: res.data.object.movieOpeningDate,
+			runningTime : res.data.object.runningTime,
+			overview: res.data.object.overview,
+			imgurl: res.data.object.imgUrl,
+			nation: res.data.object.nation,
+			}
+			const movieTrailer = require( 'movie-trailer' )
+			this.trailerURL1 = 'https://www.youtube.com/embed/'
+			movieTrailer( res.data.object.movieName , ( error, response) => {
+				this.trailerURL1 = this.trailerURL1 + response.substr(32)
+			})
+		})
+		.catch(err => {
+		//     this.$router.push({
+        //         name: 'Error',
+        //         query: {
+        //             status: 'unknown'
+        //         }
+        //     })	
+			console.log(err)
+		})
 
-        movieTrailer( this.title , ( error, response ) => { 
-            
-            this.trailerURL1 = this.trailerURL1 + response.substr(32) 
-        
-        } )
+        console.log(this.movieDetail.movieName)
         
     
-    },
+	},
 }
 </script>
 
@@ -170,7 +235,7 @@ div {
   overflow:hidden;
     height:auto;
   transition: all 0.8s ease;
-  background-color: gray;
+  background-color: grey;
 }
 /* 트랜지션 전용 스타일 */
 .v-leave-active {
@@ -421,6 +486,11 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 .box4
 {
     float: right;
+}
+
+.box
+{
+	margin-left: 100px;
 }
 
 /*********************************************************************************/

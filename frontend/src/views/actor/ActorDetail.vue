@@ -4,7 +4,7 @@
             <div id="actorImg">
                 <img id="actimg" :src="getImgUrl">
             </div>
-            <div id="actorDetail" style="font-size:20px; border: 1px solid white; height:500px;">
+            <div id="actorDetail" style="font-size:20px; border: 10px solid grey; height:500px;">
                 <div id="actName" style="float:left; margin-right:10px;">이름 : {{ this.actorDetail.actorname }} &nbsp;&nbsp;&nbsp;&nbsp; </div>  <div v-if="this.$store.getters.getUserData != null">
                                         <svg      
                                         class="svg-inline--fa fa-heart fa-w-16 icon full"
