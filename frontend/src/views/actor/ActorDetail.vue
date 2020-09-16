@@ -67,6 +67,10 @@ export default {
                 imgUrl:"",
             },
             userno:"",
+            name: '송강호',
+            job : '영화배우',
+            birth : '1967.01.17.대한민국 경남 김해시',
+            sex : '남성',
             movieInfo: [
                 {name:'기생충' ,imgurl : 'https://t1.daumcdn.net/movie/cab3b02a7b274bd6838b80a5e481fedf1559021787090', movieno: '1'}, 
                 {name:'마약왕' ,imgurl : 'https://t1.daumcdn.net/movie/358ea40235e240fea2f0b6ec7ef93c431543201035934', movieno: '2'},

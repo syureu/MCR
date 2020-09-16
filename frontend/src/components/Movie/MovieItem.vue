@@ -33,7 +33,7 @@ export default {
 
       },
         changeDeatil(){
-            this.$router.push(`/FeedDetail/${this.movie.No}`)
+            this.$router.push(`/detailfeed/${this.movie.No}`)
         }
     }
 }

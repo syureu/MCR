@@ -2,83 +2,83 @@
   <div id="total" style="background-color : black">
 
     <div class="">
-		<hr>
-		<hr>
-		<hr>
-		<hr>
-		<hr>
-		<div class="trail pl-5 ml-5">
-			<div style="background-color: red; width :50%" class="inline-div countsort pt-3 mt-4">
-				<iframe wmode="Opaque" class="p-3 video " width="1560" height="315" :src="trailerURL1" frameborder="0" allow="autoplay;  encrypted-media" allowfullscreen></iframe>
-			</div>
-			<div class="inline-div pl-3 ml-3" style="height : 300px; width: auto; position : absolute;">
-				<div class="example">
-					<div class="tabs" >
-					<TabItem
-						v-for="item in list"
-						v-bind="item" :key="item.id"
-						v-model="currentId"/>
-					</div>
-					<div class="contents">
-					<transition>
-						<section class="item" style="color : white; height:300px; width: auto" :key="currentId">
-							<div v-if="current.content==='콘텐츠3'">
-								<div  id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-									<ol class="carousel-indicators">
-										<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-										<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-										<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-									</ol>
-									<div class="carousel-inner">
-										<div class="carousel-item active">
-										<img src="https://image.chosun.com/sitedata/image/202005/11/2020051102594_0.jpg" style="max-width:100%; height:auto;" alt="...">
-										</div>
-										<div class="carousel-item">
-										<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/SV100408.JPG/1200px-SV100408.JPG" class="d-block w-100" alt="...">
-										</div>
-										<div class="carousel-item">
-										<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/SV100408.JPG/1200px-SV100408.JPG" class="d-block w-100" alt="...">
-										</div>
-									</div>
-									<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-										<span class="sr-only">Previous</span>
-									</a>
-									<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-										<span class="carousel-control-next-icon" aria-hidden="true"></span>
-										<span class="sr-only">Next</span>
-									</a>
-									</div>
-							</div>
-						</section>
-					</transition>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-	</div>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <div class="trail pl-5 ml-5">
+            <div style="background-color: red; width :50%" class="inline-div countsort pt-3 mt-4">
+                <iframe wmode="Opaque" class="p-3 video " width="1560" height="315" :src="trailerURL1" frameborder="0" allow="autoplay;  encrypted-media" allowfullscreen></iframe>
+            </div>
+            <div class="inline-div pl-3 ml-3" style="height : 300px; width: auto; position : absolute;">
+                <div class="example">
+                    <div class="tabs" >
+                    <TabItem
+                        v-for="item in list"
+                        v-bind="item" :key="item.id"
+                        v-model="currentId"/>
+                    </div>
+                    <div class="contents">
+                    <transition>
+                        <section class="item" style="color : white; height:300px; width: auto" :key="currentId">
+                            <div v-if="current.content==='콘텐츠3'">
+                                <div  id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                        <img src="https://image.chosun.com/sitedata/image/202005/11/2020051102594_0.jpg" style="max-width:100%; height:auto;" alt="...">
+                                        </div>
+                                        <div class="carousel-item">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/SV100408.JPG/1200px-SV100408.JPG" class="d-block w-100" alt="...">
+                                        </div>
+                                        <div class="carousel-item">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/SV100408.JPG/1200px-SV100408.JPG" class="d-block w-100" alt="...">
+                                        </div>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                    </div>
+                            </div>
+                        </section>
+                    </transition>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
 <div class="container">
-	<div class="title">
-		<h2 style="color: white;">출연</h2>
-		<hr style="background-color:white;">	
-	</div>
-	<div class="boxA" v-for="actor in actorList" :key="actor.personId">
-		<div class="box" >
-			<img :src="actor.imgurl" width="180" height="180" alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
-			<h3 style="color: white;"> {{ actor.actorName }}  </h3>
-			<p style="color: grey;"> {{ actor.role }} 역</p>
-		</div>
-	</div>
-	
-	
+    <div class="title">
+        <h2 style="color: white;">출연</h2>
+        <hr style="background-color:white;">    
+    </div>
+    <div class="boxA" v-for="actor in actorList" :key="actor.personId">
+        <div class="box" >
+            <img :src="actor.imgurl" width="180" height="180" alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
+            <h3 style="color: white;"> {{ actor.actorName }}  </h3>
+            <p style="color: grey;"> {{ actor.role }} 역</p>
+        </div>
+    </div>
+    
+    
 </div>
 <div id="revcontainer" >
 <reviewWrite />
 <reviewList />
 </div>
 <div id="copyright" class="container">
-	<p>&copy; Untitled. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
+    <p>&copy; Untitled. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
 </div>
 
 <vue-word-cloud
@@ -101,61 +101,61 @@ import VueWordCloud from 'vuewordcloud';
 import reviewWrite from '@/components/review/ReviewWrite.vue';
 import reviewList from '@/components/review/ReviewList.vue';
 export default {
-	
-	
-	components: {
+    
+    
+    components: {
     [VueWordCloud.name]: VueWordCloud,
-	reviewWrite,
-	reviewList,
-	TabItem,
+    reviewWrite,
+    reviewList,
+    TabItem,
   },
   data() {
       return {
-		title: '기생충',
-		trailerURL1 : "",
-		trailerURL2 : "",
-		currentId: 1,
-		list: [
-			{ id: 1, label: '영화정보', content: '콘텐츠1' },
-			{ id: 2, label: '줄거리', content: '콘텐츠2' },
-			{ id: 3, label: '포토', content: '콘텐츠3' }
-		],
-		actorList: [
-			{ actorName: '송강호', role: '기태', personId: '561', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fmovie%2F1ca37a29af263c233bcba1f467327895185f0b31'},
-			{ actorName: '이선균', role: '동익', personId: '14959', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2Fb066cbec9fe6d2268b3b89d129a731695a72c65e'},
-			{ actorName: '조여정', role: '연교', personId: '96410', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F26599548532B92372E2A19'},
-			{ actorName: '최우식', role: '기우', personId: '259139', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2F64c561c864938fda5f2b605b25f562e5d9996a3a'},
-		],
-		}
-	},
-	computed: {
+        title: '기생충',
+        trailerURL1 : "",
+        trailerURL2 : "",
+        currentId: 1,
+        list: [
+            { id: 1, label: '영화정보', content: '콘텐츠1' },
+            { id: 2, label: '줄거리', content: '콘텐츠2' },
+            { id: 3, label: '포토', content: '콘텐츠3' }
+        ],
+        actorList: [
+            { actorName: '송강호', role: '기태', personId: '561', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fmovie%2F1ca37a29af263c233bcba1f467327895185f0b31'},
+            { actorName: '이선균', role: '동익', personId: '14959', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2Fb066cbec9fe6d2268b3b89d129a731695a72c65e'},
+            { actorName: '조여정', role: '연교', personId: '96410', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F26599548532B92372E2A19'},
+            { actorName: '최우식', role: '기우', personId: '259139', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2F64c561c864938fda5f2b605b25f562e5d9996a3a'},
+        ],
+        }
+    },
+    computed: {
     current() {
       return this.list.find(el => el.id === this.currentId) || {}
     }
   },
-	created() {
-		
-	
-		const movieTrailer = require( 'movie-trailer' )
-		var a = "https://www.youtube.com/embed/"
-		// 'https://www.youtube.com/watch?v=isOGD_7hNIY'
-		// 'https://www.youtube.com/embed/isOGD_7hNIY'
-		this.trailerURL1 = 'https://www.youtube.com/embed/'
+    created() {
+        
+    
+        const movieTrailer = require( 'movie-trailer' )
+        var a = "https://www.youtube.com/embed/"
+        // 'https://www.youtube.com/watch?v=isOGD_7hNIY'
+        // 'https://www.youtube.com/embed/isOGD_7hNIY'
+        this.trailerURL1 = 'https://www.youtube.com/embed/'
 
-		movieTrailer( this.title , ( error, response ) => { 
-			
-			this.trailerURL1 = this.trailerURL1 + response.substr(32) 
-		
-		} )
-		
-	
-	},
+        movieTrailer( this.title , ( error, response ) => { 
+            
+            this.trailerURL1 = this.trailerURL1 + response.substr(32) 
+        
+        } )
+        
+    
+    },
 }
 </script>
 
 <style scoped>
 div {
-	z-index: 1
+    z-index: 1
 }
 .contents {
   position: relative;
@@ -168,7 +168,7 @@ div {
   box-sizing: border-box;
   margin-bottom: 0px;
   overflow:hidden;
-	height:auto;
+    height:auto;
   transition: all 0.8s ease;
   background-color: red;
 }
@@ -187,28 +187,28 @@ div {
 
 .countsort{
 
-	position : relative;
+    position : relative;
 
-	width : 100%;
-	height : 0;
-	padding-bottom: 50px;
-	margin-bottom: 50px;
-	padding-bottom : 26.25%;
+    width : 100%;
+    height : 0;
+    padding-bottom: 50px;
+    margin-bottom: 50px;
+    padding-bottom : 26.25%;
 
 }
 
 
 .video{
 
-	position : absolute;
+    position : absolute;
 
-	top : 0;
+    top : 0;
 
-	left : 0;
+    left : 0;
 
-	width : 100%;
+    width : 100%;
 
-	height : 100%;
+    height : 100%;
 
 }
 
@@ -216,13 +216,13 @@ div {
 
 
 .inline-div{
-	display: inline-block;
+    display: inline-block;
   
   
 }
-	html, body
+    html, body
 {
-	height: 100%;
+    height: 100%;
 }
 
 
@@ -230,24 +230,24 @@ div {
 
 h1, h2, h3
 {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 p, ol, ul
 {
-	margin-top: 0;
+    margin-top: 0;
 }
 
 ol, ul
 {
-	padding: 0;
-	list-style: none;
+    padding: 0;
+    list-style: none;
 }
 
 p
 {
-	line-height: 180%;
+    line-height: 180%;
 }
 
 strong
@@ -256,19 +256,19 @@ strong
 
 a
 {
-	color: #96063b;
+    color: #96063b;
 }
 
 a:hover
 {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .container
 {
-	overflow: hidden;
-	margin: 0em auto;
-	width: 1200px;
+    overflow: hidden;
+    margin: 0em auto;
+    width: 1200px;
 }
 
 /*********************************************************************************/
@@ -277,38 +277,38 @@ a:hover
 
 .image
 {
-	display: inline-block;
+    display: inline-block;
 }
 
 .image img
 {
-	display: block;
-	width: 100%;
+    display: block;
+    width: 100%;
 }
 
 .image-full
 {
-	display: block;
-	width: 100%;
-	margin: 0 0 2em 0;
+    display: block;
+    width: 100%;
+    margin: 0 0 2em 0;
 }
 
 .image-left
 {
-	float: left;
-	margin: 0 2em 2em 0;
+    float: left;
+    margin: 0 2em 2em 0;
 }
 
 .image-centered
 {
-	display: block;
-	margin: 0 0 2em 0;
+    display: block;
+    margin: 0 0 2em 0;
 }
 
 .image-centered img
 {
-	margin: 0 auto;
-	width: auto;
+    margin: 0 auto;
+    width: auto;
 }
 
 /*********************************************************************************/
@@ -326,45 +326,45 @@ ul.style1
 
 ul.contact
 {
-	margin: 0;
-	padding: 2em 0em 0em 0em;
-	list-style: none;
+    margin: 0;
+    padding: 2em 0em 0em 0em;
+    list-style: none;
 }
 
 ul.contact li
 {
-	display: inline-block;
-	padding: 0em 0.30em;
-	font-size: 1em;
+    display: inline-block;
+    padding: 0em 0.30em;
+    font-size: 1em;
 }
 
 ul.contact li span
 {
-	display: none;
-	margin: 0;
-	padding: 0;
+    display: none;
+    margin: 0;
+    padding: 0;
 }
 
 ul.contact li a
 {
-	color: #FFF;
+    color: #FFF;
 }
 
 ul.contact li a:before
 {
-	display: inline-block;
-	background: #3f3f3f;
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	border-radius: 20px;
-	text-align: center;
-	color: #FFFFFF;
+    display: inline-block;
+    background: #3f3f3f;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    color: #FFFFFF;
 }
 
 ul.contact li a.icon-twitter:before { background: #2DAAE4; }
 ul.contact li a.icon-facebook:before { background: #39599F; }
-ul.contact li a.icon-dribbble:before { background: #C4376B;	}
+ul.contact li a.icon-dribbble:before { background: #C4376B;    }
 ul.contact li a.icon-tumblr:before { background: #31516A; }
 ul.contact li a.icon-rss:before { background: #F2600B; }
 
@@ -374,30 +374,30 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 
 .button
 {
-	display: inline-block;
-	padding: 1em 2em 1em 2em;
-	background: #96063b;
-	letter-spacing: 0.20em;
-	text-decoration: none;
-	text-transform: uppercase;
-	font-weight: 400;
-	font-size: 0.90em;
-	color: #FFF;
+    display: inline-block;
+    padding: 1em 2em 1em 2em;
+    background: #96063b;
+    letter-spacing: 0.20em;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 0.90em;
+    color: #FFF;
 }
 
 .button:before
 {
-	display: inline-block;
-	background: #FFC31F;
-	margin-right: 1em;
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	border-radius: 20px;
-	text-align: center;
-	color: #272925;
+    display: inline-block;
+    background: #FFC31F;
+    margin-right: 1em;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    color: #272925;
 }
-	
+    
 /*********************************************************************************/
 /* 4-column                                                                      */
 /*********************************************************************************/
@@ -407,20 +407,20 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 .box3,
 .box4
 {
-	width: 200px;
+    width: 200px;
 }
 
 .box1,
 .box2,
 .box3
 {
-	float: left;
-	margin-right: 20px;
+    float: left;
+    margin-right: 20px;
 }
 
 .box4
 {
-	float: right;
+    float: right;
 }
 
 /*********************************************************************************/
@@ -431,19 +431,19 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 .boxB,
 .boxC
 {
-	width: 320px;
+    width: 320px;
 }
 
 .boxA,
 .boxB
 {
-	float: left;
-	margin-right: 20px;
+    float: left;
+    margin-right: 20px;
 }
 
 .boxC
 {
-	float: right;
+    float: right;
 }
 
 
@@ -454,17 +454,17 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 .tbox1,
 .tbox2
 {
-	width: 575px;
+    width: 575px;
 }
 
 .tbox1
 {
-	float: left;
+    float: left;
 }
 
 .tbox2
 {
-	float: right;
+    float: right;
 }
 
 /*********************************************************************************/
@@ -473,16 +473,16 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 
 #header-wrapper
 {
-	overflow: hidden;
-	height: 40em;
+    overflow: hidden;
+    height: 40em;
 }
 
 #header
 {
-	position: relative;
-	margin-top: 3em;
-	padding: 3em 0em;
-	background: #96063b;
+    position: relative;
+    margin-top: 3em;
+    padding: 3em 0em;
+    background: #96063b;
 }
 
 /*********************************************************************************/
@@ -491,9 +491,9 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 
 #logo
 {
-	position: absolute;
-	top: 1.5em;
-	left: 2em;
+    position: absolute;
+    top: 1.5em;
+    left: 2em;
 }
 
 #logo h1
@@ -502,8 +502,8 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 
 #logo a
 {
-	text-decoration: none;
-	color: #FFF;
+    text-decoration: none;
+    color: #FFF;
 }
 
 /*********************************************************************************/
@@ -512,33 +512,33 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 
 #menu
 {
-	position: absolute;
-	top: 2.4em;
-	right: 2em;
+    position: absolute;
+    top: 2.4em;
+    right: 2em;
 }
 
 #menu ul
 {
-	display: inline-block;
+    display: inline-block;
 }
 
 #menu li
 {
-	display: block;
-	float: left;
-	text-align: center;
+    display: block;
+    float: left;
+    text-align: center;
 }
 
 #menu li a, #menu li span
 {
-	text-decoration: none;
-	padding: 1em 1.5em;
-	color: #FFF;
+    text-decoration: none;
+    padding: 1em 1.5em;
+    color: #FFF;
 }
 
 #menu li:hover a, #menu li.active a, #menu li.active span
 {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 #menu .current_page_item a
@@ -555,19 +555,19 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 
 #welcome
 {
-	overflow: hidden;
-	width: 1000px;
-	margin-top: 3em;
-	padding: 4em 100px 3em 100px;
-	background: #FFF;
+    overflow: hidden;
+    width: 1000px;
+    margin-top: 3em;
+    padding: 4em 100px 3em 100px;
+    background: #FFF;
 }
 
 
 #welcome h2
 {
-	padding-bottom: 1em;
-	font-size: 1.8em;
-	font-weight: 400;
+    padding-bottom: 1em;
+    font-size: 1.8em;
+    font-weight: 400;
 }
 
 /*********************************************************************************/
@@ -576,10 +576,10 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 
 #page
 {
-	overflow: hidden;
-	width: 1000px;
-	padding: 7em 100px 3em 100px;
-	background: #FFF;
+    overflow: hidden;
+    width: 1000px;
+    padding: 7em 100px 3em 100px;
+    background: #FFF;
 }
 
 #page .boxA,
@@ -594,36 +594,36 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 
 #page .box
 {
-	margin-bottom: 4em;
+    margin-bottom: 4em;
 }
 
 #page img
 {
-	margin-bottom: 2em;
+    margin-bottom: 2em;
 }
 
 #page h2
 {
-	padding-bottom: 1.5em;
-	font-size: 2.2em;
-	font-weight: 600;
+    padding-bottom: 1.5em;
+    font-size: 2.2em;
+    font-weight: 600;
 }
 
 #page h3
 {
-	padding-bottom: 1em;
-	font-size: 1.8em;
-	font-weight: 400;
+    padding-bottom: 1em;
+    font-size: 1.8em;
+    font-weight: 400;
 }
 
 #page .link
 {
-	display: block;
-	padding-top: 1em;
-	text-transform: uppercase;
-	text-decoration: none;
-	font-weight: 700;
-	color: rgba(0,0,0,0.8);
+    display: block;
+    padding-top: 1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 700;
+    color: rgba(0,0,0,0.8);
 }
 
 /*********************************************************************************/
@@ -648,9 +648,9 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 
 #footer
 {
-	overflow: hidden;
-	padding: 5em 0em 3em 0em;
-	border-top: 1px solid rgba(0,0,0,0.08);
+    overflow: hidden;
+    padding: 5em 0em 3em 0em;
+    border-top: 1px solid rgba(0,0,0,0.08);
 }
 
 
@@ -660,37 +660,37 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 
 #copyright
 {
-	overflow: hidden;
-	padding: 5em 0em;
-	border-top: 1px solid rgba(0,0,0,0.08);
+    overflow: hidden;
+    padding: 5em 0em;
+    border-top: 1px solid rgba(0,0,0,0.08);
 }
 
 #copyright p
 {
-	letter-spacing: 0.20em;
-	text-align: center;
-	text-transform: uppercase;
-	font-size: 0.80em;
-	color: rgba(255,255,255,0.3);
+    letter-spacing: 0.20em;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.80em;
+    color: rgba(255,255,255,0.3);
 }
 
 #copyright a
 {
-	text-decoration: none;
-	color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    color: rgba(255,255,255,0.6);
 }
 
 
 
 
 .trail{
-	width: 90%;
-	height: 400px;
-	background-color: black;
+    width: 90%;
+    height: 400px;
+    background-color: black;
 
 }
 #revcontainer{
-	background-color: black;
-	margin: 15px;
+    background-color: black;
+    margin: 15px;
 }
 </style>
