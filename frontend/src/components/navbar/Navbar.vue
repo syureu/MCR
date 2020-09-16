@@ -25,6 +25,7 @@
         </div>
         <div v-else>
                     <a href="#" @click="changeMypage">My page</a>
+                    <a href="#" @click="logout">로그아웃</a>
 
         </div>
       </nav>      
@@ -50,6 +51,9 @@ export default {
     },
 
     methods:{
+      logout(){
+        this.$store.logout()
+      },
       changeMypage(){
         this.$router.push({name:'Mypage'})
       },
