@@ -67,28 +67,27 @@
 		<div class="box">
 			<img src="../../assets/images/img02.jpg" width="320" height="180" alt="" />
 			<h3>Mauris vulputate  </h3>
+
+		
+
 			<p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-			<a href="#" class="button">Read More</a>
 		</div>
 		<div class="box">
 			<img src="../../assets/images/img05.jpg" width="320" height="180" alt="" />
 			<h3>Praesent scelerisque</h3>
 			<p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-			<a href="#" class="button">Read More</a>
 		</div>
 	</div>
 	<div class="boxB">
 		<div class="box">
-			<img src="../../assets/images/img03.jpg" width="320" height="180" alt="" />
-			<h3>Donec dictum metus</h3>
+			<img src="../../assets/images/img03.jpg" width="320" height="180" alt="">
+			<h3 >Donec dictum metus</h3>
 			<p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-			<a href="#" class="button">Read More</a>
 		</div>
 		<div class="box">
 			<img src="../../assets/images/img06.jpg" width="320" height="180" alt="" />
 			<h3>Nulla luctus eleifend</h3>
 			<p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-			<a href="#" class="button">Read More</a>
 		</div>
 	</div>
 	<div class="boxC">
@@ -96,13 +95,11 @@
 			<img src="../../assets/images/img04.jpg" width="320" height="180" alt="" />
 			<h3>Integer gravida nibh</h3>
 			<p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-			<a href="#" class="button">Read More</a>
 		</div>
 		<div class="box">
 			<img src="../../assets/images/img07.jpg" width="320" height="180" alt="" />
 			<h3>Fusce ultrices fringilla</h3>
 			<p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-			<a href="#" class="button">Read More</a>
 		</div>
 	</div>
 	
@@ -120,7 +117,7 @@
     height: 480px;
     width: 640px;
   "
-  :words="[['romance', 19], ['horror', 3], ['fantasy', 7], ['adventure', 3]]"
+  :words="[['정말 재미있습니다 good good food good', 19], ['정말 재미있습니다 good good food good', 3], ['정말 재미있습니다 good good food good', 7], ['adventure', 3], ['정말 재미있습니다 good good', 19]]"
   :color="([, weight]) => weight > 10 ? 'DeepPink' : weight > 5 ? 'RoyalBlue' : 'Indigo'"
   font-family="Roboto"
 />
@@ -176,6 +173,9 @@ export default {
 		} )
 		
 	
+	},
+	methods: {
+		
 	},
 }
 </script>
