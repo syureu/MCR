@@ -22,9 +22,9 @@ export default {
 <style>
 .tab {
     display: inline-block;
-  border-radius: 4px;
   background-color: black;
-  border: none;
+  border: 0;
+  outline: 0;
   color: #FFFFFF;
   text-align: center;
   font-size: 15px;
@@ -42,6 +42,10 @@ export default {
   transition: 0.5s;
 }
 
+.tab:focus{
+  border: 0;
+  outline: 0;
+}
 
 .tab:hover {
   background: black;
