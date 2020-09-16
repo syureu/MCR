@@ -1,26 +1,28 @@
 package com.ssafy.mcr.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.mcr.dao.DaumActorDao;
-import com.ssafy.mcr.dto.DaumActor;
+import com.ssafy.mcr.dao.DaumReviewDao;
+import com.ssafy.mcr.dto.DaumReview;
 
 @Service
-public class DaumReviewServiceImpl implements DaumActorService{
+public class DaumReviewServiceImpl implements DaumReviewService{
 
 	@Autowired
-	DaumActorDao daumActorDao;
-	
+	DaumReviewDao daumReviewDao;
+
 	@Override
-	public void addDaumActor(DaumActor daumActor) {
-		daumActorDao.insertDaumActor(daumActor);
+	public void addDaumReview(DaumReview daumReview) {
+		daumReviewDao.insertDaumReview(daumReview);
 	}
 
 	@Override
-	public DaumActor getDaumActorBypersonId(int personId) {
-		return daumActorDao.selectDaumActorBypersonId(personId);
+	public List<DaumReview> getDaumReviewsByMovieId(int movieId) {
+		return daumReviewDao.selectDaumReviewsByMovieId(movieId);
 	}
 
 }
