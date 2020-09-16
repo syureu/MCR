@@ -52,7 +52,9 @@ export default {
 
     methods:{
       logout(){
-        this.$store.logout()
+        this.$session.remove('jwstoken')
+        this.$store.commit('logout')
+        this.$router.go()
       },
       changeMypage(){
         this.$router.push({name:'Mypage'})
