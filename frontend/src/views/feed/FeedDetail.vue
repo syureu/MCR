@@ -11,7 +11,7 @@
 			<div style="background-color: red; width :50%" class="inline-div countsort pt-3 mt-4">
 				<iframe wmode="Opaque" class="p-3 video " width="1560" height="315" :src="trailerURL1" frameborder="0" allow="autoplay;  encrypted-media" allowfullscreen></iframe>
 			</div>
-			<div class="inline-div pl-3 ml-3" style="height : 100%; width: auto; position : absolute;">
+			<div class="inline-div pl-3 ml-3" style="height : 300px; width: auto; position : absolute;">
 				<div class="example">
 					<div class="tabs" >
 					<TabItem
@@ -60,51 +60,17 @@
 	</div>
 <div class="container">
 	<div class="title">
-		<h2>출연</h2>
+		<h2 style="color: white;">출연</h2>
 		<hr style="background-color:white;">	
 	</div>
-	<div class="boxA">
-		<div class="box">
-			<img src="../../assets/images/img02.jpg" width="320" height="180" alt="" />
-			<h3>Mauris vulputate  </h3>
-			<p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-			<a href="#" class="button">Read More</a>
-		</div>
-		<div class="box">
-			<img src="../../assets/images/img05.jpg" width="320" height="180" alt="" />
-			<h3>Praesent scelerisque</h3>
-			<p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-			<a href="#" class="button">Read More</a>
+	<div class="boxA" v-for="actor in actorList" :key="actor.personId">
+		<div class="box" >
+			<img :src="actor.imgurl" width="180" height="180" alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
+			<h3 style="color: white;"> {{ actor.actorName }}  </h3>
+			<p style="color: grey;"> {{ actor.role }} 역</p>
 		</div>
 	</div>
-	<div class="boxB">
-		<div class="box">
-			<img src="../../assets/images/img03.jpg" width="320" height="180" alt="" />
-			<h3>Donec dictum metus</h3>
-			<p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-			<a href="#" class="button">Read More</a>
-		</div>
-		<div class="box">
-			<img src="../../assets/images/img06.jpg" width="320" height="180" alt="" />
-			<h3>Nulla luctus eleifend</h3>
-			<p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-			<a href="#" class="button">Read More</a>
-		</div>
-	</div>
-	<div class="boxC">
-		<div class="box">
-			<img src="../../assets/images/img04.jpg" width="320" height="180" alt="" />
-			<h3>Integer gravida nibh</h3>
-			<p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-			<a href="#" class="button">Read More</a>
-		</div>
-		<div class="box">
-			<img src="../../assets/images/img07.jpg" width="320" height="180" alt="" />
-			<h3>Fusce ultrices fringilla</h3>
-			<p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-			<a href="#" class="button">Read More</a>
-		</div>
-	</div>
+	
 	
 </div>
 <div id="revcontainer" >
@@ -145,15 +111,22 @@ export default {
   },
   data() {
       return {
+		title: '기생충',
 		trailerURL1 : "",
 		trailerURL2 : "",
 		currentId: 1,
-      list: [
-        { id: 1, label: '영화정보', content: '콘텐츠1' },
-        { id: 2, label: '줄거리', content: '콘텐츠2' },
-        { id: 3, label: '포토', content: '콘텐츠3' }
-      ]
-      }
+		list: [
+			{ id: 1, label: '영화정보', content: '콘텐츠1' },
+			{ id: 2, label: '줄거리', content: '콘텐츠2' },
+			{ id: 3, label: '포토', content: '콘텐츠3' }
+		],
+		actorList: [
+			{ actorName: '송강호', role: '기태', personId: '561', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fmovie%2F1ca37a29af263c233bcba1f467327895185f0b31'},
+			{ actorName: '이선균', role: '동익', personId: '14959', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2Fb066cbec9fe6d2268b3b89d129a731695a72c65e'},
+			{ actorName: '조여정', role: '연교', personId: '96410', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F26599548532B92372E2A19'},
+			{ actorName: '최우식', role: '기우', personId: '259139', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2F64c561c864938fda5f2b605b25f562e5d9996a3a'},
+		],
+		}
 	},
 	computed: {
     current() {
@@ -169,7 +142,7 @@ export default {
 		// 'https://www.youtube.com/embed/isOGD_7hNIY'
 		this.trailerURL1 = 'https://www.youtube.com/embed/'
 
-		movieTrailer( '설국열차', ( error, response ) => { 
+		movieTrailer( this.title , ( error, response ) => { 
 			
 			this.trailerURL1 = this.trailerURL1 + response.substr(32) 
 		
@@ -434,7 +407,7 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 .box3,
 .box4
 {
-	width: 235px;
+	width: 200px;
 }
 
 .box1,

@@ -37,7 +37,7 @@ export default [
     }, 
     {
         path : '/ActorDetail/:personId',
-        name : '/ActorDetail',
+        name : 'ActorDetail',
         component : ActorDetail
     },
     {
