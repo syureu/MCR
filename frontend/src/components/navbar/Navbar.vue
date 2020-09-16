@@ -18,10 +18,14 @@
         </div>
       </nav>
       <nav class="sub-nav">
-        <div v-if="!isLogin">
+        <div v-if="!isLoggedIn">
         <!-- <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a> -->
         <a href="#" @click="changeLogin">로그인</a>
         <a href="#" @click="signup">회원가입</a>
+        </div>
+        <div v-else>
+                    <a href="#" @click="changeMypage">My page</a>
+
         </div>
       </nav>      
     </div>
@@ -36,10 +40,19 @@ export default {
     data(){
       return {
         loginModal : false,
-        isLogin :false
       }
 
-    },methods:{
+    },
+    computed: {
+      isLoggedIn() {
+          return this.$store.getters.isLoggedIn
+      }
+    },
+
+    methods:{
+      changeMypage(){
+        this.$router.push({name:'Mypage'})
+      },
       signup(){
         this.$router.push({name:'Signup'})
       },

@@ -4,7 +4,7 @@ import Signup from './views/user/Signup.vue'
 import Qna from './views/qna/Qna.vue'
 import Home from './views/home.vue'
 import ActorDetail from './views/actor/ActorDetail.vue'
-
+import Mypage from './views/user/Mypage.vue'
 export default [
  
     // {
@@ -39,7 +39,11 @@ export default [
         path : '/ActorDetail/:personId',
         name : '/ActorDetail',
         component : ActorDetail
+    },
+    {
+        path : '/Mypage',
+        name : '/Mypage',
+        component : Mypage
     }
-
   
 ]
