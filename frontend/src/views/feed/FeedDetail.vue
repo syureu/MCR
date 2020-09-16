@@ -8,7 +8,7 @@
         <hr>
         <hr>
         <div class="trail pl-5 ml-5">
-            <div style="background-color: red; width :50%" class="inline-div countsort pt-3 mt-4">
+            <div style="background-color: gray; width :50%" class="inline-div countsort pt-3 mt-4">
                 <iframe wmode="Opaque" class="p-3 video " width="1560" height="315" :src="trailerURL1" frameborder="0" allow="autoplay;  encrypted-media" allowfullscreen></iframe>
             </div>
             <div class="inline-div pl-3 ml-3" style="height : 300px; width: auto; position : absolute;">
@@ -170,7 +170,7 @@ div {
   overflow:hidden;
     height:auto;
   transition: all 0.8s ease;
-  background-color: red;
+  background-color: gray;
 }
 /* 트랜지션 전용 스타일 */
 .v-leave-active {
