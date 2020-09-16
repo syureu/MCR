@@ -16,7 +16,8 @@
 					movie_opening_date,
 					running_time,
 					overview,
-					img_url
+					img_url,
+					nation
 				)
 				select	#{movieName},
 						#{movieNameEn},
@@ -26,7 +27,8 @@
 						#{movieOpeningDate},
 						#{runningTime},
 						#{overview},
-						#{imgUrl}
+						#{imgUrl},
+						#{nation}
 				FROM dual
             WHERE NOT EXISTS (
                     	SELECT movie_name,
@@ -37,7 +39,8 @@
 							   movie_opening_date,
 							   running_time,
 							   overview,
-							   img_url
+							   img_url,
+							   nation
                  FROM daum_movie
                  WHERE movie_id = #{movieId}
             )

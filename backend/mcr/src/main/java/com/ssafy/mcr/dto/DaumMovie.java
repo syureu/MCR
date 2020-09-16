@@ -10,6 +10,13 @@ public class DaumMovie {
 	private String runningTime;
 	private String overview;
 	private String imgUrl;
+	private String nation;
+	public String getNation() {
+		return nation;
+	}
+	public void setNation(String nation) {
+		this.nation = nation;
+	}
 	public String getImgUrl() {
 		return imgUrl;
 	}
@@ -68,6 +75,7 @@ public class DaumMovie {
 	public String toString() {
 		return "DaumMovie [movieName=" + movieName + ", movieNameEn=" + movieNameEn + ", movieId=" + movieId + ", rate="
 				+ rate + ", genre=" + genre + ", movieOpeningDate=" + movieOpeningDate + ", runningTime=" + runningTime
-				+ ", overview=" + overview + ", imgUrl=" + imgUrl + "]";
+				+ ", overview=" + overview + ", imgUrl=" + imgUrl + ", nation=" + nation + "]";
 	}
+	
 }

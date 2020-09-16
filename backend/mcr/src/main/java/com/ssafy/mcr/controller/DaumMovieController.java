@@ -81,6 +81,7 @@ public class DaumMovieController {
 				movie.setMovieId(i);
 				movie.setOverview(doc.select("div.desc_movie p").text());
 				movie.setGenre(doc.select("dl.list_movie dd.txt_main").get(0).text());
+				movie.setNation(doc.select("dl.list_movie dd").get(1).text());
 				Elements es = doc.select("dl.list_movie.list_main dd");
 				for(Element e : es) {
 					String str = e.text();
@@ -107,7 +108,7 @@ public class DaumMovieController {
 						}
 					}
 				}
-				System.out.println(movie.toString());
+//				System.out.println(movie.toString());
 				daumMovieService.addDaumMovie(movie);
 			}catch (Exception e) {
 				continue;
