@@ -4,12 +4,14 @@
         <br>
 
         <div class="location" id="home">
-            <MovieItemList :name="title" :movies="LikeMovie"/>
+            <MovieItemList :name="recommandMovie.title" :movies="recommandMovie.Movie"/>
         </div>
     </div>
 </template>
 <script>
 import MovieItemList from '@/components/Movie/MovieItemList.vue'
+import axios from 'axios'
+import URL from '@/util/http-common.js'
 
 export default {
     name : 'Home',
@@ -18,6 +20,12 @@ export default {
     },
     data(){
         return {
+            
+            recommandMovie:{
+                title:"",
+                Movie:[],
+
+            },
             LikeMovie:[
                 {
                     "Imgsrc":"https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p2.PNG?raw=true",
@@ -41,7 +49,31 @@ export default {
     },
     methods:{
 
-    }
+    },
+    computed:{
+        isLoggedIn() {
+            return this.$store.getters.isLoggedIn
+        }
+    },
+    created(){
+        axios.get(`${URL.BASE_URL}/mcr/recommend/`)
+            .then(res => {
+                this.recommandMovie.title= res.data.recommendMent
+                this.recommandMovie.Movie = res.data.list
+                this.recommandMovie.Movie.forEach( Movie=> {
+                    Movie.follow = false
+                if(Movie.posterPath===null)
+                    Movie.posterPath="@/assets/logo.png"
+              })
+                console.log(res)
+        
+      })
+      .catch(err => {
+        alert(err)
+      })
+    },
+
+    
 }
 </script>
 <style scoped>

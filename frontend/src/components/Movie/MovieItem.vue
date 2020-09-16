@@ -1,13 +1,14 @@
 <template>
         <div id="movies">
-          <a href=""><img :src="movie.Imgsrc" @mouseup="showchooseBox" @click="changeDeatil"/></a>
+          
+          <a href=""><img :src="movie.posterPath" @mouseup="showchooseBox" alt="영화 이미지" @click="changeDeatil"/></a>
         <div class="choosebox">
-            <i v-if="movie.isFollwing" class="far fa-heart" @click="follow" ></i>
+            <i v-if="!movie.follow" class="far fa-heart" @click="follow" ></i>
             <i v-else class="fas fa-heart"></i>
             <i class="far fa-thumbs-down" style="margin-left:10px"></i>
-            <label for="toggle" />
+            <!-- <label for="toggle" />
             <i class="fas fa-bars" id="toggle"></i>
-            
+             -->
         </div>
         </div>
 </template>
