@@ -33,6 +33,10 @@ public class RecommendService {
 
     public RecommendListV1 selectRecommend() {
         List<RecommendV1> list = recommendDao.selectRecommendV1();
-        return new RecommendListV1(recommendMent.get((int)(Math.random()*recommendMent.size())), list);
+        list.forEach(v -> {
+            if (v.getPosterPath() != null)
+                v.setPosterPath("https://image.tmdb.org/t/p/original" + v.getPosterPath());
+        });
+        return new RecommendListV1(recommendMent.get((int) (Math.random() * recommendMent.size())), list);
     }
 }
