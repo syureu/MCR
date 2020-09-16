@@ -1,7 +1,7 @@
 <template>
         <div id="movies">
           
-          <a href=""><img :src="movie.posterPath" @mouseup="showchooseBox" alt="영화 이미지" @click="changeDeatil"/></a>
+          <a href=""><img :src="movie.posterPath" width="300px" height="200px" @mouseup="showchooseBox" alt="영화 이미지" @click="changeDeatil"/></a>
         <div class="choosebox">
             <i v-if="!movie.follow" class="far fa-heart" @click="follow" ></i>
             <i v-else class="fas fa-heart"></i>
@@ -27,14 +27,14 @@ export default {
     },
     methods:{
         follow(){
-          this.movie.isFollwing=!this.movie.isFollwing
+          this.movie.follow=!this.movie.follow
         },
         showchooseBox(){
           this.showbox = !this.showbox
 
       },
         changeDeatil(){
-            this.$router.push(`/detailfeed/${this.movie.No}`)
+            this.$router.push(`/feedDetail/${this.movie.no}`)
         }
     }
 }
