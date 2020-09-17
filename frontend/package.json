@@ -23,6 +23,7 @@
     "vue-router": "^3.4.3",
     "vue-session": "^1.0.0",
     "vue-star-rating": "^1.6.1",
+    "vue-wordcloud": "^1.1.1",
     "vuejs-paginate": "^2.1.0",
     "vuejs-paginator": "^2.0.2",
     "vuewordcloud": "^18.7.12",

@@ -1,6 +1,17 @@
 <template>
     <div id ="revListcontainer">
-    
+        <div stlye="width:250px; height:250px;">
+        <wordcloud
+      :data="defaultWords"
+      nameKey="content"
+      valueKey="rate"
+      :color="myColors"
+      :showTooltip="true"
+      
+      >
+      </wordcloud>
+      </div>
+
         <div id ="positiveRev"> 
             <div class = "revitem" v-for="review in paginatedData" :key="review.writer" >
                 <div>
@@ -70,11 +81,12 @@
 import axios from 'axios'
 import StarRating from 'vue-star-rating';
 import HTTP from "@/util/http-common.js"
-
+import wordcloud from 'vue-wordcloud'
 
 export default {
     components: {
-        StarRating
+        StarRating,
+        wordcloud,
     },
     props: ['movieNo']
     ,
@@ -89,8 +101,9 @@ export default {
             pageNum1: 0,
             pageSize1: 5,
             positiveList: [],
-
+            defaultWords: [],
             negativeList: [],
+            myColors: ['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef'],
         }
     },
     computed: {
@@ -154,6 +167,11 @@ export default {
             }
             this.positiveList = res.data.object
             console.log(this.positiveList)
+            for (var i = this.positiveList.length-1; i >0; i--){
+                this.defaultWords.push(this.positiveList[i])
+                
+            }
+            console.log(this.words)
         })
 
         axios.get(`${HTTP.BASE_URL}/mcr/daumreview/neg`,
@@ -257,5 +275,9 @@ export default {
     display: inline-block;
     overflow:hidden;
     text-overflow:ellipsis;
+}
+svg{
+    width:150px;
+    height:150px;
 }
 </style>
