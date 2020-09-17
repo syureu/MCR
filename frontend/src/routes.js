@@ -42,7 +42,7 @@ export default [
     },
     {
         path : '/Mypage',
-        name : '/Mypage',
+        name : 'Mypage',
         component : Mypage
     }
   

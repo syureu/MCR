@@ -2,43 +2,61 @@
     <div id ="revListcontainer">
     
         <div id ="positiveRev"> 
-            <div class = "revitem" v-for="review in rowsInPage" :key="review.name" >
+            <div class = "revitem" v-for="review in paginatedData" :key="review.writer" >
                 <div>
                 <div class ="revName">
-                    {{ review.name }} 
+                    {{ review.writer }} 
                 </div>    
-                    <StarRating class="starR" v-model="review.score" v-bind:max-rating="10" :star-size="starsize" :show-rating="F" :read-only="true"/> {{ review.score}} / 10
+                    <StarRating class="starR" v-model="review.rate" v-bind:max-rating="10" :star-size="starsize" :show-rating="F" :read-only="true"/> {{ review.rate }} / 10
                 
                 </div>
                 <br>
                 <div class="revContent">
                     {{ review.content }}
                 </div>
+                <br>
+                <div class="revDate">
+                    {{ review.regtime }}
+                </div>
             </div>
-            <div class="w3-bar" id="paginator">
-            <a class="w3-button" @click="previous">&laquo;</a>
-            <a v-for="pNum in pageRange" :key="pNum" v-text="pNum" class="w3-button" @click="getPage"/>
-            <a class="w3-button" @click="next">&raquo;</a>
-            </div>
+            <div class="btn-cover">
+      <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+        이전
+      </button>
+      <span class="page-count">{{ pageNum + 1 }} / {{ pageCount }} 페이지</span>
+      <button :disabled="pageNum >= pageCount - 1" @click="nextPage" class="page-btn">
+        다음
+      </button>
+    </div>
+
+
         </div>
         
         <div id ="negativeRev">
-            <div class = "revitem" v-for="review in rowsInPage1" :key="review.name">
+            <div class = "revitem" v-for="review in paginatedData1" :key="review.writer">
                 <div>
                 <div class ="revName">
-                    {{ review.name }}
-                </div> <StarRating class="starR" v-model="review.score" v-bind:max-rating="10" :star-size="starsize" :show-rating="F" :read-only="true"/> {{ review.score }} / 10
+                    {{ review.writer }}
+                </div> <StarRating class="starR" v-model="review.rate" v-bind:max-rating="10" :star-size="starsize" :show-rating="F" :read-only="true"/> {{ review.rate }} / 10
                 </div>
                 <br>
-                <div>
+                <div class ="revContent">
                     {{ review.content }}
                 </div>
+                <br>
+                <div class="revDate">
+                    {{ review.regtime }}
+                </div>
             </div>
-            <div class="w3-bar" id="paginator1">
-            <a class="w3-button" @click="previous1">&laquo;</a>
-            <a v-for="pNum1 in pageRange1" :key="pNum1" v-text="pNum1" class="w3-button" @click="getPage1"/>
-            <a class="w3-button" @click="next1">&raquo;</a>
-            </div>
+            <div class="btn-cover">
+      <button :disabled="pageNum1 === 0" @click="prevPage1" class="page-btn">
+        이전
+      </button>
+      <span class="page-count">{{ pageNum1 + 1 }} / {{ pageCount1 }} 페이지</span>
+      <button :disabled="pageNum1 >= pageCount1 - 1" @click="nextPage1" class="page-btn">
+        다음
+      </button>
+    </div>
         </div>
         <div id="checkdiv">
 
@@ -46,168 +64,130 @@
     </div>
 </template>
 
+
 <script>
 
-
+import axios from 'axios'
 import StarRating from 'vue-star-rating';
+import HTTP from "@/util/http-common.js"
+
+
 export default {
     components: {
         StarRating
     },
+    props: ['movieNo']
+    ,
     data() {
         return {
             F: false,
             starsize: 20,
-            rowPerPage: 5,
-            rowPerPage1: 5,
-            pageNow1: 1,
-            range1: 5,
-            dummy1: null,
-            beforeIndex1: 1,
-            pageNow : 1,
-            range: 5,
-            dummy: null,
-            beforeIndex: 1,
-            positiveList: [
-                {name: '박지훈' , content: '정말 재미있는 영화 입니다.', score: 7},
-                {name: '아이유' , content: '정말 재미있는 영화 입니다.', score: 9},
-                {name: '수지' , content: '정말 재미있는 영화 입니다.', score: 7},
-                {name: '박보검' , content: '정말 재미있는 영화 입니다.', score: 7},
-                {name: '공유' , content: '정말 재미있는 영화 입니다.', score: 7},
-                {name: '김태희' , content: '정말 재미있는 영화 입니다.', score: 7},
-                {name: '송혜교' , content: '정말 재미있는 영화 입니다.', score: 7},
-                {name: '아무나' , content: '정말 재미있는 영화 입니다.', score: 7},
-                {name: '김철수' , content: '정말 재미있는 영화 입니다.', score: 7},
-                {name: '조재민' , content: '정말 재미있는 영화 입니다.', score: 7},
-                {name: '박현수' , content: '감동적인 영화 입니다. 시간 가는 줄 모르고 시청했습니다.', score: 10},
-                {name: '허진기' , content: '굿굿굿 베리굿 입니다.', score: 8}
-            ],
+            userno: "",
+            movieId: this.movieNo,
+            pageNum: 0,
+            pageSize: 5,
+            pageNum1: 0,
+            pageSize1: 5,
+            positiveList: [],
 
-            negativeList: [
-                {name: '박지훈' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈1' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈2' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈3' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈4' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈5' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈6' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈7' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈8' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈9' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈10' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈11' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈12' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈13' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈14' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈15' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박지훈16' , content: '정말 재미없는 영화 입니다.', score: 3},
-                {name: '박현수' , content: '감동도 없고 시간을 버리는 영화입니다.', score: 4},
-                {name: '허진기' , content: '밷밷밷 베리배드 입니다.' , score: 2}
-            ],
+            negativeList: [],
         }
     },
     computed: {
-        pageNumber() {
-            if (this.positiveList.length % this.rowPerPage > 0) {
-                return Math.floor(this.positiveList.length / this.rowPerPage) + 1
-            } else {
-                return Math.floor(this.positiveList.length / this.rowPerPage)
-            }
-        },
-        pageRange() {
-            return [...Array(this.pageNumber).keys()].map(key => key+1)
-        },
-        rowsInPage() {
-            return this.positiveList.slice((this.pageNow - 1) * this.rowPerPage, this.pageNow * this.rowPerPage)
-        },
-        rangeStart() {
-            return Math.floor(this.pageNow / this.range)
-        },
-        pageNumber1() {
-            if (this.negativeList.length % this.rowPerPage1 > 0) {
-                return Math.floor(this.negativeList.length / this.rowPerPage1) + 1
-            } else {
-                return Math.floor(this.negativeList.length / this.rowPerPage1)
-            }
-        },
-        pageRange1() {
-            return [...Array(this.pageNumber1).keys()].map(key => key+1)
-        },
-        rowsInPage1() {
-            return this.negativeList.slice((this.pageNow1 - 1) * this.rowPerPage1, this.pageNow1 * this.rowPerPage1)
-        },
-        rangeStart1() {
-            return Math.floor(this.pageNow1 / this.range1)
-        },
+        
+
+    pageCount () {
+      let listLeng = this.positiveList.length,
+          listSize = this.pageSize,
+          page = Math.floor(listLeng / listSize);
+      if (listLeng % listSize > 0) page += 1;
+      
+      /*
+      아니면 page = Math.floor((listLeng - 1) / listSize) + 1;
+      이런식으로 if 문 없이 고칠 수도 있다!
+      */
+      return page;
     },
-    methods: {
-        previous() {
-            if (this.pageNow - this.range >= 1) {
-                this.pageNow -= this.range
-            } else {
-                this.pageNow = 1
+    pageCount1 () {
+      let listLeng = this.negativeList.length,
+          listSize = this.pageSize1,
+          page = Math.floor(listLeng / listSize);
+      if (listLeng % listSize > 0) page += 1;
+      
+      /*
+      아니면 page = Math.floor((listLeng - 1) / listSize) + 1;
+      이런식으로 if 문 없이 고칠 수도 있다!
+      */
+      return page;
+    },
+    paginatedData () {
+      const start = this.pageNum * this.pageSize,
+            end = start + this.pageSize;
+      return this.positiveList.slice(start, end);
+    },
+    paginatedData1 () {
+      const start = this.pageNum1 * this.pageSize1,
+            end = start + this.pageSize1;
+      return this.negativeList.slice(start, end);
+    },
+    },
+    created() {
+        console.log(this.movieNo)
+        if(this.$store.getters.getUserData == null) {
+            this.userno = 0;
+        } else {
+            this.userno = this.$store.getters.getUserData.userinfo.userno
+        }
+        axios.get(`${HTTP.BASE_URL}/mcr/daumreview/pos`,
+            {
+                params: {movieId: this.movieId }
             }
-            this.checkIndex(this.pageNow)
-        },
-        next() {
-            if (this.pageNow + this.range > this.pageNumber) {
-                this.pageNow = this.pageNumber
-            } else {
-                this.pageNow += this.range
+        )
+        .then(res => {
+            if (res.data === 'fail') {
+                this.$router.push({
+                    name: 'Error',
+                    query: {
+                        status: 404
+                    }
+                })
             }
-            this.checkIndex(this.pageNow)
-        },
-        getPage(e) {
-            this.checkIndex(e.target.innerText)
-            this.pageNow = e.target.innerText
-        },
-        checkIndex(number) {
-            const indexList = document.querySelectorAll('#paginator a')
-            indexList[this.beforeIndex].setAttribute('style', '')
-            indexList[number].setAttribute('style', 'background-color: rgb(128,128,116); color: white;')
-            this.beforeIndex = number
+            this.positiveList = res.data.object
+            console.log(this.positiveList)
+        })
 
-            const pageStart = Math.floor(this.pageNow / this.range) + 1
-            if (pageStart + this.range - 1 > this.pageNumber) {
-                this.dummy = pageStart
-            } else {
-                this.pageRange
+        axios.get(`${HTTP.BASE_URL}/mcr/daumreview/neg`,
+            {
+                params: {movieId: this.movieId }
             }
-        },
+        )
+        .then(res => {
+            if (res.data === 'fail') {
+                this.$router.push({
+                    name: 'Error',
+                    query: {
+                        status: 404
+                    }
+                })
+            }
+            this.negativeList = res.data.object
+        })
 
-        previous1() {
-            if (this.pageNow1 - this.range1 >= 1) {
-                this.pageNow1 -= this.range1
-            } else {
-                this.pageNow1= 1
-            }
-            this.checkIndex1(this.pageNow1)
-        },
-        next1() {
-            if (this.pageNow1 + this.range1 > this.pageNumber1) {
-                this.pageNow1 = this.pageNumber1
-            } else {
-                this.pageNow1 += this.range1
-            }
-            this.checkIndex1(this.pageNow1)
-        },
-        getPage1(e) {
-            this.checkIndex1(e.target.innerText)
-            this.pageNow1 = e.target.innerText
-        },
-        checkIndex1(number1) {
-            const indexList1 = document.querySelectorAll('#paginator1 a')
-            indexList1[this.beforeIndex1].setAttribute('style', '')
-            indexList1[number1].setAttribute('style', 'background-color: rgb(128,128,116); color: white;')
-            this.beforeIndex1 = number1
+    },
 
-            const pageStart1 = Math.floor(this.pageNow1 / this.range1) + 1
-            if (pageStart1 + this.range1 - 1 > this.pageNumber1) {
-                this.dummy1 = pageStart1
-            } else {
-                this.pageRange1
-            }
-        },
+    methods: {    
+    nextPage () {
+      this.pageNum += 1;
+    },
+    prevPage () {
+      this.pageNum -= 1;
+    },
+    nextPage1 () {
+      this.pageNum1 += 1;
+    },
+    prevPage1 () {
+      this.pageNum1 -= 1;
+    },
     }
 }
 </script>
@@ -227,7 +207,6 @@ export default {
     #negativeRev{
         float: right;
         width: 48%;
-
         background-color: black;
     }
 
@@ -255,23 +234,28 @@ export default {
         border-bottom: 1px solid white;
         padding: 10px;
     }
-    .page-item{
-        margin-right: 5px;
-    }
 
-    .w3-bar{
-        margin-top: 50px;
-        text-align: center;
-    }
-
-    .w3-bar p {
-        display:inline-block;
-    }
-    .w3-bar a:hover{
-        background-color: white;
-        border-bottom: 1px solid white;
-    }
-    .w3-button{
-        margin-right: 10px;
-    }
+    .btn-cover {
+  margin-top: 1.5rem;
+  text-align: center;
+  
+}
+.btn-cover .page-btn {
+  width: 5rem;
+  height: 2rem;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+}
+.btn-cover .page-count {
+  padding: 0 1rem;
+}
+.revContent{
+    white-space: normal;
+    line-height: 1.2;
+    height: 3.6em;
+    width:95%;
+    display: inline-block;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
 </style>
