@@ -173,7 +173,7 @@ export default {
         }
 		axios.get(`${HTTP.BASE_URL}/mcr/daummovie` ,
 			{
-				params: { movieId: 1 }
+				params: { movieId: 42 }
 			}
 		)
 		.then(res => {
