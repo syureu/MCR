@@ -21,8 +21,18 @@ public class DaumReviewServiceImpl implements DaumReviewService{
 	}
 
 	@Override
-	public List<DaumReview> getDaumReviewsByMovieId(int movieId) {
-		return daumReviewDao.selectDaumReviewsByMovieId(movieId);
+	public List<DaumReview> getDaumPosReviewsByMovieId(int movieId) {
+		return daumReviewDao.selectDaumPosReviewsByMovieId(movieId);
+	}
+
+	@Override
+	public List<DaumReview> getDaumNagReviewsByMovieId(int movieId) {
+		return daumReviewDao.selectDaumNagReviewsByMovieId(movieId);
+	}
+	
+	@Override
+	public List<DaumReview> getAllDaumReviewsByMovieId(int movieId) {
+		return daumReviewDao.selectAllDaumReviewsByMovieId(movieId);
 	}
 
 }

@@ -1,18 +1,12 @@
 package com.ssafy.mcr.dto;
 
 public class DaumReview {
-	private int movie_id;
+	private int movieId;
 	private String writer;
 	private int rate;
 	private String content;
 	private String regtime;
-	private int daum_review_no;
-	public int getMovie_id() {
-		return movie_id;
-	}
-	public void setMovie_id(int movie_id) {
-		this.movie_id = movie_id;
-	}
+	private int daumReviewNo;
 	public String getWriter() {
 		return writer;
 	}
@@ -37,16 +31,22 @@ public class DaumReview {
 	public void setRegtime(String regtime) {
 		this.regtime = regtime;
 	}
-	public int getDaum_review_no() {
-		return daum_review_no;
+	public int getMovieId() {
+		return movieId;
 	}
-	public void setDaum_review_no(int daum_review_no) {
-		this.daum_review_no = daum_review_no;
+	public void setMovieId(int movieId) {
+		this.movieId = movieId;
+	}
+	public int getDaumReviewNo() {
+		return daumReviewNo;
+	}
+	public void setDaumReviewNo(int daumReviewNo) {
+		this.daumReviewNo = daumReviewNo;
 	}
 	@Override
 	public String toString() {
-		return "DaumReview [movie_id=" + movie_id + ", writer=" + writer + ", rate=" + rate + ", content=" + content
-				+ ", regtime=" + regtime + ", daum_review_no=" + daum_review_no + "]";
+		return "DaumReview [movieId=" + movieId + ", writer=" + writer + ", rate=" + rate + ", content=" + content
+				+ ", regtime=" + regtime + ", daumReviewNo=" + daumReviewNo + "]";
 	}
 	
 }

@@ -72,7 +72,7 @@ public class DaumMovieController {
 				movie.setImgUrl(doc.select("span.thumb_img img").attr("src"));
 				movie.setMovieName(doc.select("h2.tit_rel").text());
 				movie.setMovieNameEn(doc.select("span.txt_origin").text());
-				List<DaumReview> list = daumReviewService.getDaumReviewsByMovieId(i);
+				List<DaumReview> list = daumReviewService.getAllDaumReviewsByMovieId(i);
 				double rate = 0;
 				for(DaumReview review : list) {
 					rate += review.getRate();
@@ -108,7 +108,6 @@ public class DaumMovieController {
 						}
 					}
 				}
-//				System.out.println(movie.toString());
 				daumMovieService.addDaumMovie(movie);
 			}catch (Exception e) {
 				continue;

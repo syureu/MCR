@@ -14,7 +14,7 @@
 						content,
 						regtime
 				)
-				select	#{movie_id},
+				select	#{movieId},
 						#{writer},
 						#{rate},
 						#{content},
@@ -27,20 +27,37 @@
 						content,
 						regtime
                  FROM daum_review
-                 WHERE movie_id = #{movie_id}
+                 WHERE movie_id = #{movieId}
                  	AND writer = #{writer}
                  	AND regtime = #{regtime}
             )
 	</insert>
+
 	
-	<!-- id으로 select 처리 -->
-	<select id="selectDaumReviewsByMovieId" parameterType="Integer" resultType="DaumReview">
+	<select id="selectDaumPosReviewsByMovieId" parameterType="Integer" resultType="DaumReview">
 		select 
 			* 
 		  from 
 		  	daum_review 
 		 where 
-		 	movie_id = #{movie_id}
+		 	movie_id = #{movieId}
+		 	and rate >= 6
 	</select>
+	
+	<select id="selectDaumNagReviewsByMovieId" parameterType="Integer" resultType="DaumReview">
+		select *
+		from daum_review
+		where movie_id = #{movieId} and rate between 0 and 5
+	</select>
+	
+	<select id="selectAllDaumReviewsByMovieId" parameterType="Integer" resultType="DaumReview">
+		select 
+			* 
+		  from 
+		  	daum_review 
+		 where 
+		 	movie_id = #{movieId}
+	</select>
+
 </mapper>
 
