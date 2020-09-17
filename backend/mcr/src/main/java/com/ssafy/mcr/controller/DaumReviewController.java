@@ -82,7 +82,9 @@ public class DaumReviewController {
 	@ApiOperation(value="리뷰를 생성합니다.")
 	@PostMapping("/auto")
 	public void Crawling(int start, int end) throws IOException {
+		loop:
 		for(int i = start; i <= end; i++) {
+			int cnt = 0;
 			try {
 				System.out.println(i);
 				String URL = reviewURL + i + "&type=netizen&page=2000";
@@ -98,6 +100,9 @@ public class DaumReviewController {
 					doc = Jsoup.connect(URL).get();
 					Elements reviewInfos = doc.select("div.review_info");
 					for(Element e : reviewInfos) {
+						if(cnt == 100) {
+							continue loop;
+						}
 						DaumReview review = new DaumReview();
 						review.setMovieId(i);
 						review.setWriter(e.select("em.link_profile").text());
@@ -105,6 +110,7 @@ public class DaumReviewController {
 						review.setContent((e.select("p.desc_review").text()));
 						review.setRegtime((e.select("span.info_append").text()));
 						daumReviewService.addDaumReview(review);
+						cnt++;
 					}
 				}
 			}catch (Exception e) {
