@@ -2,9 +2,8 @@
     <div class="main-container">
         <br>
         <br>
-
         <div class="location" id="home">
-            <MovieItemList :name="recommandMovie.title" :movies="recommandMovie.Movie"/>
+            <MovieItemList :name="recommandMovie.title" :movies1="recommandMovie.Movie1" :movies2="recommandMovie.Movie2"/>
         </div>
     </div>
 </template>
@@ -23,7 +22,8 @@ export default {
             
             recommandMovie:{
                 title:"",
-                Movie:[],
+                Movie1:[],
+                Movie2:[],
 
             },
             LikeMovie:[
@@ -54,17 +54,39 @@ export default {
         isLoggedIn() {
             return this.$store.getters.isLoggedIn
         }
+        
     },
     created(){
         axios.get(`${URL.BASE_URL}/mcr/recommend/`)
             .then(res => {
                 this.recommandMovie.title= res.data.recommendMent
-                this.recommandMovie.Movie = res.data.list
-                this.recommandMovie.Movie.forEach( Movie=> {
-                    Movie.follow = false
-                if(Movie.posterPath===null)
-                    Movie.posterPath="@/assets/logo.png"
-              })
+                for(let i in res.data.list){
+                    if(i<5){
+                        if(res.data.list[i]["posterPath"]==null){
+                            res.data.list[i]["posterPath"]="https://lh3.googleusercontent.com/proxy/rLr6HPTpU3xktj1vwyVQZbTIb6W4uZbltlg0nIv-R9-tSm651mY8zxxRGowtL5ahjWa9q5xT91-lQ_NjnE4TySKxTh1Wvvppbv8-8Q";
+                        }
+                        this.recommandMovie.Movie1.push({
+                            "id":res.data.list[i]["id"],
+                            "posterPath":res.data.list[i]["posterPath"],
+                            "title":res.data.list[i]["title"]
+                        })
+                    }
+                   else{
+                        if(res.data.list[i]["posterPath"]==null){
+                            res.data.list[i]["posterPath"]="https://lh3.googleusercontent.com/proxy/rLr6HPTpU3xktj1vwyVQZbTIb6W4uZbltlg0nIv-R9-tSm651mY8zxxRGowtL5ahjWa9q5xT91-lQ_NjnE4TySKxTh1Wvvppbv8-8Q";
+                        }
+                        this.recommandMovie.Movie2.push({
+                            "id":res.data.list[i]["id"],
+                            "posterPath":res.data.list[i]["posterPath"],
+                            "title":res.data.list[i]["title"]
+                        })
+                    }
+                }
+            //     this.recommandMovie.Movie.forEach( Movie=> {
+            //         Movie.follow = false
+            //     if(Movie.posterPath===null)
+            //         Movie.posterPath="@/assets/logo.png"
+            //   })
                 console.log(res)
         
       })

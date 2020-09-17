@@ -1,15 +1,14 @@
 <template>
-        <div id="movies">
-          
-          <a href=""><img :src="movie.posterPath" width="300px" height="200px" @mouseup="showchooseBox" alt="영화 이미지" @click="changeDeatil"/></a>
-        <div class="choosebox">
+        <div class="col" >
+          <a href=""><img :src="movie.posterPath" class="d-block" style="width:300px" alt="영화 이미지" @click="changeDeatil"/></a>
+        <!-- <div class="choosebox">
             <i v-if="!movie.follow" class="far fa-heart" @click="follow" ></i>
             <i v-else class="fas fa-heart"></i>
             <i class="far fa-thumbs-down" style="margin-left:10px"></i>
-            <!-- <label for="toggle" />
+            <label for="toggle" />
             <i class="fas fa-bars" id="toggle"></i>
-             -->
-        </div>
+            
+        </div> -->
         </div>
 </template>
 <script>
@@ -49,7 +48,7 @@ export default {
 }
 a {
   transition: transform .3s; 
-  display:flex; 
+  /* display:flex;  */
 }
 #movies:hover {
   transition: transform .3s;
@@ -59,7 +58,7 @@ a {
 
 }
 img {
-  
+    display:inline-block;
   max-width: 100%;
   border-radius: 2px;
 }
