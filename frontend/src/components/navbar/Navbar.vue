@@ -57,7 +57,7 @@ export default {
         this.$router.go()
       },
       changeMypage(){
-        this.$router.push({name:'mypage'})
+        this.$router.push({name:'Mypage'})
       },
       signup(){
         this.$router.push({name:'Signup'})
@@ -76,6 +76,7 @@ export default {
   
 }
 .navbar{
+  height: 100px;
   padding: 20px 20px 0 20px;
   position: fixed;
   top: 0;
@@ -157,7 +158,7 @@ export default {
 .sub-nav a {
   color: white;
   text-decoration: none;
-  margin: 5px;
+  margin: 4px;
 }
 
 .sub-nav a:hover {
