@@ -91,7 +91,7 @@
 </div>
 <div id="revcontainer" >
 <reviewWrite />
-<reviewList />
+<reviewList :movieNo="this.movieDetail.movieId"/>
 </div>
 <div id="copyright" class="container">
     <p>&copy; Untitled. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
@@ -148,7 +148,8 @@ export default {
 		],
 		movieDetail: {
 			movieName: "",
-			movieId: "",
+            movieId: 1,
+            movieId2: 1,
 			rate : "",
 			genre: "",
 			movieOpeningDate: "",
@@ -169,11 +170,10 @@ export default {
             this.userno = 0;
         } else{
             this.userno = this.$store.getters.getUserData.userinfo.userNo
-            console.log(this.userno)
         }
 		axios.get(`${HTTP.BASE_URL}/mcr/daummovie` ,
 			{
-				params: { movieId: '42' }
+				params: { movieId: 1 }
 			}
 		)
 		.then(res => {
@@ -193,13 +193,14 @@ export default {
 			runningTime : res.data.object.runningTime,
 			overview: res.data.object.overview,
 			imgurl: res.data.object.imgUrl,
-			nation: res.data.object.nation,
-			}
+            nation: res.data.object.nation,
+            movieId: res.data.object.movieId,
+            }
 			const movieTrailer = require( 'movie-trailer' )
 			this.trailerURL1 = 'https://www.youtube.com/embed/'
 			movieTrailer( res.data.object.movieName , ( error, response) => {
 				this.trailerURL1 = this.trailerURL1 + response.substr(32)
-			})
+            })
 		})
 		.catch(err => {
 		//     this.$router.push({
@@ -210,10 +211,9 @@ export default {
         //     })	
 			console.log(err)
 		})
-
+        console.log(this.movieDetail.movieId)
         console.log(this.movieDetail.movieName)
         
-    
 	},
 }
 </script>
