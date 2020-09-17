@@ -71,6 +71,7 @@ export default {
           console.log(this.$store.getters.getUserData)
           console.log(this.$store.getters.getUserData.userinfo.birthday)
           this.modalclose()
+          location.reload()
         }
         else {
           alert('일치하는 회원정보가 없습니다.')
