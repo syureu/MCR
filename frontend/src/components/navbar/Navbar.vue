@@ -24,8 +24,8 @@
         <a href="#" @click="signup">회원가입</a>
         </div>
         <div v-else>
-                    <a href="#" @click="changeMypage">My page</a>
-                    <a href="#" @click="logout">로그아웃</a>
+                    <a  @click="changeMypage">마이페이지</a>
+                    <a  @click="logout">로그아웃</a>
 
         </div>
       </nav>      
@@ -57,7 +57,7 @@ export default {
         this.$router.go()
       },
       changeMypage(){
-        this.$router.push({name:'Mypage'})
+        this.$router.push({name:'mypage'})
       },
       signup(){
         this.$router.push({name:'Signup'})
@@ -72,6 +72,9 @@ export default {
 }
 </script>
 <style scoped>
+.logoutbox{
+  
+}
 .navbar{
   padding: 20px 20px 0 20px;
   position: fixed;
