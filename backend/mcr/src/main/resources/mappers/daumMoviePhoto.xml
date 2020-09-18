@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mappers/gueset.xml -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mcr.dao.DaumMoviePhotoDao">
+
+	<!-- insert 처리 -->
+	<insert id="insertDaumMoviePhoto" parameterType="DaumMoviePhoto">
+		insert into daum_movie_photo( 
+					photo_url,
+					movie_id
+				)
+				select	#{photoUrl},
+						#{movieId}
+				FROM dual
+            WHERE NOT EXISTS (
+                    	SELECT photo_url,
+							   movie_id
+                 FROM daum_movie_photo
+                 WHERE movie_id = #{movieId}
+            )
+	</insert>
+	
+	<!-- id으로 select 처리 -->
+	<select id="selectDaumMoviePhotoBymovieId" parameterType="Integer" resultType="DaumMoviePhoto">
+		select 
+			* 
+		  from 
+		  	daum_movie_photo
+		 where 
+		 	movie_id = #{movieId}
+	</select>
+</mapper>
+

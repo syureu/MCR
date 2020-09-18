@@ -65,27 +65,19 @@ public class DaumActorController {
 			String URL = ActorURL + i;
 				Document doc = Jsoup.connect(URL).get();
 				actor.setImgUrl(doc.select("img.thumb_g").attr("src"));
+				Elements summary = doc.select("div.movie_summary dl");
+				for(Element e : summary) {
+					if(e.select("dt").text().equals("직업")){
+						actor.setJob(e.select("dd").text());
+					}else if(e.select("dt").text().equals("출생")) {
+						actor.setBirth(e.select("dd").text());						
+					}else if(e.select("dt").text().equals("성별")) {
+						actor.setGender(e.select("dd").text());						
+					}
+				}
 				actor.setActorName(doc.select("strong.tit_movie").text());
 				actor.setActorNameEn(doc.select("span.txt_movie").text());
 				actor.setPersonId(i);
-				String job = "";
-				String birth = "";
-				String gender = "";
-				Elements profile = doc.select("dl.list_profile dd");
-				int cnt = 0;
-				for(Element e : profile) {
-					if(cnt == 0) {
-						job = e.text();				
-					}else if(cnt == 1){
-						birth = e.text();			
-					}else if(cnt == 2){
-						gender = e.text();			
-					}
-					cnt++;
-				}
-				actor.setJob(job);
-				actor.setBirth(birth);
-				actor.setGender(gender);
 				daumActorService.addDaumActor(actor);
 			}catch (Exception e) {
 				continue;

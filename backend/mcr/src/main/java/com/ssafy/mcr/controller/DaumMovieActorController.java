@@ -123,11 +123,11 @@ public class DaumMovieActorController {
 		System.out.println("영화인목록 검색 진입");
 		try {
 			list = daumMovieActorService.getDaumMovieActorBymovieId(movieId);
-			int cnt = 0;
+//			int cnt = 0;
 			for(DaumMovieActor ma : list) {
-				if(cnt == 2) {
-					break;
-				}
+//				if(cnt == 2) {
+//					break;
+//				}
 				DaumActor da = daumActorService.getDaumActorBypersonId(ma.getPersonId());
 				System.out.println(ma.getPersonId());
 				String actorName = da.getActorName();
@@ -136,7 +136,7 @@ public class DaumMovieActorController {
 				res.put("actorName", actorName);
 				res.put("imgUrl", imgUrl);
 				obj.add(res);
-				cnt++;
+//				cnt++;
 			}
 			result.status = true;
 			result.data = "success";
