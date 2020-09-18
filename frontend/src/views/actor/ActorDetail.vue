@@ -35,7 +35,8 @@
                 <div>출생 : {{ this.actorDetail.birth }}</div><br><br>
                 <div>성별 : {{ this.actorDetail.sex }}</div><br><br>
             </div>
-            <h1 style="color:white; clear:both;">{{ this.actorDetail.actorname }} 배우의 출연작</h1>
+            <h1 v-if="this.actorDetail.job=='영화감독'" style="color:white; clear:both;">{{ this.actorDetail.actorname }} {{this.actorDetail.job}}의 연출작</h1>
+            <h1 v-else style="color:white; clear:both;">{{ this.actorDetail.actorname }} 배우의 출연작</h1>
             <hr style="background-color:white;">
 
             <div id="actMovie" v-for="movie in movieInfo" :key="movie.name" >

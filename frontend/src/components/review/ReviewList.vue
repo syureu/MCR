@@ -1,17 +1,36 @@
 <template>
     <div id ="revListcontainer">
-        <div stlye="width:250px; height:250px;">
+        <div id="app">
+        <div class ="wordDiv" style="float:left;">
         <wordcloud
       :data="defaultWords"
       nameKey="content"
       valueKey="rate"
-      :color="myColors"
-      :showTooltip="true"
-      
+      spiral="rectangular"
+      :rotate="{from: 0, to:0, numOfOrientation: 0}"
+      fontScale="log"
+      :showTooltip="false"
+      :fontSize="[15, 15]"
+      :wordPadding="paddingNum"
       >
       </wordcloud>
       </div>
-
+        <div class ="wordDiv" style="float: right;">
+        <wordcloud
+      :data="defaultWords1"
+      nameKey="content"
+      valueKey="rate"
+      :showTooltip="false"
+      :fontSize="[15, 15]"
+      spiral="rectangular"
+      fontScale="log"
+      :rotate="{from: 0, to:0, numOfOrientation: 0}"
+      :wordPadding="paddingNum"
+      >
+      </wordcloud>
+      </div>
+      </div>
+      <div style="clear:both;"></div>
         <div id ="positiveRev"> 
             <div class = "revitem" v-for="review in paginatedData" :key="review.writer" >
                 <div>
@@ -84,6 +103,7 @@ import HTTP from "@/util/http-common.js"
 import wordcloud from 'vue-wordcloud'
 
 export default {
+    name: 'app',
     components: {
         StarRating,
         wordcloud,
@@ -92,6 +112,7 @@ export default {
     ,
     data() {
         return {
+            paddingNum: 5,
             F: false,
             starsize: 20,
             userno: "",
@@ -102,8 +123,9 @@ export default {
             pageSize1: 5,
             positiveList: [],
             defaultWords: [],
+            defaultWords1: [],
             negativeList: [],
-            myColors: ['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef'],
+            myColors: ['#1f77b4', '#CF11EE', '#EEEE11', '#c9e0ef', '#EE3811'],
         }
     },
     computed: {
@@ -167,11 +189,11 @@ export default {
             }
             this.positiveList = res.data.object
             console.log(this.positiveList)
-            for (var i = this.positiveList.length-1; i >0; i--){
+            for (var i = this.positiveList.length-1; i >=0; i--){
                 this.defaultWords.push(this.positiveList[i])
                 
             }
-            console.log(this.words)
+            console.log(this.defaultWords)
         })
 
         axios.get(`${HTTP.BASE_URL}/mcr/daumreview/neg`,
@@ -189,7 +211,18 @@ export default {
                 })
             }
             this.negativeList = res.data.object
+            for (var i = this.negativeList.length-1; i >=0; i--){
+                this.defaultWords1.push({
+                    "rate": this.negativeList[i]["rate"],
+                    "content": this.negativeList[i]["content"],
+                })
+                
+            }
+            for(var j = 0; j < this.defaultWords1.length; j++){
+                this.defaultWords1[j].rate = 10 - this.defaultWords1[j].rate
+            }
         })
+        
 
     },
 
@@ -276,8 +309,8 @@ export default {
     overflow:hidden;
     text-overflow:ellipsis;
 }
-svg{
-    width:150px;
-    height:150px;
+.wordDiv{
+    width:45%;
+    height:400px;
 }
 </style>

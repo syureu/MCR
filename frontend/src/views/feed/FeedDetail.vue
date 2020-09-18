@@ -81,9 +81,10 @@
     </div>
     <div class="boxA" v-for="actor in actorList" :key="actor.personId">
         <div class="box" >
-            <img :src="actor.imgurl" width="180" height="180" alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
+            <img :src="actor.imgUrl" width="180" height="180" alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
             <h3 style="color: white;"> {{ actor.actorName }}  </h3>
-            <p style="color: grey;"> {{ actor.role }} 역</p>
+            <p v-if="actor.casting=='감독'" style="color: grey;"> {{ actor.casting }}</p>
+            <p v-else style="color: grey;"> {{ actor.casting }}</p>
         </div>
     </div>
     
@@ -96,17 +97,7 @@
 <div id="copyright" class="container">
     <p>&copy; Untitled. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
 </div>
-
-<vue-word-cloud
-  style="
-    height: 480px;
-    width: 640px;
-  "
-  :words="[['romance', 19], ['horror', 3], ['fantasy', 7], ['adventure', 3]]"
-  :color="([, weight]) => weight > 10 ? 'DeepPink' : weight > 5 ? 'RoyalBlue' : 'Indigo'"
-  font-family="Roboto"
-/>
-  </div>
+</div>
 </template>
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/vuewordcloud"></script>
@@ -130,26 +121,19 @@ export default {
   },
   data() {
       return {
-        title: '기생충',
         trailerURL1 : "",
-        trailerURL2 : "",
-		currentId: 1,
-		userno: "",
+        userno: "",
+        currentId: 1,
         list: [
             { id: 1, label: '영화정보', content: '콘텐츠1' },
             { id: 2, label: '줄거리', content: '콘텐츠2' },
             { id: 3, label: '포토', content: '콘텐츠3' }
         ],
         actorList: [
-            { actorName: '송강호', role: '기태', personId: '561', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fmovie%2F1ca37a29af263c233bcba1f467327895185f0b31'},
-            { actorName: '이선균', role: '동익', personId: '14959', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2Fb066cbec9fe6d2268b3b89d129a731695a72c65e'},
-            { actorName: '조여정', role: '연교', personId: '96410', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F26599548532B92372E2A19'},
-            { actorName: '최우식', role: '기우', personId: '259139', imgurl: '//img1.daumcdn.net/thumb/C74x107/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fmovie%2F64c561c864938fda5f2b605b25f562e5d9996a3a'},
-		],
+        ],
 		movieDetail: {
 			movieName: "",
             movieId: 1,
-            movieId2: 1,
 			rate : "",
 			genre: "",
 			movieOpeningDate: "",
@@ -173,7 +157,7 @@ export default {
         }
 		axios.get(`${HTTP.BASE_URL}/mcr/daummovie` ,
 			{
-				params: { movieId: 42 }
+				params: { movieId: this.movieDetail.movieId }
 			}
 		)
 		.then(res => {
@@ -211,9 +195,26 @@ export default {
         //     })	
 			console.log(err)
 		})
-        console.log(this.movieDetail.movieId)
-        console.log(this.movieDetail.movieName)
         
+        axios.get(`${HTTP.BASE_URL}/mcr/daummovieactor/actorlist` ,
+			{
+				params: { movieId: this.movieDetail.movieId }
+			}
+		).then(res => {
+            if (res.data === 'fail') {
+				this.$router.push({
+					name: 'Error',
+					query: {
+						status: 404
+					}
+				})
+            }
+            console.log(res)
+            this.actorList = res.data.object
+            console.log(this.actorList)
+        }).catch(err => {
+            console.log(err)
+        })
 	},
 }
 </script>
