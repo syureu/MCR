@@ -15,7 +15,7 @@ export default [
 
 
     {
-        path : '/FeedDetail',
+        path : '/FeedDetail/:movieId',
         name : 'FeedDetail',
         component : FeedDetail
     },
