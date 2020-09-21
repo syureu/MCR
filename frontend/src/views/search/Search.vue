@@ -31,7 +31,7 @@ export default {
           this.Movie=res.data.object
           console.log(this.Movie)
           if(this.Movie==null){
-            this.isNull=false;
+            this.isNull=false
           }
         })
         .catch(err=>{
