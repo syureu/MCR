@@ -19,9 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f837a54d-3a8b-4a09-82bc-2ce3f13d7b0a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="f837a54d-3a8b-4a09-82bc-2ce3f13d7b0a" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -127,25 +125,25 @@
     </state>
     <state x="1538" y="-1000" key="FileChooserDialogImpl/0.0.1920.1040/2480.-540.2560.1400/-80.-1440.2560.1400@-80.-1440.2560.1400" timestamp="1600101301439" />
     <state x="4098" y="-100" key="FileChooserDialogImpl/0.0.1920.1040/2480.-540.2560.1400/-80.-1440.2560.1400@2480.-540.2560.1400" timestamp="1600322609303" />
-    <state width="1234" height="259" key="GridCell.Tab.0.bottom" timestamp="1600661720207">
+    <state width="1234" height="259" key="GridCell.Tab.0.bottom" timestamp="1600676806779">
       <screen x="-80" y="-1440" width="2560" height="1400" />
     </state>
-    <state width="1234" height="259" key="GridCell.Tab.0.bottom/0.0.1920.1040/2480.-540.2560.1400/-80.-1440.2560.1400@-80.-1440.2560.1400" timestamp="1600661720207" />
+    <state width="1234" height="259" key="GridCell.Tab.0.bottom/0.0.1920.1040/2480.-540.2560.1400/-80.-1440.2560.1400@-80.-1440.2560.1400" timestamp="1600676806779" />
     <state width="1234" height="258" key="GridCell.Tab.0.bottom/0.0.1920.1040/2480.-540.2560.1400/-80.-1440.2560.1400@2480.-540.2560.1400" timestamp="1600307905719" />
-    <state width="1234" height="259" key="GridCell.Tab.0.center" timestamp="1600661720207">
+    <state width="1234" height="259" key="GridCell.Tab.0.center" timestamp="1600676806779">
       <screen x="-80" y="-1440" width="2560" height="1400" />
     </state>
-    <state width="1234" height="259" key="GridCell.Tab.0.center/0.0.1920.1040/2480.-540.2560.1400/-80.-1440.2560.1400@-80.-1440.2560.1400" timestamp="1600661720207" />
+    <state width="1234" height="259" key="GridCell.Tab.0.center/0.0.1920.1040/2480.-540.2560.1400/-80.-1440.2560.1400@-80.-1440.2560.1400" timestamp="1600676806779" />
     <state width="1234" height="258" key="GridCell.Tab.0.center/0.0.1920.1040/2480.-540.2560.1400/-80.-1440.2560.1400@2480.-540.2560.1400" timestamp="1600307905718" />
-    <state width="1234" height="259" key="GridCell.Tab.0.left" timestamp="1600661720207">
+    <state width="1234" height="259" key="GridCell.Tab.0.left" timestamp="1600676806779">
       <screen x="-80" y="-1440" width="2560" height="1400" />
     </state>
-    <state width="1234" height="259" key="GridCell.Tab.0.left/0.0.1920.1040/2480.-540.2560.1400/-80.-1440.2560.1400@-80.-1440.2560.1400" timestamp="1600661720207" />
+    <state width="1234" height="259" key="GridCell.Tab.0.left/0.0.1920.1040/2480.-540.2560.1400/-80.-1440.2560.1400@-80.-1440.2560.1400" timestamp="1600676806779" />
     <state width="1234" height="258" key="GridCell.Tab.0.left/0.0.1920.1040/2480.-540.2560.1400/-80.-1440.2560.1400@2480.-540.2560.1400" timestamp="1600307905718" />
-    <state width="1234" height="259" key="GridCell.Tab.0.right" timestamp="1600661720207">
+    <state width="1234" height="259" key="GridCell.Tab.0.right" timestamp="1600676806779">
       <screen x="-80" y="-1440" width="2560" height="1400" />
     </state>
-    <state width="1234" height="259" key="GridCell.Tab.0.right/0.0.1920.1040/2480.-540.2560.1400/-80.-1440.2560.1400@-80.-1440.2560.1400" timestamp="1600661720207" />
+    <state width="1234" height="259" key="GridCell.Tab.0.right/0.0.1920.1040/2480.-540.2560.1400/-80.-1440.2560.1400@-80.-1440.2560.1400" timestamp="1600676806779" />
     <state width="1234" height="258" key="GridCell.Tab.0.right/0.0.1920.1040/2480.-540.2560.1400/-80.-1440.2560.1400@2480.-540.2560.1400" timestamp="1600307905718" />
     <state x="1320" y="-1166" key="SettingsEditor" timestamp="1600101305437">
       <screen x="-80" y="-1440" width="2560" height="1400" />
