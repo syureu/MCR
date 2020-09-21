@@ -3,6 +3,7 @@ package com.ssafy.mcr.service;
 import com.ssafy.mcr.dao.RecommendDao;
 import com.ssafy.mcr.dto.RecommendListV1;
 import com.ssafy.mcr.dto.RecommendV1;
+import com.ssafy.mcr.recommend.Recommend;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,10 +13,13 @@ import java.util.List;
 public class RecommendService {
 
     RecommendDao recommendDao;
+    Recommend recommend;
     List<String> recommendMent;
 
-    public RecommendService(final RecommendDao recommendDao) {
+    public RecommendService(final RecommendDao recommendDao, final Recommend recommend) {
         this.recommendDao = recommendDao;
+        this.recommend = recommend;
+
         recommendMent = new ArrayList<>();
         recommendMent.add("Science Fiction 장르의 인기");
         recommendMent.add("Comedy 장르의 인기");
@@ -32,6 +36,7 @@ public class RecommendService {
     }
 
     public RecommendListV1 selectRecommend() {
+        recommend.simpleRecommend("");
         List<RecommendV1> list = recommendDao.selectRecommendV1();
         list.forEach(v -> {
             if (v.getPosterPath() != null)
