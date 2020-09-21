@@ -18,7 +18,7 @@
                 </div>
                 <div class="form">
                     <label class="input-label" for="inputpassword">비밀번호</label>
-                    <input type="password" id="inputpassword" placeholder="패스워드를 입력하세요." v-model="password">    
+                    <input type="password" id="inputpassword" placeholder="패스워드를 입력하세요." v-model="password"  @keyup.enter="login">    
                 </div>
             </div>
 

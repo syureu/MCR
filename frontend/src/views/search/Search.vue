@@ -6,6 +6,9 @@
         </div>
         <div class="box" v-else  v-for="movie in Movie" :key="movie.id">
           <a href=""><img :src="movie.imgUrl"  style="width:300px; float:left;" alt="영화 이미지" /></a>
+          <div class="card-cover" @click="changeDeatil(movie.id)">
+                            <h3 v-text="movie.title"></h3>
+          </div>
         </div>
         <div style="clear:both;"></div>
     </div>
@@ -39,7 +42,16 @@ export default {
         })
 
         this.title=`${this.$route.params.keyword} 검색결과`
+        if(this.Movie.length==0){
+          this.isNull=false
+        }
     },
+    methods:{
+       changeDeatil(id){
+            alert(id)
+            this.$router.push(`/feedDetail/${id}`)
+        },
+    }
 }
 </script>
 <style scoped>
@@ -73,6 +85,23 @@ a {
   -ms-transform: scale(1.4);
   -webkit-transform: scale(1.4);  
   transform: scale(1.4);
+}
+.card-cover{
+    position: absolute;
+        top: 0;
+        left: 15px;
+        width: 80%;
+        height: 100%;
+        background-color: transparent;
+        color: transparent;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+}
+.card-cover :hover{
+    background-color: rgba(0,0,0,0.5);
+        color: whitesmoke;
 }
 
 .box img {
