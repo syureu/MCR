@@ -70,33 +70,33 @@ class OpenApiMiner {
                 JsonObject movie = movieList.getAsJsonObject();
                 PreparedStatement pstmt = dbConn.prepareStatement(SQL);
                 if (!movie.get("movieCd").isJsonNull()) {
-                    pstmt.setString(1, movie.get("movieCd").toString());
+                    pstmt.setString(1, movie.get("movieCd").getAsString());
                 } else {
                     pstmt.setNull(1, Types.VARCHAR);
                 }
                 if (!movie.get("movieNm").isJsonNull()) {
-                    pstmt.setString(2, movie.get("movieNm").toString());
+                    pstmt.setString(2, movie.get("movieNm").getAsString());
                 } else {
                     pstmt.setNull(2, Types.VARCHAR);
                 }
                 if (!movie.get("movieNmEn").isJsonNull()) {
-                    pstmt.setString(3, movie.get("movieNmEn").toString());
+                    pstmt.setString(3, movie.get("movieNmEn").getAsString());
                 } else {
                     pstmt.setNull(3, Types.VARCHAR);
                 }
                 pstmt.setNull(4, Types.VARCHAR);
                 if (!movie.get("prdtYear").isJsonNull()) {
-                    pstmt.setString(5, movie.get("prdtYear").toString());
+                    pstmt.setString(5, movie.get("prdtYear").getAsString());
                 } else {
                     pstmt.setNull(5, Types.VARCHAR);
                 }
                 if (!movie.get("genreAlt").isJsonNull()) {
-                    pstmt.setString(6, movie.get("genreAlt").toString());
+                    pstmt.setString(6, movie.get("genreAlt").getAsString());
                 } else {
                     pstmt.setNull(6, Types.VARCHAR);
                 }
                 if (!movie.get("repNationNm").isJsonNull()) {
-                    pstmt.setString(7, movie.get("repNationNm").toString());
+                    pstmt.setString(7, movie.get("repNationNm").getAsString());
                 } else {
                     pstmt.setNull(7, Types.VARCHAR);
                 }

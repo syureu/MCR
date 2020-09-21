@@ -25,7 +25,6 @@ print(datetime.datetime.now())
 md['genres'] = md['genres'].apply(lambda x: json.loads(x))
 md['genres'] = md['genres'].fillna('[]').apply(lambda x: [i['name']
                                                           for i in x] if isinstance(x, list) else [])
-
 s = md.apply(lambda x: pd.Series(x['genres']),
              axis=1).stack().reset_index(level=1, drop=True)
 s.name = 'genre'
