@@ -73,11 +73,15 @@ public class DaumMovieController {
 				movie.setMovieName(doc.select("h2.tit_rel").text());
 				movie.setMovieNameEn(doc.select("span.txt_origin").text());
 				List<DaumReview> list = daumReviewService.getAllDaumReviewsByMovieId(i);
-				double rate = 0;
-				for(DaumReview review : list) {
-					rate += review.getRate();
+				if(list.size() == 0) {
+					movie.setRate(0);
+				}else {					
+					double rate = 0;
+					for(DaumReview review : list) {
+						rate += review.getRate();
+					}
+					movie.setRate(Double.parseDouble(String.format("%.1f", rate/list.size())));
 				}
-				movie.setRate(Double.parseDouble(String.format("%.1f", rate/list.size())));
 				movie.setMovieId(i);
 				movie.setOverview(doc.select("div.desc_movie p").text());
 				movie.setGenre(doc.select("dl.list_movie dd.txt_main").get(0).text());
