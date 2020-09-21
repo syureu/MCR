@@ -8,7 +8,7 @@
                <div class="carousel-item active">
                     <div class="row" >
                     <div class="col" v-for="movie in movies1" :key="movie.id">
-                        <a href=""><img :src="movie.posterPath" class="d-block" style="width:200px; height:300px"  alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
+                        <a href=""><img :src="movie.posterPath" class="d-block" style="width:250px; height:350px"  alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
                         <div class="card-cover" @click="changeDeatil(movie.id)">
                             <h3 v-text="movie.title"></h3>
                         </div>
@@ -18,7 +18,7 @@
                <div class="carousel-item">
                     <div class="row" >
                     <div class="col" v-for="movie in movies2" :key="movie.id">
-                        <a href=""><img :src="movie.posterPath" class="d-block" style="width:200px; height:300px" alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
+                        <a href=""><img :src="movie.posterPath" class="d-block" style="width:250px; height:350px" alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
                         <div class="card-cover" @click="changeDeatil(movie.id)">
                             <h3 v-text="movie.title"></h3>
                         </div>
