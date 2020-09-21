@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class Miner {
+public class TmdbMiner {
     public static void main(String[] args) throws Exception {
         int count = 1;
         String inline;
