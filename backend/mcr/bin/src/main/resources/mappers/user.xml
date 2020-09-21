@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mappers/gueset.xml -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mcr.dao.UserDao">
+
+	<!-- insert 처리 -->
+	<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="userNo">
+		insert into user( 
+						id,
+						password,
+						name,
+						age,
+						email,
+						gender 
+				)
+				value (
+						#{id},
+						#{password},
+						#{name},
+						#{age},
+						#{email},
+						#{gender}
+				) 
+	</insert>
+	
+	<!-- udpate 처리 -->
+	<update id="updateUser" parameterType="User">
+		update user 
+		   set 
+		   	   name=#{name},
+			   email = #{email},
+			   age = #{age},
+			   gender = #{gender}
+		 where 
+		 	   id = #{id}
+	</update>
+	
+	<!-- delete 처리 -->
+	<delete id="deleteUser" parameterType="String">
+		delete 
+			from user 
+		where 
+			id=#{id} and 
+		 	password = #{password}
+	</delete>
+	
+	<!-- id으로 select 처리 -->
+	<select id="selectUserById" parameterType="string" resultType="User">
+		select 
+			* 
+		  from 
+		  	user 
+		 where 
+		 	id = #{id} 
+	</select>
+</mapper>
+

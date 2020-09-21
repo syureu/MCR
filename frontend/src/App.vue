@@ -1,19 +1,24 @@
 <template>
   <div id="app">
     <navbar/>
-    <Home/>
+    <router-view @navbar="navbar"></router-view>
+    
   </div>
 </template>
 
 <script>
-import Home from '@/views/main.vue'
-import navbar from '@/components/navbar/navbar.vue'
+
+import navbar from '@/components/navbar/Navbar.vue'
 export default {
   name: 'App',
   components: {
-    Home,
     navbar
-
+  },
+  methods: {
+    navbar() {
+      this.$store.dispatch('setNavbar')
+      console.log(this.$store)
+    }
   }
 }
 </script>

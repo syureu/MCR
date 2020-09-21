@@ -32,8 +32,13 @@ import io.swagger.annotations.ApiOperation;
 
 //import io.swagger.annotations.ApiImplicitParam;
 //import io.swagger.annotations.ApiImplicitParams;
+<<<<<<< HEAD
 
 @CrossOrigin(origins = { "*" })
+=======
+//http://localhost:3000/#/Signup
+@CrossOrigin(origins = { "http://localhost:3000" })
+>>>>>>> frontend-dev
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -43,7 +48,7 @@ public class UserController {
 	UserService userService;
 
 	@ApiOperation(value="회원의 정보를 받아 회원정보를 생성(가입)합니다.")
-	@PostMapping()
+	@PostMapping("/post")
 	public Object sign(@RequestBody User user) {
 		System.out.println("생성 진입");
 		ResponseEntity response = null;
@@ -53,8 +58,12 @@ public class UserController {
 			System.out.println(user.toString());
 			System.out.println("디비저장성공");
 			result.status = true;
+<<<<<<< HEAD
 			result.data = user.getUserid() + " 회원이 추가되었습니다.";
 			result.object = user;
+=======
+			result.data = user.getId() + " 회원이 추가되었습니다.";
+>>>>>>> frontend-dev
 		} catch (Exception e) {
 			System.out.println("디비저장실패");
 			e.printStackTrace();
@@ -66,7 +75,7 @@ public class UserController {
 	}
 	
 	@ApiOperation(value="회원의 ID를 받아 회원정보를 삭제합니다.")
-	@DeleteMapping()
+	@DeleteMapping("/delete")
 	public Object deleteUser(@RequestParam String id) {
 		ResponseEntity response = null;
 		System.out.println("삭제 진입");
@@ -85,17 +94,22 @@ public class UserController {
 	}
 	
 	@ApiOperation(value="회원의 ID를 받아 회원정보를 수정합니다.")
-	@PutMapping()
+	@PutMapping("/put")
 	public Object UpdateUser(@RequestBody User user) {
 		ResponseEntity response = null;
 		System.out.println("수정 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
 			userService.modifyUser(user);
+<<<<<<< HEAD
 			User us = userService.getUserbyId(user.getUserid());
 			result.status = true;
 			result.data = user.getUserid() + " 회원이 수정되었습니다.";
 			result.object = us;
+=======
+			result.status = true;
+			result.data = user.getId() + " 회원이 수정되었습니다.";
+>>>>>>> frontend-dev
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -106,8 +120,13 @@ public class UserController {
 	}
 	
 	@ApiOperation(value="회원의 ID를 받아 회원정보를 검색(리턴)합니다")
+<<<<<<< HEAD
 	@GetMapping()
 	public Object SelectUser(@RequestParam String id) {
+=======
+	@GetMapping("/get")
+	public Object UpdateUser(@RequestParam String id) {
+>>>>>>> frontend-dev
 		ResponseEntity response = null;
 		System.out.println("검색 진입");
 		final BasicResponse result = new BasicResponse();
