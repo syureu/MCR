@@ -13,7 +13,7 @@
       <nav class="mid-nav">
         <div class="box">
        
-        <input type="text" placeholder="영화를 검색하세요" v-model="searchKeyword"/>
+        <input type="text" placeholder="영화를 검색하세요" v-model="searchKeyword"  @keyup.enter="searchKeywords"/>
          <a href="" @click="searchKeywords"><i class="fas fa-search sub-nav-logo"></i></a>
         </div>
       </nav>
