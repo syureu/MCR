@@ -167,7 +167,7 @@ export default {
     },
     },
     created() {
-        console.log(this.movieNo)
+
         if(this.$store.getters.getUserData == null) {
             this.userno = 0;
         } else {
@@ -188,12 +188,25 @@ export default {
                 })
             }
             this.positiveList = res.data.object
-            console.log(this.positiveList)
-            for (var i = this.positiveList.length-1; i >=0; i--){
-                this.defaultWords.push(this.positiveList[i])
+
+            var num = 1
+            if(this.positiveList.length > 1000){
+                num = 100;
+            } else if( this.positiveList.length > 500) {
+                num = 100;
+            } else if( this.positiveList.length > 100) {
+                num = 50;
+            } else {
+                num = this.positiveList.length;
+            }
+
+            for (var i = 0; i < num; i++){
+                this.defaultWords.push(
+                    {"rate": this.positiveList[i]["rate"],
+                    "content": this.positiveList[i]["content"],
+                })
                 
             }
-            console.log(this.defaultWords)
         })
 
         axios.get(`${HTTP.BASE_URL}/mcr/daumreview/neg`,
@@ -211,7 +224,19 @@ export default {
                 })
             }
             this.negativeList = res.data.object
-            for (var i = this.negativeList.length-1; i >=0; i--){
+            
+            var num = 1
+            if(this.negativeList.length > 1000){
+                num = 100;
+            } else if( this.negativeList.length > 500) {
+                num = 100;
+            } else if( this.negativeList.length > 100) {
+                num = 50;
+            } else {
+                num = this.negativeList.length;
+            }
+
+            for (var i = 0;  i < num; i++){
                 this.defaultWords1.push({
                     "rate": this.negativeList[i]["rate"],
                     "content": this.negativeList[i]["content"],
