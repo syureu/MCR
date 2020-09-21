@@ -21,7 +21,7 @@ export default {
             Movie:[],
             isNull:true
         }
-    },
+    }, 
     created(){
         axios.get(`${URL.BASE_URL}/mcr/daummovie/bytitle`,{
           params : {title:`${this.$route.params.keyword}`}
