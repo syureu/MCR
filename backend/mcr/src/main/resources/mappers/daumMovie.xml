@@ -55,5 +55,15 @@
 		 where 
 		 	movie_id = #{movieId}
 	</select>
+	
+	<select id="selectByTitle" parameterType="String" resultType="DaumMovie">
+		select 
+			*
+		from 
+			daum_movie
+		where
+			movie_name LIKE CONCAT('%',#{title},'%') 
+			OR movie_name_en LIKE CONCAT('%',#{title},'%') 
+		</select>
 </mapper>
 

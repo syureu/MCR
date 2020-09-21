@@ -8,7 +8,6 @@
 	<!-- insert 처리 -->
 	<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="userNo">
 		insert into user( 
-<<<<<<< HEAD
 						userid	,
 						pw,
 						birthday,
@@ -25,22 +24,6 @@
 						#{nation},
 						#{city},
 						#{role}
-=======
-						id,
-						password,
-						name,
-						age,
-						email,
-						gender 
-				)
-				value (
-						#{id},
-						#{password},
-						#{name},
-						#{age},
-						#{email},
-						#{gender}
->>>>>>> frontend-dev
 				) 
 	</insert>
 	
@@ -48,22 +31,15 @@
 	<update id="updateUser" parameterType="User">
 		update user 
 		   set 
-<<<<<<< HEAD
 		   	   	userid = #{userid},
 			   	pw = #{pw},
 			   	birthday = #{birthday},
 			   	gender = #{gender},
 				nation = #{nation},
-				city = #{city}
+				city = #{city},
 				role = #{role}
-=======
-		   	   name=#{name},
-			   email = #{email},
-			   age = #{age},
-			   gender = #{gender}
->>>>>>> frontend-dev
 		 where 
-		 	   id = #{id}
+		 	   user_no = #{userNo}
 	</update>
 	
 	<!-- delete 처리 -->

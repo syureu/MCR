@@ -1,5 +1,13 @@
 package com.ssafy.mcr.controller;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 //import java.io.IOException;
 //import java.util.Collections;
 //import java.util.List;
@@ -21,11 +29,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 //import org.springframework.web.multipart.MultipartFile;
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.mcr.dto.BasicResponse;
+import com.ssafy.mcr.dto.DaumActor;
+import com.ssafy.mcr.dto.DaumReview;
+import com.ssafy.mcr.dto.DaumUserActor;
 import com.ssafy.mcr.dto.User;
+import com.ssafy.mcr.service.DaumActorService;
+import com.ssafy.mcr.service.DaumReviewService;
+import com.ssafy.mcr.service.DaumUserActorService;
 import com.ssafy.mcr.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -35,46 +50,25 @@ import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins = { "*" })
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/daumuseractor")
+public class DaumUserActorController {
 
 
 	@Autowired
-	UserService userService;
+	DaumUserActorService daumUserActorService;
 
-	@ApiOperation(value="회원의 정보를 받아 회원정보를 생성(가입)합니다.")
 	@PostMapping()
-	public Object sign(@RequestBody User user) {
-		System.out.println("생성 진입");
+	public Object insertDaumUserActor(@RequestBody DaumUserActor daumUserActor) {
 		ResponseEntity response = null;
 		final BasicResponse result = new BasicResponse();
 		try {
-			userService.addUser(user);
-			System.out.println(user.toString());
-			System.out.println("디비저장성공");
+			if(daumUserActorService.addDaumUserActor(daumUserActor)==0) {
+				daumUserActorService.deletDaumUserActor(daumUserActor.getUserNo(), daumUserActor.getPersonId());
+			}else { //입력
+			}
 			result.status = true;
-			result.data = user.getUserid() + " 회원이 추가되었습니다.";
-			result.object = user;
-		} catch (Exception e) {
-			System.out.println("디비저장실패");
-			e.printStackTrace();
-			result.status = true;
-			result.data = "fail";
-		}
-		response = new ResponseEntity<>(result, HttpStatus.OK);
-		return response;
-	}
-	
-	@ApiOperation(value="회원의 ID를 받아 회원정보를 삭제합니다.")
-	@DeleteMapping()
-	public Object deleteUser(@RequestParam String id) {
-		ResponseEntity response = null;
-		System.out.println("삭제 진입");
-		final BasicResponse result = new BasicResponse();
-		try {
-			userService.deleteUser(id);
-			result.status = true;
-			result.data = id + " 회원이 삭제되었습니다.";
+			result.data = "success";
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -82,40 +76,39 @@ public class UserController {
 		}
 		response = new ResponseEntity<>(result, HttpStatus.OK);
 		return response;
+		
+		
+		
 	}
-	
-	@ApiOperation(value="회원의 ID를 받아 회원정보를 수정합니다.")
-	@PutMapping()
-	public Object UpdateUser(@RequestBody User user) {
-		ResponseEntity response = null;
-		System.out.println("수정 진입");
-		final BasicResponse result = new BasicResponse();
-		try {
-			userService.modifyUser(user);
-			User us = userService.getUserbyId(user.getUserid());
-			result.status = true;
-			result.data = user.getUserid() + " 회원이 수정되었습니다.";
-			result.object = us;
-		} catch (Exception e) {
-			e.printStackTrace();
-			result.status = true;
-			result.data = "fail";
-		}
-		response = new ResponseEntity<>(result, HttpStatus.OK);
-		return response;
-	}
-	
-	@ApiOperation(value="회원의 ID를 받아 회원정보를 검색(리턴)합니다")
+//	
+//	@GetMapping("/delete")
+//	public Object deleteDaumUserActor(@RequestParam int userNo,@RequestParam int personId) {
+//		ResponseEntity response = null;
+//		final BasicResponse result = new BasicResponse();
+//		try {
+//			daumUserActorService.deletDaumUserActor(userNo, personId);
+//			result.status = true;
+//			result.data = "success";
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			result.status = true;
+//			result.data = "fail";
+//		}
+//		response = new ResponseEntity<>(result, HttpStatus.OK);
+//		return response;
+//	} 
+
 	@GetMapping()
-	public Object SelectUser(@RequestParam String id) {
+	public Object SelectActorByUserNo(@RequestParam int userNo) {
 		ResponseEntity response = null;
 		System.out.println("검색 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
-			User user = userService.getUserbyId(id);
+			List<DaumUserActor> list = daumUserActorService.getDaumUserActorByUserNo(userNo);
 			result.status = true;
-			result.data = id + " 회원정보를 리턴합니다.";
-			result.object = user;
+			result.data = "success";
+			result.object = list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -124,6 +117,6 @@ public class UserController {
 		response = new ResponseEntity<>(result, HttpStatus.OK);
 		return response;
 	}
-	
+
 }
 

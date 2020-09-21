@@ -116,8 +116,8 @@ public class DaumMovieController {
 	}
 
 	@ApiOperation(value="해당 영화 정보를 리턴합니다.")
-	@GetMapping()
-	public Object SelectMovie(@RequestParam int movieId) {
+	@GetMapping("/byid")
+	public Object SelectMovieByMovieId(@RequestParam int movieId) {
 		ResponseEntity response = null;
 		System.out.println("검색 진입");
 		final BasicResponse result = new BasicResponse();
@@ -126,6 +126,26 @@ public class DaumMovieController {
 			result.status = true;
 			result.data = "success";
 			result.object = movie;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
+	@ApiOperation(value="제목으로 검색한 영화 정보들을 리턴합니다.")
+	@GetMapping("/bytitle")
+	public Object SelectMovieByTitle(@RequestParam String title) {
+		ResponseEntity response = null;
+		System.out.println("제목 검색 진입");
+		final BasicResponse result = new BasicResponse();
+		try {
+			List<DaumMovie> list = daumMovieService.getDaumMovieByTitle(title);
+			result.status = true;
+			result.data = "success";
+			result.object = list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;

@@ -1,6 +1,8 @@
 package com.ssafy.mcr.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,11 @@ public class DaumMovieServiceImpl implements DaumMovieService{
 	@Override
 	public DaumMovie getDaumMovieBymovieId(int movieId) {
 		return daumMovieDao.selectDaumMovieBymovieId(movieId);
+	}
+
+	@Override
+	public List<DaumMovie> getDaumMovieByTitle(String title) {
+		return daumMovieDao.selectByTitle(title);
 	}
 
 }
