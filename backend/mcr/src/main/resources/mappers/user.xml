@@ -16,15 +16,19 @@
 						city,
 						role
 				)
-				value (
-						#{userid},
+				select  #{userid},
 						#{pw},
 						#{birthday},
 						#{gender},
 						#{nation},
 						#{city},
 						#{role}
-				) 
+				FROM dual		
+				WHERE NOT EXISTS (
+                        SELECT userid
+                 FROM user
+                 WHERE userid = #{userid}
+            )
 	</insert>
 	
 	<!-- udpate 처리 -->

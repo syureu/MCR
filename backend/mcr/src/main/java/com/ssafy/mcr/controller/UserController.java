@@ -125,5 +125,29 @@ public class UserController {
 		return response;
 	}
 	
+	@ApiOperation(value="회원의 ID를 받아 회원정보를 검색(리턴)합니다")
+	@GetMapping("/check")
+	public Object userCheck(@RequestParam String id) {
+		ResponseEntity response = null;
+		System.out.println("체크 진입");
+		final BasicResponse result = new BasicResponse();
+		try {
+			User user = userService.getUserbyId(id);
+			if(user == null) {
+				result.object = false;
+			}else {
+				result.object = true;
+			}
+			result.status = true;
+			result.data = "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
 }
 
