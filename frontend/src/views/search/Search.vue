@@ -57,7 +57,7 @@ export default {
     background:black;
     margin-top:50px;
     width:100%;
-    height: 650px;
+    height:100%;
 }
  h1 {
   padding-top: 100px;  
