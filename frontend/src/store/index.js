@@ -27,12 +27,12 @@ export default new Vuex.Store({
     },
     
     setUserInfo(state, userinfo) {
-      state.userData.userno = userinfo.userNo
-      state.userData.birthday = userinfo.birthday
-      state.userData.age = userinfo.age
-      state.userData.gender = userinfo.gender
-      state.userData.nation = userinfo.nation
-      state.userData.city = userinfo.city
+      state.userData.userinfo.userno = userinfo.userNo
+      state.userData.userinfo.birthday = userinfo.birthday
+      state.userData.userinfo.pw = userinfo.pw
+      state.userData.userinfo.gender = userinfo.gender
+      state.userData.userinfo.nation = userinfo.nation
+      state.userData.userinfo.city = userinfo.city
     }
   },
   actions: {

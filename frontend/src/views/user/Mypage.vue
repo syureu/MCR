@@ -1,11 +1,11 @@
 <template>
-    <body class="">
+    <body class="" style="height: 100px">
 
 		<!-- Header -->
 			<section id="header">
 				<div class="inner">
 					<span class="icon solid major fa-cloud"></span>
-					<h1>안녕하세요 <strong>{{ name }}님 !</strong> 반갑습니다<br />
+					<h1>안녕하세요 <strong>{{ id }}님 !</strong> 반갑습니다<br />
 					</h1>
 					<p>마이페이지에서 내가 좋아하는 영화, 배우들을 확인하세요.</p>
 					<ul class="actions special">
@@ -50,7 +50,8 @@
                             id="id"            
                             placeholder="ID를 입력하세요."
                             type="text"
-                            :rules="[rules.required]" >
+                            :rules="[rules.required]"
+							readonly  >
                 </div>
                 <div class="form-group">
                     <label for="password" style="color: white">비밀번호</label>
@@ -59,7 +60,7 @@
                             id="password"
                             placeholder="비밀번호를 입력하세요."
                             type="password"
-                            :rules="passwordRules">
+                          >
                 </div>
                 <div class="form-group">
                     <label for="passwordConfirm" style="color: white">비밀번호 확인</label>
@@ -68,7 +69,7 @@
                             type="password"
                             id="passwordConfirm"
                             placeholder="비밀번호를 한번 더 입력하세요."
-                            :rules="checkPasswordRules">
+                          >
                 </div>
                 <div class="form-group">
                     <label for="birth" style="color: white">생년월일</label>
@@ -81,19 +82,24 @@
                 <div class="form-group">
                     <label for="gender" style="color: white" class="pr-4">성별</label>
                     <input
+							v-model="gender"
                             id="gender"
                             name="radio_answer"
                             type="radio"
                             value="true"
-                            checked="true"
+							checked="checked"
+		
               
                            >
                     <font class="pr-3" style="color : white;">남자</font>
                     <input 
+							v-model="gender"
                             id="gender"
                             name="radio_answer"
                             type="radio"
                             value="false"
+					
+				
                            >
                     <font style="color : white;">여자</font>
                 </div>
@@ -109,64 +115,134 @@
         <!-- 모달 끝 -->
 
 		<!-- Two -->
-			<section id="two" class="main style2">
+			<section id="two" class="main style2" style="background-color: black; border-top: 1px solid white">
 				<div class="container">
 					<div class="row gtr-150">
-						<div class="col-6 col-12-medium">
+						<div class="scroll-c col-6 col-12-medium" style="overflow-y:scroll; height: 560px;">
 							<ul class="major-icons">
-								<li><span class="icon solid style1 major fa-code"></span></li>
-								<li><span class="icon solid style2 major fa-bolt"></span></li>
-								<li><span class="icon solid style3 major fa-camera-retro"></span></li>
-								<li><span class="icon solid style4 major fa-cog"></span></li>
-								<li><span class="icon solid style5 major fa-desktop"></span></li>
-								<li><span class="icon solid style6 major fa-calendar"></span></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt="">  </li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
 							</ul>
 						</div>
-						<div class="col-6 col-12-medium">
+						<div class="col-6 col-12-medium" >
 							<header class="major">
-								<h2>Lorem ipsum dolor adipiscing<br />
-								amet dolor consequat</h2>
+								<h2>{{ id }}님이 좋아하는 영화에요<br />
+								</h2>
 							</header>
-							<p>Adipiscing a commodo ante nunc accumsan interdum mi ante adipiscing. A nunc lobortis non nisl amet vis volutpat aclacus nascetur ac non. Lorem curae eu ante amet sapien in tempus ac. Adipiscing id accumsan adipiscing ipsum.</p>
-							<p>Blandit faucibus proin. Ac aliquam integer adipiscing enim non praesent vis commodo nunc phasellus cubilia ac risus accumsan. Accumsan blandit. Lobortis phasellus non lobortis dit varius mi varius accumsan lobortis. Blandit ante aliquam lacinia lorem lobortis semper morbi col faucibus vitae integer placerat accumsan orci eu mi odio tempus adipiscing adipiscing adipiscing curae consequat feugiat etiam dolore.</p>
-							<p>Adipiscing a commodo ante nunc accumsan interdum mi ante adipiscing. A nunc lobortis non nisl amet vis volutpat aclacus nascetur ac non. Lorem curae eu ante amet sapien in tempus ac. Adipiscing id accumsan adipiscing ipsum.</p>
+							<p>더 다양한 영화에 좋아요를 눌러보세요!</p>
+							<p>{{ id }}님이 좋아하는 영화를 더 추천해 드릴게요</p>
+							<span class="image1 fit"><img src="https://media.giphy.com/media/NUsKoYiGm1RPHl1eWM/giphy.gif" alt="" /></span>
+			
+							
 						</div>
 					</div>
 				</div>
 			</section>
 
+			<section id="two" class="main style2" style="background-color: black; border-top: 1px solid white">
+				<div class="container">
+					<div class="row gtr-150">
+						<div class="col-6 col-12-medium">
+							<header class="major">
+								<h2>{{ id }}님이 좋아하는 배우에요<br />
+								</h2>
+							</header>
+							<p>더 다양한 배우에 좋아요를 눌러보세요!</p>
+							<p>{{ id }}님이 좋아하는 배우가 나오는 영화를 더 추천해 드릴게요</p>
+							<span class="image1 fit"><img src="https://media.giphy.com/media/XyhGQEOrJ5MZV6oKrX/giphy-downsized-large.gif" alt="" /></span>
+							
+							
+						</div>
+						<div class="scroll-c col-6 col-12-medium" style="overflow-y:scroll; height: 560px">
+							<ul class="major-icons">
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt="">  </li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+							</ul>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+
 		<!-- Three -->
-			<section id="three" class="main style1 special">
+			<section id="three" class="main style1 special" style="background: black; border-top: 1px solid white;">
 				<div class="container">
 					<header class="major">
-						<h2>Adipiscing amet consequat</h2>
+						<h2>회원탈퇴</h2>
 					</header>
-					<p>Ante nunc accumsan et aclacus nascetur ac ante amet sapien sed.</p>
+					<p>회원탈퇴는 의미가 없어요</p>
 					<div class="row gtr-150">
-						<div class="col-4 col-12-medium">
-							<span class="image fit"><img src="../../assets/images/pic02.jpg" alt="" /></span>
-							<h3>Magna feugiat lorem</h3>
-							<p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>
-							<ul class="actions special">
-								<li><a href="#" class="button">More</a></li>
-							</ul>
+					
+						<div class="col-12 col-12-medium">
+							<span class=""><img data-toggle="modal" data-target="#exampleModal1" src="https://media.giphy.com/media/yALcFbrKshfoY/giphy.gif" alt="" /></span>
+							<h3>회원탈퇴를 하시려면 이미지를 클릭하세요</h3>
+							<p>다시한번 생각해봐</p>
+							<!-- 모달 -->
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content" style="background-color: grey">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">회원탈퇴</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" >
+					<form action="#" class=" rounded " name="vali">   
+							
+							<div class="form-group">
+								<label for="password" style="color: white">
+									회원탈퇴시, 모든 영화정보와 배우정보가  삭제됩니다!!
+									<hr>
+									본인확인을 위해 비밀번호를 입력하세요</label>
+								<input  class="form-control pb_height-50 reverse" 
+										v-model="outpw"
+										id="password"
+										placeholder="비밀번호를 입력하세요."
+										type="password"
+									>
+							</div>
+						
+						</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="ss" @click="checkout">Save changes</button>
+					<button type="button" class="ss" data-dismiss="modal">Close</button>
+				</div>
+				</div>
+			</div>
+			</div>
+			<!-- 모달끝 -->
 						</div>
-						<div class="col-4 col-12-medium">
-							<span class="image fit"><img src="../../assets/images/pic03.jpg" alt="" /></span>
-							<h3>Magna feugiat lorem</h3>
-							<p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>
-							<ul class="actions special">
-								<li><a href="#" class="button">More</a></li>
-							</ul>
-						</div>
-						<div class="col-4 col-12-medium">
-							<span class="image fit"><img src="../../assets/images/pic04.jpg" alt="" /></span>
-							<h3>Magna feugiat lorem</h3>
-							<p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>
-							<ul class="actions special">
-								<li><a href="#" class="button">More</a></li>
-							</ul>
-						</div>
+					
 					</div>
 				</div>
 			</section>
@@ -184,17 +260,20 @@
 <script src="../../assets/js/util.js"></script>
 <script src="../../assets/js/main.js"></script>
 <script>
+import axios from 'axios';
+import URL from '@/util/http-common.js'
 export default {
     data() {
-      return {
-          name : "박현수",
-          id:"ssafy",
-          password: "123",
-          passwordConfirm: "123",
-          birth: "1994-04-11",
-          gender: "1",
-          isSubmit: false,
-          IdCheck: false,
+      return { 
+		userno: 0,
+          id: "",
+          password: "",
+          passwordConfirm: "",
+          birth: "",
+          gender: true,
+          isSubmit: true,
+          IdCheck: true,
+		outpw: "",
           error: {
             id:true,
             password: true,
@@ -207,26 +286,48 @@ export default {
             required: value => (!!value) || '필수 입력사항입니다.',
           },
     
-          }
+        }
         },
         watch:{
-        id:function(v){
-    
-        },
-        email:function(v){
-        },
-        password:function(v){
-        },
-        passwordConfirm:function(v){
+			id:function(v){
+		
+			},
+			email:function(v){
+			},
+			password:function(v){
+			},
+			passwordConfirm:function(v){
 
-        },
-        birth:function(v){
-        },
-        gender:function(v){
-        },
-      },
+			},
+			birth:function(v){
+			},
+			gender:function(v){
+			},
+	},
+	created() {
+		this.userno= this.$store.getters.getUserData.userinfo.userNo
+		this.id= this.$store.getters.getUserData.userinfo.userid
+        this.password= this.$store.getters.getUserData.userinfo.pw
+        this.birth=this.$store.getters.getUserData.userinfo.birthday.substr(0,10)
+        this.gender=this.$store.getters.getUserData.userinfo.gender
+        this.nation='대한민국',
+        this.city='서울',
+        this.role='user',
+		console.log(this.gender)
+		
+	
+	
+	},	
 
       methods: {
+		checkout() {
+			if(this.password === this.outpw){
+				//   회원탈퇴
+			}
+			else{
+				alert('비밀번호가 일치하지 않습니다')
+			}
+		},
           checkform(){
         
         let isSubmit = false;
@@ -253,40 +354,35 @@ export default {
         }
         if(isSubmit === false){
             
-            if (document.getElementsByName("radio_answer")[0].checked == true){
-                this.gender = document.getElementsByName("radio_answer")[0].value
-            }
-            else if(document.getElementsByName("radio_answer")[1].checked == true){
-                this.gender = document.getElementsByName("radio_answer")[1].value
-                alert(document.getElementsByName("radio_answer")[1].value)
-            }
-           alert('가입완료')
-           alert(this.birth)
            
-            let user={
-                   userid: this.id,
-                   pw: this.password,
-                   birthday:this.birth,
-                gender:this.gender,
-                nation:'대한민국',
-                city:'서울',
-                role:'user',
-               }
-          
+		console.log("확인")
+		console.log(this.password)
+        let user = {
+			userNo : this.userno,
+			userid : this.id,
+			birthday : this.birth,
+			gender : this.gender,
+			nation : "서울",
+			role : "user",
+			city : "서울",
+			pw : this.password,
+		}
 
-           axios.post(`${URL.BASE_URL}/mcr/user`, user)    
+           axios.put(`${URL.BASE_URL}/mcr/user/`, user)
       .then(res => {
-        console.log(res)
-        let msg="등록 처리시 문제가 발생하였습니다."
-        if(res=='success'){
-            msg='등록이 완료되었습니다.';
-        }
+		console.log(res.data.object)
+		this.$store.commit('setUserInfo', user)
+		console.log(this.gender)
+		console.log(this.$store.getters.getUserData.userinfo.gender)
+		
+		// console.log(this.$store.getters.getUserData)
+		// alert('수정완료!')
+	
+       
       })
       .catch(error => {
-          console.log(this.id)
-        console.log(error)
-        console.log("가입실패");
-        alert("입력정보를 확인해주세요.")
+          console.log(error)
+     
       })
         }
 
@@ -304,6 +400,21 @@ export default {
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
+.scroll-c::-webkit-scrollbar {
+    width: 10px;
+  }
+  .scroll-c::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  .scroll-c::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+
 
 html, body, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
