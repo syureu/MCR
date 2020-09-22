@@ -1,16 +1,48 @@
 import pandas as pd
 import json
+import datetime
+
+print()
+print(datetime.datetime.now())
+print()
 
 md = pd.read_csv('../resources/tmdb_movies_202009171739.csv')
+
+print()
+print(datetime.datetime.now())
+print()
+
 md['genres'] = md['genres'].apply(lambda x: json.loads(x))
+
+print()
+print(datetime.datetime.now())
+print()
+
 md['genres'] = md['genres'].fillna('[]').apply(lambda x: [i['name']
                                                           for i in x] if isinstance(x, list) else [])
+
+print()
+print(datetime.datetime.now())
+print()
+
 s = md.apply(lambda x: pd.Series(x['genres']),
              axis=1).stack().reset_index(level=1, drop=True)
 s.name = 'genre'
+
+print()
+print(datetime.datetime.now())
+print()
+
 gen_md = md.drop('genres', axis=1).join(s)
 
-df = gen_md[gen_md['genre'] == genre]
+print()
+print(datetime.datetime.now())
+print()
+
+print(gen_md)
+print()
+#df = gen_md[gen_md['genre'] == genre]
+df = gen_md
 vote_counts = df[df['vote_count'].notnull()]['vote_count'].astype('int')
 vote_averages = df[df['vote_average'].notnull()
                    ]['vote_average'].astype('int')
