@@ -2,11 +2,16 @@
     <div class="app">
             <h1 v-text="title"></h1>
         <div v-if="!isNull">
-            <h3>해당검색결과가 없습니다.</h3>
+            <h3 class="result">해당검색결과가 없습니다.</h3>
         </div>
-        <div class="box" v-else  v-for="movie in Movie" :key="movie.id">
-          <a href=""><img :src="movie.imgUrl"  style="width:300px; hegith:250px; float:left;" alt="영화 이미지" @click="changeDeatil(movie.movieId)" /></a>
+        <div class="row" v-else>
+        <div class="col"  style="float:left;" v-for="movie in Movie" :key="movie.id">
+          <a href=""><img :src="movie.imgUrl"   style="width:200px; height:350px;" alt="영화 이미지" @click="changeDeatil(movie.movieId)" /></a>
+               <div class="card-cover" style="width:200px; height:350px;">
                 <h3 v-text="movie.movieName"></h3>
+                <h3  v-text="movie.rate"></h3>
+               </div>
+        </div>
         </div>
         <div style="clear:both;"></div>
     </div>
@@ -30,11 +35,9 @@ export default {
         .then(res=>{
           console.log(res)
           this.Movie=res.data.object
-          this.Movie.forEach(index => {
-              this.Movie[index]["hover"]=false
-          });
+          
           console.log(this.Movie)
-          if(this.Movie==null){
+          if(this.Movie.length==0){
             this.isNull=false
           }
         })
@@ -42,7 +45,7 @@ export default {
           console.log(err)
         })
 
-        
+        this.title=`${this.$route.params.keyword}의 검색결과`
     },
     methods:{
        changeDeatil(id){
@@ -53,42 +56,57 @@ export default {
 }
 </script>
 <style scoped>
+.result{
+  color:aliceblue;
+}
 .app{
     background:black;
-    margin-top:50px;
+    padding-top:100px;
     width:100%;
-    height: 650px;
+    height: 100%;
+    overflow-x:"hidden"
 }
  h1 {
-  padding-top: 100px;  
+  margin-left:100px;
+  margin-bottom: 30px;
+  color:aliceblue;
+}
+.row{
   margin-left:10px;
-    margin-bottom: 30px;
-    color:aliceblue;
+  display:flex;
+
+}
+.col{
+  position:relative;
+  width:300px;
+  height: 300px;
 }
 h3{
-    color:aliceblue;
+    /* color:aliceblue; */
 }
 .box {
   /* display: grid; */
   /* grid-gap: 20px;
   grid-template-columns: repeat(6, minmax(100px, 1fr)); */
 }
-
 a {
-  transition: transform .3s;
-}
+  transition: transform .3s; 
 
- a :hover {
-  transition: transform .3s;
-  -ms-transform: scale(1.4);
-  -webkit-transform: scale(1.4);  
-  transform: scale(1.4);
 }
+/* a :hover {
+  transition: transform .3s;
+  -ms-transform: scale(1.3);
+  -webkit-transform: scale(1.3);  
+  transform: scale(1.3);
+  opacity: 0.5;
+  
+
+} */
+
 .card-cover{
     position: absolute;
         top: 0;
-        left: 15px;
-        width: 80%;
+        width: 100%;
         height: 100%;
         background-color: transparent;
         color: transparent;
@@ -97,7 +115,7 @@ a {
         justify-content: center;
         align-items: center;
 }
-.card-cover :hover{
+.card-cover:hover{
     background-color: rgba(0,0,0,0.5);
         color: whitesmoke;
 }
