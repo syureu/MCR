@@ -166,9 +166,10 @@ public class DaumMovieActorController {
 			for(DaumMovieActor ma : list) {
 				DaumMovie dm = daumMovieService.getDaumMovieBymovieId(ma.getMovieId());
 				String movieName = dm.getMovieName();
-				System.out.println(movieName);
+				String imgUrl = dm.getImgUrl();
 				res = mapper.convertValue(ma, Map.class);
 				res.put("movieName", movieName);
+				res.put("imgUrl", imgUrl);
 				obj.add(res);
 			}
 			result.status = true;
