@@ -229,7 +229,8 @@ export default {
         let loginData={
              userid: this.userid,
              pw : this.password
-           } 
+           }
+        this.$router.push({name:'Home'})
       })
       .catch(error => {
           console.log(this.id)
