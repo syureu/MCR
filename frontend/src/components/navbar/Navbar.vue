@@ -6,15 +6,15 @@
       <nav class="main-nav">              
         <LoginModal v-if="loginModal" @close="changeLogin" @change="changeModal"/>
        
-        <a href="#">한국영화</a>
-        <a href="#">미국영화</a>
-        <a href="#">유럽영화</a>
+        <a href="#">BEST</a>
+        <a href="#">TOP100</a>
         
       </nav>
       <nav class="mid-nav">
         <div class="box">
-        <input type="text" placeholder="영화를 검색하세요"/>
-        <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
+       
+        <input type="text" placeholder="영화를 검색하세요" v-model="searchKeyword"  @keyup.enter="searchKeywords"/>
+         <a href="" @click="searchKeywords"><i class="fas fa-search sub-nav-logo"></i></a>
         </div>
       </nav>
       <nav class="sub-nav">
@@ -32,6 +32,7 @@
     </div>
 </template>
 <script>
+
 import LoginModal from '@/components/modal/LoginModal.vue'
 export default {
     name : 'Navbar',
@@ -41,6 +42,7 @@ export default {
     data(){
       return {
         loginModal : false,
+        searchKeyword: "",
       }
 
     },
@@ -48,9 +50,17 @@ export default {
       isLoggedIn() {
           return this.$store.getters.isLoggedIn
       }
+    },watch:{
+      
+
+
+      
     },
 
     methods:{
+      searchKeywords(){
+          this.$router.push(`/search/${this.searchKeyword}`)
+      },
       logout(){
         this.$session.remove('jwstoken')
         this.$store.commit('logout')
@@ -125,7 +135,7 @@ export default {
   display:inline;
   background-color:rgb(48, 46, 46);
   border-radius : 7px;
- 
+  margin-left:15px;
   color:white;
   border :0px;  
 }

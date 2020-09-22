@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mappers/gueset.xml -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mcr.dao.ActorDao">
+
+	<!-- id으로 select 처리 -->
+	<select id="selectActorByCd" parameterType="String" resultType="Actor">
+		select 
+			* 
+		  from 
+		  	actor 
+		 where 
+		 	actor_cd = #{actorCd} 
+	</select>
+</mapper>
+

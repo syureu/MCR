@@ -79,12 +79,18 @@
         <h2 style="color: white;">출연</h2>
         <hr style="background-color:white;">    
     </div>
-    <div class="boxA" v-for="actor in actorList" :key="actor.personId">
-        <div class="box" >
-            <img :src="actor.imgUrl" width="180" height="180" alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
-            <h3 style="color: white;"> {{ actor.actorName }}  </h3>
-            <p v-if="actor.casting=='감독'" style="color: grey;"> {{ actor.casting }}</p>
-            <p v-else style="color: grey;"> {{ actor.casting }}</p>
+    <div class="boxA" style="text-align:center;">
+        <div class="box" style="display: inline-block;">
+    <carousel style="width:1000px; margin-left:50px;" :items="itemNumber"  v-if="actorList && actorList.length" >
+        <div style="display: inline-block;"  v-for="actor in actorList" :key="actor.personId">
+        <img style="width:200px; height:250px;" v-if="actor.imgUrl==''" src="https://png.pngtree.com/png-vector/20191001/ourlarge/pngtree-man-icon-isolated-on-abstract-background-png-image_1769021.jpg" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" alt="">
+        <img style="width:200px; height:250px;" v-else :src="actor.imgUrl" alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
+        <br>
+        <h3 style="color: white; text-align:center;"> {{ actor.actorName }}  </h3>
+        <p  style="color: grey; text-align:center;"> {{ actor.casting }}</p>
+        </div>
+        
+    </carousel>
         </div>
     </div>
     
@@ -103,6 +109,7 @@
 <script src="https://unpkg.com/vuewordcloud"></script>
 <script type="text/javascript" src="https://unpkg.com/movie-trailer"></script>
 <script>
+import carousel from 'vue-owl-carousel'
 import TabItem from './TabItem.vue'
 import VueWordCloud from 'vuewordcloud';
 import reviewWrite from '@/components/review/ReviewWrite.vue';
@@ -118,12 +125,14 @@ export default {
     reviewWrite,
     reviewList,
     TabItem,
+    carousel,
   },
   data() {
       return {
         trailerURL1 : "",
         userno: "",
         currentId: 1,
+        itemNumber: 4,
         list: [
             { id: 1, label: '영화정보', content: '콘텐츠1' },
             { id: 2, label: '줄거리', content: '콘텐츠2' },
@@ -133,7 +142,7 @@ export default {
         ],
 		movieDetail: {
 			movieName: "",
-            movieId: 1,
+            movieId: this.$route.params.movieId,
 			rate : "",
 			genre: "",
 			movieOpeningDate: "",
@@ -147,7 +156,9 @@ export default {
     computed: {
     current() {
       return this.list.find(el => el.id === this.currentId) || {}
-    }
+    },
+  },
+  methods: {
   },
     created() {
 		if(this.$store.getters.getUserData == null){
@@ -155,9 +166,9 @@ export default {
         } else{
             this.userno = this.$store.getters.getUserData.userinfo.userNo
         }
-		axios.get(`${HTTP.BASE_URL}/mcr/daummovie` ,
+		axios.get(`${HTTP.BASE_URL}/mcr/daummovie/byid` ,
 			{
-				params: { movieId: this.movieDetail.movieId }
+				params: { movieId: `${this.$route.params.movieId}` }
 			}
 		)
 		.then(res => {
@@ -178,7 +189,6 @@ export default {
 			overview: res.data.object.overview,
 			imgurl: res.data.object.imgUrl,
             nation: res.data.object.nation,
-            movieId: res.data.object.movieId,
             }
 			const movieTrailer = require( 'movie-trailer' )
 			this.trailerURL1 = 'https://www.youtube.com/embed/'
@@ -491,7 +501,6 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 
 .box
 {
-	margin-left: 100px;
 }
 
 /*********************************************************************************/
@@ -509,7 +518,6 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 .boxB
 {
     float: left;
-    margin-right: 20px;
 }
 
 .boxC

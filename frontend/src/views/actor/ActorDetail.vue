@@ -172,6 +172,13 @@ export default {
             console.log(err)
         })
        
+        axios.get(`${HTTP.BASE_URL}/mcr/daummovieactor/filomography`, 
+        {
+            params : { personId : `${this.$route.params.personId}` }
+        })
+        .then(res => {
+            console.log(res)
+        })
         // axios.get(`${HTTP.BASE_URL}/movie/actor/${this.$route.params.actorDetail.actorno}`)
         // .then(res => {
         //     this.movieList = res.data
