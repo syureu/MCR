@@ -64,7 +64,9 @@ public class DaumUserMovieController {
 		try {
 			if(daumUserMovieService.addDaumUserMovie(daumUserMovie)==0) {
 				daumUserMovieService.deletDaumUserMovie(daumUserMovie.getUserNo(), daumUserMovie.getMovieId());
+				result.object = 0;
 			}else { //입력
+				result.object = 1;
 			}
 			result.status = true;
 			result.data = "success";

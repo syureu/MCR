@@ -64,7 +64,9 @@ public class DaumUserActorController {
 		try {
 			if(daumUserActorService.addDaumUserActor(daumUserActor)==0) {
 				daumUserActorService.deletDaumUserActor(daumUserActor.getUserNo(), daumUserActor.getPersonId());
+				result.object = 1;
 			}else { //입력
+				result.object = 0;
 			}
 			result.status = true;
 			result.data = "success";
