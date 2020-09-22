@@ -10,7 +10,7 @@ public interface UserService {
 
 	public void addUser(User user);
 	public void modifyUser(User user);
-	public void deleteUser(String id);
+	public void deleteUser(String userId, String pw);
 	public User getUserbyId(String id);
 	public User getUserbyIdandPwd(String id,String password);
 }

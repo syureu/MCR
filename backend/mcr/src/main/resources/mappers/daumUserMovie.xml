@@ -33,6 +33,13 @@
 		  from daum_user_movie 
 		 where user_no=#{userNo}
 	</select>
+	
+	<select id="checkLike" parameterType="Integer" resultType="DaumUserMovie">
+		select * 
+		  from daum_user_movie 
+		 where user_no=#{userNo}
+		  AND movie_id = #{movieId}
+	</select>
 		
 </mapper>
 

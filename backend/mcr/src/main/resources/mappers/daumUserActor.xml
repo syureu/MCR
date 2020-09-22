@@ -33,6 +33,13 @@
 		  from daum_user_actor 
 		 where user_no=#{userNo}
 	</select>
+	
+	<select id="checkLike" parameterType="Integer" resultType="DaumUserActor">
+		select * 
+		  from daum_user_actor 
+		 where user_no=#{userNo}
+		  AND person_id = #{personId}
+	</select>
 		
 </mapper>
 

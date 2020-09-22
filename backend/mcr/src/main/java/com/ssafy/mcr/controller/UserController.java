@@ -67,14 +67,14 @@ public class UserController {
 	
 	@ApiOperation(value="회원의 ID를 받아 회원정보를 삭제합니다.")
 	@DeleteMapping()
-	public Object deleteUser(@RequestParam String id) {
+	public Object deleteUser(@RequestParam String userId, @RequestParam String pw) {
 		ResponseEntity response = null;
 		System.out.println("삭제 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
-			userService.deleteUser(id);
+			userService.deleteUser(userId,pw);
 			result.status = true;
-			result.data = id + " 회원이 삭제되었습니다.";
+			result.data = userId + " 회원이 삭제되었습니다.";
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;

@@ -32,4 +32,9 @@ public class DaumUserActorServiceImpl implements DaumUserActorService{
 		return daumUserActorDao.selectByUserNo(userNo);
 	}
 
+	@Override
+	public DaumUserActor checkLike(int userNo, int personId) {
+		return daumUserActorDao.checkLike(userNo, personId);
+	}
+
 }

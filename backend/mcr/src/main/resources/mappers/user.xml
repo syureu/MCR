@@ -47,7 +47,7 @@
 		delete 
 			from user 
 		where 
-			userid = #{userid} and 
+			userid = #{userId} and 
 		 	pw = #{pw}
 	</delete>
 	

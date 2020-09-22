@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.mcr.dto.BasicResponse;
 import com.ssafy.mcr.dto.DaumMovie;
 import com.ssafy.mcr.dto.DaumReview;
+import com.ssafy.mcr.dto.DaumUserActor;
 import com.ssafy.mcr.dto.DaumUserMovie;
 import com.ssafy.mcr.dto.User;
 import com.ssafy.mcr.service.DaumMovieService;
@@ -64,9 +65,7 @@ public class DaumUserMovieController {
 		try {
 			if(daumUserMovieService.addDaumUserMovie(daumUserMovie)==0) {
 				daumUserMovieService.deletDaumUserMovie(daumUserMovie.getUserNo(), daumUserMovie.getMovieId());
-				result.object = 0;
 			}else { //입력
-				result.object = 1;
 			}
 			result.status = true;
 			result.data = "success";
@@ -120,5 +119,27 @@ public class DaumUserMovieController {
 		return response;
 	}
 
+	@GetMapping("/check")
+	public Object checkLike(@RequestParam int userNo, @RequestParam int movieId) {
+		ResponseEntity response = null;
+		System.out.println("검색 진입");
+		final BasicResponse result = new BasicResponse();
+		try {
+			DaumUserMovie dua = daumUserMovieService.checkLike(userNo, movieId);
+			int check = 0;
+			if(dua != null) {
+				check = 1;
+			}
+			result.status = true;
+			result.data = "success";
+			result.object = check;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
 }
 

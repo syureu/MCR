@@ -64,9 +64,7 @@ public class DaumUserActorController {
 		try {
 			if(daumUserActorService.addDaumUserActor(daumUserActor)==0) {
 				daumUserActorService.deletDaumUserActor(daumUserActor.getUserNo(), daumUserActor.getPersonId());
-				result.object = 1;
 			}else { //입력
-				result.object = 0;
 			}
 			result.status = true;
 			result.data = "success";
@@ -101,7 +99,7 @@ public class DaumUserActorController {
 //		return response;
 //	} 
 
-	@GetMapping()
+	@GetMapping("/list")
 	public Object SelectActorByUserNo(@RequestParam int userNo) {
 		ResponseEntity response = null;
 		System.out.println("검색 진입");
@@ -111,6 +109,29 @@ public class DaumUserActorController {
 			result.status = true;
 			result.data = "success";
 			result.object = list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
+	@GetMapping("/check")
+	public Object checkLike(@RequestParam int userNo, @RequestParam int personId) {
+		ResponseEntity response = null;
+		System.out.println("검색 진입");
+		final BasicResponse result = new BasicResponse();
+		try {
+			DaumUserActor dua = daumUserActorService.checkLike(userNo, personId);
+			int check = 0;
+			if(dua != null) {
+				check = 1;
+			}
+			result.status = true;
+			result.data = "success";
+			result.object = check;
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;

@@ -11,4 +11,5 @@ public interface DaumUserMovieDao {
 	public int insertDaumUserMovie(DaumUserMovie daumUserMovie);
 	public int deleteDaumUserMovie(int userNo,int movieId);
 	public List<DaumUserMovie> selectByUserNo(int userNo);
+	public DaumUserMovie checkLike(int userNo, int movieId);
 }
