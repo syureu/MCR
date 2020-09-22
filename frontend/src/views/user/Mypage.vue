@@ -120,22 +120,11 @@
 					<div class="row gtr-150">
 						<div class="scroll-c col-6 col-12-medium" style="overflow-y:scroll; height: 560px;">
 							<ul class="major-icons">
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt="">  </li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li v-for="movie in movie_like" :key="movie.movieId">
+									<img :src="movie.imgUrl" width="130" height="150" alt="" @click="$router.push({name: 'FeedDetail', params: {movieId: movie.movieId}})" >
+									<h4>{{ movie.title }}</h4>  
+								</li>
+								
 							</ul>
 						</div>
 						<div class="col-6 col-12-medium" >
@@ -163,28 +152,17 @@
 							</header>
 							<p>더 다양한 배우에 좋아요를 눌러보세요!</p>
 							<p>{{ id }}님이 좋아하는 배우가 나오는 영화를 더 추천해 드릴게요</p>
-							<span class="image1 fit"><img src="https://media.giphy.com/media/XyhGQEOrJ5MZV6oKrX/giphy-downsized-large.gif" alt="" /></span>
+							<span class="image2 fit"><img src="https://media.giphy.com/media/XyhGQEOrJ5MZV6oKrX/giphy-downsized-large.gif" alt="" /></span>
 							
 							
 						</div>
-						<div class="scroll-c col-6 col-12-medium" style="overflow-y:scroll; height: 560px">
+						<div class="scroll-c col-6 col-12-medium" style="overflow-y:scroll; height: 760px">
 							<ul class="major-icons">
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt="">  </li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
-								<li><img src="https://upload.wikimedia.org/wikipedia/ko/thumb/6/60/%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg/1200px-%EA%B8%B0%EC%83%9D%EC%B6%A9_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" width="150" height="150" alt=""></li>
+								<li v-for="actor in actor_like" :key="actor.actorId">
+									<img :src="actor.imgUrl" width="150" height="150" alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
+									<h4>{{ actor.actorName }}</h4>  
+								</li>
+					
 							</ul>
 						</div>
 						
@@ -202,7 +180,8 @@
 					<div class="row gtr-150">
 					
 						<div class="col-12 col-12-medium">
-							<span class=""><img data-toggle="modal" data-target="#exampleModal1" src="https://media.giphy.com/media/yALcFbrKshfoY/giphy.gif" alt="" /></span>
+							<span class="fit"><img width="30%" data-toggle="modal" data-target="#exampleModal1" src="https://media.giphy.com/media/yALcFbrKshfoY/giphy.gif" alt="" /></span>
+						
 							<h3>회원탈퇴를 하시려면 이미지를 클릭하세요</h3>
 							<p>다시한번 생각해봐</p>
 							<!-- 모달 -->
@@ -266,13 +245,15 @@ export default {
     data() {
       return { 
 		userno: 0,
-          id: "",
-          password: "",
-          passwordConfirm: "",
-          birth: "",
-          gender: true,
-          isSubmit: true,
-          IdCheck: true,
+        id: "",
+        password: "",
+        passwordConfirm: "",
+        birth: "",
+        gender: true,
+        isSubmit: true,
+		IdCheck: true,
+		movie_like: [],
+		actor_like: [],
 		outpw: "",
           error: {
             id:true,
@@ -314,7 +295,40 @@ export default {
         this.city='서울',
         this.role='user',
 		console.log(this.gender)
-		
+		axios.get(`${URL.BASE_URL}/mcr/daumusermovie/list`, {
+				params: { userNo: this.userno }
+			}
+		)
+			.then(res => {
+				this.movie_like = res.data.object
+				console.log(res.data.object)
+				// console.log(this.$store.getters.getUserData)
+				// alert('수정완료!')
+			
+			
+			})
+			.catch(error => {
+				console.log(error)
+			
+			})
+
+		axios.get(`${URL.BASE_URL}/mcr/daumuseractor/list`, {
+				params: { userNo: this.userno }
+			}
+		)
+			.then(res => {
+				this.actor_like = res.data.object
+				console.log(res.data.object)
+				// console.log(this.$store.getters.getUserData)
+				// alert('수정완료!')
+			
+			
+			})
+			.catch(error => {
+				console.log(error)
+			
+			})
+	
 	
 	
 	},	
@@ -322,7 +336,29 @@ export default {
       methods: {
 		checkout() {
 			if(this.password === this.outpw){
-				//   회원탈퇴
+			
+
+           axios.delete(`${URL.BASE_URL}/mcr/user/`, {
+				params: { userId: this.id,
+							pw: this.password }
+			}
+		)
+			.then(res => {
+				this.$session.remove('jwstoken')
+				this.$store.commit('logout')
+				this.$router.go()
+				alert('삭제가 완료되었습니다!')
+				this.$router.push({ path: '/' })
+				location.reload()
+				// console.log(this.$store.getters.getUserData)
+				// alert('수정완료!')
+			
+			
+			})
+			.catch(error => {
+				console.log(error)
+			
+			})
 			}
 			else{
 				alert('비밀번호가 일치하지 않습니다')
@@ -374,7 +410,8 @@ export default {
 		this.$store.commit('setUserInfo', user)
 		console.log(this.gender)
 		console.log(this.$store.getters.getUserData.userinfo.gender)
-		
+		alert('변경이 완료되었습니다!')
+		location.reload()
 		// console.log(this.$store.getters.getUserData)
 		// alert('수정완료!')
 	
@@ -2650,6 +2687,12 @@ mark {
 			display: block;
 			margin: 0 0 2em 0;
 			width: 100%;
+		}
+
+		
+
+		.image2.fit.img{
+			width: 50%;
 		}
 
 			.image1.fit img {
