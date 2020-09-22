@@ -1,5 +1,6 @@
 <template>
-  <div id="total" style="background-color : black; padding-top:20px; padding-bottom:40px;" >
+<div style="height: 2000px">
+  <div id="total" style="background-color : black; padding-top:20px;" >
 
     <div class="">
         <hr>
@@ -128,6 +129,7 @@
 </div>
 <div id="copyright" class="container">
     <p>&copy; Untitled. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
+</div>
 </div>
 </div>
 </template>
