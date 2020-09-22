@@ -5,10 +5,8 @@
             <h3>해당검색결과가 없습니다.</h3>
         </div>
         <div class="box" v-else  v-for="movie in Movie" :key="movie.id">
-          <a href=""><img :src="movie.imgUrl"  style="width:300px; float:left;" alt="영화 이미지" /></a>
-          <div class="card-cover" @click="changeDeatil(movie.id)">
-                            <h3 v-text="movie.title"></h3>
-          </div>
+          <a href=""><img :src="movie.imgUrl"  style="width:300px; hegith:250px; float:left;" alt="영화 이미지" @click="changeDeatil(movie.movieId)" /></a>
+                <h3 v-text="movie.movieName"></h3>
         </div>
         <div style="clear:both;"></div>
     </div>
@@ -32,6 +30,9 @@ export default {
         .then(res=>{
           console.log(res)
           this.Movie=res.data.object
+          this.Movie.forEach(index => {
+              this.Movie[index]["hover"]=false
+          });
           console.log(this.Movie)
           if(this.Movie==null){
             this.isNull=false
@@ -41,10 +42,7 @@ export default {
           console.log(err)
         })
 
-        this.title=`${this.$route.params.keyword} 검색결과`
-        if(this.Movie.length==0){
-          this.isNull=false
-        }
+        
     },
     methods:{
        changeDeatil(id){
@@ -104,7 +102,5 @@ a {
         color: whitesmoke;
 }
 
-.box img {
-  border-radius: 2px;
-}
+
 </style>

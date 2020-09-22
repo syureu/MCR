@@ -59,7 +59,7 @@ export default {
    
     methods: {
         changeDeatil(id){
-            alert(id)
+         
             this.$router.push(`/feedDetail/${id}`)
         },
     }
