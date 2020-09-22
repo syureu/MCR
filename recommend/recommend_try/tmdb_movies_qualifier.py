@@ -51,6 +51,7 @@ m = vote_counts.quantile(0.85)
 
 qualified = df[(df['vote_count'] >= m) & (df['vote_count'].notnull()) & (
     df['vote_average'].notnull())][['title', 'release_date', 'vote_count', 'vote_average', 'popularity']]
+
 qualified['vote_count'] = qualified['vote_count'].astype('int')
 qualified['vote_average'] = qualified['vote_average'].astype('int')
 qualified['wr'] = qualified.apply(lambda x: (
