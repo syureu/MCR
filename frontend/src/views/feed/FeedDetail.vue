@@ -1,5 +1,6 @@
 <template>
-  <div id="total" style="background-color : black">
+<div style="height: 2000px">
+  <div id="total" style="background-color : black; padding-top:20px;" >
 
     <div class="">
         <hr>
@@ -9,7 +10,7 @@
         <hr>
         <div class="trail pl-5 ml-5">
             <div style="background-color: grey; width :50%" class="inline-div countsort pt-3 mt-4">
-                <iframe wmode="Opaque" class="p-3 video " width="1560" height="315" :src="trailerURL1" frameborder="0" allow="autoplay;  encrypted-media" allowfullscreen></iframe>
+                <iframe wmode="Opaque" class="p-3 video " width="1560" height="315" :src="trailerURL1" frameborder="0" allow="autoplay;  encrypted-media" allowfullscreen>트레일러가 지원되지 않는 작품입니다.</iframe>
             </div>
             <div class="inline-div pl-3 ml-3" style="height : 300px; width: auto; position : absolute;">
                 <div class="example">
@@ -25,6 +26,32 @@
                             <div style="padding:12px;" v-if="current.content==='콘텐츠1'">
 								<div style="border: 5px solid black; border-radius: 8px; padding:13px;">
 								<img :src="this.movieDetail.imgurl" alt="" style="float:left; margin-right: 10px; border:10px solid black; border-radius:8px;">
+                                <div style="float:right" v-if="this.$store.getters.getUserData != null">
+                                        <svg      
+                                        class="svg-inline--fa fa-heart fa-w-16 icon full"
+                                        aria-hidden="true"
+                                        data-prefix="fas"
+                                        data-icon="heart"
+                                        role="img"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512"
+                                        data-fa-i2svg
+                                        cursor="pointer"
+                                        width="30px"
+                                        @click="like()"
+                                        >
+                                        <path
+                                        v-if="like_on == 1"
+                                            fill="crimson"
+                                            d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
+                                            />
+                                        <path
+                                            v-else-if="like_on == 0"
+                                            fill="white"
+                                            d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
+                                            />
+                                        </svg> 
+                                    </div>
 								<div style="float:left;">
 									<br>
 									{{ this.movieDetail.movieName }} | <i class="fas fa-star" style="color:yellow;"></i>&nbsp;{{ this.movieDetail.rate}} <br><br>
@@ -79,10 +106,10 @@
         <h2 style="color: white;">출연</h2>
         <hr style="background-color:white;">    
     </div>
-    <div class="boxA" style="text-align:center;">
-        <div class="box" style="display: inline-block;">
-    <carousel style="width:1000px; margin-left:50px;" :items="itemNumber"  v-if="actorList && actorList.length" >
-        <div style="display: inline-block;"  v-for="actor in actorList" :key="actor.personId">
+    <div class="boxA">
+        <div class="box" style="text-align:center;">
+    <carousel style="width:1000px; display:inline-block; margin-top:30px;" :items="itemNumber"  v-if="actorList && actorList.length" >
+        <div style="display: inline-block;" v-for="actor in actorList" :key="actor.personId">
         <img style="width:200px; height:250px;" v-if="actor.imgUrl==''" src="https://png.pngtree.com/png-vector/20191001/ourlarge/pngtree-man-icon-isolated-on-abstract-background-png-image_1769021.jpg" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" alt="">
         <img style="width:200px; height:250px;" v-else :src="actor.imgUrl" alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
         <br>
@@ -102,6 +129,7 @@
 </div>
 <div id="copyright" class="container">
     <p>&copy; Untitled. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
+</div>
 </div>
 </div>
 </template>
@@ -133,6 +161,7 @@ export default {
         userno: "",
         currentId: 1,
         itemNumber: 4,
+        like_on : 0,
         list: [
             { id: 1, label: '영화정보', content: '콘텐츠1' },
             { id: 2, label: '줄거리', content: '콘텐츠2' },
@@ -159,6 +188,36 @@ export default {
     },
   },
   methods: {
+      like(){
+          if (this.like_on == 0) {
+            this.like_on = 1;
+            let like= {
+                movieId: this.movieDetail.movieId,
+                userNo: this.userno,
+            };
+            axios.post(`${HTTP.BASE_URL}/mcr/daumusermovie`, like)
+            .then(res => {
+              console.log(res)
+            })
+            .catch(res => {
+              console.log(res)
+            })
+          }
+          else {
+            this.like_on = 0;
+            let like= {
+                movieId: this.movieDetail.movieId,
+                userNo: this.userno,
+            };
+            axios.post(`${HTTP.BASE_URL}/mcr/daumusermovie`, like)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(res => {
+                console.log(res)
+            })
+          }
+    },
   },
     created() {
 		if(this.$store.getters.getUserData == null){
@@ -181,6 +240,7 @@ export default {
 				})
 			}
 			this.movieDetail = {
+            movieId : res.data.object.movieId,
 			movieName: res.data.object.movieName,
 			rate : res.data.object.rate,
 			genre: res.data.object.genre,
@@ -208,7 +268,7 @@ export default {
         
         axios.get(`${HTTP.BASE_URL}/mcr/daummovieactor/actorlist` ,
 			{
-				params: { movieId: this.movieDetail.movieId }
+				params: { movieId: `${this.$route.params.movieId}` }
 			}
 		).then(res => {
             if (res.data === 'fail') {
@@ -222,6 +282,15 @@ export default {
             console.log(res)
             this.actorList = res.data.object
             console.log(this.actorList)
+        }).catch(err => {
+            console.log(err)
+        })
+
+        axios.get(`${HTTP.BASE_URL}/mcr/daumusermovie/check`,
+        {
+            params : { movieId : `${this.$route.params.movieId}` , userNo : this.userno}
+        }).then(res => {
+            this.like_on = res.data.object
         }).catch(err => {
             console.log(err)
         })
@@ -511,13 +580,11 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 .boxB,
 .boxC
 {
-    width: 320px;
 }
 
 .boxA,
 .boxB
 {
-    float: left;
 }
 
 .boxC

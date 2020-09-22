@@ -63,8 +63,7 @@ export default {
     background:black;
     padding-top:100px;
     width:100%;
-    height: 100%;
-    overflow-x:"hidden"
+    height:100%;
 }
  h1 {
   margin-left:100px;

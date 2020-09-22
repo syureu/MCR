@@ -25,6 +25,8 @@
                             placeholder="ID를 입력하세요."
                             type="text"
                             :rules="[rules.required]" >
+                   <button class="" type="button" style="position: absolute; left: 50%; transform: translateX(-50%);" @click="check_id">ID 중복체크</button>
+                  
                 </div>
                 <div class="form-group">
                     <label for="password" style="color: white">비밀번호</label>
@@ -33,7 +35,7 @@
                             id="password"
                             placeholder="비밀번호를 입력하세요."
                             type="password"
-                            :rules="passwordRules">
+                           >
                 </div>
                 <div class="form-group">
                     <label for="passwordConfirm" style="color: white">비밀번호 확인</label>
@@ -42,7 +44,7 @@
                             type="password"
                             id="passwordConfirm"
                             placeholder="비밀번호를 한번 더 입력하세요."
-                            :rules="checkPasswordRules">
+                          >
                 </div>
                 <div class="form-group">
                     <label for="birth" style="color: white">생년월일</label>
@@ -96,6 +98,8 @@ export default {
     return {
 
     id:"",
+    id2:"",
+    re_id: false,
     password: "",
     passwordConfirm: "",
     birth: "",
@@ -136,6 +140,35 @@ export default {
   
   },
   methods: {
+    check_id() {
+        let check = true
+        if(this.id == ""){
+            alert('아이디를 입력하세요!!')
+            check = false
+        }
+        if(check === true){
+        axios.get(`${URL.BASE_URL}/mcr/user/check`, {
+				params: { id: this.id }
+            }
+		)
+			.then(res => {
+				if(res.data.object == true){
+                    this.re_id = false
+                    alert('이미 존재하는 아이디입니다')
+                }
+                else if(res.data.object == false){
+                    this.id2 = this.id
+                    this.re_id = true
+                    alert('가입 가능한 아이디입니다.')
+                }
+			
+			})
+			.catch(error => {
+				console.log(error)
+			
+            })
+        }
+    },
     checkform(){
         
         let isSubmit = false;
@@ -169,8 +202,10 @@ export default {
                 this.gender = document.getElementsByName("radio_answer")[1].value
                 alert(document.getElementsByName("radio_answer")[1].value)
             }
-           alert('가입완료')
-           alert(this.birth)
+        if(this.re_id == false  || this.id!=this.id2){
+            alert('아이디 중복체크 해주세요!')
+            isSubmit = true;
+        }
            
             let user={
                    userid: this.id,
@@ -182,14 +217,20 @@ export default {
                 role:'user',
                }
           
-
-           axios.post(`${URL.BASE_URL}/mcr/user`, user)    
+        if(isSubmit==false){
+            axios.post(`${URL.BASE_URL}/mcr/user`, user)    
       .then(res => {
         console.log(res)
         let msg="등록 처리시 문제가 발생하였습니다."
         if(res=='success'){
             msg='등록이 완료되었습니다.';
         }
+        alert('가입완료')
+        let loginData={
+             userid: this.userid,
+             pw : this.password
+           }
+        this.$router.push({name:'Home'})
       })
       .catch(error => {
           console.log(this.id)
@@ -197,6 +238,8 @@ export default {
         console.log("가입실패");
         alert("입력정보를 확인해주세요.")
       })
+        }
+           
         }
 
     },
@@ -224,6 +267,43 @@ export default {
     src: url("../../assets/fonts/fontawesome/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("../../assets/fonts/fontawesome/fonts/fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("../../assets/fonts/fontawesome/fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"), url("../../assets/fonts/fontawesome/fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("../../assets/fonts/fontawesome/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
     font-weight: normal;
     font-style: normal; }
+
+    button{
+        background:#1AAB8A;
+        color:#fff;
+        border:none;
+        position:relative;
+        height:30px;
+        font-size:1.2em;
+        padding:0 2em;
+        cursor:pointer;
+        transition:800ms ease all;
+        outline:none;
+    }
+    button:hover{
+        background:#fff;
+        color:#1AAB8A;
+        }
+        button:before,button:after{
+        content:'';
+        position:absolute;
+        top:0;
+        right:0;
+        height:2px;
+        width:0;
+        background: #1AAB8A;
+        transition:400ms ease all;
+        }
+        button:after{
+        right:inherit;
+        top:inherit;
+        left:0;
+        bottom:0;
+        }
+        button:hover:before,button:hover:after{
+        width:100%;
+        transition:800ms ease all;
+        }
 
     .bg{
         background-color: black !important;
@@ -626,7 +706,7 @@ export default {
     .pb_cover_v3,
     .pb_cover_v4 {
     position: relative;
-    height: 95vh; }
+    height: 125vh; }
     @media (max-width: 767px) {
         .pb_cover,
         .pb_cover_v1,
