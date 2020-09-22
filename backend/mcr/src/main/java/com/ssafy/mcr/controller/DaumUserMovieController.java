@@ -1,7 +1,9 @@
 package com.ssafy.mcr.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 //import org.springframework.web.multipart.MultipartFile;
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,6 +60,9 @@ public class DaumUserMovieController {
 
 	@Autowired
 	DaumUserMovieService daumUserMovieService;
+	
+	@Autowired
+	DaumMovieService daumMovieService;
 
 	@PostMapping()
 	public Object insertDaumUserMovie(@RequestBody DaumUserMovie daumUserMovie) {
@@ -100,16 +106,32 @@ public class DaumUserMovieController {
 //		return response;
 //	} 
 
-	@GetMapping()
+	@GetMapping("/list")
 	public Object SelectMovieByUserNo(@RequestParam int userNo) {
 		ResponseEntity response = null;
-		System.out.println("검색 진입");
+		List<Object> obj = new ArrayList<Object>();
 		final BasicResponse result = new BasicResponse();
+		ObjectMapper mapper = new ObjectMapper();
+		Map res = null;
+		System.out.println("좋아하는 영화 리스트 진입");
 		try {
 			List<DaumUserMovie> list = daumUserMovieService.getDaumUserMovieByUserNo(userNo);
+//			System.out.println(list.toString());
+			for(DaumUserMovie dum : list) {
+				DaumMovie dm = daumMovieService.getDaumMovieBymovieId(dum.getMovieId());
+				String title = dm.getMovieName();
+				if(title == null) {
+					title = dm.getMovieNameEn();
+				}
+				String imgUrl = dm.getImgUrl();
+				res = mapper.convertValue(dum, Map.class);
+				res.put("title", title);
+				res.put("imgUrl", imgUrl);
+				obj.add(res);
+			}
 			result.status = true;
 			result.data = "success";
-			result.object = list;
+			result.object = obj;
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;

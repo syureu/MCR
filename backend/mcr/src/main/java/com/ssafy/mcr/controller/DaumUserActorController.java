@@ -1,7 +1,9 @@
 package com.ssafy.mcr.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,13 +32,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 //import org.springframework.web.multipart.MultipartFile;
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.mcr.dto.BasicResponse;
 import com.ssafy.mcr.dto.DaumActor;
+import com.ssafy.mcr.dto.DaumMovie;
 import com.ssafy.mcr.dto.DaumReview;
 import com.ssafy.mcr.dto.DaumUserActor;
+import com.ssafy.mcr.dto.DaumUserMovie;
 import com.ssafy.mcr.dto.User;
 import com.ssafy.mcr.service.DaumActorService;
 import com.ssafy.mcr.service.DaumReviewService;
@@ -56,6 +61,9 @@ public class DaumUserActorController {
 
 	@Autowired
 	DaumUserActorService daumUserActorService;
+	
+	@Autowired
+	DaumActorService daumActorService;
 
 	@PostMapping()
 	public Object insertDaumUserActor(@RequestBody DaumUserActor daumUserActor) {
@@ -102,13 +110,28 @@ public class DaumUserActorController {
 	@GetMapping("/list")
 	public Object SelectActorByUserNo(@RequestParam int userNo) {
 		ResponseEntity response = null;
-		System.out.println("검색 진입");
+		List<Object> obj = new ArrayList<Object>();
 		final BasicResponse result = new BasicResponse();
+		ObjectMapper mapper = new ObjectMapper();
+		Map res = null;
+		System.out.println("좋아하는 배우 리스트 진입");
 		try {
 			List<DaumUserActor> list = daumUserActorService.getDaumUserActorByUserNo(userNo);
+			for(DaumUserActor dua : list) {
+				DaumActor da = daumActorService.getDaumActorBypersonId(dua.getPersonId());
+				String actorName = da.getActorName();
+				if(actorName == null) {
+					actorName = da.getActorNameEn();
+				}
+				String imgUrl = da.getImgUrl();
+				res = mapper.convertValue(dua, Map.class);
+				res.put("actorName", actorName);
+				res.put("imgUrl", imgUrl);
+				obj.add(res);
+			}
 			result.status = true;
 			result.data = "success";
-			result.object = list;
+			result.object = obj;
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
