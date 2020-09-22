@@ -57,6 +57,10 @@ export default {
 
     methods:{
       searchKeywords(){
+          if(this.searchKeyword.length==0){
+            alert('검색어를 입력하세요')
+            return 
+          }
           this.$router.push(`/search/${this.searchKeyword}`)
       },
       logout(){
