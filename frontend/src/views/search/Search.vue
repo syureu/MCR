@@ -8,7 +8,7 @@
         <div class="col"  style="float:left;" v-for="movie in Movie" :key="movie.id">
           <a href=""><img :src="movie.imgUrl"   style="width:200px; height:350px;" alt="영화 이미지" @click="changeDeatil(movie.movieId)" /></a>
                <div class="card-cover" style="width:200px; height:350px;">
-                <h3 v-text="movie.movieName"></h3>
+                <h3 v-text="movie.movieName" @click="changeDeatil(movie.movieId)"></h3>
                 <h3  v-text="movie.rate"></h3>
                </div>
         </div>

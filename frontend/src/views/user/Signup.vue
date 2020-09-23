@@ -19,7 +19,7 @@
                 
                 <div class="form-group">
                     <label for="id" style="color: white">아이디</label>
-                    <input  class="form-control pb_height-50 reverse"                      
+                    <input  class="form-control pb_height-50 "                      
                             v-model="id"
                             id="id"            
                             placeholder="ID를 입력하세요."
@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password" style="color: white">비밀번호</label>
-                    <input  class="form-control pb_height-50 reverse" 
+                    <input  class="form-control pb_height-50 " 
                             v-model="password"
                             id="password"
                             placeholder="비밀번호를 입력하세요."
@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <label for="passwordConfirm" style="color: white">비밀번호 확인</label>
-                    <input class="form-control pb_height-50 reverse"
+                    <input class="form-control pb_height-50 "
                             v-model="passwordConfirm"
                             type="password"
                             id="passwordConfirm"
@@ -48,7 +48,7 @@
                 </div>
                 <div class="form-group">
                     <label for="birth" style="color: white">생년월일</label>
-                    <input  class="form-control pb_height-50 reverse"
+                    <input  class="form-control pb_height-50 "
                             v-model="birth"
                             id="birth"
                             type="date"
