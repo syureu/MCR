@@ -66,7 +66,7 @@ export default {
       logout(){
         this.$session.remove('jwstoken')
         this.$store.commit('logout')
-        this.$router.go()
+        this.$router.push({name: 'Home'})
       },
       changeMypage(){
         this.$router.push({name:'Mypage'})
