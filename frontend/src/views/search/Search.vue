@@ -13,26 +13,63 @@
                </div>
         </div>
         </div>
-        <div style="clear:both;"></div>
+         <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+          <div slot="no-more" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px;">목록의 끝입니다 :)</div>
+        </infinite-loading>
     </div>
 </template>
 <script>
 import axios from 'axios'
 import URL from '@/util/http-common.js'
-
+import InfiniteLoading from 'vue-infinite-loading'
 export default {
     data(){
         return{
             title:"",
             Movie:[],
-            isNull:true
+            isNull:true,
+            page:0
         }
-    }, 
+    },components:{
+      InfiniteLoading 
+    },
+     methods:{
+       infiniteHandler($state){
+         axios.get(`${URL.BASE_URL}/mcr/daummovie/page`,{
+          params : {title:`${this.$route.params.keyword}`,
+                    page : `${this.page}`,
+          }
+       })
+       .then(res=> {
+         console.log(res)
+         setTimeout(()=>{
+           if(res.data.data==="success"){
+         console.log('왓다')
+             this.Movie = this.Movie.concat(res.data.object);
+             $state.loaded();
+              this.page+=1;
+              
+           }else{
+             $state.complete();
+           }
+         },1000)
+       })
+       .catch(err=>{
+         console.error(err);
+       })
+    },
+     changeDeatil(id){
+            this.$router.push(`/feedDetail/${id}`)
+        }
+    },
     created(){
-        axios.get(`${URL.BASE_URL}/mcr/daummovie/bytitle`,{
-          params : {title:`${this.$route.params.keyword}`}
+        axios.get(`${URL.BASE_URL}/mcr/daummovie/page`,{
+          params : {title:`${this.$route.params.keyword}`,
+                    page : 0,
+          }
         })
         .then(res=>{
+          console.log(this.page)
           console.log(res)
           this.Movie=res.data.object
           
@@ -40,18 +77,15 @@ export default {
           if(this.Movie.length==0){
             this.isNull=false
           }
+          
         })
         .catch(err=>{
           console.log(err)
         })
-
+        this.page+=1;
         this.title=`${this.$route.params.keyword}의 검색결과`
     },
-    methods:{
-       changeDeatil(id){
-            this.$router.push(`/feedDetail/${id}`)
-        },
-    }
+    
 }
 </script>
 <style scoped>

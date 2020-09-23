@@ -6,14 +6,14 @@
 
             <div class="modal-header">
                 <slot name="header">
-                <h3>Login</h3> 
+                <h3>로그인</h3> 
+                <button type="button" class="close" style="color:white;" data-dismiss="modal" @click="modalclose">×</button>
                 </slot>
             </div>
             <div class="modal-body">
                 <div class="form">
-                    <label class="input-label" for="inputname">아이디</label>
-                    <input type="text" id="inputname" placeholder="이메일을 입력하세요." @keyup.esc="$emit('close')" v-model="userid">                
-                    <div v-if="errorData.userid" v-text="errorData.userid"></div>  
+                    <label class="input-label" style="font-" for="inputname">아이디</label>
+                    <input type="text" id="inputname" placeholder="아이디를 입력하세요." @keyup.esc="$emit('close')" v-model="userid">                
                 </div>
                 <div class="form">
                     <label class="input-label" for="inputpassword">비밀번호</label>
@@ -22,10 +22,8 @@
             </div>
 
             <div class="modal-footer">
+                <div style="color:red;" v-if="errorData.userid" v-text="errorData.userid"></div>  
                 <button class="modal-default-button" @click="login">로그인</button>
-                <button class="modal-default-button" @click="$emit('close')">
-                    취소
-                </button>
                 </div>
             </div>
         </div>
@@ -51,29 +49,32 @@ export default {
     },
     methods: {
       formcheck(){
-        if(this.userid=== "" || (this.userid.length>0))
-          this.errorData.userid = "올바른 아이디 형식이 아닙니다."
+        if(this.userid=== "" || (this.userid.length>0)||this.password=== "" || (this.userid.password>0)){
+          this.errorData.userid = "올바른 아이디나 비밀번호를 확인해주세요."
+          return ;
+        }
+        
         else this.errorData.userid = false
+        
       },
       login(){
-            
+          this.formcheck();   
            let loginData={
              userid: this.userid,
              pw : this.password
            } 
       axios.post(`${URL.BASE_URL}/mcr/login`, loginData)
       .then(res => {
-        if (res.data.status === true) {
+        if (res.data.data === "success") {
           console.log(res)
           this.$session.set('jwstoken', res.headers.jwstoken)
           this.$store.commit('login', res.data.object)
-          console.log(this.$store.getters.getUserData)
-          console.log(this.$store.getters.getUserData.userinfo.birthday)
           this.modalclose()
           location.reload()
         }
         else {
-          alert('일치하는 회원정보가 없습니다.')
+          
+          return ;
         }
       })
       .catch(err => {
@@ -107,9 +108,11 @@ export default {
     vertical-align: middle;
   }
   .form input{
+    font-family: 'Noto Sans JP', sans-serif;
     float:right;
     margin-right :10%;
-    width: 60%;
+    width: 70%;
+    border-radius: 5px;
   }
   .modal-container {
     width: 450px;
