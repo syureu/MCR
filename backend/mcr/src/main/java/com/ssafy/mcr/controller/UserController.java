@@ -32,13 +32,8 @@ import io.swagger.annotations.ApiOperation;
 
 //import io.swagger.annotations.ApiImplicitParam;
 //import io.swagger.annotations.ApiImplicitParams;
-<<<<<<< HEAD
 
 @CrossOrigin(origins = { "*" })
-=======
-//http://localhost:3000/#/Signup
-@CrossOrigin(origins = { "http://localhost:3000" })
->>>>>>> frontend-dev
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -48,7 +43,7 @@ public class UserController {
 	UserService userService;
 
 	@ApiOperation(value="회원의 정보를 받아 회원정보를 생성(가입)합니다.")
-	@PostMapping("/post")
+	@PostMapping()
 	public Object sign(@RequestBody User user) {
 		System.out.println("생성 진입");
 		ResponseEntity response = null;
@@ -58,12 +53,8 @@ public class UserController {
 			System.out.println(user.toString());
 			System.out.println("디비저장성공");
 			result.status = true;
-<<<<<<< HEAD
 			result.data = user.getUserid() + " 회원이 추가되었습니다.";
 			result.object = user;
-=======
-			result.data = user.getId() + " 회원이 추가되었습니다.";
->>>>>>> frontend-dev
 		} catch (Exception e) {
 			System.out.println("디비저장실패");
 			e.printStackTrace();
@@ -75,15 +66,15 @@ public class UserController {
 	}
 	
 	@ApiOperation(value="회원의 ID를 받아 회원정보를 삭제합니다.")
-	@DeleteMapping("/delete")
-	public Object deleteUser(@RequestParam String id) {
+	@DeleteMapping()
+	public Object deleteUser(@RequestParam String userId, @RequestParam String pw) {
 		ResponseEntity response = null;
 		System.out.println("삭제 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
-			userService.deleteUser(id);
+			userService.deleteUser(userId,pw);
 			result.status = true;
-			result.data = id + " 회원이 삭제되었습니다.";
+			result.data = userId + " 회원이 삭제되었습니다.";
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -94,22 +85,17 @@ public class UserController {
 	}
 	
 	@ApiOperation(value="회원의 ID를 받아 회원정보를 수정합니다.")
-	@PutMapping("/put")
+	@PutMapping()
 	public Object UpdateUser(@RequestBody User user) {
 		ResponseEntity response = null;
 		System.out.println("수정 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
 			userService.modifyUser(user);
-<<<<<<< HEAD
 			User us = userService.getUserbyId(user.getUserid());
 			result.status = true;
 			result.data = user.getUserid() + " 회원이 수정되었습니다.";
 			result.object = us;
-=======
-			result.status = true;
-			result.data = user.getId() + " 회원이 수정되었습니다.";
->>>>>>> frontend-dev
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -120,13 +106,8 @@ public class UserController {
 	}
 	
 	@ApiOperation(value="회원의 ID를 받아 회원정보를 검색(리턴)합니다")
-<<<<<<< HEAD
 	@GetMapping()
 	public Object SelectUser(@RequestParam String id) {
-=======
-	@GetMapping("/get")
-	public Object UpdateUser(@RequestParam String id) {
->>>>>>> frontend-dev
 		ResponseEntity response = null;
 		System.out.println("검색 진입");
 		final BasicResponse result = new BasicResponse();
@@ -135,6 +116,30 @@ public class UserController {
 			result.status = true;
 			result.data = id + " 회원정보를 리턴합니다.";
 			result.object = user;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
+	@ApiOperation(value="회원의 ID를 받아 회원정보를 검색(리턴)합니다")
+	@GetMapping("/check")
+	public Object userCheck(@RequestParam String id) {
+		ResponseEntity response = null;
+		System.out.println("체크 진입");
+		final BasicResponse result = new BasicResponse();
+		try {
+			User user = userService.getUserbyId(id);
+			if(user == null) {
+				result.object = false;
+			}else {
+				result.object = true;
+			}
+			result.status = true;
+			result.data = "success";
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
