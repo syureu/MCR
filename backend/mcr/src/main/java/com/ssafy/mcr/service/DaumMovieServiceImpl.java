@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.mcr.dao.DaumMovieDao;
 import com.ssafy.mcr.dto.DaumMovie;
+import com.ssafy.mcr.dto.Paging;
 
 @Service
 public class DaumMovieServiceImpl implements DaumMovieService{
@@ -31,8 +32,8 @@ public class DaumMovieServiceImpl implements DaumMovieService{
 	}
 
 	@Override
-	public List<DaumMovie> getLimit30(int page) {
-		return daumMovieDao.selectLimit30(page);
+	public List<DaumMovie> getLimit30(Paging paging) {
+		return daumMovieDao.selectLimit30(paging);
 	}
 
 }

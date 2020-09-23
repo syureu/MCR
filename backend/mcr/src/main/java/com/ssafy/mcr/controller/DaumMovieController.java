@@ -36,6 +36,7 @@ import com.ssafy.mcr.dto.BasicResponse;
 import com.ssafy.mcr.dto.DaumActor;
 import com.ssafy.mcr.dto.DaumMovie;
 import com.ssafy.mcr.dto.DaumReview;
+import com.ssafy.mcr.dto.Paging;
 import com.ssafy.mcr.dto.User;
 import com.ssafy.mcr.service.DaumActorService;
 import com.ssafy.mcr.service.DaumMovieService;
@@ -170,12 +171,13 @@ public class DaumMovieController {
 
 	@ApiOperation(value="영화를 30개씩 페이지네이션합니다.")
 	@GetMapping("/page")
-	public Object getMovieLimit30(@RequestParam int page) {
+	public Object getMovieLimit30(@RequestParam String title, @RequestParam int page) {
 		ResponseEntity response = null;
 		System.out.println("페이지네이션 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
-			List<DaumMovie> list = daumMovieService.getLimit30(page*30);
+			Paging paging = new Paging(title, page*30);
+			List<DaumMovie> list = daumMovieService.getLimit30(paging);
 			result.status = true;
 			result.data = "success";
 			result.object = list;
