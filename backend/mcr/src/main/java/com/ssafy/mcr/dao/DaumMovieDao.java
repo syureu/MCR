@@ -11,4 +11,5 @@ public interface DaumMovieDao {
 	public void insertDaumMovie(DaumMovie daumMovie);
 	public DaumMovie selectDaumMovieBymovieId(int movieId);
 	public List<DaumMovie> selectByTitle(String title);
+	public List<DaumMovie> selectLimit30(int page);
 }

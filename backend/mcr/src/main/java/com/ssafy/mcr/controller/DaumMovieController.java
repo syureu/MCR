@@ -84,7 +84,10 @@ public class DaumMovieController {
 				}
 				movie.setMovieId(i);
 				movie.setOverview(doc.select("div.desc_movie p").text());
-				movie.setGenre(doc.select("dl.list_movie dd.txt_main").get(0).text());
+				System.out.println(movie.toString());
+				if(doc.select("dl.list_movie dd.txt_main").get(0).text() != "") {					
+					movie.setGenre(doc.select("dl.list_movie dd.txt_main").get(0).text());
+				}
 				movie.setNation(doc.select("dl.list_movie dd").get(1).text());
 				Elements es = doc.select("dl.list_movie.list_main dd");
 				for(Element e : es) {
@@ -97,7 +100,11 @@ public class DaumMovieController {
 							}
 						}
 						if(!flag) {
-							movie.setMovieOpeningDate(str.substring(0, 10));
+							if(str.length() >= 10) {
+								movie.setMovieOpeningDate(str.substring(0, 10));								
+							}else {
+								movie.setMovieOpeningDate(str.substring(0, str.length()));																
+							}
 						}
 					}else {
 						continue;
@@ -112,8 +119,10 @@ public class DaumMovieController {
 						}
 					}
 				}
+				System.out.println(movie.toString());
 				daumMovieService.addDaumMovie(movie);
 			}catch (Exception e) {
+				e.printStackTrace();
 				continue;
 			}
 		}
@@ -159,5 +168,24 @@ public class DaumMovieController {
 		return response;
 	}
 
+	@ApiOperation(value="영화를 30개씩 페이지네이션합니다.")
+	@GetMapping("/page")
+	public Object getMovieLimit30(@RequestParam int page) {
+		ResponseEntity response = null;
+		System.out.println("페이지네이션 진입");
+		final BasicResponse result = new BasicResponse();
+		try {
+			List<DaumMovie> list = daumMovieService.getLimit30(page*30);
+			result.status = true;
+			result.data = "success";
+			result.object = list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
 }
 

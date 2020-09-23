@@ -30,4 +30,9 @@ public class DaumMovieServiceImpl implements DaumMovieService{
 		return daumMovieDao.selectByTitle(title);
 	}
 
+	@Override
+	public List<DaumMovie> getLimit30(int page) {
+		return daumMovieDao.selectLimit30(page);
+	}
+
 }

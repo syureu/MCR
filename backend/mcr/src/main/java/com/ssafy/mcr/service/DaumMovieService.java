@@ -8,4 +8,5 @@ public interface DaumMovieService {
 	public void addDaumMovie(DaumMovie daumMovie);
 	public DaumMovie getDaumMovieBymovieId(int movieId);
 	public List<DaumMovie> getDaumMovieByTitle(String title);
+	public List<DaumMovie> getLimit30(int page);
 }
