@@ -14,73 +14,11 @@
           <div class="col-md-5 relative align-self-center">
 
               
-            <form action="#" class=" rounded " name="vali">
-                <h1 class="form-title " style="color :white;"><i class="fas fa-user-plus" style="color:#57efc4;"></i> <br> 회원가입  <hr></h1>
-                
-                <div class="form-group">
-                    <label for="id" style="color: white">아이디</label>
-                    <input  class="form-control pb_height-50 reverse"                      
-                            v-model="id"
-                            id="id"            
-                            placeholder="ID를 입력하세요."
-                            type="text"
-                            :rules="[rules.required]" >
-                   <button class="" type="button" style="position: absolute; left: 50%; transform: translateX(-50%);" @click="check_id">ID 중복체크</button>
-                  
-                </div>
-                <div class="form-group">
-                    <label for="password" style="color: white">비밀번호</label>
-                    <input  class="form-control pb_height-50 reverse" 
-                            v-model="password"
-                            id="password"
-                            placeholder="비밀번호를 입력하세요."
-                            type="password"
-                           >
-                </div>
-                <div class="form-group">
-                    <label for="passwordConfirm" style="color: white">비밀번호 확인</label>
-                    <input class="form-control pb_height-50 reverse"
-                            v-model="passwordConfirm"
-                            type="password"
-                            id="passwordConfirm"
-                            placeholder="비밀번호를 한번 더 입력하세요."
-                          >
-                </div>
-                <div class="form-group">
-                    <label for="birth" style="color: white">생년월일</label>
-                    <input  class="form-control pb_height-50 reverse"
-                            v-model="birth"
-                            id="birth"
-                            type="date"
-                            :rules="[rules.required]">
-                </div>
-                <div class="form-group">
-                    <label for="gender" style="color: white" class="pr-5">성별</label>
-                    <input
-                            id="gender"
-                            name="radio_answer"
-                            type="radio"
-                            value="true"
-              
-                           >
-                    <font class="pr-3" style="color : white;">남자</font>
-                    <input 
-                            id="gender"
-                            name="radio_answer"
-                            type="radio"
-                            value="false"
-                           >
-                    <font style="color : white;">여자</font>
-                </div>
-            </form>
-        
-        <button
-        @click="checkform"
-        class=" ml-5"
-        style="background-color: black"        
-       
+         
+        <button @click="signup"
+        style="background-color: black"   
         >
-          <h2 style="color: white">가입</h2>
+          <h2 style="color: white;">지금 가입하기</h2>
         </button>
             
           </div>
@@ -89,171 +27,27 @@
     </section>
 </template>
 
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-import URL from '@/util/http-common.js'
-import axios from 'axios';
 export default {
     data () {
     return {
-
-    id:"",
-    id2:"",
-    re_id: false,
-    password: "",
-    passwordConfirm: "",
-    birth: "",
-    gender: "",
-    isSubmit: false,
-    IdCheck: false,
-    error: {
-        id:true,
-        password: true,
-        passwordConfirm: true,
-        birth: true,
-        type:true
+      }
+    },
+methods: {
+        signup(){
+        this.$router.push({name:'Signup'})
       },
-
-    rules: {
-        required: value => (!!value) || '필수 입력사항입니다.',
-      },
-   
-    }
-    },
-    watch:{
-    id:function(v){
- 
-    },
-    email:function(v){
-    },
-    password:function(v){
-    },
-    passwordConfirm:function(v){
-
-    },
-    birth:function(v){
-    },
-    gender:function(v){
-    },
- 
-    
-  
-  },
-  methods: {
-    check_id() {
-        let check = true
-        if(this.id == ""){
-            alert('아이디를 입력하세요!!')
-            check = false
-        }
-        if(check === true){
-        axios.get(`${URL.BASE_URL}/mcr/user/check`, {
-				params: { id: this.id }
-            }
-		)
-			.then(res => {
-				if(res.data.object == true){
-                    this.re_id = false
-                    alert('이미 존재하는 아이디입니다')
-                }
-                else if(res.data.object == false){
-                    this.id2 = this.id
-                    this.re_id = true
-                    alert('가입 가능한 아이디입니다.')
-                }
-			
-			})
-			.catch(error => {
-				console.log(error)
-			
-            })
-        }
-    },
-    checkform(){
-        
-        let isSubmit = false;
-        console.log(document.getElementById("birth").value)
-        if(!document.getElementById("id").value){
-            alert('아이디를 입력해 주세요');
-            isSubmit = true;
-        }
-        else if(!document.getElementById("password").value){
-        alert('비밀번호를 입력해 주세요.')
-            isSubmit = true;
-        }
-        else if(this.password != this.passwordConfirm) {
-            alert('비밀번호가 다릅니다.')
-            isSubmit = true;
-        }
-        else if(!document.getElementById("birth").value){
-        alert('생년월일을 입력해 주세요')
-            isSubmit = true;
-        }
-        else if(document.getElementsByName("radio_answer")[0].checked == false && document.getElementsByName("radio_answer")[1].checked == false){
-            alert('성별을 입력해주세요')
-            isSubmit = true;
-        }
-        if(isSubmit === false){
-            
-            if (document.getElementsByName("radio_answer")[0].checked == true){
-                this.gender = document.getElementsByName("radio_answer")[0].value
-            }
-            else if(document.getElementsByName("radio_answer")[1].checked == true){
-                this.gender = document.getElementsByName("radio_answer")[1].value
-                alert(document.getElementsByName("radio_answer")[1].value)
-            }
-        if(this.re_id == false  || this.id!=this.id2){
-            alert('아이디 중복체크 해주세요!')
-            isSubmit = true;
-        }
-           
-            let user={
-                   userid: this.id,
-                   pw: this.password,
-                   birthday:this.birth,
-                gender:this.gender,
-                nation:'대한민국',
-                city:'서울',
-                role:'user',
-               }
-          
-        if(isSubmit==false){
-            axios.post(`${URL.BASE_URL}/mcr/user`, user)    
-      .then(res => {
-        console.log(res)
-        let msg="등록 처리시 문제가 발생하였습니다."
-        if(res=='success'){
-            msg='등록이 완료되었습니다.';
-        }
-        alert('가입완료')
-        let loginData={
-             userid: this.userid,
-             pw : this.password
-           }
-        this.$router.push({name:'Home'})
-      })
-      .catch(error => {
-          console.log(this.id)
-        console.log(error)
-        console.log("가입실패");
-        alert("입력정보를 확인해주세요.")
-      })
-        }
-           
-        }
-
-    },
-  
-    
-     
-        
-        
-  }
-    
+},
 }
 </script>
 
 <style scoped> 
+button{
+    margin-top:300px;
+    margin-left:100px;
+    border-radius: 5px;
+    border:0px;
+}
     @font-face {
   font-family: "Ionicons";
   src: url("../../assets/fonts/ionicons/fonts/ionicons.eot?v=2.0.0");
@@ -267,43 +61,6 @@ export default {
     src: url("../../assets/fonts/fontawesome/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("../../assets/fonts/fontawesome/fonts/fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("../../assets/fonts/fontawesome/fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"), url("../../assets/fonts/fontawesome/fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("../../assets/fonts/fontawesome/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
     font-weight: normal;
     font-style: normal; }
-
-    button{
-        background:#1AAB8A;
-        color:#fff;
-        border:none;
-        position:relative;
-        height:30px;
-        font-size:1.2em;
-        padding:0 2em;
-        cursor:pointer;
-        transition:800ms ease all;
-        outline:none;
-    }
-    button:hover{
-        background:#fff;
-        color:#1AAB8A;
-        }
-        button:before,button:after{
-        content:'';
-        position:absolute;
-        top:0;
-        right:0;
-        height:2px;
-        width:0;
-        background: #1AAB8A;
-        transition:400ms ease all;
-        }
-        button:after{
-        right:inherit;
-        top:inherit;
-        left:0;
-        bottom:0;
-        }
-        button:hover:before,button:hover:after{
-        width:100%;
-        transition:800ms ease all;
-        }
 
     .bg{
         background-color: black !important;
@@ -568,6 +325,12 @@ export default {
     .pb_team_v1 {
     margin-bottom: 50px; }
     @media (max-width: 991px) {
+        button{
+    margin-top:150px;
+    margin-left:20px;
+    border-radius: 5px;
+    border:0px;
+}
         .pb_team_v1 {
         text-align: center; } }
     .pb_team_v1 img {
@@ -706,7 +469,7 @@ export default {
     .pb_cover_v3,
     .pb_cover_v4 {
     position: relative;
-    height: 125vh; }
+    height: 95vh; }
     @media (max-width: 767px) {
         .pb_cover,
         .pb_cover_v1,

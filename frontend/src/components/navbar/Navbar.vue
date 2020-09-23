@@ -5,16 +5,14 @@
       </div>      
       <nav class="main-nav">              
         <LoginModal v-if="loginModal" @close="changeLogin" @change="changeModal"/>
-       
-        <a href="#">한국영화</a>
-        <a href="#">미국영화</a>
-        <a href="#">유럽영화</a>
-        
+        <a href="#">장르별 영화</a>
+        <a href="#">인기 영화</a>
       </nav>
       <nav class="mid-nav">
         <div class="box">
-        <input type="text" placeholder="영화를 검색하세요"/>
-        <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
+       
+        <input type="text" placeholder="영화를 검색하세요" v-model="searchKeyword"  @keyup.enter="searchKeywords"/>
+         <a href="" @click="searchKeywords"><i class="fas fa-search sub-nav-logo"></i></a>
         </div>
       </nav>
       <nav class="sub-nav">
@@ -32,6 +30,7 @@
     </div>
 </template>
 <script>
+
 import LoginModal from '@/components/modal/LoginModal.vue'
 export default {
     name : 'Navbar',
@@ -41,6 +40,7 @@ export default {
     data(){
       return {
         loginModal : false,
+        searchKeyword: "",
       }
 
     },
@@ -48,9 +48,21 @@ export default {
       isLoggedIn() {
           return this.$store.getters.isLoggedIn
       }
+    },watch:{
+      
+
+
+      
     },
 
     methods:{
+      searchKeywords(){
+          if(this.searchKeyword.length==0){
+            alert('검색어를 입력하세요')
+            return 
+          }
+          this.$router.push(`/search/${this.searchKeyword}`)
+      },
       logout(){
         this.$session.remove('jwstoken')
         this.$store.commit('logout')
@@ -72,10 +84,9 @@ export default {
 }
 </script>
 <style scoped>
-.logoutbox{
-  
-}
+
 .navbar{
+   font-family: Arial, Helvetica, sans-serif;
   height: 100px;
   padding: 20px 20px 0 20px;
   position: fixed;
@@ -84,7 +95,7 @@ export default {
   grid-gap:5px;
   grid-template-columns: 1fr 3fr 1fr 1fr;
   grid-template-areas: 
-   "nt mn mc sb . . . "; 
+   "nt . mn mn mn mc sb  . . . "; 
   background-color: var(--light);
   width: 100%;
   margin-bottom: 0px;
@@ -114,7 +125,8 @@ export default {
 }
 .main-nav {
   grid-area: mn;
-  padding: 0 30px 0 20px;
+  padding: 0 30px 0 10px;
+  
 }
 .mid-nav{
 
@@ -125,11 +137,12 @@ export default {
   display:inline;
   background-color:rgb(48, 46, 46);
   border-radius : 7px;
- 
+  margin-left:15px;
   color:white;
   border :0px;  
 }
 .mid-nav a {
+  
   color: white;
   text-decoration: none;
   margin-left: 5px;
@@ -156,15 +169,26 @@ export default {
 }
 
 .sub-nav a {
+   font-family: Arial, Helvetica, sans-serif;
   color: white;
-  text-decoration: none;
+  font-size:20px;
   margin: 4px;
 }
 
 .sub-nav a:hover {
   color: red;
 }
+@media(max-width: 1200px) {
 
+  .navbar {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: 
+    "nt nt nt  .  .  sb sb sb . . "
+    "mn mn mn mn mn mn  mn mn mn mn";
+  }
+}
 @media (max-width: 812px){
   .navbar{
     margin: 0;

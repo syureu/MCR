@@ -19,6 +19,7 @@
     "movie-trailer": "^2.0.6",
     "store": "^2.0.12",
     "vue": "^2.6.11",
+    "vue-owl-carousel": "^2.0.3",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.4.3",
     "vue-session": "^1.0.0",

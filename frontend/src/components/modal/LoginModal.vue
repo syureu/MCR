@@ -9,16 +9,15 @@
                 <h3>Login</h3> 
                 </slot>
             </div>
-
             <div class="modal-body">
                 <div class="form">
                     <label class="input-label" for="inputname">아이디</label>
-                    <input type="text" id="inputname" placeholder="이메일을 입력하세요." v-model="userid">                
+                    <input type="text" id="inputname" placeholder="이메일을 입력하세요." @keyup.esc="$emit('close')" v-model="userid">                
                     <div v-if="errorData.userid" v-text="errorData.userid"></div>  
                 </div>
                 <div class="form">
                     <label class="input-label" for="inputpassword">비밀번호</label>
-                    <input type="password" id="inputpassword" placeholder="패스워드를 입력하세요." v-model="password">    
+                    <input type="password" id="inputpassword" placeholder="패스워드를 입력하세요." v-model="password" @keyup.esc="$emit('close')" @keyup.enter="login">    
                 </div>
             </div>
 
