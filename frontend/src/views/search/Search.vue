@@ -5,10 +5,10 @@
             <h3 class="result">해당검색결과가 없습니다.</h3>
         </div>
         <div class="row" v-else>
-        <div class="col"  style="float:left;" v-for="movie in Movie" :key="movie.id">
-          <a href=""><img :src="movie.imgUrl"   style="width:200px; height:350px;" alt="영화 이미지" @click="changeDeatil(movie.movieId)" /></a>
+        <div class="col"  style="" v-for="movie in Movie" :key="movie.id">
+          <a href=""><img :src="movie.imgUrl"   style="width:200px; height:350px;" alt="영화 이미지"  /></a>
                <div class="card-cover" style="width:200px; height:350px;">
-                <h3 v-text="movie.movieName"></h3>
+                <h3 v-text="movie.movieName" @click="changeDeatil(movie.movieId)"></h3>
                 <h3  v-text="movie.rate"></h3>
                </div>
         </div>
@@ -49,7 +49,6 @@ export default {
     },
     methods:{
        changeDeatil(id){
-            alert(id)
             this.$router.push(`/feedDetail/${id}`)
         },
     }
@@ -76,7 +75,9 @@ export default {
 
 }
 .col{
-  position:relative;
+  position: relative;
+  align-content:space-around;
+  margin-bottom: 100px;
   width:300px;
   height: 300px;
 }
