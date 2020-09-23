@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mappers/gueset.xml -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mcr.dao.DaumActorDao">
+
+	<!-- insert 처리 -->
+	<insert id="insertDaumActor" parameterType="DaumActor">
+		insert into daum_actor( 
+					actor_name,
+					actor_name_en,
+					person_id,
+					gender,
+					job,
+					birth,
+					img_url
+				)
+				select	#{actorName},
+						#{actorNameEn},
+						#{personId},
+						#{gender},
+						#{job},
+						#{birth},
+						#{imgUrl}
+				FROM dual
+            WHERE NOT EXISTS (
+                        SELECT actor_name,
+						actor_name_en,
+						person_id,
+						gender,
+						job,
+						birth,
+						img_url
+                 FROM daum_actor
+                 WHERE person_id = #{personId}
+            )
+	</insert>
+	
+	<!-- id으로 select 처리 -->
+	<select id="selectDaumActorBypersonId" parameterType="Integer" resultType="DaumActor">
+		select 
+			* 
+		  from 
+		  	daum_actor 
+		 where 
+		 	person_id = #{personId}
+	</select>
+</mapper>
+
