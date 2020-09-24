@@ -5,34 +5,71 @@
             <h3 class="result">해당검색결과가 없습니다.</h3>
         </div>
         <div class="row" v-else>
-        <div class="col"  style="float:left;" v-for="movie in Movie" :key="movie.id">
-          <a href=""><img :src="movie.imgUrl"   style="width:200px; height:350px;" alt="영화 이미지" @click="changeDeatil(movie.movieId)" /></a>
-               <div class="card-cover" style="width:200px; height:350px;">
-                <h3 v-text="movie.movieName" @click="changeDeatil(movie.movieId)"></h3>
+        <div class="col"  style="" v-for="movie in Movie" :key="movie.id">
+          <a href=""><img :src="movie.imgUrl"   style="width:200px; height:350px;" alt="영화 이미지"  /></a>
+               <div class="card-cover" style="width:200px; height:350px;" @click="changeDeatil(movie.movieId)">
+                <h3 v-text="movie.movieName"></h3>
                 <h3  v-text="movie.rate"></h3>
                </div>
         </div>
         </div>
-        <div style="clear:both;"></div>
+         <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+          <div slot="no-more" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px;">목록의 끝입니다 :)</div>
+        </infinite-loading>
     </div>
 </template>
 <script>
 import axios from 'axios'
 import URL from '@/util/http-common.js'
-
+import InfiniteLoading from 'vue-infinite-loading'
 export default {
     data(){
         return{
             title:"",
             Movie:[],
-            isNull:true
+            isNull:true,
+            page:0
         }
-    }, 
+    },components:{
+      InfiniteLoading 
+    },
+     methods:{
+       infiniteHandler($state){
+         axios.get(`${URL.BASE_URL}/mcr/daummovie/page`,{
+          params : {title:`${this.$route.params.keyword}`,
+                    page : `${this.page}`,
+          }
+       })
+       .then(res=> {
+         console.log(res)
+         setTimeout(()=>{
+           if(res.data.data==="success"){
+         console.log('왓다')
+             this.Movie = this.Movie.concat(res.data.object);
+             $state.loaded();
+              this.page+=1;
+              
+           }else{
+             $state.complete();
+           }
+         },1000)
+       })
+       .catch(err=>{
+         console.error(err);
+       })
+    },
+     changeDeatil(id){
+            this.$router.push(`/feedDetail/${id}`)
+        }
+    },
     created(){
-        axios.get(`${URL.BASE_URL}/mcr/daummovie/bytitle`,{
-          params : {title:`${this.$route.params.keyword}`}
+        axios.get(`${URL.BASE_URL}/mcr/daummovie/page`,{
+          params : {title:`${this.$route.params.keyword}`,
+                    page : 0,
+          }
         })
         .then(res=>{
+          console.log(this.page)
           console.log(res)
           this.Movie=res.data.object
           
@@ -40,19 +77,15 @@ export default {
           if(this.Movie.length==0){
             this.isNull=false
           }
+          
         })
         .catch(err=>{
           console.log(err)
         })
-
+        this.page+=1;
         this.title=`${this.$route.params.keyword}의 검색결과`
     },
-    methods:{
-       changeDeatil(id){
-            alert(id)
-            this.$router.push(`/feedDetail/${id}`)
-        },
-    }
+    
 }
 </script>
 <style scoped>
@@ -76,7 +109,9 @@ export default {
 
 }
 .col{
-  position:relative;
+  position: relative;
+  align-content:space-around;
+  margin-bottom: 100px;
   width:300px;
   height: 300px;
 }

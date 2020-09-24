@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mcr.dao.DaumUserActorDao">
+
+	<!-- insert 처리 및 중복처리 -->
+	<insert id="insertDaumUserActor" parameterType="DaumUserActor">
+		insert into daum_user_actor( 
+						person_id,
+						user_no
+				)
+				SELECT #{personId},
+                       #{userNo}
+               FROM dual
+            WHERE NOT EXISTS (
+                         SELECT person_id, user_no
+                            FROM daum_user_actor
+                         WHERE person_id = #{personId}
+                         AND user_no = #{userNo}
+            ) 
+	</insert>
+	
+	<!-- delete 처리 -->
+	<delete id="deleteDaumUserActor" parameterType="Integer">
+		delete from daum_user_actor 
+		WHERE person_id = #{personId}
+                         AND user_no = #{userNo}
+	</delete>
+	
+	<select id="selectByUserNo" parameterType="Integer" resultType="DaumUserActor">
+		select * 
+		  from daum_user_actor 
+		 where user_no=#{userNo}
+	</select>
+	
+	<select id="checkLike" parameterType="Integer" resultType="DaumUserActor">
+		select * 
+		  from daum_user_actor 
+		 where user_no=#{userNo}
+		  AND person_id = #{personId}
+	</select>
+		
+</mapper>
+
+ 

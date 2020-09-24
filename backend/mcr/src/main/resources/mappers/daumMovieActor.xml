@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mappers/gueset.xml -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mcr.dao.DaumMovieActorDao">
+
+	<!-- insert 처리 -->
+	<insert id="insertDaumMovieActor" parameterType="DaumMovieActor">
+		insert into daum_movie_actor( 
+					person_id,
+					movie_id,
+					casting,
+					`check`
+				)
+				select	#{personId},
+						#{movieId},
+						#{casting},
+						#{check}
+				FROM dual
+            WHERE NOT EXISTS (
+                    	SELECT person_id,
+							   movie_id,
+							   casting,
+							   `check`
+                 FROM daum_movie_actor
+                 WHERE movie_id = #{movieId}
+                 	   AND person_id = #{personId}
+            )
+	</insert>
+	
+	<!-- id으로 select 처리 -->
+	<select id="selectDaumMovieActorBypersonId" parameterType="Integer" resultType="DaumMovieActor">
+		select 
+			* 
+		  from 
+		  	daum_movie_actor 
+		 where 
+		 	person_id = #{personId}
+		 order by
+		 	`check`
+	</select>
+	
+	<select id="selectDaumMovieActorBymovieId" parameterType="Integer" resultType="DaumMovieActor">
+		select 
+			* 
+		  from 
+		  	daum_movie_actor 
+		 where 
+		 	movie_id = #{movieId}
+		 order by
+		 	`check`
+	</select>
+</mapper>
+

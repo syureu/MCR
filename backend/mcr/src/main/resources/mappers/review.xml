@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mappers/gueset.xml -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mcr.dao.ReviewDao">
+
+	<!-- insert 처리 -->
+	<insert id="insertReview" parameterType="Review">
+		insert into review( 
+						review_no,
+						rate,
+						user_no,
+						movie_cd,
+						content
+				)
+				value (
+						#{reviewNo},
+						#{rate},
+						#{userNo},
+						#{movieCd},
+						#{content}
+				) 
+	</insert>
+	
+	<!-- udpate 처리 -->
+	<update id="updateReview" parameterType="Review">
+		update review 
+		   set 
+		   		review_no = #{reviewNo},  
+				rate = #{rate},      
+				user_no = #{userNo},    
+				movie_cd = #{movieCd},   
+				content = #{content},   
+				regtime = #{regtime}    
+		 where 
+		 	   review_no = #{reviewNo}
+	</update>
+	
+	<!-- delete 처리 -->
+	<delete id="deleteReview" parameterType="Integer">
+		delete 
+			from review 
+		where 
+			review_no = #{reviewNo}
+	</delete>
+	
+	<!-- id으로 select 처리 -->
+	<select id="selectReviewByNo" parameterType="Integer" resultType="Review">
+		select 
+			* 
+		  from 
+		  	review 
+		 where 
+		 	review_no = #{reviewNo}
+	</select>
+	
+	<select id="selectReviewsByMovieCd" parameterType="String" resultType="Review">
+		select 
+			*
+		from 
+			review
+		where 
+			movie_cd = #{movieCd}
+	</select>
+</mapper>
+

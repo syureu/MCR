@@ -312,9 +312,8 @@ export default {
 			imgurl: res.data.object.imgUrl,
             nation: res.data.object.nation,
             }
-            this.ggenre = this.movieDetail.genre
-            this.ggenre = this.ggenre.split('/')
-            console.log(this.ggenre)
+            console.log("확인")
+            console.log(this.movieDetail)
 			const movieTrailer = require( 'movie-trailer' )
 			this.trailerURL1 = 'https://www.youtube.com/embed/'
 			movieTrailer( res.data.object.movieName , ( error, response) => {

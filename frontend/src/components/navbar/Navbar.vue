@@ -8,7 +8,7 @@
         <a href="#">장르별 영화</a>
         <a href="#">인기 영화</a>
       </nav>
-      <nav class="mid-nav">
+      <nav class="mid-nav" v-if="isLoggedIn">
         <div class="box">
        
         <input type="text" placeholder="영화를 검색하세요" v-model="searchKeyword"  @keyup.enter="searchKeywords"/>
@@ -66,7 +66,7 @@ export default {
       logout(){
         this.$session.remove('jwstoken')
         this.$store.commit('logout')
-        this.$router.go()
+        this.$router.push({name: 'Home'})
       },
       changeMypage(){
         this.$router.push({name:'Mypage'})
