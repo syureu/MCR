@@ -133,11 +133,34 @@ public class DaumMovieController {
 		ResponseEntity response = null;
 		System.out.println("검색 진입");
 		final BasicResponse result = new BasicResponse();
+		//여기서 카운트올리세요
 		try {
 			DaumMovie movie = daumMovieService.getDaumMovieBymovieId(movieId);
 			result.status = true;
 			result.data = "success";
 			result.object = movie;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
+	@ApiOperation(value="해당 영화 정보를 리턴합니다.")
+	@PostMapping("/upscore")
+	public Object upScore(@RequestBody DaumMovie daumMovie) {
+		ResponseEntity response = null;
+		System.out.println("점수상승 메소드 진입");
+		final BasicResponse result = new BasicResponse();
+		//여기서 카운트올리세요
+		try {
+			daumMovieService.addScore(daumMovie);
+			DaumMovie dm = daumMovieService.getDaumMovieBymovieId(daumMovie.getMovieId());
+			result.status = true;
+			result.data = "success";
+			result.object = dm;
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
@@ -176,6 +199,26 @@ public class DaumMovieController {
 		try {
 			Paging paging = new Paging(title, page * 30);
 			List<DaumMovie> list = daumMovieService.getLimit30(paging);
+			result.status = true;
+			result.data = "success";
+			result.object = list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
+	@ApiOperation(value="영화를 10위를 가져옵니다.")
+	@GetMapping("/rank")
+	public Object getRank10() {
+		ResponseEntity response = null;
+		System.out.println("페이지네이션 진입");
+		final BasicResponse result = new BasicResponse();
+		try {
+			List<DaumMovie> list = daumMovieService.getLimit10ByScore();
 			result.status = true;
 			result.data = "success";
 			result.object = list;

@@ -68,5 +68,12 @@
 		 	movie_id = #{movieId} and writer = #{writer}
 	</select>
 
+	<update id="" parameterType="DaumReview">
+		update
+			daum_review
+		set
+			
+		where
+	</update>
 </mapper>
 
