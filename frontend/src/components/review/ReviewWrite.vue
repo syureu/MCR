@@ -55,20 +55,22 @@ export default {
 </script>
 
 <style scoped>
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
     #content{
-        padding-bottom: 10px;
+        padding-bottom: 2.5vh;
     }
     #line1{
-        height : 35px;
+        height : 4.5vh;
     }
     #lab{
         float: left;
+        margin-left:3vw;
     }
     #togglebtn{
-        color: white;
-        background-color: black;
+        color: black;
+        background-color: #fff9f7;
         float: right;
-        margin-right : 10px;
+        margin-right : 2vw;
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
         border: 0;
@@ -79,46 +81,47 @@ export default {
         color: red;
     }
     #incontainer{
-        border: 2px solid white;
-        margin : 10px;
-        padding : 10px;
+        border: 2px solid skyblue;
+        margin : 2vh 2vw 2vh 2vw; 
+        padding : 2vh 2vw 2vh 2vw;
     }
     #revcontainer{
-        background-color : black;
+        background-color : #fff9f7;
+        font-family: 'Hanna', sans-serif;
     }
     #revcontent {
             width: 90%;
-            height: 100px;
+            height: 16vh;
             resize: none;
-            margin-top : 20px;
-            border : 2px solid white;
-            margin-left: 10px;
-            margin-right: 10px;
-            margin-bottom: 10px;
+            margin-top : 4vh;
+            border : 2px solid skyblue;
+            margin-left: 2vw;
+            margin-right: 2vw;
+            margin-bottom: 2vh;
     }
     #revwrite {
-        margin-left: 30px;
-        margin-right: 30px; 
+        margin-left: 2.5vw;
+        margin-right: 2.5vw; 
     }
     #revtitle {
-        font-size: 40px;
-        margin-left: 10px;
-        padding-top: 5px;
-        color: white;
+        font-size: 5vw;
+        margin-left: 2vw;
+        padding-top: 1vh;
+        color: black;
     }
     #revbutton{
-        margin-top : 84px;
-        margin-left: 10px;
-        font-size: 20px;
+        margin-top : 6vh;
+        margin-left: 2vw;
+        font-size: 1.5vw ;
         position: absolute;
             
     }
 
     #lab{
-        color: white;
+        color: black;
     }
 
     #hr1{
-        background-color:grey;
+        background-color: skyblue;
     }
 </style>
