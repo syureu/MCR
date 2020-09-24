@@ -1,369 +1,3 @@
-<template>
-<div>
-<section id="hero" class="d-flex flex-column justify-content-center align-items-center"  v-bind:style="{ backgroundImage: 'url(' + this.movieDetail.imgurl +')'}" >
-    <div class="container" data-aos="fade-in">
-      <h1>{{this.movieDetail.movieName}}</h1>
-      <h2>{{ this.movieDetail.movieName }}의 배우진, 줄거리, 예고편 등 여러 정보를 확인하세요!</h2>
-   
-    </div>
-  </section><!-- End Hero -->
-
-
-    <!-- ======= Why Us Section ======= -->
-    <section id="why-us" class="why-us">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-xl-4 col-lg-5" data-aos="fade-up">
-            <div class="content">
-              <h3>Story Line</h3>
-              <p>
-                {{ this.movieDetail.overview }}
-              </p>
-        
-            </div>
-          </div>
-          <div class="col-xl-8 col-lg-7 d-flex">
-            <div class="icon-boxes d-flex flex-column justify-content-center">
-              <div class="row">
-                <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                  <div class="icon-box mt-4 mt-xl-0">
-                    <i class="bx bx-receipt"></i>
-                    <h4>Genre</h4>
-                    <p>{{ this.movieDetail.genre }}</p>
-                  </div>
-                </div>
-                <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-                  <div class="icon-box mt-4 mt-xl-0">
-                    <i class="bx bx-cube-alt"></i>
-                    <h4>Rate</h4>
-                    <p><i class="fas fa-star" style="color:yellow;"></i>&nbsp;{{ this.movieDetail.rate }}</p>
-                  </div>
-                </div>
-                <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-                  <div class="icon-box mt-4 mt-xl-0">
-                    <i class="bx bx-images"></i>
-                    <h4>Labore consequatur</h4>
-                    <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Why Us Section -->
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about section-bg">
-      <div class="container">
-
-        <div class="row">
-            <div class="col-xl-8 col-lg-8 video-box  " data-aos="fade-right">
-                <iframe id="syd" wmode="Opaque" class="p-3 video-box "  :src="trailerURL1" frameborder="0" allow="autoplay;  encrypted-media" allowfullscreen>트레일러가 지원되지 않는 작품입니다.</iframe>
-            </div>
-            
-          <div class="col-xl-4 col-lg-4 icon-boxes  py-5 px-lg-5">
-            <h4 data-aos="fade-up">{{this.movieDetail.movieName}}</h4>
-            <h3 data-aos="fade-up">영화 예고편을 감상하세요</h3>
-            <p data-aos="fade-up">영화 예고편을 지원하지 않는 경우도 있습니다!</p>
-      
-
-           
-
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End About Section -->
-
-   
-
-    <!-- ======= Services Section ======= -->
-   
-
-   
-
-    
-
-   
-    <!-- ======= Team Section ======= -->
-    <section id="team" class="team section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h3 data-aos="fade-up">Team</h3>
-          <p data-aos="fade-up">"{{this.movieDetail.movieName}}" 영화의 감독 , 출연한 배우들, 스태프들 입니다.</p>
-        </div>
-        <div class="scroll-c " style="overflow-y:scroll; height: 500px;">
-        <div class="row">
-
-          <div class="col-lg-3 col-md-3 d-flex" style="width: 30%" data-aos="fade-up" v-for="actor in actorList" :key="actor.personId">
-            <div class="member">
-              <div class="member-img">
-                <img style="width:120px; height:200px;" v-if="actor.imgUrl==''" src="https://png.pngtree.com/png-vector/20191001/ourlarge/pngtree-man-icon-isolated-on-abstract-background-png-image_1769021.jpg" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" alt="">
-                <img v-else :src="actor.imgUrl" alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
-                <div class="social">
-                  <a href=""><i class="icofont-twitter"></i></a>
-                  <a href=""><i class="icofont-facebook"></i></a>
-                  <a href=""><i class="icofont-instagram"></i></a>
-                  <a href=""><i class="icofont-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>{{ actor.actorName }}</h4>
-                <span>{{ actor.casting }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        </div>
-
-      </div>
-    </section><!-- End Team Section -->
-
-   
-
-    <!-- ======= F.A.Q Section ======= -->
-    <section id="faq" class="faq section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2 data-aos="fade-up">F.A.Q</h2>
-          <p data-aos="fade-up">Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-        </div>
-
-        <div class="faq-list">
-          <ul>
-            <li data-aos="fade-up">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" class="collapse" href="#faq-list-1">Non consectetur a erat nam at lectus urna duis? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-1" class="collapse show" data-parent=".faq-list">
-                <p>
-                  Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="100">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-2" class="collapsed">Feugiat scelerisque varius morbi enim nunc? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-2" class="collapse" data-parent=".faq-list">
-                <p>
-                  Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="200">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-3" class="collapsed">Dolor sit amet consectetur adipiscing elit? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-3" class="collapse" data-parent=".faq-list">
-                <p>
-                  Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="300">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-4" class="collapsed">Tempus quam pellentesque nec nam aliquam sem et tortor consequat? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-4" class="collapse" data-parent=".faq-list">
-                <p>
-                  Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in.
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="400">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-5" class="collapsed">Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-5" class="collapse" data-parent=".faq-list">
-                <p>
-                  Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque.
-                </p>
-              </div>
-            </li>
-
-          </ul>
-        </div>
-
-      </div>
-      <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
-    </section><!-- End F.A.Q Section -->
-    
-</div>
-
-</template>
-<script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/vuewordcloud"></script>
-<script type="text/javascript" src="https://unpkg.com/movie-trailer"></script>
-  <script src="assets/vendor/jquery/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/jquery-sticky/jquery.sticky.js"></script>
-  <script src="assets/vendor/venobox/venobox.min.js"></script>
-  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script>
-import carousel from 'vue-owl-carousel'
-import TabItem from './TabItem.vue'
-import VueWordCloud from 'vuewordcloud';
-import reviewWrite from '@/components/review/ReviewWrite.vue';
-import reviewList from '@/components/review/ReviewList.vue';
-import axios from 'axios'
-import HTTP from "@/util/http-common.js"
-
-export default {
-    
-    
-    components: {
-    [VueWordCloud.name]: VueWordCloud,
-    reviewWrite,
-    reviewList,
-    TabItem,
-    carousel,
-  },
-  data() {
-      return {
-        trailerURL1 : "",
-        userno: "",
-        currentId: 1,
-        itemNumber: 4,
-        like_on : 0,
-        ggenre: [],
-        actorList: [
-        ],
-		movieDetail: {
-			movieName: "",
-            movieId: this.$route.params.movieId,
-			rate : "",
-			genre: "",
-			movieOpeningDate: "",
-			runningTime : "",
-			overview: "",
-			imgurl: "",
-			nation: "",
-		},
-        }
-    },
-    computed: {
-    current() {
-      return this.list.find(el => el.id === this.currentId) || {}
-    },
-  },
-  methods: {
-      like(){
-          if (this.like_on == 0) {
-            this.like_on = 1;
-            let like= {
-                movieId: this.movieDetail.movieId,
-                userNo: this.userno,
-            };
-            axios.post(`${HTTP.BASE_URL}/mcr/daumusermovie`, like)
-            .then(res => {
-              console.log(res)
-            })
-            .catch(res => {
-              console.log(res)
-            })
-          }
-          else {
-            this.like_on = 0;
-            let like= {
-                movieId: this.movieDetail.movieId,
-                userNo: this.userno,
-            };
-            axios.post(`${HTTP.BASE_URL}/mcr/daumusermovie`, like)
-            .then(res => {
-                console.log(res)
-            })
-            .catch(res => {
-                console.log(res)
-            })
-          }
-    },
-  },
-    created() {
-		if(this.$store.getters.getUserData == null){
-            this.userno = 0;
-        } else{
-            this.userno = this.$store.getters.getUserData.userinfo.userNo
-        }
-		axios.get(`${HTTP.BASE_URL}/mcr/daummovie/byid` ,
-			{
-				params: { movieId: `${this.$route.params.movieId}` }
-			}
-		)
-		.then(res => {
-			if (res.data === 'fail') {
-				this.$router.push({
-					name: 'Error',
-					query: {
-						status: 404
-					}
-				})
-			}
-			this.movieDetail = {
-            movieId : res.data.object.movieId,
-			movieName: res.data.object.movieName,
-			rate : res.data.object.rate,
-			genre: res.data.object.genre,
-			movieOpeningDate: res.data.object.movieOpeningDate,
-			runningTime : res.data.object.runningTime,
-			overview: res.data.object.overview,
-			imgurl: res.data.object.imgUrl,
-            nation: res.data.object.nation,
-            }
-            console.log("확인")
-            console.log(this.movieDetail)
-			const movieTrailer = require( 'movie-trailer' )
-			this.trailerURL1 = 'https://www.youtube.com/embed/'
-			movieTrailer( res.data.object.movieName , ( error, response) => {
-				this.trailerURL1 = this.trailerURL1 + response.substr(32)
-            })
-    
-		})
-		.catch(err => {
-		//     this.$router.push({
-        //         name: 'Error',
-        //         query: {
-        //             status: 'unknown'
-        //         }
-        //     })	
-			console.log(err)
-		})
-        
-        axios.get(`${HTTP.BASE_URL}/mcr/daummovieactor/actorlist` ,
-			{
-				params: { movieId: `${this.$route.params.movieId}` }
-			}
-		).then(res => {
-            if (res.data === 'fail') {
-				this.$router.push({
-					name: 'Error',
-					query: {
-						status: 404
-					}
-				})
-            }
-            console.log(res)
-            this.actorList = res.data.object
-            console.log(this.actorList)
-        }).catch(err => {
-            console.log(err)
-        })
-
-        axios.get(`${HTTP.BASE_URL}/mcr/daumusermovie/check`,
-        {
-            params : { movieId : `${this.$route.params.movieId}` , userNo : this.userno}
-        }).then(res => {
-            this.like_on = res.data.object
-        }).catch(err => {
-            console.log(err)
-        })
-	},
-}
-</script>
-
-<style scoped>
 /**
 * Template Name: Flexor - v2.3.0
 * Template URL: https://bootstrapmade.com/flexor-free-multipurpose-bootstrap-template/
@@ -382,13 +16,7 @@ body {
 a {
   color: #ff5821;
 }
-#syd {
-    display: block;
-    width: 100%;
-    height: 56.25vw;
-    max-height: 50vh;
-    max-width: 120.78vh;
-}
+
 a:hover {
   color: #ff7e54;
   text-decoration: none;
@@ -741,15 +369,12 @@ h1, h2, h3, h4, h5, h6 {
 #hero {
   width: 100%;
   height: 60vh;
-  background-repeat: repeat;
-  margin-right: 8vw;
-
-  background-size: 30vw;
+  background: url("../img/hero-bg.jpg") center center;
+  background-size: cover;
   position: relative;
   z-index: 1;
   padding: 0;
   margin-bottom: -120px;
-  
 }
 
 #hero:before {
@@ -1049,10 +674,9 @@ section {
 }
 
 .about .video-box {
-  background: url("") center center no-repeat;
+  background: url("../img/about-img.jpg") center center no-repeat;
   background-size: cover;
   min-height: 500px;
-  width: 100%;
 }
 
 .about .play-btn {
@@ -1319,7 +943,7 @@ section {
 --------------------------------------------------------------*/
 .testimonials {
   padding: 80px 0;
-  background: url("") no-repeat;
+  background: url("../img/testimonials-bg.jpg") no-repeat;
   background-position: center center;
   background-size: cover;
   position: relative;
@@ -1334,20 +958,6 @@ section {
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
 }
-.scroll-c::-webkit-scrollbar {
-    width: 10px;
-  }
-  .scroll-c::-webkit-scrollbar-thumb {
-    background-color: #2f3542;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-  .scroll-c::-webkit-scrollbar-track {
-    background-color: grey;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
-  }
 
 .testimonials .section-header {
   margin-bottom: 40px;
@@ -2713,5 +2323,3 @@ section {
   color: #fff;
   text-decoration: none;
 }
-
-</style>
