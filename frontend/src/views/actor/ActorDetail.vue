@@ -6,16 +6,18 @@
   <!-- ======= Header ======= -->
   <header id="header">
     <div class="d-flex flex-column">
-
+      <div class="netflixLogo">
+        <a id="logo" href="/"><img src="../../assets/logo.png" alt="Logo Image"></a>
+      </div>
       <div class="profile">
         <img :src="getImgUrl" alt="" class="img-fluid rounded-circle">
-        <h1 class="text-light"><a href="index.html">{{ this.actorDetail.actorname }}</a></h1>
+        <h1 class="text-light"><a href="">{{ this.actorDetail.actorname }}</a></h1>
 
       </div>
 
       <nav class="nav-menu">
         <ul>
-          <li class="active"><a href="index.html"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li class="active"><a href=""><i class="bx bx-home"></i> <span>Home</span></a></li>
           <li><a href="#about"><i class="bx bx-user"></i> <span>About</span></a></li>
           <li><a href="#portfolio"><i class="bx bx-book-content"></i> Filmography</a></li>
 
@@ -31,7 +33,36 @@
     <div class="hero-container" data-aos="fade-in">
       <h1>{{ this.actorDetail.actorname }}</h1>
       <p>저는 <span class="typed" data-typed-items="">{{ this.actorDetail.job }}</span> 입니다</p>
-     
+        <div v-if="this.$store.getters.getUserData != null">
+                                        <svg      
+                                        class="svg-inline--fa fa-heart fa-w-16 icon full"
+                                        aria-hidden="true"
+                                        data-prefix="fas"
+                                        data-icon="heart"
+                                        role="img"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512"
+                                        data-fa-i2svg
+                                        cursor="pointer"
+                                        style="width:10vw; height:10vh; float:left; margin-right:2vw;"
+                                        @click="like()"
+                                        >
+                                        <path
+                                        v-if="like_on == 1"
+                                            fill="crimson"
+                                            d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
+                                            />
+                                        <path
+                                            v-else-if="like_on == 0"
+                                            fill="white"
+                                            d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
+                                            />
+                                        </svg> 
+                                        <div v-if="like_on == 0" style="font-size:6vh; color:red; float:left;">
+                                             {{ this.arrow }}
+                                        </div>
+                                        <div style=""></div>
+                                    </div>
     </div>
   </section><!-- End Hero -->
 
@@ -87,23 +118,17 @@
           <p>  </p>
         </div>
 
-        <div class="row" data-aos="fade-up">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-            </ul>
-          </div>
-        </div>
+        
 
         <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web" v-for="movie in movieInfo" :key="movie.movieId">
-            <div class="portfolio-wrap">
-              <img v-if="movie.imgUrl==''" src="https://png.pngtree.com/png-vector/20191001/ourlarge/pngtree-man-icon-isolated-on-abstract-background-png-image_1769021.jpg" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" class="img-fluid" alt="">
-              <img v-else :src="movie.imgUrl" @click="$router.push({name: 'FeedDetail', params: {movieId: movie.movieId}})" class="img-fluid" alt="">
+          <div class="col-lg-3 col-md-6 portfolio-item filter-web" v-for="movie in movieInfo" :key="movie.movieId">
+            <div class="portfolio-wrap" @click="$router.push({name: 'FeedDetail', params: {movieId: movie.movieId}})">
+              <img  v-if="movie.imgUrl==''" src="https://png.pngtree.com/png-vector/20191001/ourlarge/pngtree-man-icon-isolated-on-abstract-background-png-image_1769021.jpg" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" class="img-fluid" alt="">
+              <img width=100% v-else :src="movie.imgUrl"  class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-9.jpg" data-gall="portfolioGallery" class="venobox" title="Web 3"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                <a href="assets/img/portfolio/portfolio-9.jpg" data-gall="portfolioGallery" class="venobox" title="Web 3" style="font-size:3vh; width:auto; padding:5px;" ><i class="bx bx-plus"></i>{{ movie.movieName }}</a>
+
               </div>
             </div>
           </div>
@@ -168,6 +193,7 @@ export default {
                 sex:"",
                 imgUrl:"",
             },
+            arrow:"⇦ 클릭",
             itemNumber: 4,
             userno:"",
             name: '송강호',
@@ -312,9 +338,7 @@ export default {
         margin-right : 100px;
     }
 
-    #actMovie{
-    }
-
+  
     #movname{
         color:white;
     }
@@ -1423,6 +1447,22 @@ section {
     width: auto;
     padding-right: 20px 15px;
   }
+}
+
+.netflixLogo {
+  grid-area: nt;
+  object-fit: cover;
+  width: 50px;
+  max-height: 100%;
+  
+  padding-left: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.netflixLogo img {  
+  height: 50px; 
+
 }
 
 </style>
