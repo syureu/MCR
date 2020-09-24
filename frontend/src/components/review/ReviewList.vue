@@ -269,38 +269,41 @@ export default {
 </script>
 
 <style scoped>
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
     #revListcontainer{
-        background-color: black;
-        color: white;
+        background-color:#fff9f7;
+        font-family: 'Hanna', sans-serif;
     }
 
     #positiveRev{
         float: left;
         width : 48%;
-        background-color: black;
     }
 
     #negativeRev{
         float: right;
         width: 48%;
-        background-color: black;
     }
 
     .revName{
-        font-size: 20px;
+        font-size: 1.5vw;
         float: left;
     }
 
     .revitem{
-        border-bottom: 1px solid white;
-        margin-top: 10px;
-        padding: 10px;
+        border-bottom: 1px solid skyblue;
+        margin-top: 2vh;
+        padding: 2vw;
     }
-    
+
+    .revDate{
+        font-size : 1.5vw;
+    }   
+
     .starR{
         float:left;
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-left: 1.5vw;
+        margin-right: 1.5vw;
     }
 
     
@@ -321,6 +324,9 @@ export default {
   height: 2rem;
   letter-spacing: 0.5px;
   border-radius: 8px;
+  color: skyblue;
+  background-color: rgba(0,0,0,0);
+  border: 1px solid skyblue;
 }
 .btn-cover .page-count {
   padding: 0 1rem;
@@ -333,9 +339,10 @@ export default {
     display: inline-block;
     overflow:hidden;
     text-overflow:ellipsis;
+    font-size: 1.2vw;
 }
 .wordDiv{
     width:45%;
-    height:400px;
+    height: 50vh;
 }
 </style>
