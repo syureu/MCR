@@ -5,6 +5,8 @@ public class RecommendV1 {
     String posterPath;
     String title;
 
+    public RecommendV1() {}
+
     public RecommendV1(Long id, String posterPath, String title) {
         this.id = id;
         this.posterPath = posterPath;
