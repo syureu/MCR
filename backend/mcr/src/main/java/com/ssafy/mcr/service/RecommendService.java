@@ -1,10 +1,8 @@
 package com.ssafy.mcr.service;
 
 import com.ssafy.mcr.dao.RecommendDao;
-import com.ssafy.mcr.dto.Movie;
 import com.ssafy.mcr.dto.RecommendListV1;
 import com.ssafy.mcr.dto.RecommendV1;
-import com.ssafy.mcr.exception.NothingToPrefException;
 import com.ssafy.mcr.recommend.Recommend;
 import org.springframework.stereotype.Service;
 
@@ -38,30 +36,12 @@ public class RecommendService {
     }
 
     public RecommendListV1 selectRecommend() {
-        recommend.simpleGenreRecommend("코미디");
+        recommend.simpleRecommend("");
         List<RecommendV1> list = recommendDao.selectRecommendV1();
         list.forEach(v -> {
             if (v.getPosterPath() != null)
                 v.setPosterPath("https://image.tmdb.org/t/p/original" + v.getPosterPath());
         });
         return new RecommendListV1(recommendMent.get((int) (Math.random() * recommendMent.size())), list);
-    }
-
-    public RecommendListV1 selectGenreRecommend(String genre) {
-        return recommend.simpleGenreRecommend(genre);
-    }
-
-    public String getRandomGenreByUsersPrefer(Long userNo) throws NothingToPrefException {
-        Movie movie = getRandomMovieByUsersPrefer(userNo);
-        String[] genreList = movie.getGenre().split(",");
-        return genreList[(int) Math.random() * genreList.length];
-    }
-
-    public Movie getRandomMovieByUsersPrefer(Long userNo) throws NothingToPrefException {
-        Movie movie = recommendDao.selectRandomMovieByUsersPrefer(userNo);
-        if (movie == null) {
-            throw new NothingToPrefException();
-        }
-        return movie;
     }
 }
