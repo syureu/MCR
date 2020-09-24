@@ -35,4 +35,9 @@ public class DaumReviewServiceImpl implements DaumReviewService{
 		return daumReviewDao.selectAllDaumReviewsByMovieId(movieId);
 	}
 
+	@Override
+	public DaumReview getDaumReviewByWriter(DaumReview daumReview) {
+		return daumReviewDao.selectDaumReviewByWriter(daumReview);
+	}
+
 }

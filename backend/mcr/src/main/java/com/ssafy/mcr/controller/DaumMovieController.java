@@ -85,7 +85,6 @@ public class DaumMovieController {
 				}
 				movie.setMovieId(i);
 				movie.setOverview(doc.select("div.desc_movie p").text());
-				System.out.println(movie.toString());
 				if(doc.select("dl.list_movie dd.txt_main").get(0).text() != "") {					
 					movie.setGenre(doc.select("dl.list_movie dd.txt_main").get(0).text());
 				}
@@ -120,7 +119,6 @@ public class DaumMovieController {
 						}
 					}
 				}
-				System.out.println(movie.toString());
 				daumMovieService.addDaumMovie(movie);
 			}catch (Exception e) {
 				e.printStackTrace();
@@ -151,7 +149,7 @@ public class DaumMovieController {
 	
 	@ApiOperation(value="제목으로 검색한 영화 정보들을 리턴합니다.")
 	@GetMapping("/bytitle")
-	public Object SelectMovieByTitle(@RequestParam String title) {
+	public Object SelectMovieByTitle(@RequestBody String title) {
 		ResponseEntity response = null;
 		System.out.println("제목 검색 진입");
 		final BasicResponse result = new BasicResponse();
@@ -176,7 +174,7 @@ public class DaumMovieController {
 		System.out.println("페이지네이션 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
-			Paging paging = new Paging(title, page*30);
+			Paging paging = new Paging(title, page * 30);
 			List<DaumMovie> list = daumMovieService.getLimit30(paging);
 			result.status = true;
 			result.data = "success";
