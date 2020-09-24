@@ -2,7 +2,8 @@ import pandas as pd
 import numpy as np
 import sys
 
-gen_md = pd.read_csv('../resources/open_api_qualified.csv')
+gen_md = pd.read_csv('../resources/open_api_qualified.csv', dtype={
+                     'movie_cd': np.str, 'movie_nm': np.str, 'tmdb_poster_path': np.str, 'vote_count': np.int, 'vote_average': np.double})
 genre = sys.argv[1]
 count = 15
 if len(sys.argv) >= 3:
@@ -18,7 +19,7 @@ C = vote_averages.mean()
 m = vote_counts.quantile(percentile)
 
 qualified = df[(df['vote_count'] >= m) & (df['vote_count'].notnull()) & (
-    df['vote_average'].notnull())][['movie_cd', 'movie_nm', 'year', 'vote_count', 'vote_average']]
+    df['vote_average'].notnull())][['movie_cd', 'movie_nm', 'tmdb_poster_path', 'vote_count', 'vote_average']]
 qualified['vote_count'] = qualified['vote_count'].astype('int')
 qualified['vote_average'] = qualified['vote_average'].astype('int')
 
@@ -27,4 +28,19 @@ qualified['wr'] = qualified.apply(lambda x: (
 
 qualified = qualified.sort_values('wr', ascending=False).head(250)
 
-print(qualified['movie_cd'].head(count).to_string(index=False))
+# print(qualified[['movie_cd', 'movie_nm', 'tmdb_poster_path']].head(
+#    count).to_string(index=False, header=False))
+
+l1 = qualified['movie_cd'].head(
+    count).to_string(index=False, header=False).split("\n")
+l2 = qualified['movie_nm'].head(
+    count).to_string(index=False, header=False).split("\n")
+l3 = qualified['tmdb_poster_path'].head(
+    count).to_string(index=False, header=False).split("\n")
+
+for i in l1:
+    print(i.strip())
+for i in l2:
+    print(i.strip())
+for i in l3:
+    print(i.strip())

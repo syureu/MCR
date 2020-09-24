@@ -6,13 +6,14 @@ print('1. csv 불러오기 전')
 print(datetime.datetime.now())
 print()
 
-md = pd.read_csv('../resources/movie_202009230258.csv')
+md = pd.read_csv('../resources/movie_202009231607.csv')
 
 print('2. csv 로딩 완료, 장르 수정할 수 있도록, 평점, 투표수 이름조정')
 print(datetime.datetime.now())
 print()
 
 md['genre'] = md['genre'].fillna('').apply(lambda x: x.split(","))
+md['overview'] = md['tmdb_overview']
 md['vote_average'] = md['tmdb_vote_average']
 md['vote_count'] = md['tmdb_vote_count']
 

@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class OpenApiTmdbVoteSequencer {
+public class OpenApiTmdbSequencer {
     public static void main(String[] args) throws Exception {
         Class.forName("org.mariadb.jdbc.Driver");
         String jdbcUrl = "jdbc:mysql://j3d104.p.ssafy.io:29000/ssafy?useUniCode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Seoul";
@@ -17,7 +17,7 @@ public class OpenApiTmdbVoteSequencer {
                 "from\n" +
                 "\t(\n" +
                 "\t\tselect\n" +
-                "\t\t\ttitle, vote_average, vote_count\n" +
+                "\t\t\ttitle\n" +
                 "\t\tfrom\n" +
                 "\t\t\ttmdb_movies\n" +
                 "\t\twhere\n" +
@@ -35,11 +35,11 @@ public class OpenApiTmdbVoteSequencer {
                 "\ttmsq.title=oasq.movie_nm_en");
 
         StringBuilder selectSQL = new StringBuilder("select\n" +
-                "\ttitle, vote_average, vote_count\n" +
+                "\ttitle, vote_average, vote_count, poster_path, overview\n" +
                 "from\n" +
                 "\t(\n" +
                 "\t\tselect\n" +
-                "\t\t\ttitle, vote_average, vote_count\n" +
+                "\t\t\ttitle, vote_average, vote_count, poster_path, overview\n" +
                 "\t\tfrom\n" +
                 "\t\t\ttmdb_movies\n" +
                 "\t\twhere\n" +
@@ -60,7 +60,9 @@ public class OpenApiTmdbVoteSequencer {
                 "\tmovie\n" +
                 "set\n" +
                 "\ttmdb_vote_average = ?,\n" +
-                "\ttmdb_vote_count = ?\n" +
+                "\ttmdb_vote_count = ?,\n" +
+                "\ttmdb_poster_path = ?,\n" +
+                "\ttmdb_overview = ?\n" +
                 "where\n" +
                 "\tmovie_nm_en = ? and\n" +
                 "\tyear = ?;");
@@ -81,12 +83,14 @@ public class OpenApiTmdbVoteSequencer {
             selectPstmt.setInt(2, year);
             ResultSet rs = selectPstmt.executeQuery();
             while (rs.next()) {
-                System.out.println(year + " " + rs.getString(1) + " " + rs.getDouble(2) + " " + rs.getInt(3));
+                System.out.println(year + " " + rs.getString(1) + " " + rs.getDouble(2) + " " + rs.getInt(3) + " " + rs.getString(4) + " " + rs.getString(5));
                 PreparedStatement updatePstmt = dbConn.prepareStatement(updateSQL.toString());
                 updatePstmt.setDouble(1, rs.getDouble(2));
                 updatePstmt.setInt(2, rs.getInt(3));
-                updatePstmt.setString(3, rs.getString(1));
-                updatePstmt.setInt(4, year);
+                updatePstmt.setString(3, rs.getString(4));
+                updatePstmt.setString(4, rs.getString(5));
+                updatePstmt.setString(5, rs.getString(1));
+                updatePstmt.setInt(6, year);
                 updatePstmt.executeUpdate();
             }
         }

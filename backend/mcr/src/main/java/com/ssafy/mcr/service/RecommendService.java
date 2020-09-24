@@ -36,12 +36,16 @@ public class RecommendService {
     }
 
     public RecommendListV1 selectRecommend() {
-        recommend.simpleRecommend("");
+        recommend.simpleGenreRecommend("코미디");
         List<RecommendV1> list = recommendDao.selectRecommendV1();
         list.forEach(v -> {
             if (v.getPosterPath() != null)
                 v.setPosterPath("https://image.tmdb.org/t/p/original" + v.getPosterPath());
         });
         return new RecommendListV1(recommendMent.get((int) (Math.random() * recommendMent.size())), list);
+    }
+
+    public RecommendListV1 selectGenreRecommend(String genre) {
+        return recommend.simpleGenreRecommend(genre);
     }
 }
