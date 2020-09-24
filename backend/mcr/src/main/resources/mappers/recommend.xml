@@ -17,5 +17,26 @@
         limit
             10
     </select>
+
+    <!-- Movie selectRandomMovieByUsersPrefer(Long userNo); -->
+    <select id="selectRandomMovieByUsersPrefer" parameterType="Long" resultType="Movie">
+        select
+            *
+        from
+            movie
+        where movie_cd =
+            (
+                select
+                    movie_cd
+                from
+                    user_movie
+                where
+                    user_no=#{userNo}
+                order by
+                    rand()
+                limit
+                    1
+            )
+    </select>
 </mapper>
 
