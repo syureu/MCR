@@ -49,8 +49,8 @@ export default {
     },
     methods: {
       formcheck(){
-        if(this.userid=== "" || (this.userid.length>0)||this.password=== "" || (this.userid.password>0)){
-          this.errorData.userid = "올바른 아이디나 비밀번호를 확인해주세요."
+        if(this.userid=== "" ||this.password=== ""){
+          this.errorData.userid = "아이디 , 비밀번호를 확인해주세요."
           return ;
         }
         
