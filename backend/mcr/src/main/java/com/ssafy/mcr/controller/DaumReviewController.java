@@ -37,6 +37,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.mcr.dto.BasicResponse;
+import com.ssafy.mcr.dto.DaumMovie;
 import com.ssafy.mcr.dto.DaumMovieActor;
 import com.ssafy.mcr.dto.DaumReview;
 import com.ssafy.mcr.dto.User;
@@ -66,6 +67,8 @@ public class DaumReviewController {
 		ResponseEntity response = null;
 		final BasicResponse result = new BasicResponse();
 		try {
+			Object time = (Object) System.currentTimeMillis();
+			daumReview.setRegtime(time.toString());
 			daumReviewService.addDaumReview(daumReview);
 			result.status = true;
 			result.data = "success";
@@ -161,7 +164,7 @@ public class DaumReviewController {
 	}
 	
 	@ApiOperation(value="해당 영화의 리뷰목록을 불러옵니다.")
-	@GetMapping("all")
+	@GetMapping("/all")
 	public Object SelectAllReviews(@RequestParam int movieId) {
 		List<DaumReview> listPos = null;
 		ResponseEntity response = null;
@@ -170,10 +173,33 @@ public class DaumReviewController {
 		System.out.println("리뷰 검색 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
+			
 			List<DaumReview> list = daumReviewService.getAllDaumReviewsByMovieId(movieId);
 			result.status = true;
 			result.data = "success";
 			result.object = list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
+	@ApiOperation(value="해당 영화의 리뷰목록을 불러옵니다.")
+	@PostMapping("/check")
+	public Object SelectAllReviews(@RequestBody DaumReview daumReview) {
+		System.out.println("체크진입");
+		ResponseEntity response = null;
+		ObjectMapper mapper = new ObjectMapper();
+		Map res = null;
+		final BasicResponse result = new BasicResponse();
+		try {
+			DaumReview dr = daumReviewService.getDaumReviewByWriter(daumReview);
+			result.data = "success";
+			result.status = true;
+			result.object = dr;				
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;

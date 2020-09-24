@@ -36,6 +36,7 @@ import com.ssafy.mcr.dto.BasicResponse;
 import com.ssafy.mcr.dto.DaumActor;
 import com.ssafy.mcr.dto.DaumMovie;
 import com.ssafy.mcr.dto.DaumReview;
+import com.ssafy.mcr.dto.Paging;
 import com.ssafy.mcr.dto.User;
 import com.ssafy.mcr.service.DaumActorService;
 import com.ssafy.mcr.service.DaumMovieService;
@@ -84,7 +85,9 @@ public class DaumMovieController {
 				}
 				movie.setMovieId(i);
 				movie.setOverview(doc.select("div.desc_movie p").text());
-				movie.setGenre(doc.select("dl.list_movie dd.txt_main").get(0).text());
+				if(doc.select("dl.list_movie dd.txt_main").get(0).text() != "") {					
+					movie.setGenre(doc.select("dl.list_movie dd.txt_main").get(0).text());
+				}
 				movie.setNation(doc.select("dl.list_movie dd").get(1).text());
 				Elements es = doc.select("dl.list_movie.list_main dd");
 				for(Element e : es) {
@@ -97,7 +100,11 @@ public class DaumMovieController {
 							}
 						}
 						if(!flag) {
-							movie.setMovieOpeningDate(str.substring(0, 10));
+							if(str.length() >= 10) {
+								movie.setMovieOpeningDate(str.substring(0, 10));								
+							}else {
+								movie.setMovieOpeningDate(str.substring(0, str.length()));																
+							}
 						}
 					}else {
 						continue;
@@ -114,6 +121,7 @@ public class DaumMovieController {
 				}
 				daumMovieService.addDaumMovie(movie);
 			}catch (Exception e) {
+				e.printStackTrace();
 				continue;
 			}
 		}
@@ -125,6 +133,7 @@ public class DaumMovieController {
 		ResponseEntity response = null;
 		System.out.println("검색 진입");
 		final BasicResponse result = new BasicResponse();
+		//여기서 카운트올리세요
 		try {
 			DaumMovie movie = daumMovieService.getDaumMovieBymovieId(movieId);
 			result.status = true;
@@ -139,9 +148,31 @@ public class DaumMovieController {
 		return response;
 	}
 	
+	@ApiOperation(value="해당 영화 정보를 리턴합니다.")
+	@PostMapping("/upscore")
+	public Object upScore(@RequestBody DaumMovie daumMovie) {
+		ResponseEntity response = null;
+		System.out.println("점수상승 메소드 진입");
+		final BasicResponse result = new BasicResponse();
+		//여기서 카운트올리세요
+		try {
+			daumMovieService.addScore(daumMovie);
+			DaumMovie dm = daumMovieService.getDaumMovieBymovieId(daumMovie.getMovieId());
+			result.status = true;
+			result.data = "success";
+			result.object = dm;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
 	@ApiOperation(value="제목으로 검색한 영화 정보들을 리턴합니다.")
 	@GetMapping("/bytitle")
-	public Object SelectMovieByTitle(@RequestParam String title) {
+	public Object SelectMovieByTitle(@RequestBody String title) {
 		ResponseEntity response = null;
 		System.out.println("제목 검색 진입");
 		final BasicResponse result = new BasicResponse();
@@ -159,5 +190,45 @@ public class DaumMovieController {
 		return response;
 	}
 
+	@ApiOperation(value="영화를 30개씩 페이지네이션합니다.")
+	@GetMapping("/page")
+	public Object getMovieLimit30(@RequestParam String title, @RequestParam int page) {
+		ResponseEntity response = null;
+		System.out.println("페이지네이션 진입");
+		final BasicResponse result = new BasicResponse();
+		try {
+			Paging paging = new Paging(title, page * 30);
+			List<DaumMovie> list = daumMovieService.getLimit30(paging);
+			result.status = true;
+			result.data = "success";
+			result.object = list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
+	@ApiOperation(value="영화를 10위를 가져옵니다.")
+	@GetMapping("/rank")
+	public Object getRank10() {
+		ResponseEntity response = null;
+		System.out.println("페이지네이션 진입");
+		final BasicResponse result = new BasicResponse();
+		try {
+			List<DaumMovie> list = daumMovieService.getLimit10ByScore();
+			result.status = true;
+			result.data = "success";
+			result.object = list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
 }
 
