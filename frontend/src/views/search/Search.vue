@@ -4,18 +4,31 @@
         <div v-if="!isNull">
             <h3 class="result">해당검색결과가 없습니다.</h3>
         </div>
-        <div class="row" v-else>
-        <div class="col"  style="" v-for="movie in Movie" :key="movie.id">
-          <a href=""><img :src="movie.imgUrl"   style="width:200px; height:350px;" alt="영화 이미지"  /></a>
-               <div class="card-cover" style="width:200px; height:350px;" @click="changeDeatil(movie.movieId)">
-                <h3 v-text="movie.movieName"></h3>
-                <h3  v-text="movie.rate"></h3>
+        <div class="card-list">
+         <div class="search-result-card col-12 col-md-6 col-xl-2 font-kor" v-for="movie in Movie" :key="movie.id">
+                <div @click="changeDeatil(movie.movieId)" class="card-img">
+                  <img :src="movie.imgUrl"  alt="영화 이미지"  />
+                  <div class="card-cover"  >
+                <h2 v-text="movie.movieName"></h2>
+                <h2 v-text="movie.rate"></h2>
+                
                </div>
-        </div>
-        </div>
+                </div>
+          
+         </div>
          <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
           <div slot="no-more" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px;">목록의 끝입니다 :)</div>
         </infinite-loading>
+         
+         
+        <!-- <div class="content11" v-else style="width:500px; height:350px" v-for="movie in Movie" :key="movie.id">
+          <a href=""><img :src="movie.imgUrl"   style="width:200px; height:350px;" alt="영화 이미지"  /></a>
+               <div class="card-cover" style="width:200px; height:350px; float:left;" @click="changeDeatil(movie.movieId)">
+                <h3 v-text="movie.movieName"></h3>
+                <h3  v-text="movie.rate"></h3>
+               </div>
+        </div> -->
+        </div>
     </div>
 </template>
 <script>
@@ -43,8 +56,7 @@ export default {
        .then(res=> {
          console.log(res)
          setTimeout(()=>{
-           if(res.data.data==="success"){
-         console.log('왓다')
+           if(res.data.object.length===30){
              this.Movie = this.Movie.concat(res.data.object);
              $state.loaded();
               this.page+=1;
@@ -52,7 +64,7 @@ export default {
            }else{
              $state.complete();
            }
-         },1000)
+         },500)
        })
        .catch(err=>{
          console.error(err);
@@ -62,7 +74,7 @@ export default {
             this.$router.push(`/feedDetail/${id}`)
         }
     },
-    created(){
+    mounted(){
         axios.get(`${URL.BASE_URL}/mcr/daummovie/page`,{
           params : {title:`${this.$route.params.keyword}`,
                     page : 0,
@@ -95,64 +107,50 @@ export default {
 .app{
     background:black;
     padding-top:100px;
-    width:100%;
-    height:100%;
 }
  h1 {
   margin-left:100px;
   margin-bottom: 30px;
   color:aliceblue;
 }
-.row{
-  margin-left:10px;
-  display:flex;
-
-}
-.col{
-  position: relative;
-  align-content:space-around;
-  margin-bottom: 100px;
-  width:300px;
-  height: 300px;
-}
-h3{
-    /* color:aliceblue; */
-}
-.box {
-  /* display: grid; */
-  /* grid-gap: 20px;
-  grid-template-columns: repeat(6, minmax(100px, 1fr)); */
-}
-a {
-  transition: transform .3s; 
-
-}
-/* a :hover {
-  transition: transform .3s;
-  -ms-transform: scale(1.3);
-  -webkit-transform: scale(1.3);  
-  transform: scale(1.3);
-  opacity: 0.5;
-  
-
-} */
-
-.card-cover{
-    position: absolute;
+.search-result-card {
+        display: inline-block;
+        padding: 10px;
+       
+    }
+    .card-cover {
+        position: absolute;
         top: 0;
+        left: 0;
         width: 100%;
-        height: 100%;
+        height:100%;
         background-color: transparent;
         color: transparent;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-}
-.card-cover:hover{
-    background-color: rgba(0,0,0,0.5);
+       
+    }
+    .card-cover:hover {
+        background-color: rgba(0,0,0,0.5);
         color: whitesmoke;
-}
-
-
+    }
+    .card-img {
+        position: relative;
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+    }
+    .card-img img{
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+    .card-list {
+        margin-top: 30px;
+    }
+    
 </style>
