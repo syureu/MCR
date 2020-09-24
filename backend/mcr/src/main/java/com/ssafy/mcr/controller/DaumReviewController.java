@@ -67,6 +67,8 @@ public class DaumReviewController {
 		ResponseEntity response = null;
 		final BasicResponse result = new BasicResponse();
 		try {
+			Object time = (Object) System.currentTimeMillis();
+			daumReview.setRegtime(time.toString());
 			daumReviewService.addDaumReview(daumReview);
 			result.status = true;
 			result.data = "success";
