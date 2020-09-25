@@ -5,10 +5,10 @@
       </div>      
       <nav class="main-nav">              
         <LoginModal v-if="loginModal" @close="changeLogin" @change="changeModal"/>
-        <a href="#">장르별 영화</a>
-        <a href="#">인기 영화</a>
+        <a href="#">한국 영화</a>
+        <a href="#">외국 영화</a>
       </nav>
-      <nav class="mid-nav">
+      <nav class="mid-nav" v-if="isLoggedIn">
         <div class="box">
        
         <input type="text" placeholder="영화를 검색하세요" v-model="searchKeyword"  @keyup.enter="searchKeywords"/>
@@ -66,7 +66,7 @@ export default {
       logout(){
         this.$session.remove('jwstoken')
         this.$store.commit('logout')
-        this.$router.go()
+        this.$router.push({name: 'Home'})
       },
       changeMypage(){
         this.$router.push({name:'Mypage'})
@@ -101,7 +101,7 @@ export default {
   margin-bottom: 0px;
   z-index: 10;
   
-  background-color:black;
+  background-color:rgb(0, 0, 0);
 }
 .netflixLogo {
   grid-area: nt;
