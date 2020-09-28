@@ -163,4 +163,10 @@ export default {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
+  @media (min-width: 768px) {
+    
+    .modal-container {
+      width: 20%;
+    }
+  }
 </style>

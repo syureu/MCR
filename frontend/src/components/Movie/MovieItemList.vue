@@ -1,8 +1,6 @@
 <template>
     <div id="content">
         <h1 id="movies" v-text="name"></h1>
-        <br>
-        <br>
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
                <div class="carousel-item active">
@@ -75,8 +73,8 @@ export default {
     width:2%;
 }
 .content h1 {
-  padding-top: 60px;  
-    margin-bottom: 130px;
+  margin-top: 160px;  
+
 }
 a {
   transition: transform .3s; 
@@ -91,8 +89,6 @@ a :hover {
   
 
 }
-
-
 .card-cover{
     position: absolute;
         top: 0;
