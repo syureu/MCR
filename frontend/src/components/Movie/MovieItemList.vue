@@ -1,7 +1,7 @@
 <template>
     <div id="content">
-        <h1 id="movies" v-text="name"></h1>
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <h1 id="movies" style="font-family: 'Hanna', sans-serif;" v-text="name"></h1>
+        <div id="dynamicId" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
                <div class="carousel-item active">
                     <div class="row" >
@@ -25,11 +25,11 @@
                </div>
     
         </div>
-     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+     <a class="carousel-control-prev" href="#dynamicId" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
     </a>
-  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+  <a class="carousel-control-next" href="#dynamicId" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
@@ -44,6 +44,7 @@ export default {
         // MovieItem
     },
     props:{
+        dynamicId: String,
         name : String,
         movies1 : Array,
         movies2 : Array,
@@ -52,16 +53,15 @@ export default {
         return {
             test: [],
             test1: [],
+            dynamicHref:"#"+this.props.dynamicId
         }
     },
-   
     methods: {
         changeDeatil(id){
          
             this.$router.push(`/feedDetail/${id}`)
         },
-    }
-    
+    },
 }
 </script>
 <style scoped>
@@ -101,6 +101,7 @@ a :hover {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        font-family: 'Hanna', sans-serif;
 }
 .card-cover:hover{
     background-color: rgba(0,0,0,0.5);
