@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.mcr.dao.DaumMovieDao;
 import com.ssafy.mcr.dto.DaumMovie;
+import com.ssafy.mcr.dto.Paging;
 
 @Service
 public class DaumMovieServiceImpl implements DaumMovieService{
@@ -28,6 +29,21 @@ public class DaumMovieServiceImpl implements DaumMovieService{
 	@Override
 	public List<DaumMovie> getDaumMovieByTitle(String title) {
 		return daumMovieDao.selectByTitle(title);
+	}
+
+	@Override
+	public List<DaumMovie> getLimit30(Paging paging) {
+		return daumMovieDao.selectLimit30(paging);
+	}
+
+	@Override
+	public void addScore(DaumMovie daumMovie) {
+		daumMovieDao.upScore(daumMovie);
+	}
+
+	@Override
+	public List<DaumMovie> getLimit10ByScore() {
+		return daumMovieDao.selectLimit10ByScore();
 	}
 
 }

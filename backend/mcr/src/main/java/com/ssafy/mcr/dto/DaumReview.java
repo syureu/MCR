@@ -7,6 +7,13 @@ public class DaumReview {
 	private String content;
 	private String regtime;
 	private int daumReviewNo;
+	private int count;
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public String getWriter() {
 		return writer;
 	}
@@ -46,7 +53,6 @@ public class DaumReview {
 	@Override
 	public String toString() {
 		return "DaumReview [movieId=" + movieId + ", writer=" + writer + ", rate=" + rate + ", content=" + content
-				+ ", regtime=" + regtime + ", daumReviewNo=" + daumReviewNo + "]";
+				+ ", regtime=" + regtime + ", daumReviewNo=" + daumReviewNo + ", count=" + count + "]";
 	}
-	
 }

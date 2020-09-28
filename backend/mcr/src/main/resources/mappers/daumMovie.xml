@@ -64,6 +64,43 @@
 		where
 			movie_name LIKE CONCAT('%',#{title},'%') 
 			OR movie_name_en LIKE CONCAT('%',#{title},'%') 
-		</select>
+	</select>
+	
+	<select id="selectLimit30" parameterType="Paging" resultType="DaumMovie">
+		select 
+			* 
+		from 
+			daum_movie 
+		where
+			movie_name LIKE CONCAT('%',#{title},'%') 
+			OR movie_name_en LIKE CONCAT('%',#{title},'%')
+			and img_url is not null
+		order by
+			movie_opening_date desc 
+		limit 
+			#{page}, 30
+	</select>
+	
+	<select id="selectLimit10ByScore" resultType="DaumMovie">
+		select 
+			* 
+		from 
+			daum_movie 
+		order by
+			score desc 
+		limit 
+			10
+	</select>
+	
+	<update id="upScore" parameterType="DaumMovie">
+		update
+			daum_movie
+		set
+			score = #{score}
+		where
+			movie_id = #{movieId}
+	</update>
+	
+	
 </mapper>
 

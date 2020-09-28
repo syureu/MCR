@@ -18,7 +18,7 @@
 						#{writer},
 						#{rate},
 						#{content},
-						#{regtime}
+						now()
 				FROM dual
             WHERE NOT EXISTS (
                         SELECT movie_id,
@@ -33,6 +33,17 @@
             )
 	</insert>
 
+	<update id="updateDaumReview" parameterType="DaumReview">
+		update
+			daum_review
+		set
+			rate = #{rate},
+			content = #{content}
+		where
+			movie_id = #{movieId}
+            AND writer = #{writer}
+		
+	</update>	
 	
 	<select id="selectDaumPosReviewsByMovieId" parameterType="Integer" resultType="DaumReview">
 		select 
@@ -42,12 +53,19 @@
 		 where 
 		 	movie_id = #{movieId}
 		 	and rate >= 6
+		 order by
+		 	daum_review_no desc
 	</select>
 	
 	<select id="selectDaumNagReviewsByMovieId" parameterType="Integer" resultType="DaumReview">
-		select *
-		from daum_review
-		where movie_id = #{movieId} and rate between 0 and 5
+		select 
+			*
+		from 
+			daum_review
+		where 
+			movie_id = #{movieId} and rate between 0 and 5
+		order by
+		 	daum_review_no desc
 	</select>
 	
 	<select id="selectAllDaumReviewsByMovieId" parameterType="Integer" resultType="DaumReview">
@@ -58,6 +76,18 @@
 		 where 
 		 	movie_id = #{movieId}
 	</select>
-
+	
+	<select id="selectDaumReviewByWriter" parameterType="DaumReview" resultType="DaumReview">
+		select 
+			* 
+		  from 
+		  	daum_review 
+		 where 
+		 	movie_id = #{movieId} and writer = #{writer}
+	</select>
+	
+	<update id="insertCount" parameterType="Integer">
+		update daum_movie set count = (select count(*) from daum_review where movie_id = #{movieId}) where movie_id = #{movieId};
+	</update>
 </mapper>
 

@@ -37,6 +37,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.mcr.dto.BasicResponse;
+import com.ssafy.mcr.dto.DaumMovie;
 import com.ssafy.mcr.dto.DaumMovieActor;
 import com.ssafy.mcr.dto.DaumReview;
 import com.ssafy.mcr.dto.User;
@@ -66,6 +67,8 @@ public class DaumReviewController {
 		ResponseEntity response = null;
 		final BasicResponse result = new BasicResponse();
 		try {
+			Object time = (Object) System.currentTimeMillis();
+			daumReview.setRegtime(time.toString());
 			daumReviewService.addDaumReview(daumReview);
 			result.status = true;
 			result.data = "success";
@@ -79,47 +82,67 @@ public class DaumReviewController {
 		return response;
 	}
 
-	@ApiOperation(value="리뷰를 생성합니다.")
-	@PostMapping("/auto")
-	public void Crawling(int start, int end) throws IOException {
-		loop:
-		for(int i = start; i <= end; i++) {
-			int cnt = 0;
-			try {
-				System.out.println(i);
-				String URL = reviewURL + i + "&type=netizen&page=2000";
-				Document doc = Jsoup.connect(URL).get();
-				Elements p = doc.select("a.link_page");
-				String pk = "";
-				for(Element e : p) {
-					pk = e.text();
-				}
-				int maxpage = Integer.parseInt(pk);
-				for(int j = 1; j <= maxpage; j++) {
-					URL = reviewURL + i + "&type=netizen&page=" + j;
-					doc = Jsoup.connect(URL).get();
-					Elements reviewInfos = doc.select("div.review_info");
-					for(Element e : reviewInfos) {
-						if(cnt == 100) {
-							continue loop;
-						}
-						DaumReview review = new DaumReview();
-						review.setMovieId(i);
-						review.setWriter(e.select("em.link_profile").text());
-						review.setRate((Integer.parseInt(e.select("em.emph_grade").text())));
-						review.setContent((e.select("p.desc_review").text()));
-						review.setRegtime((e.select("span.info_append").text()));
-						daumReviewService.addDaumReview(review);
-						cnt++;
-					}
-				}
-			}catch (Exception e) {
-				e.printStackTrace();
-				continue;
-			}
-		}
-	}
+//	@ApiOperation(value="리뷰를 생성합니다.")
+//	@PostMapping("/auto")
+//	public void Crawling(int start, int end) throws IOException {
+//		loop:
+//		for(int i = start; i <= end; i++) {
+//			int cnt = 0;
+//			try {
+//				System.out.println(i);
+//				String URL = reviewURL + i + "&type=netizen&page=2000";
+//				Document doc = Jsoup.connect(URL).get();
+//				Elements p = doc.select("a.link_page");
+//				String pk = "";
+//				for(Element e : p) {
+//					pk = e.text();
+//				}
+//				int maxpage = Integer.parseInt(pk);
+//				for(int j = 1; j <= maxpage; j++) {
+//					URL = reviewURL + i + "&type=netizen&page=" + j;
+//					doc = Jsoup.connect(URL).get();
+//					Elements reviewInfos = doc.select("div.review_info");
+//					for(Element e : reviewInfos) {
+//						if(cnt == 100) {
+//							continue loop;
+//						}
+//						DaumReview review = new DaumReview();
+//						review.setMovieId(i);
+//						review.setWriter(e.select("em.link_profile").text());
+//						review.setRate((Integer.parseInt(e.select("em.emph_grade").text())));
+//						review.setContent((e.select("p.desc_review").text()));
+//						review.setRegtime((e.select("span.info_append").text()));
+//						daumReviewService.addDaumReview(review);
+//						cnt++;
+//					}
+//				}
+//			}catch (Exception e) {
+//				e.printStackTrace();
+//				continue;
+//			}
+//		}
+//	}
 
+	@ApiOperation(value="해당 영화의 리뷰를 수정합니다.")
+	@PutMapping("/update")
+	public Object updateReview(@RequestBody DaumReview daumReview) {
+		ResponseEntity response = null;
+		final BasicResponse result = new BasicResponse();
+		try {
+			daumReviewService.updateDaumReview(daumReview);
+			DaumReview target = daumReviewService.getDaumReviewByWriter(daumReview);
+			result.status = true;
+			result.data = "success";
+			result.object = target;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
 	@ApiOperation(value="해당 영화의 긍정리뷰목록을 불러옵니다.")
 	@GetMapping("/pos")
 	public Object SelectPosReviews(@RequestParam int movieId) {
@@ -161,7 +184,7 @@ public class DaumReviewController {
 	}
 	
 	@ApiOperation(value="해당 영화의 리뷰목록을 불러옵니다.")
-	@GetMapping("all")
+	@GetMapping("/all")
 	public Object SelectAllReviews(@RequestParam int movieId) {
 		List<DaumReview> listPos = null;
 		ResponseEntity response = null;
@@ -170,10 +193,53 @@ public class DaumReviewController {
 		System.out.println("리뷰 검색 진입");
 		final BasicResponse result = new BasicResponse();
 		try {
+			
 			List<DaumReview> list = daumReviewService.getAllDaumReviewsByMovieId(movieId);
 			result.status = true;
 			result.data = "success";
 			result.object = list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
+	@ApiOperation(value="해당 영화의 리뷰목록을 불러옵니다.")
+	@PostMapping("/check")
+	public Object SelectAllReviews(@RequestBody DaumReview daumReview) {
+		System.out.println("체크진입");
+		ResponseEntity response = null;
+		ObjectMapper mapper = new ObjectMapper();
+		Map res = null;
+		final BasicResponse result = new BasicResponse();
+		try {
+			DaumReview dr = daumReviewService.getDaumReviewByWriter(daumReview);
+			result.data = "success";
+			result.status = true;
+			result.object = dr;				
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
+	@ApiOperation(value="해당 영화의 리뷰목록을 불러옵니다.")
+	@PostMapping("/count")
+	public Object insertCount(int start , int end) {
+		ResponseEntity response = null;
+		final BasicResponse result = new BasicResponse();
+		try {
+			for(int i = start; i <= end; i++) {				
+				daumReviewService.insertCount(i);
+			}
+			result.data = "success";
+			result.status = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;
