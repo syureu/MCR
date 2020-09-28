@@ -14,7 +14,9 @@
       <div class="container">
 
         <div class="row">
+          
           <div class="col-xl-4 col-lg-5" data-aos="fade-up">
+            <div class="scroll-c " style="overflow-y:scroll; height: 500px;">
             <div class="content">
               <h3>Story Line</h3>
               <p>
@@ -22,6 +24,7 @@
               </p>
         
             </div>
+          </div>
           </div>
           <div class="col-xl-8 col-lg-7 d-flex">
             <div class="icon-boxes d-flex flex-column justify-content-center">
