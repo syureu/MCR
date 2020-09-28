@@ -6,9 +6,12 @@
             <Content v-if="!isLoggedIn"/>
         </div> 
             <div class="location" id="home" v-if="isLoggedIn">
-            <MovieItemList :name="recommandMovie.title" :movies1="recommandMovie.Movie1" :movies2="recommandMovie.Movie2"/>
-            <MovieItemList :name="recommandMovie1.title" :movies1="recommandMovie1.Movie1" :movies2="recommandMovie1.Movie2"/>
-
+                <div>
+            <MovieItemList :dynamicId="ca1" :name="recommandMovie.title" :movies1="recommandMovie.Movie1" :movies2="recommandMovie.Movie2"/>
+                </div>
+                <div>
+            <MovieItemList :dynamicId="ca2" :name="recommandMovie1.title" :movies1="recommandMovie1.Movie1" :movies2="recommandMovie1.Movie2"/>
+                </div>
         </div>
     </div>
 </template>

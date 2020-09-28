@@ -119,6 +119,7 @@ export default {
        
     }
     .card-cover {
+      font-family: 'Hanna', sans-serif;
         position: absolute;
         top: 0;
         left: 0;
