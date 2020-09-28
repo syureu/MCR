@@ -14,7 +14,9 @@
       <div class="container">
 
         <div class="row">
+          
           <div class="col-xl-4 col-lg-5" data-aos="fade-up">
+            <div class="scroll-c " style="overflow-y:scroll; height: 500px;">
             <div class="content">
               <h3>Story Line</h3>
               <p>
@@ -22,6 +24,7 @@
               </p>
         
             </div>
+          </div>
           </div>
           <div class="col-xl-8 col-lg-7 d-flex">
             <div class="icon-boxes d-flex flex-column justify-content-center">
@@ -60,8 +63,14 @@
       <div class="container">
 
         <div class="row">
-            <div class="col-xl-8 col-lg-8 video-box  " data-aos="fade-right">
+            <div v-if="this.not_video === false" class="col-xl-8 col-lg-8 video-box  " data-aos="fade-right">
                 <iframe id="syd" wmode="Opaque" class="p-3 video-box "  :src="trailerURL1" frameborder="0" allow="autoplay;  encrypted-media" allowfullscreen>트레일러가 지원되지 않는 작품입니다.</iframe>
+            </div>
+
+            <div  v-if="this.not_video === true" class="col-xl-8 col-lg-8 video-box  " data-aos="fade-right">
+              <img src="https://media.giphy.com/media/3ohA2ZD9EkeK2AyfdK/giphy.gif" alt=""> <br>
+            
+              예고편을 지원하지 않는 영화입니다.
             </div>
             
           <div class="col-xl-4 col-lg-4 icon-boxes  py-5 px-lg-5">
@@ -175,6 +184,7 @@ export default {
         itemNumber: 4,
         like_on : 0,
         ggenre: [],
+        not_video : false,
         actorList: [
         ],
 		movieDetail: {
@@ -258,13 +268,22 @@ export default {
 			imgurl: res.data.object.imgUrl,
             nation: res.data.object.nation,
             }
-            console.log("확인")
-            console.log(this.movieDetail)
+         
 			const movieTrailer = require( 'movie-trailer' )
 			this.trailerURL1 = 'https://www.youtube.com/embed/'
 			movieTrailer( res.data.object.movieName , ( error, response) => {
+        console.log('여기')
+        console.log(response)
+       if(response == null){
+          this.not_video = true
+        }
 				this.trailerURL1 = this.trailerURL1 + response.substr(32)
             })
+ 
+
+        
+       
+          
     
 		})
 		.catch(err => {
@@ -292,7 +311,7 @@ export default {
             }
             console.log(res)
             this.actorList = res.data.object
-            console.log(this.actorList)
+       
         }).catch(err => {
             console.log(err)
         })

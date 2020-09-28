@@ -33,11 +33,11 @@
       <div style="clear:both;"></div>
         <div id ="positiveRev"> 
             <div class = "revitem" v-for="review in paginatedData" :key="review.writer" >
-                <div>
+                <div class="firstLine">
                 <div class ="revName">
                     {{ review.writer }} 
                 </div>    
-                    <StarRating class="starR" v-model="review.rate" v-bind:max-rating="10" :star-size="starsize" :show-rating="F" :read-only="true"/> {{ review.rate }} / 10
+                    <StarRating class="starR" :star-size="20" v-model="review.rate"  v-bind:max-rating="10" :show-rating="F" :read-only="true"/> {{ review.rate }} / 10
                 
                 </div>
                 <br>
@@ -54,7 +54,7 @@
         이전
       </button>
       <span class="page-count">{{ pageNum + 1 }} / {{ pageCount }} 페이지</span>
-      <button :disabled="pageNum >= pageCount - 1" @click="nextPage" class="page-btn">
+      <button  :disabled="pageNum >= pageCount - 1" @click="nextPage" class="page-btn">
         다음
       </button>
     </div>
@@ -64,10 +64,10 @@
         
         <div id ="negativeRev">
             <div class = "revitem" v-for="review in paginatedData1" :key="review.writer">
-                <div>
+                <div class="firstLine">
                 <div class ="revName">
                     {{ review.writer }}
-                </div> <StarRating class="starR" v-model="review.rate" v-bind:max-rating="10" :star-size="starsize" :show-rating="F" :read-only="true"/> {{ review.rate }} / 10
+                </div> <StarRating class="starR" v-model="review.rate" :star-size="20" v-bind:max-rating="10"  :show-rating="F" :read-only="true"/> {{ review.rate }} / 10
                 </div>
                 <br>
                 <div class ="revContent">
@@ -79,11 +79,11 @@
                 </div>
             </div>
             <div class="btn-cover">
-      <button :disabled="pageNum1 === 0" @click="prevPage1" class="page-btn">
+      <button  :disabled="pageNum1 === 0" @click="prevPage1" class="page-btn">
         이전
       </button>
       <span class="page-count">{{ pageNum1 + 1 }} / {{ pageCount1 }} 페이지</span>
-      <button :disabled="pageNum1 >= pageCount1 - 1" @click="nextPage1" class="page-btn">
+      <button  :disabled="pageNum1 >= pageCount1 - 1" @click="nextPage1" class="page-btn">
         다음
       </button>
     </div>
@@ -112,9 +112,9 @@ export default {
     ,
     data() {
         return {
+            booleanValue: false,
             paddingNum: 5,
             F: false,
-            starsize: 20,
             userno: "",
             movieId: this.movieNo,
             pageNum: 0,
@@ -300,13 +300,13 @@ export default {
         font-size : 1.5vw;
     }   
 
+    
+    
     .starR{
-        float:left;
         margin-left: 1.5vw;
         margin-right: 1.5vw;
+        float:left;
     }
-
-    
 
     #checkdiv{
         clear: both;
@@ -317,11 +317,13 @@ export default {
     .btn-cover {
   margin-top: 1.5rem;
   text-align: center;
+  font-size: 2vw;
   
 }
 .btn-cover .page-btn {
-  width: 5rem;
-  height: 2rem;
+  width: 8vw;
+  height: 5vh;
+  font-size: 1.5vw;
   letter-spacing: 0.5px;
   border-radius: 8px;
   color: skyblue;
@@ -345,4 +347,6 @@ export default {
     width:45%;
     height: 50vh;
 }
+
+
 </style>

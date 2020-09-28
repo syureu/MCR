@@ -7,9 +7,9 @@
         <label id="lab" for="" >내평점</label> <button id="togglebtn" @click="changetoggle">{{ name }}</button>
         </div>
         <div id="incontainer" v-if="toggle==true" >
-        <StarRating v-model="revitem.rate" v-bind:max-rating="10" :show-rating="temp"/>
+        <StarRating class="starR" v-model="revitem.rate"  star-size=40 v-bind:max-rating="10" :show-rating="temp"/>
         <textarea id="revcontent" v-model="revitem.content"></textarea>
-        <button v-if="this.revcheck == true" class="revbutton" >수정</button>
+        <button v-if="this.revcheck == true" class="revbutton" @click="updaterev" >수정</button>
         <button v-else class="revbutton" @click="writerev">작성</button>
         </div>
         </div>
@@ -57,6 +57,16 @@ export default {
             .then(res => {
                 console.log("리뷰 작성 완료")
                 console.log(res)
+                alert("리뷰 작성 완료")
+                location.reload()
+            })
+        },
+        updaterev() {
+            axios.put(`${URL.BASE_URL}/mcr/`, this.revitem)
+            .then(res => {
+                alert("리뷰 수정 완료")
+                console.log(res)
+                location.reload()
             })
         }
     },
@@ -175,5 +185,10 @@ export default {
 
     #hr1{
         background-color: skyblue;
+    }
+
+
+    .starR{
+
     }
 </style>
