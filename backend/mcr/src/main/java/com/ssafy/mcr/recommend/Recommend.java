@@ -41,7 +41,7 @@ public class Recommend {
         DefaultExecutor executor = new DefaultExecutor();
         executor.setStreamHandler(new PumpStreamHandler(outputStream));
         executor.setWorkingDirectory(new File("C:\\Users\\multicampus\\Documents\\s03p23d104\\recommend\\recommend_try"));
-        // executor.setWorkingDirectory(new File("$HOME\\source\\recommend\\recommend_try"));
+        // executor.setWorkingDirectory(new File("$HOME/source/s03p23d014/recommendrecommend_try"));
 
         executor.execute(commandLine);
         return outputStream.toString("Cp949");
