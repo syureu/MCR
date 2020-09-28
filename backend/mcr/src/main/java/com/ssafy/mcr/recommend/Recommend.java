@@ -41,7 +41,7 @@ public class Recommend {
         DefaultExecutor executor = new DefaultExecutor();
         executor.setStreamHandler(new PumpStreamHandler(outputStream));
         executor.setWorkingDirectory(new File("C:\\Users\\multicampus\\Documents\\s03p23d104\\recommend\\recommend_try"));
-        // executor.setWorkingDirectory(new File("$HOME/source/s03p23d104/recommend/recommend_try"));
+        // executor.setWorkingDirectory(new File("home/ubuntu/source/s03p23d104/recommend/recommend_try"));
 
         executor.execute(commandLine);
         return outputStream.toString("Cp949");
@@ -51,9 +51,11 @@ public class Recommend {
     public RecommendListV1 simpleRecommendByGenre(String genre) throws IOException {
         List<String> command = new ArrayList<>();
         command.add("python");
+        //command.add("python3");
         command.add("daum_movie_simple_recommend_by_qualified.py");
         command.add(genre);
         String[] retList = execPython(command).split("\r\n");
+        //String[] retList = execPython(command).split("\n");
         List<RecommendV1> list = new ArrayList<>();
         for (int i = 0; i < retList.length / 3; ++i) {
             RecommendV1 rv1 = new RecommendV1(
