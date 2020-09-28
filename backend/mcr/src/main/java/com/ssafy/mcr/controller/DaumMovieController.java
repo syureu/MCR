@@ -232,7 +232,7 @@ public class DaumMovieController {
 		final BasicResponse result = new BasicResponse();
 		try {
 			List<DaumMovie> list = daumMovieService.getLimit10ByScore();
-			String title = "searchrank";
+			String title = "실시간 인기있는 영화 TOP 10";
 			SearchMovie10 movies = new SearchMovie10();
 			movies.setMovies(list);
 			movies.setTitle(title);
@@ -260,7 +260,7 @@ public class DaumMovieController {
 				System.out.println(r.getId());
 				list.add(daumMovieService.getDaumMovieBymovieId(r.getId()));
 			}
-			String title = "movielikerank";
+			String title = "인기있는 영화 TOP 10";
 			SearchMovie10 movies = new SearchMovie10();
 			movies.setMovies(list);
 			movies.setTitle(title);

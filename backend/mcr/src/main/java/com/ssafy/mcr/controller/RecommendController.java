@@ -4,9 +4,10 @@ import com.ssafy.mcr.dto.RecommendListV1;
 import com.ssafy.mcr.service.RecommendService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @CrossOrigin(origins = { "*" })
@@ -19,33 +20,8 @@ public class RecommendController {
         this.recommendService = recommendService;
     }
 
-    /*
     @GetMapping("/")
     public ResponseEntity<RecommendListV1> readRecommend() {
         return new ResponseEntity<>(recommendService.selectRecommend(), HttpStatus.OK);
-    }
-     */
-
-    @GetMapping("/simple/{genre}")
-    public ResponseEntity<RecommendListV1> simpleRecommendByGenre(@PathVariable String genre) {
-        try {
-            return new ResponseEntity<>(recommendService.simpleRecommendByGenre(genre), HttpStatus.OK);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @GetMapping("/simple/random/{userNo}")
-    public ResponseEntity<RecommendListV1> simpleRecommendByUserNo(@PathVariable Integer userNo) {
-        String usersPreferGenre = recommendService.getUsersRandomGenreByUsersPrefer(userNo);
-        try {
-            return new ResponseEntity<>(recommendService.simpleRecommendByGenre(usersPreferGenre), HttpStatus.OK);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 }
