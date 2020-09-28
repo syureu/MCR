@@ -7,7 +7,7 @@
         <label id="lab" for="" >내평점</label> <button id="togglebtn" @click="changetoggle">{{ name }}</button>
         </div>
         <div id="incontainer" v-if="toggle==true" >
-        <StarRating class="starR" v-model="revitem.rate"  star-size=40 v-bind:max-rating="10" :show-rating="temp"/>
+        <StarRating class="starR" v-model="revitem.rate"  :star-size="40" v-bind:max-rating="10" :show-rating="temp"/>
         <textarea id="revcontent" v-model="revitem.content"></textarea>
         <button v-if="this.revcheck == true" class="revbutton" @click="updaterev" >수정</button>
         <button v-else class="revbutton" @click="writerev">작성</button>
@@ -55,23 +55,22 @@ export default {
         writerev() {
             axios.post(`${URL.BASE_URL}/mcr/daumreview/`, this.revitem)
             .then(res => {
-                console.log("리뷰 작성 완료")
                 console.log(res)
                 alert("리뷰 작성 완료")
                 location.reload()
             })
         },
         updaterev() {
-            axios.put(`${URL.BASE_URL}/mcr/`, this.revitem)
+            axios.put(`${URL.BASE_URL}/mcr/daumreview/update`, this.revitem)
             .then(res => {
                 alert("리뷰 수정 완료")
                 console.log(res)
                 location.reload()
+
             })
         }
     },
     created() {
-        console.log(this.$store.getters.getUserData.userinfo)
         if(this.$store.getters.getUserData == null){
             this.onlogin = false;
         } else{
@@ -86,22 +85,18 @@ export default {
 
         this.revitem.writer= this.$store.getters.getUserData.userinfo.userid;
 
-        console.log(daumReview)
 
         axios.post(`${URL.BASE_URL}/mcr/daumreview/check`, daumReview)  
         .then(res => {
             console.log(res)
             if(res.data.object != null){
                 this.revcheck = true;
-                console.log("res 확인")
-                console.log(res)
                 this.revitem = {
                     content: res.data.object.content,
                     rate: res.data.object.rate,
                     movieId: res.data.object.movieId,
+                    writer:  this.$store.getters.getUserData.userinfo.userid
                 }
-                console.log("res 확인")
-                console.log(res)
             } 
         })
         .catch(err => {
