@@ -14,4 +14,5 @@ public interface DaumReviewDao {
 	public List<DaumReview> selectDaumNagReviewsByMovieId(int movieId);
 	public List<DaumReview> selectAllDaumReviewsByMovieId(int movieId);
 	public DaumReview selectDaumReviewByWriter(DaumReview daumReview);
+	public void insertCount(int movieId);
 }

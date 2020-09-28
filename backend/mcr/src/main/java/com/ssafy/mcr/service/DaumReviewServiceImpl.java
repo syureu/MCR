@@ -40,4 +40,10 @@ public class DaumReviewServiceImpl implements DaumReviewService{
 		return daumReviewDao.selectDaumReviewByWriter(daumReview);
 	}
 
+	@Override
+	public void insertCount(int movieId) {
+		daumReviewDao.insertCount(movieId);
+	}
+
+
 }

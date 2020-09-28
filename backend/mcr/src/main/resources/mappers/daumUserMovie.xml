@@ -40,6 +40,10 @@
 		 where user_no=#{userNo}
 		  AND movie_id = #{movieId}
 	</select>
+	
+	<select id="likeRank10" resultType="Ranking">
+		SELECT movie_id as `id`, count(*) as `count` from daum_user_movie dum group by movie_id order by `count` desc limit 10;
+	</select>
 		
 </mapper>
 

@@ -41,6 +41,9 @@
 		  AND person_id = #{personId}
 	</select>
 		
+	<select id="likeRank10" resultType="Ranking">
+		SELECT person_id as `id`, count(*) as `count` from daum_user_actor dum group by person_id order by `count` desc limit 10;
+	</select>
 </mapper>
 
  

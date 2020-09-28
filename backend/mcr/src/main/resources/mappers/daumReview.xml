@@ -18,7 +18,7 @@
 						#{writer},
 						#{rate},
 						#{content},
-						#{regtime}
+						now()
 				FROM dual
             WHERE NOT EXISTS (
                         SELECT movie_id,
@@ -67,13 +67,9 @@
 		 where 
 		 	movie_id = #{movieId} and writer = #{writer}
 	</select>
-
-	<update id="" parameterType="DaumReview">
-		update
-			daum_review
-		set
-			
-		where
+	
+	<update id="insertCount" parameterType="Integer">
+		update daum_movie set count = (select count(*) from daum_review where movie_id = #{movieId}) where movie_id = #{movieId};
 	</update>
 </mapper>
 
