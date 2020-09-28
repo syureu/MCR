@@ -123,7 +123,7 @@ public class DaumActorController {
 				System.out.println(r.getId());
 				list.add(daumActorService.getDaumActorBypersonId(r.getId()));
 			}
-			String title = "actorlikerank";
+			String title = "인기있는 배우 TOP 10";
 			SearchActor10 actors = new SearchActor10();
 			actors.setActors(list);
 			actors.setTitle(title);

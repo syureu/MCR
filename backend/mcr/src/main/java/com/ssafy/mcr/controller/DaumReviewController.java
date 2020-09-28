@@ -123,6 +123,26 @@ public class DaumReviewController {
 //		}
 //	}
 
+	@ApiOperation(value="해당 영화의 리뷰를 수정합니다.")
+	@PutMapping("/update")
+	public Object updateReview(@RequestBody DaumReview daumReview) {
+		ResponseEntity response = null;
+		final BasicResponse result = new BasicResponse();
+		try {
+			daumReviewService.updateDaumReview(daumReview);
+			DaumReview target = daumReviewService.getDaumReviewByWriter(daumReview);
+			result.status = true;
+			result.data = "success";
+			result.object = target;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
 	@ApiOperation(value="해당 영화의 긍정리뷰목록을 불러옵니다.")
 	@GetMapping("/pos")
 	public Object SelectPosReviews(@RequestParam int movieId) {
