@@ -32,6 +32,7 @@ public class RecommendController {
             return new ResponseEntity<>(recommendService.simpleRecommendByGenre(genre), HttpStatus.OK);
         }
         catch (IOException e) {
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -43,6 +44,7 @@ public class RecommendController {
             return new ResponseEntity<>(recommendService.simpleRecommendByGenre(usersPreferGenre), HttpStatus.OK);
         }
         catch (IOException e) {
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
