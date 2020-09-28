@@ -170,9 +170,12 @@ public class DaumMovieActorController {
 		System.out.println("영화필모그래피 검색 진입");
 		try {
 			list = daumMovieActorService.getDaumMovieActorBypersonId(personId);
-			System.out.println(list.toString()+ " " + list.size());
+//			System.out.println(list.toString()+ " " + list.size());
 			for(DaumMovieActor ma : list) {
 				DaumMovie dm = daumMovieService.getDaumMovieBymovieId(ma.getMovieId());
+				if(dm == null) {
+					continue;
+				}
 				String movieName = dm.getMovieName();
 				String imgUrl = dm.getImgUrl();
 				res = mapper.convertValue(ma, Map.class);
