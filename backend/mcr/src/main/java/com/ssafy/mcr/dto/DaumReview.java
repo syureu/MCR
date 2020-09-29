@@ -8,6 +8,13 @@ public class DaumReview {
 	private String regtime;
 	private int daumReviewNo;
 	private int count;
+	private int userNo;
+	public int getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
 	public int getCount() {
 		return count;
 	}

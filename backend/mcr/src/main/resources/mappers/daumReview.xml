@@ -12,23 +12,26 @@
 						writer,
 						rate,
 						content,
-						regtime
+						regtime,
+						user_no
 				)
 				select	#{movieId},
 						#{writer},
 						#{rate},
 						#{content},
-						now()
+						now(),
+						#{userNo}
 				FROM dual
             WHERE NOT EXISTS (
                         SELECT movie_id,
 						writer,
 						rate,
 						content,
-						regtime
+						regtime,
+						user_no
                  FROM daum_review
                  WHERE movie_id = #{movieId}
-                 	AND writer = #{writer}
+                 	AND user_no = #{userNo}
                  	AND regtime = #{regtime}
             )
 	</insert>
@@ -41,7 +44,7 @@
 			content = #{content}
 		where
 			movie_id = #{movieId}
-            AND writer = #{writer}
+            AND user_no = #{userNo}
 		
 	</update>	
 	
@@ -54,7 +57,7 @@
 		 	movie_id = #{movieId}
 		 	and rate >= 6
 		 order by
-		 	daum_review_no desc
+		 	user_no desc, daum_review_no
 	</select>
 	
 	<select id="selectDaumNagReviewsByMovieId" parameterType="Integer" resultType="DaumReview">
@@ -65,7 +68,7 @@
 		where 
 			movie_id = #{movieId} and rate between 0 and 5
 		order by
-		 	daum_review_no desc
+		 	user_no desc, daum_review_no
 	</select>
 	
 	<select id="selectAllDaumReviewsByMovieId" parameterType="Integer" resultType="DaumReview">
@@ -83,7 +86,7 @@
 		  from 
 		  	daum_review 
 		 where 
-		 	movie_id = #{movieId} and writer = #{writer}
+		 	movie_id = #{movieId} and user_no = #{userNo}
 	</select>
 	
 	<update id="insertCount" parameterType="Integer">
