@@ -56,6 +56,9 @@ public class DaumReviewController {
 
 
 	@Autowired
+	UserService daumUserService;
+	
+	@Autowired
 	DaumReviewService daumReviewService;
 
 	private static String reviewURL = "https://movie.daum.net/moviedb/grade?movieId=";
@@ -68,7 +71,9 @@ public class DaumReviewController {
 		final BasicResponse result = new BasicResponse();
 		try {
 			Object time = (Object) System.currentTimeMillis();
+			User user = daumUserService.getUserbyNo(daumReview.getUserNo());
 			daumReview.setRegtime(time.toString());
+			daumReview.setWriter(user.getUserid());
 			daumReviewService.addDaumReview(daumReview);
 			result.status = true;
 			result.data = "success";
