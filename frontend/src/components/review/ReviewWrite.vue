@@ -36,6 +36,7 @@ export default {
             revcheck: false,
             movieId: this.movieNo,
             revitem: {
+                userNo: 9999,
                 writer: "",
                 content: "",
                 rate: 0,
@@ -76,18 +77,17 @@ export default {
         } else{
             this.onlogin = true;
         }
-
-        let daumReview = {
-            movieId: this.movieId,
-            writer: this.$store.getters.getUserData.userinfo.userid,
-            
-        }   
-
-        this.revitem.writer= this.$store.getters.getUserData.userinfo.userid;
-
-
-        axios.post(`${URL.BASE_URL}/mcr/daumreview/check`, daumReview)  
+        console.log(this.revitem.userNo)
+        console.log("aaaa")
+        this.revitem.userNo = this.$store.getters.getUserData.userinfo.userNo
+        console.log(this.revitem.userNo)
+        console.log("bbbb")
+        axios.get(`${URL.BASE_URL}/mcr/daumreview/check`, 
+        {
+            params: {movieId: this.movieId , userNo: this.$store.getters.getUserData.userinfo.userNo}
+        })  
         .then(res => {
+            console.log("asdfafasdfadsfsdf")
             console.log(res)
             if(res.data.object != null){
                 this.revcheck = true;
@@ -95,7 +95,8 @@ export default {
                     content: res.data.object.content,
                     rate: res.data.object.rate,
                     movieId: res.data.object.movieId,
-                    writer:  this.$store.getters.getUserData.userinfo.userid
+                    writer: res.data.object.writer,
+                    userNo: res.data.object.userNo
                 }
             } 
         })

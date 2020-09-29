@@ -1,5 +1,6 @@
 <template>
     <div id ="revListcontainer">
+        <vue-confirm-dialog></vue-confirm-dialog>
         <div id="app">
         <div class ="wordDiv" style="float:left;">
         <wordcloud
@@ -46,7 +47,7 @@
                 </div>
                 <br>
                 <div class="revDate">
-                    {{ review.regtime }}
+                    {{ review.regtime }} <button v-if="userno == review.userNo" @click="delrev" style="color: black; background-color: #fff9f7; -webkit-transition-duration: 0.4s; margin-left: 1vw; transition-duration: 0.4s; border: 0; outline: 0;">삭제하기</button>
                 </div>
             </div>
             <div class="btn-cover">
@@ -75,7 +76,7 @@
                 </div>
                 <br>
                 <div class="revDate">
-                    {{ review.regtime }}
+                    {{ review.regtime }}  <button v-if="userno==review.userNo" @click="delrev" style="color: black; background-color: #fff9f7; -webkit-transition-duration: 0.4s; margin-left: 1vw; transition-duration: 0.4s; border: 0; outline: 0;">삭제하기</button>
                 </div>
             </div>
             <div class="btn-cover">
@@ -115,7 +116,7 @@ export default {
             booleanValue: false,
             paddingNum: 5,
             F: false,
-            userno: "",
+            userno: 0,
             movieId: this.movieNo,
             pageNum: 0,
             pageSize: 5,
@@ -171,7 +172,9 @@ export default {
         if(this.$store.getters.getUserData == null) {
             this.userno = 0;
         } else {
-            this.userno = this.$store.getters.getUserData.userinfo.userno
+            this.userno = this.$store.getters.getUserData.userinfo.userNo
+            console.log("123123123312")
+            console.log(this.userno)
         }
         axios.get(`${HTTP.BASE_URL}/mcr/daumreview/pos`,
             {
@@ -264,6 +267,34 @@ export default {
     prevPage1 () {
       this.pageNum1 -= 1;
     },
+    delrev() {
+        this.handleClick()
+    },
+    handleClick(){
+        this.$confirm({
+            message: `리뷰를 삭제하시겠습니까?`,
+            button: {
+                no: '아니요',
+                yes: '삭제'
+            },
+            callback: confirm => {
+             
+                if(confirm){
+                    axios.delete(`${HTTP.BASE_URL}/mcr/daumreview/`,
+                    {
+                        params: {movieId: this.movieId , userNo: this.userno}
+                    })
+                
+                    alert("삭제 되었습니다.")
+                    setTimeout(() => {
+                        this.$router.go()
+                        this.$router.push({name: "FeedDetail", params: {movieId: this.movieId }})
+                    }, 1000);
+                }
+            }
+        })
+    }
+
     }
 }
 </script>
