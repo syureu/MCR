@@ -75,11 +75,42 @@
 			movie_name LIKE CONCAT('%',#{title},'%') 
 			OR movie_name_en LIKE CONCAT('%',#{title},'%')
 			and img_url is not null
+			and adult = false
+			and count > 0
 		order by
-			movie_opening_date desc 
+			count desc, score desc, movie_opening_date desc 
 		limit 
 			#{page}, 30
 	</select>
+	
+	<select id="koreaMovie" resultType="DaumMovie">
+		select
+			*
+		from
+			daum_movie
+		where
+			nation LIKE CONCAT('%',"한국",'%')
+			and img_url is not null
+			and adult = false
+			and count > 0
+		order by
+			count desc, score desc, movie_opening_date desc 
+	</select>
+	
+	<select id="foreignMovie" resultType="DaumMovie">
+		select
+			*
+		from
+			daum_movie
+		where
+			nation NOT LIKE CONCAT('%',"한국",'%')
+			and img_url is not null
+			and adult = false
+			and count > 0
+		order by
+			count desc, score desc, movie_opening_date desc 
+	</select>
+	
 	
 	<select id="selectLimit10ByScore" resultType="DaumMovie">
 		select 
