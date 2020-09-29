@@ -6,6 +6,7 @@ import store from './store'
 import VueSession from 'vue-session'
 import InfiniteLoading from 'vue-infinite-loading';
 import axios from 'axios'
+import VueConfirmDialog from 'vue-confirm-dialog'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
@@ -13,6 +14,8 @@ Vue.use(VueSession)
 Vue.use(InfiniteLoading)
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
+Vue.use(VueConfirmDialog)
+Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
 
 const router = new VueRouter({
   mode: 'history',

@@ -206,6 +206,9 @@ export default {
         }
     },
     computed: {
+        isLoggedIn() {
+            return this.$store.getters.isLoggedIn
+        },
         getImgUrl() {
           return   `${this.actorDetail.imgUrl}`
         },
@@ -249,6 +252,14 @@ export default {
 
     },
     created() {
+        if (!this.$store.getters.isLoggedIn) {
+            this.$router.push({
+                name: 'Error',
+                query: {
+                    status: 401
+                }
+            })
+        }
         if(this.$store.getters.getUserData == null){
             this.userno = 0;
         } else{

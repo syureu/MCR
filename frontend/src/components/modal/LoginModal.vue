@@ -23,7 +23,7 @@
 
             <div class="modal-footer">
                 <div style="color:red;" v-if="errorData.userid" v-text="errorData.userid"></div>  
-                <button class="modal-default-button" @click="login">로그인</button>
+                <button class="modal-default-button" @click="login">확인</button>
                 </div>
             </div>
         </div>
@@ -66,14 +66,15 @@ export default {
       axios.post(`${URL.BASE_URL}/mcr/login`, loginData)
       .then(res => {
         if (res.data.data === "success") {
-          console.log(res)
+          
           this.$session.set('jwstoken', res.headers.jwstoken)
           this.$store.commit('login', res.data.object)
           this.modalclose()
-          location.reload()
+          this.$router.push('/home')
         }
         else {
-          
+         
+           this.errorData.userid = "아이디 , 비밀번호를 확인해주세요."
           return ;
         }
       })
@@ -90,31 +91,30 @@ export default {
 </script>
 
 <style scoped>
-    /* model */
   .modal-mask {
     position: fixed;
     z-index: 9998;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height:100%;
     background-color: rgba(0, 0, 0, .5);
     display: table;
     transition: opacity .3s ease;
   }
-
+  
   .modal-wrapper {
     display: table-cell;
     vertical-align: middle;
   }
-  .form input{
-    font-family: 'Noto Sans JP', sans-serif;
-    float:right;
+  .form input{   
+    float: right;
     margin-right :10%;
-    width: 70%;
+    width: 60%;
     border-radius: 5px;
   }
   .modal-container {
+    font-size:15px;
     width: 450px;
     margin: 0px auto;
     padding: 20px 30px;
@@ -122,7 +122,6 @@ export default {
     border-radius: 2px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
-    font-family: Helvetica, Arial, sans-serif;
   }
 
   .modal-header h3 {
@@ -135,6 +134,8 @@ export default {
     
   }
   .modal-body label{
+    font-family: 'Hanna', sans-serif;
+    font-size:15px;
     color: white;
   }
 
@@ -158,15 +159,15 @@ export default {
     opacity: 0;
   }
 
-  .modal-enter .modal-container,
+  .modal-enter .modal-container,  
   .modal-leave-active .modal-container {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
-  @media (min-width: 768px) {
+  @media (max-width: 812px) {
     
     .modal-container {
-      width: 20%;
+      width:350px;
     }
   }
 </style>
