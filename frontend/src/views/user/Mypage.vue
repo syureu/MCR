@@ -153,7 +153,7 @@
 							</header>
 							<p>더 다양한 배우에 좋아요를 눌러보세요!</p>
 							<p>{{ id }}님이 좋아하는 배우가 나오는 영화를 더 추천해 드릴게요</p>
-							<span class="image2 fit"><img src="https://media.giphy.com/media/XyhGQEOrJ5MZV6oKrX/giphy-downsized-large.gif" alt="" /></span>
+							<span class="image1 fit"><img src="https://media.giphy.com/media/XyhGQEOrJ5MZV6oKrX/giphy-downsized-large.gif" alt="" /></span>
 							
 							
 						</div>
@@ -248,7 +248,8 @@ export default {
     data() {
       return { 
 		userno: 0,
-        id: "",
+		id: "",
+		info : [],
         password: "",
         passwordConfirm: "",
         birth: "",
@@ -290,31 +291,24 @@ export default {
 	},
 	created() {
 		this.userno= this.$store.getters.getUserData.userinfo.userNo
-		this.id= this.$store.getters.getUserData.userinfo.userid
-        this.password= this.$store.getters.getUserData.userinfo.pw
-        this.birth=this.$store.getters.getUserData.userinfo.birthday.substr(0,10)
-        this.gender=this.$store.getters.getUserData.userinfo.gender
-        this.nation='대한민국',
-        this.city='서울',
-        this.role='user',
-		console.log(this.gender)
-		axios.get(`${URL.BASE_URL}/mcr/daumusermovie/list`, {
+		
+		axios.get(`${URL.BASE_URL}/mcr/user/byno`, {
 				params: { userNo: this.userno }
 			}
 		)
 			.then(res => {
-				this.movie_like = res.data.object
 				console.log(res.data.object)
-				// console.log(this.$store.getters.getUserData)
-				// alert('수정완료!')
-			
-			
+				this.password = res.data.object.pw	
+				this.id = res.data.object.userid
+				this.gender = res.data.object.gender
+				this.birth = res.data.object.birthday.slice(0,10)
 			})
+			
 			.catch(error => {
 				console.log(error)
 			
 			})
-
+		
 		axios.get(`${URL.BASE_URL}/mcr/daumuseractor/list`, {
 				params: { userNo: this.userno }
 			}
@@ -367,7 +361,7 @@ export default {
 			}
 		},
           checkform(){
-        
+
         let isSubmit = false;
         console.log(document.getElementById("birth").value)
         if(!document.getElementById("id").value){
