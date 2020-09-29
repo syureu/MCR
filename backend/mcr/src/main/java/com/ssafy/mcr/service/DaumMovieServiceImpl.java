@@ -46,4 +46,9 @@ public class DaumMovieServiceImpl implements DaumMovieService{
 		return daumMovieDao.selectLimit10ByScore();
 	}
 
+	@Override
+	public void updateDaumMovieRate(DaumMovie daumMovie) {
+		daumMovieDao.updateDaumMovieRate(daumMovie);
+	}
+
 }

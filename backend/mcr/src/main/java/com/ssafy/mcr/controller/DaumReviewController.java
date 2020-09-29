@@ -80,10 +80,12 @@ public class DaumReviewController {
 			int count = dm.getCount();
 			double rate = dm.getRate();
 			double tmp = (rate * count + daumReview.getRate())/(count+1);
+			System.out.println(tmp);
 			dm.setRate(tmp);
 			daumReview.setRegtime(time.toString());
 			daumReview.setWriter(user.getUserid());
 			daumReviewService.addDaumReview(daumReview);
+			daumMovieService.updateDaumMovieRate(dm);
 			result.status = true;
 			result.data = "success";
 			result.object = daumReview;
@@ -150,6 +152,7 @@ public class DaumReviewController {
 			double rate = dm.getRate();
 			double tmp = (rate * count + daumReview.getRate())/(count+1);
 			dm.setRate(tmp);
+			daumMovieService.updateDaumMovieRate(dm);
 			result.status = true;
 			result.data = "success";
 			result.object = target;

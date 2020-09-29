@@ -10,6 +10,7 @@ import com.ssafy.mcr.dto.Paging;
 @Mapper
 public interface DaumMovieDao {
 	public void insertDaumMovie(DaumMovie daumMovie);
+	public void updateDaumMovieRate(DaumMovie daumMovie);
 	public void upScore(DaumMovie daumMovie);
 	public List<DaumMovie> selectLimit10ByScore();
 	public DaumMovie selectDaumMovieBymovieId(int movieId);

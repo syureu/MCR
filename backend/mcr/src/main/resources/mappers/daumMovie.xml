@@ -46,6 +46,13 @@
             )
 	</insert>
 	
+	<update id="updateDaumMovieRate" parameterType="DaumMovie">
+		update daum_movie
+		set rate = #{rate}
+		where
+			movie_id = #{movieId}
+	</update>
+	
 	<!-- id으로 select 처리 -->
 	<select id="selectDaumMovieBymovieId" parameterType="Integer" resultType="DaumMovie">
 		select 
@@ -119,6 +126,17 @@
 			daum_movie 
 		order by
 			score desc 
+		limit 
+			10
+	</select>
+	
+	<select id="selectLimit10ByGerne" parameterType="String" resultType="DaumMovie">
+		select 
+			* 
+		from 
+			daum_movie 
+		order by
+			gerne like concat('%',#{gerne},'%')
 		limit 
 			10
 	</select>

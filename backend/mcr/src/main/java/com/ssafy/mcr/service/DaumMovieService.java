@@ -7,6 +7,7 @@ import com.ssafy.mcr.dto.Paging;
 
 public interface DaumMovieService {
 	public void addDaumMovie(DaumMovie daumMovie);
+	public void updateDaumMovieRate(DaumMovie daumMovie);
 	public void addScore(DaumMovie daumMovie);
 	public DaumMovie getDaumMovieBymovieId(int movieId);
 	public List<DaumMovie> getDaumMovieByTitle(String title);
