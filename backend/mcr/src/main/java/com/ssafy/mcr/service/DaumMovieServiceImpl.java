@@ -51,4 +51,14 @@ public class DaumMovieServiceImpl implements DaumMovieService{
 		daumMovieDao.updateDaumMovieRate(daumMovie);
 	}
 
+	@Override
+	public List<DaumMovie> getKoreaMovieByGenre(String genre) {
+		return daumMovieDao.selectKoreaMovieByGenre(genre);
+	}
+
+	@Override
+	public List<DaumMovie> getForeignMovieByGenre(String genre) {
+		return daumMovieDao.selectForeignMovieByGenre(genre);
+	}
+
 }

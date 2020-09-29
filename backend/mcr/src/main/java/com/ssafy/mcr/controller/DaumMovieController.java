@@ -2,6 +2,7 @@ package com.ssafy.mcr.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -73,74 +74,73 @@ public class DaumMovieController {
 	DaumUserMovieService daumUserMovieService;
 
 	//sf,미스터리, 로맨스, 범죄, 액션, 스릴러, 공포, 드라마 애니메이션, 멜로, 판타지, 다큐멘터리, 어드벤쳐, 전쟁, 뮤지컬, 가족
-	private String[] genre = {"멜로","미스터리","로맨스","범죄","액션","스릴러","공포","드라마","애니메이션","멜로","판타지", "다큐멘터리", "어드벤쳐", "전쟁", "뮤지컬", "가족"};
+	private static String[] genre = {"멜로","미스터리","로맨스","범죄","액션","스릴러","공포","드라마","애니메이션","멜로","판타지", "다큐멘터리", "어드벤쳐", "전쟁", "뮤지컬", "가족"};
 	
 	private static String MovieURL = "https://movie.daum.net/moviedb/main?movieId=";
-	@ApiOperation(value="영화를 디비에 생성합니다.")
-	@PostMapping("/auto")
-	public void Crawling(int start, int end) throws IOException {
-		for(int i = start; i <= end; i++) {
-			try {
-				System.out.println(i);
-				DaumMovie movie = new DaumMovie();
-				String URL = MovieURL + i;
-				Document doc = Jsoup.connect(URL).get();
-				movie.setImgUrl(doc.select("span.thumb_img img").attr("src"));
-				movie.setMovieName(doc.select("h2.tit_rel").text());
-				movie.setMovieNameEn(doc.select("span.txt_origin").text());
-				List<DaumReview> list = daumReviewService.getAllDaumReviewsByMovieId(i);
-				if(list.size() == 0) {
-					movie.setRate(0);
-				}else {					
-					double rate = 0;
-					for(DaumReview review : list) {
-						rate += review.getRate();
-					}
-					movie.setRate(Double.parseDouble(String.format("%.1f", rate/list.size())));
-				}
-				movie.setMovieId(i);
-				movie.setOverview(doc.select("div.desc_movie p").text());
-				if(doc.select("dl.list_movie dd.txt_main").get(0).text() != "") {					
-					movie.setGenre(doc.select("dl.list_movie dd.txt_main").get(0).text());
-				}
-				movie.setNation(doc.select("dl.list_movie dd").get(1).text());
-				Elements es = doc.select("dl.list_movie.list_main dd");
-				for(Element e : es) {
-					String str = e.text();
-					if(str.length() > 4) {
-						boolean flag = false;
-						for(int j = 0; j < 4; j++) {
-							if(str.charAt(j) < 48 || str.charAt(j) > 57) {
-								flag = true;
-							}
-						}
-						if(!flag) {
-							if(str.length() >= 10) {
-								movie.setMovieOpeningDate(str.substring(0, 10));								
-							}else {
-								movie.setMovieOpeningDate(str.substring(0, str.length()));																
-							}
-						}
-					}else {
-						continue;
-					}
-					for(int j = 0; j < str.length(); j++) {
-						if(str.charAt(j) == '분') {
-							for(int k = j-1; k >= 0; k--) {
-								if(str.charAt(k) < 48 || str.charAt(k) > 57 || k == 0) {
-									movie.setRunningTime(str.substring(k, j));
-								}
-							}
-						}
-					}
-				}
-				daumMovieService.addDaumMovie(movie);
-			}catch (Exception e) {
-				e.printStackTrace();
-				continue;
-			}
-		}
-	}
+//	@ApiOperation(value="영화를 디비에 생성합니다.")
+//	@PostMapping("/auto")
+//	public void Crawling(int start, int end) throws IOException {
+//		for(int i = start; i <= end; i++) {
+//			try {
+//				DaumMovie movie = new DaumMovie();
+//				String URL = MovieURL + i;
+//				Document doc = Jsoup.connect(URL).get();
+//				movie.setImgUrl(doc.select("span.thumb_img img").attr("src"));
+//				movie.setMovieName(doc.select("h2.tit_rel").text());
+//				movie.setMovieNameEn(doc.select("span.txt_origin").text());
+//				List<DaumReview> list = daumReviewService.getAllDaumReviewsByMovieId(i);
+//				if(list.size() == 0) {
+//					movie.setRate(0);
+//				}else {					
+//					double rate = 0;
+//					for(DaumReview review : list) {
+//						rate += review.getRate();
+//					}
+//					movie.setRate(Double.parseDouble(String.format("%.1f", rate/list.size())));
+//				}
+//				movie.setMovieId(i);
+//				movie.setOverview(doc.select("div.desc_movie p").text());
+//				if(doc.select("dl.list_movie dd.txt_main").get(0).text() != "") {					
+//					movie.setGenre(doc.select("dl.list_movie dd.txt_main").get(0).text());
+//				}
+//				movie.setNation(doc.select("dl.list_movie dd").get(1).text());
+//				Elements es = doc.select("dl.list_movie.list_main dd");
+//				for(Element e : es) {
+//					String str = e.text();
+//					if(str.length() > 4) {
+//						boolean flag = false;
+//						for(int j = 0; j < 4; j++) {
+//							if(str.charAt(j) < 48 || str.charAt(j) > 57) {
+//								flag = true;
+//							}
+//						}
+//						if(!flag) {
+//							if(str.length() >= 10) {
+//								movie.setMovieOpeningDate(str.substring(0, 10));								
+//							}else {
+//								movie.setMovieOpeningDate(str.substring(0, str.length()));																
+//							}
+//						}
+//					}else {
+//						continue;
+//					}
+//					for(int j = 0; j < str.length(); j++) {
+//						if(str.charAt(j) == '분') {
+//							for(int k = j-1; k >= 0; k--) {
+//								if(str.charAt(k) < 48 || str.charAt(k) > 57 || k == 0) {
+//									movie.setRunningTime(str.substring(k, j));
+//								}
+//							}
+//						}
+//					}
+//				}
+//				daumMovieService.addDaumMovie(movie);
+//			}catch (Exception e) {
+//				e.printStackTrace();
+//				continue;
+//			}
+//		}
+//	}
 
 	@ApiOperation(value="해당 영화 정보를 리턴합니다.")
 	@GetMapping("/byid")
@@ -273,6 +273,66 @@ public class DaumMovieController {
 			result.status = true;
 			result.data = "success";
 			result.object = movies;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
+	@ApiOperation(value="장르별 탑10 한국영화를 가져옵니다.")
+	@GetMapping("/koreamovie")
+	public Object getKoreaMovieByGenre() {
+		List<DaumMovie> list = new ArrayList<DaumMovie>();
+		List<Object> obj = new ArrayList<Object>();
+		ResponseEntity response = null;
+		final BasicResponse result = new BasicResponse();
+		ObjectMapper mapper = new ObjectMapper();
+		Map res = new HashMap<String, List<DaumMovie>>();
+		try {
+			for(String str : genre) {
+				list = daumMovieService.getKoreaMovieByGenre(str);
+				for(DaumMovie tmp : list) {
+					tmp.setOverview("");
+				}
+				res.put(str, list);
+				obj.add(res);
+			}
+			result.status = true;
+			result.data = "success";
+			result.object = obj;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = false;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
+	@ApiOperation(value="장르별 탑10 외국영화를 가져옵니다.")
+	@GetMapping("/foreignmovie")
+	public Object getForeignMovieByGenre() {
+		List<DaumMovie> list = new ArrayList<DaumMovie>();
+		List<Object> obj = new ArrayList<Object>();
+		ResponseEntity response = null;
+		final BasicResponse result = new BasicResponse();
+		ObjectMapper mapper = new ObjectMapper();
+		Map res = new HashMap<String, List<DaumMovie>>();
+		try {
+			for(String str : genre) {
+				list = daumMovieService.getForeignMovieByGenre(str);
+				for(DaumMovie tmp : list) {
+					tmp.setOverview("");
+				}
+				res.put(str, list);
+				obj.add(res);
+			}
+			result.status = true;
+			result.data = "success";
+			result.object = obj;
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.status = true;

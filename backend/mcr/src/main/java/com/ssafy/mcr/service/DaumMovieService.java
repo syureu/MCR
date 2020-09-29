@@ -13,4 +13,6 @@ public interface DaumMovieService {
 	public List<DaumMovie> getDaumMovieByTitle(String title);
 	public List<DaumMovie> getLimit30(Paging paging);
 	public List<DaumMovie> getLimit10ByScore();
+	public List<DaumMovie> getKoreaMovieByGenre(String genre);
+	public List<DaumMovie> getForeignMovieByGenre(String genre);
 }

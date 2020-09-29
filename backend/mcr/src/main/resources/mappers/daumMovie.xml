@@ -90,35 +90,6 @@
 			#{page}, 30
 	</select>
 	
-	<select id="koreaMovie" resultType="DaumMovie">
-		select
-			*
-		from
-			daum_movie
-		where
-			nation LIKE CONCAT('%',"한국",'%')
-			and img_url is not null
-			and adult = false
-			and count > 0
-		order by
-			count desc, score desc, movie_opening_date desc 
-	</select>
-	
-	<select id="foreignMovie" resultType="DaumMovie">
-		select
-			*
-		from
-			daum_movie
-		where
-			nation NOT LIKE CONCAT('%',"한국",'%')
-			and img_url is not null
-			and adult = false
-			and count > 0
-		order by
-			count desc, score desc, movie_opening_date desc 
-	</select>
-	
-	
 	<select id="selectLimit10ByScore" resultType="DaumMovie">
 		select 
 			* 
@@ -130,22 +101,42 @@
 			10
 	</select>
 	
-	<select id="selectLimit10ByGerne" parameterType="String" resultType="DaumMovie">
+	<select id="selectKoreaMovieByGenre" parameterType="String" resultType="DaumMovie">
 		select 
 			* 
 		from 
 			daum_movie 
 		where
-			gerne like concat('%',#{gerne},'%')
+			genre like CONCAT('%',#{genre},'%')
 			and img_url is not null
 			and adult = false
 			and count > 0
 			and movie_opening_date is not null
-			and running_time is not not null
+			and running_time is not null
+			and nation like '%한국%'
 		order by
-			score desc, rate desc
+			score desc, rate desc, movie_opening_date desc
 		limit 
-			10
+			5
+	</select>
+	
+	<select id="selectForeignMovieByGenre" parameterType="String" resultType="DaumMovie">
+		select 
+			* 
+		from 
+			daum_movie 
+		where
+			genre like CONCAT('%',#{genre},'%')
+			and img_url is not null
+			and adult = false
+			and count > 0
+			and movie_opening_date is not null
+			and running_time is not null
+			and nation not like '%한국%'
+		order by
+			score desc, rate desc, movie_opening_date desc
+		limit 
+			5	
 	</select>
 	
 	<update id="upScore" parameterType="DaumMovie">
