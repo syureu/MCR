@@ -130,7 +130,7 @@ public class DaumReviewController {
 		final BasicResponse result = new BasicResponse();
 		try {
 			daumReviewService.updateDaumReview(daumReview);
-			DaumReview target = daumReviewService.getDaumReviewByWriter(daumReview);
+			DaumReview target = daumReviewService.getDaumReviewByNo(daumReview.getMovieId(), daumReview.getUserNo());
 			result.status = true;
 			result.data = "success";
 			result.object = target;
@@ -208,15 +208,15 @@ public class DaumReviewController {
 	}
 	
 	@ApiOperation(value="해당 영화의 리뷰목록을 불러옵니다.")
-	@PostMapping("/check")
-	public Object SelectAllReviews(@RequestBody DaumReview daumReview) {
+	@GetMapping("/check")
+	public Object SelectAllReviews(@RequestParam int movieId, @RequestParam int userNo) {
 		System.out.println("체크진입");
 		ResponseEntity response = null;
 		ObjectMapper mapper = new ObjectMapper();
 		Map res = null;
 		final BasicResponse result = new BasicResponse();
 		try {
-			DaumReview dr = daumReviewService.getDaumReviewByWriter(daumReview);
+			DaumReview dr = daumReviewService.getDaumReviewByNo(movieId, userNo);
 			result.data = "success";
 			result.status = true;
 			result.object = dr;				

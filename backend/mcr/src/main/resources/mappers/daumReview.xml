@@ -80,7 +80,7 @@
 		 	movie_id = #{movieId}
 	</select>
 	
-	<select id="selectDaumReviewByWriter" parameterType="DaumReview" resultType="DaumReview">
+	<select id="selectDaumReviewByNo" parameterType="Integer" resultType="DaumReview">
 		select 
 			* 
 		  from 

@@ -13,6 +13,6 @@ public interface DaumReviewService {
 	public List<DaumReview> getDaumPosReviewsByMovieId(int movieId);
 	public List<DaumReview> getDaumNagReviewsByMovieId(int movieId);
 	public List<DaumReview> getAllDaumReviewsByMovieId(int movieId);
-	public DaumReview getDaumReviewByWriter(DaumReview daumReview);
+	public DaumReview getDaumReviewByNo(int movieId, int userNo);
 	public void insertCount(int movieId);
 }
