@@ -72,7 +72,7 @@
 		  from 
 		  	user 
 		 where 
-		 	userNo = #{userNo} 
+		 	user_no = #{userNo} 
 	</select>
 	
 	<!-- id으로 select 처리 -->
