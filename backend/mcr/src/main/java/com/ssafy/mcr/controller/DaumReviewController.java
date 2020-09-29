@@ -277,15 +277,15 @@ public class DaumReviewController {
 		ResponseEntity response = null;
 		final BasicResponse result = new BasicResponse();
 		try {
-			daumReviewService.deleteDaumReview(movieId, userNo);
 			DaumReview dr = daumReviewService.getDaumReviewByNo(movieId, userNo);
 			DaumMovie dm = daumMovieService.getDaumMovieBymovieId(dr.getMovieId());
 			double prerate = dm.getRate();
-			double precount = dm.getCount();
+			int precount = dm.getCount();
 			double tmp = (prerate * precount - dr.getRate())/(precount-1);
 			System.out.println(tmp);
 			dm.setRate(tmp);
 			daumMovieService.updateDaumMovieRate(dm);
+			daumReviewService.deleteDaumReview(movieId, userNo);
 			result.status = true;
 			result.data = "삭제 성공";
 		} catch (Exception e) {

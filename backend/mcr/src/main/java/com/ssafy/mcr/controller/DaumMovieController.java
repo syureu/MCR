@@ -151,6 +151,7 @@ public class DaumMovieController {
 		//여기서 카운트올리세요
 		try {
 			DaumMovie movie = daumMovieService.getDaumMovieBymovieId(movieId);
+			movie.setRate(Math.round((movie.getRate()) * 10) / 10.0);
 			daumMovieService.addScore(movie);
 			result.status = true;
 			result.data = "success";
@@ -174,6 +175,8 @@ public class DaumMovieController {
 		try {
 //			daumMovieService.addScore(daumMovie);
 			DaumMovie dm = daumMovieService.getDaumMovieBymovieId(daumMovie.getMovieId());
+			dm.setRate(Math.round(dm.getRate()));
+			
 			result.status = true;
 			result.data = "success";
 			result.object = dm;

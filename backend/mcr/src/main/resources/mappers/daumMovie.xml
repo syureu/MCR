@@ -135,8 +135,15 @@
 			* 
 		from 
 			daum_movie 
-		order by
+		where
 			gerne like concat('%',#{gerne},'%')
+			and img_url is not null
+			and adult = false
+			and count > 0
+			and movie_opening_date is not null
+			and running_time is not not null
+		order by
+			score desc, rate desc
 		limit 
 			10
 	</select>
