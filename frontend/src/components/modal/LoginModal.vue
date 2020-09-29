@@ -66,14 +66,14 @@ export default {
       axios.post(`${URL.BASE_URL}/mcr/login`, loginData)
       .then(res => {
         if (res.data.data === "success") {
-          console.log(res)
+          
           this.$session.set('jwstoken', res.headers.jwstoken)
           this.$store.commit('login', res.data.object)
           this.modalclose()
-          location.reload()
+          this.$router.push('/home')
         }
         else {
-          console.log(res) 
+         
            this.errorData.userid = "아이디 , 비밀번호를 확인해주세요."
           return ;
         }
@@ -167,7 +167,7 @@ export default {
   @media (max-width: 812px) {
     
     .modal-container {
-      width:60vw;
+      width:350px;
     }
   }
 </style>
