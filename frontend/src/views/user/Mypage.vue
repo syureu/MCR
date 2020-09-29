@@ -309,6 +309,25 @@ export default {
 			
 			})
 		
+		axios.get(`${URL.BASE_URL}/mcr/daumusermovie/list`, {
+				params: { userNo: this.userno }
+			}
+		)
+			.then(res => {
+				this.movie_like = res.data.object
+				console.log(res.data.object)
+				// console.log(this.$store.getters.getUserData)
+				// alert('수정완료!')
+			
+			
+			})
+			.catch(error => {
+				console.log(error)
+			
+			})
+
+
+
 		axios.get(`${URL.BASE_URL}/mcr/daumuseractor/list`, {
 				params: { userNo: this.userno }
 			}
