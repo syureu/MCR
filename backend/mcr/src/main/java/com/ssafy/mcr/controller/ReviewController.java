@@ -93,6 +93,7 @@ public class ReviewController {
 	public Object updateMovie(@RequestBody Review review) {
 		ResponseEntity response = null;
 		System.out.println("수정 진입");
+		System.out.println(review.toString());
 		final BasicResponse result = new BasicResponse();
 		try {
 			reviewService.modifyReview(review);

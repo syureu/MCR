@@ -41,6 +41,7 @@ import com.ssafy.mcr.dto.DaumMovie;
 import com.ssafy.mcr.dto.DaumMovieActor;
 import com.ssafy.mcr.dto.DaumReview;
 import com.ssafy.mcr.dto.User;
+import com.ssafy.mcr.service.DaumMovieService;
 import com.ssafy.mcr.service.DaumReviewService;
 import com.ssafy.mcr.service.UserService;
 
@@ -60,6 +61,9 @@ public class DaumReviewController {
 	
 	@Autowired
 	DaumReviewService daumReviewService;
+	
+	@Autowired
+	DaumMovieService daumMovieService;
 
 	private static String reviewURL = "https://movie.daum.net/moviedb/grade?movieId=";
 
@@ -72,6 +76,11 @@ public class DaumReviewController {
 		try {
 			Object time = (Object) System.currentTimeMillis();
 			User user = daumUserService.getUserbyNo(daumReview.getUserNo());
+			DaumMovie dm = daumMovieService.getDaumMovieBymovieId(daumReview.getMovieId());
+			int count = dm.getCount();
+			double rate = dm.getRate();
+			double tmp = (rate * count + daumReview.getRate())/(count+1);
+			dm.setRate(tmp);
 			daumReview.setRegtime(time.toString());
 			daumReview.setWriter(user.getUserid());
 			daumReviewService.addDaumReview(daumReview);
@@ -136,6 +145,11 @@ public class DaumReviewController {
 		try {
 			daumReviewService.updateDaumReview(daumReview);
 			DaumReview target = daumReviewService.getDaumReviewByNo(daumReview.getMovieId(), daumReview.getUserNo());
+			DaumMovie dm = daumMovieService.getDaumMovieBymovieId(daumReview.getMovieId());
+			int count = dm.getCount();
+			double rate = dm.getRate();
+			double tmp = (rate * count + daumReview.getRate())/(count+1);
+			dm.setRate(tmp);
 			result.status = true;
 			result.data = "success";
 			result.object = target;

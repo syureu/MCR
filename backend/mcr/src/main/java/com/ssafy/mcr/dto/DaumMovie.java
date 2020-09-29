@@ -12,6 +12,13 @@ public class DaumMovie {
 	private String imgUrl;
 	private String nation;
 	private int score;
+	private int count;
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public int getScore() {
 		return score;
 	}

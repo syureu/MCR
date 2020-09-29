@@ -72,6 +72,9 @@ public class DaumMovieController {
 	@Autowired
 	DaumUserMovieService daumUserMovieService;
 
+	//sf,미스터리, 로맨스, 범죄, 액션, 스릴러, 공포, 드라마 애니메이션, 멜로, 판타지, 다큐멘터리, 어드벤쳐, 전쟁, 뮤지컬, 가족
+	private String[] genre = {"멜로","미스터리","로맨스","범죄","액션","스릴러","공포","드라마","애니메이션","멜로","판타지", "다큐멘터리", "어드벤쳐", "전쟁", "뮤지컬", "가족"};
+	
 	private static String MovieURL = "https://movie.daum.net/moviedb/main?movieId=";
 	@ApiOperation(value="영화를 디비에 생성합니다.")
 	@PostMapping("/auto")
@@ -275,5 +278,7 @@ public class DaumMovieController {
 		response = new ResponseEntity<>(result, HttpStatus.OK);
 		return response;
 	}
+	
+	
 }
 
