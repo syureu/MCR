@@ -92,5 +92,9 @@
 	<update id="insertCount" parameterType="Integer">
 		update daum_movie set count = (select count(*) from daum_review where movie_id = #{movieId}) where movie_id = #{movieId};
 	</update>
+	
+	<delete id="deleteDaumReview" parameterType="Integer">
+		delete from daum_review where movie_id = #{movieId} and user_no = #{userNo}
+	</delete>
 </mapper>
 

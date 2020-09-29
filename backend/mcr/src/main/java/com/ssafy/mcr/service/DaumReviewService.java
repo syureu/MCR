@@ -10,6 +10,7 @@ import com.ssafy.mcr.dto.DaumReview;
 public interface DaumReviewService {
 	public void addDaumReview(DaumReview daumReview);
 	public void updateDaumReview(DaumReview daumReview);
+	public void deleteDaumReview(int movieId, int userNo);
 	public List<DaumReview> getDaumPosReviewsByMovieId(int movieId);
 	public List<DaumReview> getDaumNagReviewsByMovieId(int movieId);
 	public List<DaumReview> getAllDaumReviewsByMovieId(int movieId);

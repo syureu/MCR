@@ -248,6 +248,24 @@ public class DaumReviewController {
 		response = new ResponseEntity<>(result, HttpStatus.OK);
 		return response;
 	}
+	
+	@ApiOperation(value="해당 리뷰 삭제")
+	@DeleteMapping()
+	public Object deleteDaumReview(int movieId, int userNo) {
+		ResponseEntity response = null;
+		final BasicResponse result = new BasicResponse();
+		try {
+			daumReviewService.deleteDaumReview(movieId, userNo);;
+			result.status = true;
+			result.data = "삭제 성공";
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "삭제 실패";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
 
 }
 

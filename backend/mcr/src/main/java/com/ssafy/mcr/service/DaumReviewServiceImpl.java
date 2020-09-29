@@ -51,5 +51,10 @@ public class DaumReviewServiceImpl implements DaumReviewService{
 		daumReviewDao.updateDaumReview(daumReview);
 	}
 
+	@Override
+	public void deleteDaumReview(int movieId, int userNo) {
+		daumReviewDao.deleteDaumReview(movieId, userNo);
+	}
+
 
 }
