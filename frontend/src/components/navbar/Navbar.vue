@@ -1,7 +1,8 @@
 <template>
       <div class="navbar">
       <div class="netflixLogo">
-        <a id="logo" href="/"><img src="../../assets/logo.png" alt="Logo Image"></a>
+        <a id="logo" v-if="!isLoggedIn" href="/"><img src="../../assets/logo.png" alt="Logo Image"></a>
+        <a id="logo" v-if="isLoggedIn" href="/home"><img src="../../assets/logo.png" alt="Logo Image"></a>
       </div>      
       <nav class="main-nav">              
         <LoginModal v-if="loginModal" @close="changeLogin" @change="changeModal"/>
@@ -66,7 +67,7 @@ export default {
       logout(){
         this.$session.remove('jwstoken')
         this.$store.commit('logout')
-        this.$router.push({name: 'Home'})
+        this.$router.push({name: 'Main'})
       },
       changeMypage(){
         this.$router.push({name:'Mypage'})

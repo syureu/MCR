@@ -1,4 +1,4 @@
-// import main from './views/main.vue'
+import main from './views/main.vue'
 import FeedDetail from './views/feed/FeedDetail.vue'
 import Signup from './views/user/Signup.vue'
 import Qna from './views/qna/Qna.vue'
@@ -6,14 +6,15 @@ import Home from './views/home.vue'
 import ActorDetail from './views/actor/ActorDetail.vue'
 import Mypage from './views/user/Mypage.vue'
 import Search from './views/search/Search.vue'
-
+import MovieKorea from './views/Detailhome/MovieKorea.vue'
+import Error from './views/error/Error.vue'
 export default [
  
-    // {
-    //     path : '/',
-    //     name : 'main',
-    //     component : main
-    // },
+    {
+        path : '/',
+        name : 'main',
+        component : main
+    },
 
 
     {
@@ -33,7 +34,7 @@ export default [
         component : Signup
     },
     {
-        path : '/',
+        path : '/home',
         name : 'Home',
         component : Home
     }, 
@@ -51,6 +52,16 @@ export default [
         path: '/search/:keyword',
         name: 'Search',
         component : Search
+    },
+    {
+        path: '/koreanmovie',
+        name: 'MovieKorea',
+        component : MovieKorea
+    },
+    {
+        path: '*',
+        name: 'Error',
+        component: Error
     }
   
 ]
