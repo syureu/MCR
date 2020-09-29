@@ -52,6 +52,8 @@ public class UserController {
 			userService.addUser(user);
 			System.out.println(user.toString());
 			System.out.println("디비저장성공");
+			user.setUserid("");
+			user.setPw("");
 			result.status = true;
 			result.data = user.getUserid() + " 회원이 추가되었습니다.";
 			result.object = user;
@@ -93,6 +95,8 @@ public class UserController {
 		try {
 			userService.modifyUser(user);
 			User us = userService.getUserbyId(user.getUserid());
+			us.setUserid("");
+			us.setPw("");
 			result.status = true;
 			result.data = user.getUserid() + " 회원이 수정되었습니다.";
 			result.object = us;
@@ -113,6 +117,8 @@ public class UserController {
 		final BasicResponse result = new BasicResponse();
 		try {
 			User user = userService.getUserbyId(id);
+			user.setUserid("");
+			user.setPw("");
 			result.status = true;
 			result.data = id + " 회원정보를 리턴합니다.";
 			result.object = user;
