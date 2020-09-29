@@ -131,6 +131,26 @@ public class UserController {
 		return response;
 	}
 	
+	@ApiOperation(value="회원의 No를 받아 회원정보를 검색(리턴)합니다")
+	@GetMapping("/byno")
+	public Object SelectUser(@RequestParam int userNo) {
+		ResponseEntity response = null;
+		System.out.println("검색 진입");
+		final BasicResponse result = new BasicResponse();
+		try {
+			User user = userService.getUserbyNo(userNo);
+			result.status = true;
+			result.data = user.getUserid() + " 회원정보를 리턴합니다.";
+			result.object = user;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
+	
 	@ApiOperation(value="회원의 ID를 받아 회원정보를 검색(리턴)합니다")
 	@GetMapping("/check")
 	public Object userCheck(@RequestParam String id) {

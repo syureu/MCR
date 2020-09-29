@@ -65,6 +65,16 @@
 		 	userid = #{userid} 
 	</select>
 	
+	<!-- No으로 select 처리 -->
+	<select id="selectUserByNo" parameterType="Integer" resultType="User">
+		select 
+			* 
+		  from 
+		  	user 
+		 where 
+		 	userNo = #{userNo} 
+	</select>
+	
 	<!-- id으로 select 처리 -->
 	<select id="selectUserByIdAndPwd" parameterType="string" resultType="User">
 		select 
