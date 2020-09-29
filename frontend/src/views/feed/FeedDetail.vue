@@ -227,6 +227,10 @@ export default {
         }
     },
     computed: {
+      isLoggedIn() {
+            return this.$store.getters.isLoggedIn
+        },
+
     current() {
       return this.list.find(el => el.id === this.currentId) || {}
     },
@@ -264,6 +268,14 @@ export default {
     },
   },
     created() {
+    if (!this.$store.getters.isLoggedIn) {
+            this.$router.push({
+                name: 'Error',
+                query: {
+                    status: 401
+                }
+            })
+    }
 		if(this.$store.getters.getUserData == null){
             this.userno = 0;
         } else{
