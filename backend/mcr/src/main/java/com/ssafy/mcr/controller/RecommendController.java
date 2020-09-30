@@ -1,12 +1,11 @@
 package com.ssafy.mcr.controller;
 
 import com.ssafy.mcr.dto.RecommendListV1;
+import com.ssafy.mcr.exception.UnknownEnvironmentException;
 import com.ssafy.mcr.service.RecommendService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 
 
 @CrossOrigin(origins = { "*" })
@@ -31,8 +30,7 @@ public class RecommendController {
         try {
             return new ResponseEntity<>(recommendService.simpleRecommendByGenre(genre), HttpStatus.OK);
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch (UnknownEnvironmentException e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -43,8 +41,7 @@ public class RecommendController {
         try {
             return new ResponseEntity<>(recommendService.simpleRecommendByGenre(usersPreferGenre), HttpStatus.OK);
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch (UnknownEnvironmentException e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

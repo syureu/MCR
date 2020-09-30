@@ -4,12 +4,9 @@ import com.ssafy.mcr.dao.RecommendDao;
 import com.ssafy.mcr.dto.DaumMovie;
 import com.ssafy.mcr.dto.RecommendListV1;
 import com.ssafy.mcr.dto.RecommendV1;
+import com.ssafy.mcr.exception.UnknownEnvironmentException;
 import com.ssafy.mcr.recommend.Recommend;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class RecommendService {
@@ -51,7 +48,7 @@ public class RecommendService {
     }
      */
 
-    public RecommendListV1 simpleRecommendByGenre(String genre) throws IOException {
+    public RecommendListV1 simpleRecommendByGenre(String genre) throws UnknownEnvironmentException {
         return recommend.simpleRecommendByGenre(genre);
     }
 
