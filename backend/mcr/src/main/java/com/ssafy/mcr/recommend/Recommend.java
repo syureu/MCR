@@ -32,35 +32,47 @@ public class Recommend {
     }
      */
 
-    private String[] execPython(List<String> command) throws UnknownEnvironmentException{
+    private String[] execPython(List<String> command) throws UnknownEnvironmentException, IOException{
         CommandLine envCheckCommand = CommandLine.parse("uname");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         DefaultExecutor executor = new DefaultExecutor();
         executor.setStreamHandler(new PumpStreamHandler(outputStream));
+
         CommandLine commandLine = CommandLine.parse(command.get(0));
         for (int i = 1; i < command.size(); ++i) {
             commandLine.addArgument(command.get(i));
         }
+
+        int envFlag = 0;
+        /*
+        0 : aws(ubuntu 18.04)
+        1 : windows(windows 10 1909)
+         */
+
         try {
             executor.execute(envCheckCommand);
             // if pass it's aws(ubuntu 18.04) environment
+        } catch(IOException e) {
+            // it's maybe local windows(windows 10 1909) environment
+            envFlag = 1;
+        }
+        outputStream = new ByteArrayOutputStream();
+        executor.setStreamHandler(new PumpStreamHandler(outputStream));
+
+        if(envFlag == 0) {
             executor.setWorkingDirectory(new File("/home/ubuntu/source/s03p23d104/recommend/recommend_try"));
             executor.execute(commandLine);
             return outputStream.toString("UTF-8").split("\n");
-        } catch(IOException e) {
-            // it's maybe local windows(windows 10 1909) environment
-            try {
-                executor.setWorkingDirectory(new File("C:\\Users\\multicampus\\Documents\\s03p23d104\\recommend\\recommend_try"));
-                executor.execute(commandLine);
-                return outputStream.toString("Cp949").split("\r\n");
-            } catch(IOException windowsE) {
-                windowsE.printStackTrace();
-                throw new UnknownEnvironmentException();
-            }
+        } else if ( envFlag == 1) {
+            executor.setWorkingDirectory(new File("C:\\Users\\multicampus\\Documents\\s03p23d104\\recommend\\recommend_try"));
+            executor.execute(commandLine);
+            return outputStream.toString("Cp949").split("\r\n");
+        } else {
+            throw new UnknownEnvironmentException();
         }
     }
 
-    public RecommendListV1 simpleRecommendByGenre(String genre) throws UnknownEnvironmentException {
+    public RecommendListV1 simpleRecommendByGenre(String genre) throws UnknownEnvironmentException,IOException {
         List<String> command = new ArrayList<>();
         command.add("python");
         command.add("daum_movie_simple_recommend_by_qualified.py");

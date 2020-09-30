@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 
 @CrossOrigin(origins = { "*" })
 @RestController
@@ -33,6 +35,9 @@ public class RecommendController {
         catch (UnknownEnvironmentException e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        catch (IOException e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/simple/random/{userNo}")
@@ -42,6 +47,9 @@ public class RecommendController {
             return new ResponseEntity<>(recommendService.simpleRecommendByGenre(usersPreferGenre), HttpStatus.OK);
         }
         catch (UnknownEnvironmentException e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        catch (IOException e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

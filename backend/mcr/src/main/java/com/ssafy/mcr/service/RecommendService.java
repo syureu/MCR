@@ -8,6 +8,8 @@ import com.ssafy.mcr.exception.UnknownEnvironmentException;
 import com.ssafy.mcr.recommend.Recommend;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+
 @Service
 public class RecommendService {
 
@@ -48,7 +50,7 @@ public class RecommendService {
     }
      */
 
-    public RecommendListV1 simpleRecommendByGenre(String genre) throws UnknownEnvironmentException {
+    public RecommendListV1 simpleRecommendByGenre(String genre) throws UnknownEnvironmentException, IOException {
         return recommend.simpleRecommendByGenre(genre);
     }
 
