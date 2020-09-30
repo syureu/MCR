@@ -32,7 +32,7 @@ public class Recommend {
     }
      */
 
-    private String[] execPython(List<String> command) throws UnknownEnvironmentException, IOException{
+    private String[] execPython(List<String> command) throws UnknownEnvironmentException, IOException {
         CommandLine envCheckCommand = CommandLine.parse("uname");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         DefaultExecutor executor = new DefaultExecutor();
@@ -52,18 +52,18 @@ public class Recommend {
         try {
             executor.execute(envCheckCommand);
             // if pass it's aws(ubuntu 18.04) environment
-        } catch(IOException e) {
+        } catch (IOException e) {
             // it's maybe local windows(windows 10 1909) environment
             envFlag = 1;
         }
         outputStream = new ByteArrayOutputStream();
         executor.setStreamHandler(new PumpStreamHandler(outputStream));
 
-        if(envFlag == 0) {
+        if (envFlag == 0) {
             executor.setWorkingDirectory(new File("/home/ubuntu/source/s03p23d104/recommend/recommend_try"));
             executor.execute(commandLine);
             return outputStream.toString("UTF-8").split("\n");
-        } else if ( envFlag == 1) {
+        } else if (envFlag == 1) {
             executor.setWorkingDirectory(new File("C:\\Users\\multicampus\\Documents\\s03p23d104\\recommend\\recommend_try"));
             executor.execute(commandLine);
             return outputStream.toString("Cp949").split("\r\n");
@@ -72,10 +72,30 @@ public class Recommend {
         }
     }
 
-    public RecommendListV1 simpleRecommendByGenre(String genre) throws UnknownEnvironmentException,IOException {
+    public RecommendListV1 simpleRecommend() throws UnknownEnvironmentException, IOException {
         List<String> command = new ArrayList<>();
         command.add("python");
-        command.add("daum_movie_simple_recommend_by_qualified.py");
+        command.add("daum_movie_simple_recommend_use_qualified.py");
+        String[] retList = execPython(command);
+        List<RecommendV1> list = new ArrayList<>();
+        for (int i = 0; i < retList.length / 3; ++i) {
+            RecommendV1 rv1 = new RecommendV1(
+                    Long.parseLong(retList[i]),
+                    retList[i + (retList.length / 3 * 2)],
+                    retList[i + (retList.length / 3)]
+            );
+            list.add(rv1);
+        }
+        return new RecommendListV1(
+                "추천 알고리즘이 선택한 우수한 영화",
+                list
+        );
+    }
+
+    public RecommendListV1 simpleRecommendByGenre(String genre) throws UnknownEnvironmentException, IOException {
+        List<String> command = new ArrayList<>();
+        command.add("python");
+        command.add("daum_movie_simple_recommend_by_genre_use_qualified.py");
         command.add(genre);
         String[] retList = execPython(command);
         List<RecommendV1> list = new ArrayList<>();
@@ -88,9 +108,11 @@ public class Recommend {
             list.add(rv1);
         }
         return new RecommendListV1(
-                genre + " 장르의 추천 영화",
+                "추천 알고리즘이 선택한 " + genre + " 장르의 추천 영화",
                 list
         );
 
     }
+
+
 }

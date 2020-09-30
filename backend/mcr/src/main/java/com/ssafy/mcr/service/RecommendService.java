@@ -4,6 +4,7 @@ import com.ssafy.mcr.dao.RecommendDao;
 import com.ssafy.mcr.dto.DaumMovie;
 import com.ssafy.mcr.dto.RecommendListV1;
 import com.ssafy.mcr.dto.RecommendV1;
+import com.ssafy.mcr.exception.NothingToPrefException;
 import com.ssafy.mcr.exception.UnknownEnvironmentException;
 import com.ssafy.mcr.recommend.Recommend;
 import org.springframework.stereotype.Service;
@@ -49,14 +50,22 @@ public class RecommendService {
         return new RecommendListV1(recommendMent.get((int) (Math.random() * recommendMent.size())), list);
     }
      */
+    public RecommendListV1 simpleRecommend() throws UnknownEnvironmentException, IOException {
+        return recommend.simpleRecommend();
+    }
 
     public RecommendListV1 simpleRecommendByGenre(String genre) throws UnknownEnvironmentException, IOException {
         return recommend.simpleRecommendByGenre(genre);
     }
 
-    public String getUsersRandomGenreByUsersPrefer(Integer userNo) {
+    public String getUsersRandomGenreByUsersPrefer(Integer userNo) throws NothingToPrefException {
         DaumMovie dm = recommendDao.selectUsersRandomPreferMovie(userNo);
-        String[] genreList = dm.getGenre().split("/");
-        return genreList[(int)(Math.random() * genreList.length)];
+        if(dm == null) {
+            // 선호하는 영화를 단 하나도 지정하지 않았을 경우
+            throw new NothingToPrefException();
+        } else {
+            String[] genreList = dm.getGenre().split("/");
+            return genreList[(int)(Math.random() * genreList.length)];
+        }
     }
 }
