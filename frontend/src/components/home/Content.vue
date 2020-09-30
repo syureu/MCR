@@ -64,7 +64,7 @@ button{
 
     .bg{
         background-color: black !important;
-        background-image: url('../../assets/images/img01.jpg');
+        background-image: url('../../assets/images/05.jpg');
     }
     .mouse-wrap, .scroll-wrap {
     position: absolute;

@@ -1,30 +1,202 @@
 <template>
-  <div id="app">
+  <!-- <div id="app">
     <ul class="mt-5 pt-5">
-      <li style="color: white;" v-for="item in items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice" v-bind:key="item.movieNm">
-        {{ item.movieNm._text }}
+      <li>
+        <div id="content">
+          <dl id="rank_list">
+            <dt>실시간 급상승 검색어</dt>
+                <dd>
+                    <ol style="color: white;" v-for="item in items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice" v-bind:key="item.movieNm">
+                        <li><a href="#">{{ item.movieNm._text }}</a></li>
+    
+                       
+                    </ol>
+                </dd>
+            </dl>
+          </div>
       </li>
     </ul>
-  </div>
+  </div> -->
+  <div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+     <div class="rolling_box">
+      <ul id ="rolling_box">
+        <li class="card_sliding" id ="first"><p></p></li>
+        <li class="" id ="second"><p></p></li>
+        <li class="" id ="third"><p></p></li>
+      </ul>
+    </div>
+    </div>
+      
+
 </template>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 <script>
 var convert = require('xml-js')
 export default {
   name: 'App',
   data () {
     return {
-      items: []
+      items: [],
+      rollingData: [],
     }
   },
   created () {
     this.$http.get('http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.xml?key=424e2b88162e9154ee09a8a4d8e5bf3a&targetDt=20200925')
       .then((response) => {
         var xml = response.data
-        console.log(response.data)
+      
         var json = convert.xml2json(xml, { compact: true })
         this.items = JSON.parse(json)
+      
       })
-    console.log(this.items)
+      setTimeout(() => {
+        this.rollingData = [
+                            this.items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice[0].movieNm._text,
+                            this.items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice[1].movieNm._text,
+                            this.items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice[2].movieNm._text,
+                            this.items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice[3].movieNm._text,
+                            this.items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice[4].movieNm._text,
+                            this.items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice[5].movieNm._text,
+                            this.items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice[6].movieNm._text,
+                            this.items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice[7].movieNm._text ,                     
+                            this.items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice[8].movieNm._text,
+                            this.items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice[9].movieNm._text
+                            
+                          ]    
+      }, 2000);
+      console.log(this.items)
+      
+  },
+  mounted () {
+    
+        
+      
+    
+        let timer = 2000 // 롤링되는 주기 입니다 (1000 => 1초)
+
+        let first = document.getElementById('first'),
+            second = document.getElementById('second'),
+            third = document.getElementById('third')
+        let move = 2
+        let dataCnt = 1
+        let listCnt = 1
+
+        //위 선언은 따로 완전히 수정하지 않는 한 조정할 필요는 없습니다.
+
+        first.children[0].innerHTML = this.rollingData[0]
+
+        setInterval(() => {
+            if(move == 2){
+                first.classList.remove('card_sliding')
+                first.classList.add('card_sliding_after')
+
+                second.classList.remove('card_sliding_after')
+                second.classList.add('card_sliding')
+
+                third.classList.remove('card_sliding_after')
+                third.classList.remove('card_sliding')
+
+                move = 0
+            } else if (move == 1){
+                first.classList.remove('card_sliding_after')
+                first.classList.add('card_sliding')
+
+                second.classList.remove('card_sliding_after')
+                second.classList.remove('card_sliding')
+
+                third.classList.remove('card_sliding')
+                third.classList.add('card_sliding_after')
+
+                move = 2
+            } else if (move == 0) {
+                first.classList.remove('card_sliding_after')
+                first.classList.remove('card_sliding')
+
+                second.classList.remove('card_sliding')
+                second.classList.add('card_sliding_after')
+
+                third.classList.remove('card_sliding_after')
+                third.classList.add('card_sliding')
+
+                move = 1
+            }
+            
+            if(dataCnt < (this.rollingData.length - 1)) {
+                document.getElementById('rolling_box').children[listCnt].children[0].innerHTML = this.rollingData[dataCnt]
+                    dataCnt++
+            } else if(dataCnt == this.rollingData.length - 1) {
+                document.getElementById('rolling_box').children[listCnt].children[0].innerHTML = this.rollingData[dataCnt]
+                dataCnt = 0
+            }
+
+            if(listCnt < 2) {
+                listCnt++
+            } else if (listCnt == 2) {
+                listCnt = 0
+            }
+
+            console.log(listCnt)
+        }, timer);
   }
 }
+
+
 </script>
+<style scoped>
+.rolling_box{
+            width: 24vw;
+            height: 7vh;
+            text-align: center;
+            border: 1px solid #848484;
+        }
+
+        .rolling_box ul {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .rolling_box ul li {
+            width: 100%;
+            height: 100%;
+            transition: .5s;
+            position:absolute;
+            transition: top .75s;
+            top: 100%;
+            z-index: 1;
+            background-color: #ffffff;
+        }
+
+        .card_sliding{
+            top: 0 !important;
+            z-index: 100 !important;
+        } 
+
+        .card_sliding_after{
+            top: -100% !important;
+            z-index: 10 !important;
+        }
+
+        .rolling_box ul li p {
+            font-size: 20px;
+            line-height: 30px;
+            font-weight: bold;
+        }
+
+        .before_slide {
+            transform: translateY(100%);
+        }
+
+        .after_slide {
+            transform: translateY(0);
+        }
+</style>
