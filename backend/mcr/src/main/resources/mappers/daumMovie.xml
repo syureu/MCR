@@ -117,7 +117,7 @@
 		order by
 			score desc, rate desc, movie_opening_date desc
 		limit 
-			5
+			10
 	</select>
 	
 	<select id="selectForeignMovieByGenre" parameterType="String" resultType="DaumMovie">
@@ -136,7 +136,7 @@
 		order by
 			score desc, rate desc, movie_opening_date desc
 		limit 
-			5	
+			10	
 	</select>
 	
 	<update id="upScore" parameterType="DaumMovie">
