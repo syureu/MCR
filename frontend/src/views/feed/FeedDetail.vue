@@ -14,14 +14,17 @@
       <div class="container">
 
         <div class="row">
+          
           <div class="col-xl-4 col-lg-5" data-aos="fade-up">
+            <div class="scroll-c " style="overflow-y:scroll; height: 500px;">
             <div class="content">
-              <h3>Story Line</h3>
+              <h3>줄거리</h3>
               <p>
                 {{ this.movieDetail.overview }}
               </p>
         
             </div>
+          </div>
           </div>
           <div class="col-xl-8 col-lg-7 d-flex">
             <div class="icon-boxes d-flex flex-column justify-content-center">
@@ -29,22 +32,48 @@
                 <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                   <div class="icon-box mt-4 mt-xl-0">
                     <i class="bx bx-receipt"></i>
-                    <h4>Genre</h4>
+                    <h4>장르</h4>
                     <p>{{ this.movieDetail.genre }}</p>
                   </div>
                 </div>
                 <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
                   <div class="icon-box mt-4 mt-xl-0">
                     <i class="bx bx-cube-alt"></i>
-                    <h4>Rate</h4>
+                    <h4>평점</h4>
                     <p><i class="fas fa-star" style="color:yellow;"></i>&nbsp;{{ this.movieDetail.rate }}</p>
                   </div>
                 </div>
                 <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
                   <div class="icon-box mt-4 mt-xl-0">
                     <i class="bx bx-images"></i>
-                    <h4>Labore consequatur</h4>
-                    <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+                    <h4>좋아요</h4>
+                   <div v-if="this.$store.getters.getUserData != null">
+                                        <svg      
+                                        class="svg-inline--fa fa-heart fa-w-16 icon full"
+                                        aria-hidden="true"
+                                        data-prefix="fas"
+                                        data-icon="heart"
+                                        role="img"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512"
+                                        data-fa-i2svg
+                                        cursor="pointer"
+                                        style="width:6vw; height:6vh;"
+                                        @click="like()"
+                                        >
+                                        <path
+                                        v-if="like_on == 1"
+                                            fill="crimson"
+                                            d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
+                                            />
+                                        <path
+                                            v-else-if="like_on == 0"
+                                            fill="grey"
+                                            d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
+                                            />
+                                        </svg> 
+                                        <div style=""></div>
+                                    </div>
                   </div>
                 </div>
               </div>
@@ -60,8 +89,14 @@
       <div class="container">
 
         <div class="row">
-            <div class="col-xl-8 col-lg-8 video-box  " data-aos="fade-right">
+            <div v-if="this.not_video === false" class="col-xl-8 col-lg-8 video-box  " data-aos="fade-right">
                 <iframe id="syd" wmode="Opaque" class="p-3 video-box "  :src="trailerURL1" frameborder="0" allow="autoplay;  encrypted-media" allowfullscreen>트레일러가 지원되지 않는 작품입니다.</iframe>
+            </div>
+
+            <div  v-if="this.not_video === true" class="col-xl-8 col-lg-8 video-box  " data-aos="fade-right">
+              <img src="https://media.giphy.com/media/3ohA2ZD9EkeK2AyfdK/giphy.gif" alt=""> <br>
+            
+              예고편을 지원하지 않는 영화입니다.
             </div>
             
           <div class="col-xl-4 col-lg-4 icon-boxes  py-5 px-lg-5">
@@ -175,6 +210,7 @@ export default {
         itemNumber: 4,
         like_on : 0,
         ggenre: [],
+        not_video : false,
         actorList: [
         ],
 		movieDetail: {
@@ -191,6 +227,10 @@ export default {
         }
     },
     computed: {
+      isLoggedIn() {
+            return this.$store.getters.isLoggedIn
+        },
+
     current() {
       return this.list.find(el => el.id === this.currentId) || {}
     },
@@ -228,6 +268,14 @@ export default {
     },
   },
     created() {
+    if (!this.$store.getters.isLoggedIn) {
+            this.$router.push({
+                name: 'Error',
+                query: {
+                    status: 401
+                }
+            })
+    }
 		if(this.$store.getters.getUserData == null){
             this.userno = 0;
         } else{
@@ -258,13 +306,22 @@ export default {
 			imgurl: res.data.object.imgUrl,
             nation: res.data.object.nation,
             }
-            console.log("확인")
-            console.log(this.movieDetail)
+         
 			const movieTrailer = require( 'movie-trailer' )
 			this.trailerURL1 = 'https://www.youtube.com/embed/'
 			movieTrailer( res.data.object.movieName , ( error, response) => {
+        console.log('여기')
+        console.log(response)
+       if(response == null){
+          this.not_video = true
+        }
 				this.trailerURL1 = this.trailerURL1 + response.substr(32)
             })
+ 
+
+        
+       
+          
     
 		})
 		.catch(err => {
@@ -292,7 +349,7 @@ export default {
             }
             console.log(res)
             this.actorList = res.data.object
-            console.log(this.actorList)
+       
         }).catch(err => {
             console.log(err)
         })
@@ -873,26 +930,14 @@ section {
 
 .why-us .content h3 {
   font-weight: 700;
-  font-size: 34px;
-  margin-bottom: 30px;
+  font-size: 3vw;
+  margin-bottom: 2.5vh;
 }
 
 .why-us .content p {
-  margin-bottom: 30px;
+  margin-bottom: 2.5vh;
 }
 
-.why-us .content .more-btn {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 6px 30px 8px 30px;
-  color: #fff;
-  border-radius: 50px;
-  transition: all ease-in-out 0.4s;
-}
-
-.why-us .content .more-btn i {
-  font-size: 14px;
-}
 
 .why-us .content .more-btn:hover {
   color: #ff5821;
@@ -904,24 +949,24 @@ section {
   border-radius: 10px;
   background: #fff;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
-  padding: 40px 30px;
+  padding: 3.5vh 3.0vw;
   width: 100%;
 }
 
 .why-us .icon-boxes .icon-box i {
-  font-size: 40px;
+  font-size: 3.5vw;
   color: #ff5821;
-  margin-bottom: 30px;
+  margin-bottom: 3vh;
 }
 
 .why-us .icon-boxes .icon-box h4 {
-  font-size: 20px;
+  font-size: 2vw;
   font-weight: 700;
-  margin: 0 0 30px 0;
+  margin: 0 0 3vh 0;
 }
 
 .why-us .icon-boxes .icon-box p {
-  font-size: 15px;
+  font-size: 1.5vw;
   color: #716f6f;
 }
 

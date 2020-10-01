@@ -1,7 +1,8 @@
 <template>
       <div class="navbar">
       <div class="netflixLogo">
-        <a id="logo" href="/"><img src="../../assets/logo.png" alt="Logo Image"></a>
+        <a id="logo" v-if="!isLoggedIn" href="/"><img src="../../assets/logo.png" alt="Logo Image"></a>
+        <a id="logo" v-if="isLoggedIn" href="/home"><img src="../../assets/logo.png" alt="Logo Image"></a>
       </div>      
       <nav class="main-nav">              
         <LoginModal v-if="loginModal" @close="changeLogin" @change="changeModal"/>
@@ -66,7 +67,7 @@ export default {
       logout(){
         this.$session.remove('jwstoken')
         this.$store.commit('logout')
-        this.$router.push({name: 'Home'})
+        this.$router.push({name: 'Main'})
       },
       changeMypage(){
         this.$router.push({name:'Mypage'})
@@ -84,37 +85,34 @@ export default {
 }
 </script>
 <style scoped>
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
 
 .navbar{
-   font-family: Arial, Helvetica, sans-serif;
-  height: 100px;
-  padding: 20px 20px 0 20px;
+  font-family: 'Hanna', sans-serif;
+  height: 12vh;
+  padding: 2vh 2vw 2vh 2vw;
   position: fixed;
   top: 0;
-  display: grid;  
-  grid-gap:5px;
-  grid-template-columns: 1fr 3fr 1fr 1fr;
-  grid-template-areas: 
-   "nt . mn mn mn mc sb  . . . "; 
   background-color: var(--light);
   width: 100%;
   margin-bottom: 0px;
   z-index: 10;
-  
+  font-size: 1.5vw;
   background-color:rgb(0, 0, 0);
 }
 .netflixLogo {
-  grid-area: nt;
   object-fit: cover;
-  width: 50px;
+  width: 20%;
   max-height: 100%;
-  
-  padding-left: 30px;
-  padding-top: 0px;  
+  padding-left: 2.5vw;
+  padding-top: 0px;
+  float: left;
 }
 
 .netflixLogo img {  
-  height: 50px; 
+  
+  width: 12vw;
+  height: 6vh; 
 
 }
 
@@ -124,12 +122,10 @@ export default {
   padding: 0; 
 }
 .main-nav {
-  grid-area: mn;
-  padding: 0 30px 0 10px;
-  
+  padding: 0 2.5vw 0 1vw;
+  float:left;
 }
 .mid-nav{
-
   grid-area:mc;
   
 }
@@ -137,7 +133,7 @@ export default {
   display:inline;
   background-color:rgb(48, 46, 46);
   border-radius : 7px;
-  margin-left:15px;
+  margin-left:1.5vw;
   color:white;
   border :0px;  
 }
@@ -145,18 +141,17 @@ export default {
   
   color: white;
   text-decoration: none;
-  margin-left: 5px;
+  margin-left: 0.5vw;
 }
 
 .mid-nav a:hover {
   color: red;
 }
 .main-nav a {
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: 20px;
+  font-size: 1.5vw;
   color:white;
   text-decoration: none;
-  margin: 5px;  
+  margin: 0.5vh 0.5vw 0.5vh 0.5vw;  
 }
 
 .main-nav a:hover {
@@ -165,20 +160,19 @@ export default {
 
 .sub-nav {
   grid-area: sb;
-  padding: 0 40px 0 40px;
+  padding: 0 3.5vw 0 3.5vw;
 }
 
 .sub-nav a {
-   font-family: Arial, Helvetica, sans-serif;
   color: white;
-  font-size:20px;
-  margin: 4px;
+  font-size:1.5vw;
+  margin: 0.4vh 0.4vw 0.4vh 0.4vw;
 }
 
 .sub-nav a:hover {
   color: red;
 }
-@media(max-width: 1200px) {
+/* @media(max-width: 1200px) {
 
   .navbar {
     display: grid;
@@ -188,8 +182,8 @@ export default {
     "nt nt nt  .  .  sb sb sb . . "
     "mn mn mn mn mn mn  mn mn mn mn";
   }
-}
-@media (max-width: 812px){
+} */
+ /* @media (max-width: 812px){
   .navbar{
     margin: 0;
     padding: 20px 0 0 0;
@@ -203,7 +197,7 @@ export default {
     ". . sb";
     text-align: center;
     background-color:black;
-  }
+  } 
   .main-nav{
     display:none;
   }
@@ -213,6 +207,6 @@ export default {
   }
   .sub-nav{
     grid-area:mn;
-  }
-}
+  } 
+}*/
 </style>

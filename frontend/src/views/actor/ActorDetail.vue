@@ -206,6 +206,9 @@ export default {
         }
     },
     computed: {
+        isLoggedIn() {
+            return this.$store.getters.isLoggedIn
+        },
         getImgUrl() {
           return   `${this.actorDetail.imgUrl}`
         },
@@ -221,10 +224,10 @@ export default {
             };
             axios.post(`${HTTP.BASE_URL}/mcr/daumuseractor`, like)
             .then(res => {
-              console.log(res)
+              console.log(res.data)
             })
             .catch(res => {
-              console.log(res)
+              console.log(res.data)
             })
           }
           else {
@@ -249,11 +252,19 @@ export default {
 
     },
     created() {
+        if (!this.$store.getters.isLoggedIn) {
+            this.$router.push({
+                name: 'Error',
+                query: {
+                    status: 401
+                }
+            })
+        }
         if(this.$store.getters.getUserData == null){
             this.userno = 0;
         } else{
             this.userno = this.$store.getters.getUserData.userinfo.userNo
-            console.log(this.userno)
+        
         }
         axios.get(`${HTTP.BASE_URL}/mcr/daumactor` ,
         {
@@ -261,7 +272,7 @@ export default {
         }
         )
         .then(res => {
-             console.log(res.data.object.actorName)
+       
             if (res.data === 'fail') {
                 this.$router.push({
                     name: 'Error',
@@ -278,7 +289,7 @@ export default {
                 sex: res.data.object.gender,
                 imgUrl: res.data.object.imgUrl,
             }
-            console.log(this.actorDetail)
+          
         })
         .catch(err => {
         //     this.$router.push({
@@ -296,7 +307,8 @@ export default {
         })
         .then(res => {
             this.movieInfo = res.data.object
-            console.log(res)
+            console.log(this.movieInfo)
+           
         })
 
 

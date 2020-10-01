@@ -1,7 +1,7 @@
 <template>
     <div id="content">
         <h1 id="movies" style="font-family: 'Hanna', sans-serif;" v-text="name"></h1>
-        <div id="dynamicId" class="carousel slide" data-ride="carousel">
+        <div id="dynamicId2" class="carousel slide" data-ride="carousel">
         <div id="ele" class="carousel-inner">
                <div  class="carousel-item active" >
                     <div class="row" >
@@ -25,11 +25,11 @@
                </div>
     
         </div>
-     <a class="carousel-control-prev" href="#dynamicId" role="button" data-slide="prev">
+     <a class="carousel-control-prev" href="#dynamicId2" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
     </a>
-  <a class="carousel-control-next" href="#dynamicId" role="button" data-slide="next">
+  <a class="carousel-control-next" href="#dynamicId2" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>

@@ -7,9 +7,9 @@
         <label id="lab" for="" >내평점</label> <button id="togglebtn" @click="changetoggle">{{ name }}</button>
         </div>
         <div id="incontainer" v-if="toggle==true" >
-        <StarRating v-model="revitem.rate" v-bind:max-rating="10" :show-rating="temp"/>
+        <StarRating class="starR" v-model="revitem.rate"  :star-size="40" v-bind:max-rating="10" :show-rating="temp"/>
         <textarea id="revcontent" v-model="revitem.content"></textarea>
-        <button v-if="this.revcheck == true" class="revbutton" >수정</button>
+        <button v-if="this.revcheck == true" class="revbutton" @click="updaterev" >수정</button>
         <button v-else class="revbutton" @click="writerev">작성</button>
         </div>
         </div>
@@ -36,6 +36,7 @@ export default {
             revcheck: false,
             movieId: this.movieNo,
             revitem: {
+                userNo: 9999,
                 writer: "",
                 content: "",
                 rate: 0,
@@ -55,43 +56,48 @@ export default {
         writerev() {
             axios.post(`${URL.BASE_URL}/mcr/daumreview/`, this.revitem)
             .then(res => {
-                console.log("리뷰 작성 완료")
                 console.log(res)
+                alert("리뷰 작성 완료")
+                location.reload()
+            })
+        },
+        updaterev() {
+            axios.put(`${URL.BASE_URL}/mcr/daumreview/update`, this.revitem)
+            .then(res => {
+                alert("리뷰 수정 완료")
+                console.log(res)
+                location.reload()
+
             })
         }
     },
     created() {
-        console.log(this.$store.getters.getUserData.userinfo)
         if(this.$store.getters.getUserData == null){
             this.onlogin = false;
         } else{
             this.onlogin = true;
         }
-
-        let daumReview = {
-            movieId: this.movieId,
-            writer: this.$store.getters.getUserData.userinfo.userid,
-            
-        }   
-
-        this.revitem.writer= this.$store.getters.getUserData.userinfo.userid;
-
-        console.log(daumReview)
-
-        axios.post(`${URL.BASE_URL}/mcr/daumreview/check`, daumReview)  
+        console.log(this.revitem.userNo)
+        console.log("aaaa")
+        this.revitem.userNo = this.$store.getters.getUserData.userinfo.userNo
+        console.log(this.revitem.userNo)
+        console.log("bbbb")
+        axios.get(`${URL.BASE_URL}/mcr/daumreview/check`, 
+        {
+            params: {movieId: this.movieId , userNo: this.$store.getters.getUserData.userinfo.userNo}
+        })  
         .then(res => {
+            console.log("asdfafasdfadsfsdf")
             console.log(res)
             if(res.data.object != null){
                 this.revcheck = true;
-                console.log("res 확인")
-                console.log(res)
                 this.revitem = {
                     content: res.data.object.content,
                     rate: res.data.object.rate,
                     movieId: res.data.object.movieId,
+                    writer: res.data.object.writer,
+                    userNo: res.data.object.userNo
                 }
-                console.log("res 확인")
-                console.log(res)
             } 
         })
         .catch(err => {
@@ -175,5 +181,10 @@ export default {
 
     #hr1{
         background-color: skyblue;
+    }
+
+
+    .starR{
+
     }
 </style>
