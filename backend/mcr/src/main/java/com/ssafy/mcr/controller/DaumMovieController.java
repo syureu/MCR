@@ -74,7 +74,8 @@ public class DaumMovieController {
 	DaumUserMovieService daumUserMovieService;
 
 	//sf,미스터리, 로맨스, 범죄, 액션, 스릴러, 공포, 드라마 애니메이션, 멜로, 판타지, 다큐멘터리, 어드벤쳐, 전쟁, 뮤지컬, 가족
-	private static String[] genre = {"멜로","미스터리","로맨스","범죄","액션","스릴러","공포","드라마","애니메이션","멜로","판타지", "다큐멘터리", "어드벤쳐", "전쟁", "뮤지컬", "가족"};
+	private static String[] genreKorea = {"멜로","미스터리","로맨스","범죄","액션","스릴러","공포","드라마","애니메이션","멜로","판타지", "다큐멘터리", "전쟁", "뮤지컬", "가족"};
+	private static String[] genreForeign = {"멜로","미스터리","로맨스","범죄","액션","스릴러","공포","드라마","애니메이션","멜로","판타지", "다큐멘터리", "어드벤처", "전쟁", "뮤지컬", "가족"};
 
 	private static String MovieURL = "https://movie.daum.net/moviedb/main?movieId=";
 	//	@ApiOperation(value="영화를 디비에 생성합니다.")
@@ -293,7 +294,7 @@ public class DaumMovieController {
 		try {
 			int[] m = new int[5];
 			for(int i = 0; i < 5; i++) {
-				m[i] = (int)(Math.random() * genre.length);
+				m[i] = (int)(Math.random() * genreKorea.length);
 				for(int j = 0; j < i; j++) {
 					if(m[i] == m[j]) {
 						i--;
@@ -302,12 +303,12 @@ public class DaumMovieController {
 				}
 			}
 			for(int i = 0; i < 5; i++) {
-				list = daumMovieService.getKoreaMovieByGenre(genre[m[i]]);
+				list = daumMovieService.getKoreaMovieByGenre(genreKorea[m[i]]);
 				for(DaumMovie tmp : list) {
 					tmp.setOverview("");
 				}
 				res.put("mg"+i, list);
-				res.put("mt"+i, genre[m[i]]);
+				res.put("mt"+i, genreKorea[m[i]]);
 			}
 			obj.add(res);
 			result.status = true;
@@ -333,7 +334,7 @@ public class DaumMovieController {
 		try {
 			int[] m = new int[5];
 			for(int i = 0; i < 5; i++) {
-				m[i] = (int)(Math.random() * genre.length);
+				m[i] = (int)(Math.random() * genreForeign.length);
 				for(int j = 0; j < i; j++) {
 					if(m[i] == m[j]) {
 						i--;
@@ -342,12 +343,12 @@ public class DaumMovieController {
 				}
 			}
 			for(int i = 0; i < 5; i++) {
-				list = daumMovieService.getForeignMovieByGenre(genre[m[i]]);
+				list = daumMovieService.getForeignMovieByGenre(genreForeign[m[i]]);
 				for(DaumMovie tmp : list) {
 					tmp.setOverview("");
 				}
 				res.put("mg"+i, list);
-				res.put("mt"+i, genre[m[i]]);
+				res.put("mt"+i, genreForeign[m[i]]);
 			}
 			obj.add(res);
 			result.status = true;
