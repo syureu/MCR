@@ -9,6 +9,7 @@
                         <a href=""><img :src="movie.posterPath" class="d-block" style="width:240px; height:350px"  alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
                         <div class="card-cover" @click="changeDeatil(movie.id)">
                             <h3 v-text="movie.title"></h3>
+                            <h2 v-text="movie.rate"></h2>
                         </div>
                     </div>
                     </div>
@@ -19,6 +20,7 @@
                         <a href=""><img :src="movie.posterPath" class="d-block" style="width:240px; height:350px" alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
                         <div class="card-cover" @click="changeDeatil(movie.id)">
                             <h3 v-text="movie.title"></h3>
+                            <h2 v-text="movie.rate"></h2>
                         </div>
                     </div>
                     </div>
@@ -60,21 +62,6 @@ export default {
          
             this.$router.push(`/feedDetail/${id}`)
         },
-        changeimg(){
-            var menuBtn1 = document.getElementById("ele").firstElementChild;
-            var menuBtn2 = document.getElementById("ele").lastElementChild;
-            if(menuBtn1.className=="carousel-item active"){
-                menuBtn1.className="carousel-item"
-                menuBtn2.className="carousel-item active"
-            }
-            else{
-                menuBtn1.className="carousel-item active"
-                menuBtn2.className="carousel-item"
-            }
-           
-            
-            console.log(menuBtn1);
-        }
     },computed:{
 
     }
@@ -108,7 +95,7 @@ a :hover {
 .card-cover{
     position: absolute;
         top: 0;
-        left: 15px;
+        left: 0;
         width: 100%;
         height: 100%;
         background-color: transparent;

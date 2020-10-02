@@ -6,7 +6,7 @@
       </div>      
       <nav class="main-nav">              
         <LoginModal v-if="loginModal" @close="changeLogin" @change="changeModal"/>
-        <a href="#">한국 영화</a>
+        <a @click="MoveKoreaMove">한국 영화</a>
         <a href="#">외국 영화</a>
       </nav>
       <nav class="mid-nav" v-if="isLoggedIn">
@@ -42,6 +42,8 @@ export default {
       return {
         loginModal : false,
         searchKeyword: "",
+      
+
       }
 
     },
@@ -50,20 +52,23 @@ export default {
           return this.$store.getters.isLoggedIn
       }
     },watch:{
-      
-
-
-      
+        searchKeyword(){
+          return this.searchKeyword = this.searchKeyword.replace(/[!{}@?#$%^&*()_+'";,.<>[/?:=-]/g,'')
+        }
     },
 
     methods:{
+     
       searchKeywords(){
-          if(this.searchKeyword.length==0){
-            alert('검색어를 입력하세요')
+          if(this.searchKeyword.trim()===""){
+           alert('검색어를 입력하세요')
             return 
-          }
+        }
+   
+
           this.$router.push(`/search/${this.searchKeyword}`)
       },
+       
       logout(){
         this.$session.remove('jwstoken')
         this.$store.commit('logout')
@@ -80,6 +85,9 @@ export default {
       },
       changeModal(){
         this.loginModal = !this.loginModal
+      },
+      MoveKoreaMove(){
+        this.$router.push({name:'MovieKorea'})
       }
     }
 }
