@@ -32,5 +32,10 @@ build/
 ### VS Code ###
 .vscode/
 
+!/recommend/resources/daum_movie_qualified.csv
+
 /.idea/
+/recommend/.idea/
+/recommend/recommend.iml
+/recommend/miner/.idea/
 /recommend/resources/

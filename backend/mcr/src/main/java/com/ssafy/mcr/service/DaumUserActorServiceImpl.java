@@ -10,6 +10,7 @@ import com.ssafy.mcr.dao.DaumActorDao;
 import com.ssafy.mcr.dao.DaumUserActorDao;
 import com.ssafy.mcr.dto.DaumActor;
 import com.ssafy.mcr.dto.DaumUserActor;
+import com.ssafy.mcr.dto.Ranking;
 
 @Service
 public class DaumUserActorServiceImpl implements DaumUserActorService{
@@ -35,6 +36,11 @@ public class DaumUserActorServiceImpl implements DaumUserActorService{
 	@Override
 	public DaumUserActor checkLike(int userNo, int personId) {
 		return daumUserActorDao.checkLike(userNo, personId);
+	}
+
+	@Override
+	public List<Ranking> likeRank10() {
+		return daumUserActorDao.likeRank10();
 	}
 
 }

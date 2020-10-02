@@ -2,14 +2,16 @@ package com.ssafy.mcr.controller;
 
 import com.ssafy.mcr.dto.RecommendListV1;
 import com.ssafy.mcr.exception.NothingToPrefException;
+import com.ssafy.mcr.exception.UnknownEnvironmentException;
 import com.ssafy.mcr.service.RecommendService;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 
-@CrossOrigin(origins = { "*" })
+
+@CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/recommend")
 public class RecommendController {
@@ -19,19 +21,68 @@ public class RecommendController {
         this.recommendService = recommendService;
     }
 
-    @GetMapping("/simplegenre/random/{userNo}")
-    public ResponseEntity<RecommendListV1> simpleGenreRecommendByPrefer(@PathVariable Long userNo) {
-        try {
-            String genre = recommendService.getRandomGenreByUsersPrefer(userNo);
-            return simpleGenreRecommendByGenre(genre);
-        } catch (NothingToPrefException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    /*
+    @GetMapping("/")
+    public ResponseEntity<RecommendListV1> readRecommend() {
+        return new ResponseEntity<>(recommendService.selectRecommend(), HttpStatus.OK);
+    }
+     */
+
+    @GetMapping("/{userNo}")
+    public ResponseEntity<RecommendListV1> randomRecommend(@PathVariable Integer userNo) {
+        // 완전 랜덤 추천
+        // 영화를 랜덤하게 추천하는 것이 아닌
+        // 추천 알고리즘 중에 랜덤적으로 선택하도록 하는 것
+        int randomFlag = 0;
+        // 어떤 추천을 적용할지 선택하는 부분
+
+        switch (randomFlag) {
+            case 0:
+                // 사용자 요소 사용하지 않은 내부 점수 추천
+                return simpleRecommend();
+            case 1:
+                // 사용자 요소 사용한 장르 기반 내부 점수 추천
+                return simpleRecommendByUserNo(userNo);
+            default:
+                System.out.println("랜덤 값 결정에 문제가 있습니다.");
+                return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/simplegenre/{genre}")
-    public ResponseEntity<RecommendListV1> simpleGenreRecommendByGenre(@PathVariable String genre) {
-        return new ResponseEntity<>(recommendService.selectGenreRecommend(genre), HttpStatus.OK);
+    @GetMapping("/simple")
+    public ResponseEntity<RecommendListV1> simpleRecommend() {
+        try {
+            return new ResponseEntity<>(recommendService.simpleRecommend(), HttpStatus.OK);
+        } catch (UnknownEnvironmentException e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (IOException e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/simple/{genre}")
+    public ResponseEntity<RecommendListV1> simpleRecommendByGenre(@PathVariable String genre) {
+        try {
+            return new ResponseEntity<>(recommendService.simpleRecommendByGenre(genre), HttpStatus.OK);
+        } catch (UnknownEnvironmentException e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (IOException e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/simple/random/{userNo}")
+    public ResponseEntity<RecommendListV1> simpleRecommendByUserNo(@PathVariable Integer userNo) {
+        String usersPreferGenre;
+        try {
+            usersPreferGenre = recommendService.getUsersRandomGenreByUsersPrefer(userNo);
+            // if pass, 선호하는 영화가 하나라도 있음
+            // 그러므로 선호하는 영화의 장르를 기반으로 한 추천
+            return simpleRecommendByGenre(usersPreferGenre);
+        } catch (NothingToPrefException e) {
+            // 선호하는 영화가 없을 경우
+            // 사용자의 요소와 관계없이 영화 추천
+            return simpleRecommend();
+        }
     }
 }

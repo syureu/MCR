@@ -2,7 +2,10 @@
     <div class="main-container">
         <br>
         <br>
-        <div class="location" id="home">
+        <div>
+            <Content v-if="!isLoggedIn"/>
+        </div> 
+            <div class="location" id="home" v-if="isLoggedIn">
             <MovieItemList :name="recommandMovie.title" :movies1="recommandMovie.Movie1" :movies2="recommandMovie.Movie2"/>
         </div>
     </div>
@@ -11,10 +14,11 @@
 import MovieItemList from '@/components/Movie/MovieItemList.vue'
 import axios from 'axios'
 import URL from '@/util/http-common.js'
-
+import Content from '@/components/home/Content.vue'
 export default {
     name : 'Home',
     components:{
+        Content,
         MovieItemList
     },
     data(){
@@ -56,6 +60,7 @@ export default {
         }
         
     },
+  
     created(){
         axios.get(`${URL.BASE_URL}/mcr/recommend/`)
             .then(res => {

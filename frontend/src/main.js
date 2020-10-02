@@ -4,17 +4,20 @@ import routes from './routes'
 import VueRouter from 'vue-router'
 import store from './store'
 import VueSession from 'vue-session'
-
+import InfiniteLoading from 'vue-infinite-loading';
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(VueSession)
-
+Vue.use(InfiniteLoading)
 
 const router = new VueRouter({
   mode: 'history',
   store,
   routes,
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  },
 });
 new Vue({
   render: h => h(App),

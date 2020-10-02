@@ -10,6 +10,11 @@ import com.ssafy.mcr.dto.Paging;
 @Mapper
 public interface DaumMovieDao {
 	public void insertDaumMovie(DaumMovie daumMovie);
+	public void updateDaumMovieRate(DaumMovie daumMovie);
+	public void upScore(DaumMovie daumMovie);
+	public List<DaumMovie> selectLimit10ByScore();
+	public List<DaumMovie> selectKoreaMovieByGenre(String genre);
+	public List<DaumMovie> selectForeignMovieByGenre(String genre);
 	public DaumMovie selectDaumMovieBymovieId(int movieId);
 	public List<DaumMovie> selectByTitle(String title);
 	public List<DaumMovie> selectLimit30(Paging paging);

@@ -36,4 +36,29 @@ public class DaumMovieServiceImpl implements DaumMovieService{
 		return daumMovieDao.selectLimit30(paging);
 	}
 
+	@Override
+	public void addScore(DaumMovie daumMovie) {
+		daumMovieDao.upScore(daumMovie);
+	}
+
+	@Override
+	public List<DaumMovie> getLimit10ByScore() {
+		return daumMovieDao.selectLimit10ByScore();
+	}
+
+	@Override
+	public void updateDaumMovieRate(DaumMovie daumMovie) {
+		daumMovieDao.updateDaumMovieRate(daumMovie);
+	}
+
+	@Override
+	public List<DaumMovie> getKoreaMovieByGenre(String genre) {
+		return daumMovieDao.selectKoreaMovieByGenre(genre);
+	}
+
+	@Override
+	public List<DaumMovie> getForeignMovieByGenre(String genre) {
+		return daumMovieDao.selectForeignMovieByGenre(genre);
+	}
+
 }

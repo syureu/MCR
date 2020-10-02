@@ -38,6 +38,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.selectUserByIdAndPwd(id, password);
 	}
 
+	@Override
+	public User getUserbyNo(int userNo) {
+		return userDao.selectUserByNo(userNo);
+	}
+
 	
 
 }

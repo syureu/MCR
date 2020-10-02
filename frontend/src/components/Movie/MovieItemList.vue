@@ -8,7 +8,7 @@
                <div class="carousel-item active">
                     <div class="row" >
                     <div class="col" v-for="movie in movies1" :key="movie.id">
-                        <a href=""><img :src="movie.posterPath" class="d-block" style="width:200px; height:300px"  alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
+                        <a href=""><img :src="movie.posterPath" class="d-block" style="width:240px; height:350px"  alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
                         <div class="card-cover" @click="changeDeatil(movie.id)">
                             <h3 v-text="movie.title"></h3>
                         </div>
@@ -16,9 +16,9 @@
                     </div>
                </div>
                <div class="carousel-item">
-                    <div class="row" >
+                    <div class="row">
                     <div class="col" v-for="movie in movies2" :key="movie.id">
-                        <a href=""><img :src="movie.posterPath" class="d-block" style="width:200px; height:300px" alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
+                        <a href=""><img :src="movie.posterPath" class="d-block" style="width:240px; height:350px" alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
                         <div class="card-cover" @click="changeDeatil(movie.id)">
                             <h3 v-text="movie.title"></h3>
                         </div>
@@ -59,7 +59,7 @@ export default {
    
     methods: {
         changeDeatil(id){
-            alert(id)
+         
             this.$router.push(`/feedDetail/${id}`)
         },
     }
@@ -92,11 +92,12 @@ a :hover {
 
 }
 
+
 .card-cover{
     position: absolute;
         top: 0;
         left: 15px;
-        width: 80%;
+        width: 100%;
         height: 100%;
         background-color: transparent;
         color: transparent;

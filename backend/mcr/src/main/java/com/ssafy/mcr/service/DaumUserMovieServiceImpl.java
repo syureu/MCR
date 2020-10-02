@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.mcr.dao.DaumUserMovieDao;
 import com.ssafy.mcr.dto.DaumUserActor;
 import com.ssafy.mcr.dto.DaumUserMovie;
+import com.ssafy.mcr.dto.Ranking;
 
 @Service
 public class DaumUserMovieServiceImpl implements DaumUserMovieService{
@@ -34,6 +35,11 @@ public class DaumUserMovieServiceImpl implements DaumUserMovieService{
 	@Override
 	public DaumUserMovie checkLike(int userNo, int movieId) {
 		return daumUserMovieDao.checkLike(userNo, movieId);
+	}
+
+	@Override
+	public List<Ranking> likeRank10() {
+		return daumUserMovieDao.likeRank10();
 	}
 
 }

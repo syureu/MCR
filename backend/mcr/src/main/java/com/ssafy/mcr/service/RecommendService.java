@@ -1,27 +1,28 @@
 package com.ssafy.mcr.service;
 
 import com.ssafy.mcr.dao.RecommendDao;
-import com.ssafy.mcr.dto.Movie;
+import com.ssafy.mcr.dto.DaumMovie;
 import com.ssafy.mcr.dto.RecommendListV1;
 import com.ssafy.mcr.dto.RecommendV1;
 import com.ssafy.mcr.exception.NothingToPrefException;
+import com.ssafy.mcr.exception.UnknownEnvironmentException;
 import com.ssafy.mcr.recommend.Recommend;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 @Service
 public class RecommendService {
 
     RecommendDao recommendDao;
     Recommend recommend;
-    List<String> recommendMent;
+    // List<String> recommendMent;
 
     public RecommendService(final RecommendDao recommendDao, final Recommend recommend) {
         this.recommendDao = recommendDao;
         this.recommend = recommend;
 
+        /*
         recommendMent = new ArrayList<>();
         recommendMent.add("Science Fiction 장르의 인기");
         recommendMent.add("Comedy 장르의 인기");
@@ -35,10 +36,12 @@ public class RecommendService {
         recommendMent.add("Fantasy 장르의 인기");
         recommendMent.add("Horror 장르의 인기");
         recommendMent.add("Documentary 장르의 인기");
+         */
     }
 
+    /*
     public RecommendListV1 selectRecommend() {
-        recommend.simpleGenreRecommend("코미디");
+        recommend.simpleRecommend("");
         List<RecommendV1> list = recommendDao.selectRecommendV1();
         list.forEach(v -> {
             if (v.getPosterPath() != null)
@@ -46,22 +49,23 @@ public class RecommendService {
         });
         return new RecommendListV1(recommendMent.get((int) (Math.random() * recommendMent.size())), list);
     }
-
-    public RecommendListV1 selectGenreRecommend(String genre) {
-        return recommend.simpleGenreRecommend(genre);
+     */
+    public RecommendListV1 simpleRecommend() throws UnknownEnvironmentException, IOException {
+        return recommend.simpleRecommend();
     }
 
-    public String getRandomGenreByUsersPrefer(Long userNo) throws NothingToPrefException {
-        Movie movie = getRandomMovieByUsersPrefer(userNo);
-        String[] genreList = movie.getGenre().split(",");
-        return genreList[(int) Math.random() * genreList.length];
+    public RecommendListV1 simpleRecommendByGenre(String genre) throws UnknownEnvironmentException, IOException {
+        return recommend.simpleRecommendByGenre(genre);
     }
 
-    public Movie getRandomMovieByUsersPrefer(Long userNo) throws NothingToPrefException {
-        Movie movie = recommendDao.selectRandomMovieByUsersPrefer(userNo);
-        if (movie == null) {
+    public String getUsersRandomGenreByUsersPrefer(Integer userNo) throws NothingToPrefException {
+        DaumMovie dm = recommendDao.selectUsersRandomPreferMovie(userNo);
+        if(dm == null) {
+            // 선호하는 영화를 단 하나도 지정하지 않았을 경우
             throw new NothingToPrefException();
+        } else {
+            String[] genreList = dm.getGenre().split("/");
+            return genreList[(int)(Math.random() * genreList.length)];
         }
-        return movie;
     }
 }

@@ -5,6 +5,8 @@ import Qna from './views/qna/Qna.vue'
 import Home from './views/home.vue'
 import ActorDetail from './views/actor/ActorDetail.vue'
 import Mypage from './views/user/Mypage.vue'
+import Search from './views/search/Search.vue'
+
 export default [
  
     // {
@@ -15,7 +17,7 @@ export default [
 
 
     {
-        path : '/FeedDetail',
+        path : '/FeedDetail/:movieId',
         name : 'FeedDetail',
         component : FeedDetail
     },
@@ -44,6 +46,11 @@ export default [
         path : '/Mypage',
         name : 'Mypage',
         component : Mypage
+    },
+    {
+        path: '/search/:keyword',
+        name: 'Search',
+        component : Search
     }
   
 ]
