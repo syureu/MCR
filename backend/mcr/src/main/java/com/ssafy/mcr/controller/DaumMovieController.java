@@ -306,7 +306,8 @@ public class DaumMovieController {
 				for(DaumMovie tmp : list) {
 					tmp.setOverview("");
 				}
-				res.put(genre[m[i]], list);
+				res.put("mg"+i, list);
+				res.put("mt"+i, genre[m[i]]);
 			}
 			obj.add(res);
 			result.status = true;
@@ -345,7 +346,8 @@ public class DaumMovieController {
 				for(DaumMovie tmp : list) {
 					tmp.setOverview("");
 				}
-				res.put(genre[m[i]], list);
+				res.put("mg"+i, list);
+				res.put("mt"+i, genre[m[i]]);
 			}
 			obj.add(res);
 			result.status = true;
