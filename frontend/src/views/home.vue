@@ -141,7 +141,7 @@ export default {
       .catch(err => {
         alert(err)
       })
-       axios.get(`${URL.BASE_URL}/mcr/recommend/simple/random/${this.$store.getters.getUserData.userinfo.userNo}`)
+       axios.get(`${URL.BASE_URL}/mcr/recommend/${this.$store.getters.getUserData.userinfo.userNo}`)
             .then(res => {
                 console.log(res)
                 this.recommandMovie2.title= res.data.recommendMent
