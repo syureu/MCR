@@ -48,7 +48,6 @@ export default [
         name : 'Mypage',
         component : Mypage
     },
-
     {
         path: '/search/:keyword',
         name: 'Search',
