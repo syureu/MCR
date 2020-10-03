@@ -18,9 +18,9 @@
     </ul>
   </div> -->
   <div>
-    <span class="cursor_test" @click="gotomovie" data-toggle="modal" data-target="#exampleModal12">▼ Box Office</span>
+    <span class="cursor_test" @click="changeModal()" >▼ Box Office</span>
      <div class="rolling_box">
-       
+       <MovieChartModal v-if="Modal" @close="changeLogin" @change="changeModal" :rolling="this.rollingData"/>
       <ul id ="rolling_box">
         
         <li class="card_sliding" id ="first"><p></p></li>
@@ -42,18 +42,26 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <script>
+import MovieChartModal from '@/components/modal/MovieChartModal.vue'
 var convert = require('xml-js')
 export default {
   name: 'App',
   data () {
     return {
       items: [],
-      rollingData: ['',],
-     
+      rollingData: ['준비중입니다.',],
+      Modal:false
     }
-  },
+  },components:{
+    MovieChartModal
+       },
   created () {
-    this.$http.get('http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.xml?key=424e2b88162e9154ee09a8a4d8e5bf3a&targetDt=20200925')
+    let today = new Date(); 
+
+    let year = today.getFullYear(); // 년도
+    let month = today.getMonth() + 1;  // 월
+    let apidate = year+''+month+'01'
+    this.$http.get('http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.xml?key=424e2b88162e9154ee09a8a4d8e5bf3a&targetDt='+apidate)
       .then((response) => {
         var xml = response.data
       
@@ -77,7 +85,7 @@ export default {
                             
                           ]    
                         
-      }, 2500);
+      }, 3500);
   
       
   },
@@ -85,10 +93,16 @@ export default {
     gotomovie(){
       
         console.log(document.getElementById('rolling_box').children[listCnt].children[0].innerHTML)
-    }
+    },
+     changeLogin () {
+          this.Modal = !this.Modal
+      },
+      changeModal(){
+        this.Modal = !this.Modal
+      }
   },
   mounted () {
-    
+
         
       
     
