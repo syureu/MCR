@@ -80,7 +80,6 @@ public class DaumReviewController {
 			int count = dm.getCount();
 			double rate = dm.getRate();
 			double tmp = (rate * count + daumReview.getRate())/(count+1);
-			System.out.println(tmp);
 			dm.setRate(tmp);
 			dm.setCount(count+1);
 			daumReview.setRegtime(time.toString());
@@ -145,14 +144,13 @@ public class DaumReviewController {
 	public Object updateReview(@RequestBody DaumReview daumReview) {
 		ResponseEntity response = null;
 		final BasicResponse result = new BasicResponse();
-		try {
-			daumReviewService.updateDaumReview(daumReview);
+		try {			
 			DaumReview target = daumReviewService.getDaumReviewByNo(daumReview.getMovieId(), daumReview.getUserNo());
+			daumReviewService.updateDaumReview(daumReview);
 			DaumMovie dm = daumMovieService.getDaumMovieBymovieId(daumReview.getMovieId());
 			int count = dm.getCount();
 			double rate = dm.getRate();
 			double tmp = (rate * count - target.getRate() + daumReview.getRate())/(count);
-			System.out.println(tmp);
 			dm.setRate(tmp);
 			daumMovieService.updateDaumMovieRate(dm);
 			result.status = true;
