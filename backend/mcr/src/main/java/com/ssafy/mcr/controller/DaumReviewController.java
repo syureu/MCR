@@ -286,6 +286,7 @@ public class DaumReviewController {
 			double tmp = (prerate * precount - dr.getRate())/(precount-1);
 			System.out.println(tmp);
 			dm.setRate(tmp);
+			dm.setCount(precount-1);
 			daumMovieService.updateDaumMovieRate(dm);
 			daumReviewService.deleteDaumReview(movieId, userNo);
 			result.status = true;

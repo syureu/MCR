@@ -48,7 +48,7 @@
 	
 	<update id="updateDaumMovieRate" parameterType="DaumMovie">
 		update daum_movie
-		set rate = #{rate}
+		set rate = #{rate},
 			count = #{count}
 		where
 			movie_id = #{movieId}
