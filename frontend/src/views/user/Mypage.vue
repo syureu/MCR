@@ -123,8 +123,7 @@
 								<p v-if="this.movie_like.length == 0">좋아하는 영화 정보가 없어요, 영화에 좋아요를 눌러보세요</p>
 								<li v-for="movie in movie_like" :key="movie.movieId">
 									<img :src="movie.imgUrl" width="130" height="150" alt="" @click="$router.push({name: 'FeedDetail', params: {movieId: movie.movieId}})" >
-									<h4 style="width:130px; margin:0 auto; display:flex; align-items: center;
-  justify-content: center; ">{{ movie.title }}</h4>  
+									<h4 style="width:130px; margin:0 auto; display:flex; align-items: center; justify-content: center; ">{{ movie.title }}</h4>  
 								</li>
 								
 							</ul>
