@@ -29,8 +29,10 @@
 
         </div>
       </nav>
-         <!-- Modal -->     
+         <!-- Modal --> 
+          
     </div>
+    
 </template>
 <script>
 

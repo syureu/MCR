@@ -7,7 +7,8 @@
         <label id="lab" for="" >내평점</label> <button id="togglebtn" @click="changetoggle">{{ name }}</button>
         </div>
         <div id="incontainer" v-if="toggle==true" >
-        <StarRating class="starR" v-model="revitem.rate"  :star-size="40" v-bind:max-rating="10" :show-rating="temp"/>
+        <StarRating class="starR" style="float:left;" v-model="revitem.rate"  :star-size="40" v-bind:max-rating="10" :show-rating="temp"/> 
+        <button @click="zerorating" style="float:left; background-color: transparent; border:0; margin-left: 5px; margin-top:10px;">0점</button>
         <textarea id="revcontent" v-model="revitem.content"></textarea>
         <button v-if="this.revcheck == true" class="revbutton" @click="updaterev" >수정</button>
         <button v-else class="revbutton" @click="writerev">작성</button>
@@ -69,6 +70,9 @@ export default {
                 location.reload()
 
             })
+        },
+        zerorating() {
+            this.revitem.rate = 0;
         }
     },
     created() {

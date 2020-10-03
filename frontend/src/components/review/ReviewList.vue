@@ -376,19 +376,34 @@ export default {
   padding: 0 1rem;
 }
 .revContent{
-    white-space: normal;
     line-height: 1.2;
     height: 3.6em;
     width:95%;
     display: inline-block;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    overflow-y:auto;
+    padding-right:1vw;
     font-size: 1.2vw;
+    word-break:break-all;
 }
 .wordDiv{
     width:45%;
     height: 50vh;
 }
+
+.revContent::-webkit-scrollbar {
+    width: 10px;
+  }
+  .revContent::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  .revContent::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
 
 
 </style>

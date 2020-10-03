@@ -122,7 +122,7 @@
 
         <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
 
-          <div class="col-lg-3 col-md-6 portfolio-item filter-web" v-for="movie in movieInfo" :key="movie.movieId">
+          <div class="col-lg-3 col-md-6 portfolio-item filter-web" v-for="movie in movieInfo" :key="movie.movieId" >
             <div class="portfolio-wrap" @click="$router.push({name: 'FeedDetail', params: {movieId: movie.movieId}})">
               <img  v-if="movie.imgUrl==''" src="https://png.pngtree.com/png-vector/20191001/ourlarge/pngtree-man-icon-isolated-on-abstract-background-png-image_1769021.jpg" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" class="img-fluid" alt="">
               <img width=100% v-else :src="movie.imgUrl"  class="img-fluid" alt="">

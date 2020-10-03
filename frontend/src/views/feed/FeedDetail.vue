@@ -16,7 +16,7 @@
         <div class="row">
           
           <div class="col-xl-4 col-lg-5" data-aos="fade-up">
-            <div class="scroll-c " style="overflow-y:scroll; height: 500px;">
+            <div class="scroll-c " style="overflow-y:auto; height: 500px;">
             <div class="content">
               <h3>줄거리</h3>
               <p>
@@ -131,14 +131,14 @@
           <h3 data-aos="fade-up">Team</h3>
           <p data-aos="fade-up">"{{this.movieDetail.movieName}}" 영화의 감독 , 출연한 배우들, 스태프들 입니다.</p>
         </div>
-        <div class="scroll-c " style="overflow-y:scroll; height: 500px;">
+        <div class="scroll-c " style="overflow-y:auto; height: 500px;">
         <div class="row">
 
           <div class="col-lg-3 col-md-3 d-flex" style="width: 30%" data-aos="fade-up" v-for="actor in actorList" :key="actor.personId">
             <div class="member">
               <div class="member-img">
-                <img style="width:120px; height:200px;" v-if="actor.imgUrl==''" src="https://png.pngtree.com/png-vector/20191001/ourlarge/pngtree-man-icon-isolated-on-abstract-background-png-image_1769021.jpg" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" alt="">
-                <img v-else :src="actor.imgUrl" alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
+                <img width="150" height="200" v-if="actor.imgUrl==''" src="https://png.pngtree.com/png-vector/20191001/ourlarge/pngtree-man-icon-isolated-on-abstract-background-png-image_1769021.jpg" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" alt="">
+                <img width="150" height="200" v-else :src="actor.imgUrl" alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
                 <div class="social">
                   <a href=""><i class="icofont-twitter"></i></a>
                   <a href=""><i class="icofont-facebook"></i></a>
@@ -147,7 +147,8 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>{{ actor.actorName }}</h4>
+                <h4 style="width:130px; margin:0 auto; display:flex; align-items: center;
+  justify-content: center;">{{ actor.actorName }}</h4>
                 <span>{{ actor.casting }}</span>
               </div>
             </div>
