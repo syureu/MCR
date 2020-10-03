@@ -106,6 +106,8 @@ a :hover {
         align-items: center;
         font-family: 'Hanna', sans-serif;
 }
+
+
 .card-cover:hover{
     background-color: rgba(0,0,0,0.5);
         color: whitesmoke;
