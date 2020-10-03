@@ -74,8 +74,8 @@ public class DaumMovieController {
 	DaumUserMovieService daumUserMovieService;
 
 	//sf,미스터리, 로맨스, 범죄, 액션, 스릴러, 공포, 드라마 애니메이션, 멜로, 판타지, 다큐멘터리, 어드벤쳐, 전쟁, 뮤지컬, 가족
-	private static String[] genreKorea = {"멜로","미스터리","로맨스","범죄","액션","스릴러","공포","드라마","애니메이션","멜로","판타지", "다큐멘터리", "전쟁", "뮤지컬", "가족"};
-	private static String[] genreForeign = {"멜로","미스터리","로맨스","범죄","액션","스릴러","공포","드라마","애니메이션","멜로","판타지", "다큐멘터리", "어드벤처", "전쟁", "뮤지컬", "가족"};
+	private static String[] genreKorea = {"멜로","미스터리","범죄","액션","스릴러","공포","드라마","애니메이션","멜로","판타지", "다큐멘터리", "전쟁", "뮤지컬", "가족"};
+	private static String[] genreForeign = {"멜로","미스터리","범죄","액션","스릴러","공포","드라마","애니메이션","멜로","판타지", "다큐멘터리", "어드벤처", "전쟁", "뮤지컬", "가족"};
 
 	private static String MovieURL = "https://movie.daum.net/moviedb/main?movieId=";
 	//	@ApiOperation(value="영화를 디비에 생성합니다.")
@@ -307,8 +307,13 @@ public class DaumMovieController {
 				for(DaumMovie tmp : list) {
 					tmp.setOverview("");
 				}
+				if(genreKorea[m[i]].equals("멜로")) {
+					res.put("mt"+i, "로맨스/멜로");					
+				}else{
+					res.put("mt"+i, genreKorea[m[i]]);					
+					
+				}
 				res.put("mg"+i, list);
-				res.put("mt"+i, genreKorea[m[i]]);
 			}
 			obj.add(res);
 			result.status = true;
