@@ -47,6 +47,13 @@ export default {
                 Movie2:[],
 
             },
+             recommandMovie3:{
+                title:"",
+                Movie1:[],
+                Movie2:[],
+
+            },
+            genre:["액션",]
             
         }
     },
@@ -56,7 +63,6 @@ export default {
                 this.isLogin()
                
             }
-            
             return this.$store.getters.isLoggedIn
         }
        
@@ -83,7 +89,8 @@ export default {
                         this.recommandMovie.Movie1.push({
                             "id":res.data.object.movies[i]["movieId"],
                             "posterPath":res.data.object.movies[i]["imgUrl"],
-                            "title":res.data.object.movies[i]["movieName"]
+                            "title":res.data.object.movies[i]["movieName"],
+                            
                         })
                     }
                    else{
@@ -93,7 +100,8 @@ export default {
                         this.recommandMovie.Movie2.push({
                             "id":res.data.object.movies[i]["movieId"],
                             "posterPath":res.data.object.movies[i]["imgUrl"],
-                            "title":res.data.object.movies[i]["movieName"]
+                            "title":res.data.object.movies[i]["movieName"],
+                      
                         })
                     }
                 }
