@@ -16,7 +16,7 @@
               
          
         <button @click="signup"
-        style="background-color: transparent"   
+        style="background-color: transparent;"   
         >
           <h2 style="color: white;">지금 가입하기</h2>
         </button>
