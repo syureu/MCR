@@ -176,8 +176,7 @@ public class DaumMovieController {
 		try {
 			//			daumMovieService.addScore(daumMovie);
 			DaumMovie dm = daumMovieService.getDaumMovieBymovieId(daumMovie.getMovieId());
-			dm.setRate(Math.round(dm.getRate()));
-
+			dm.setRate(Math.round((dm.getRate()) * 10) / 10.0);
 			result.status = true;
 			result.data = "success";
 			result.object = dm;
@@ -198,6 +197,9 @@ public class DaumMovieController {
 		final BasicResponse result = new BasicResponse();
 		try {
 			List<DaumMovie> list = daumMovieService.getDaumMovieByTitle(title);
+			for(DaumMovie dm : list) {
+				dm.setRate(Math.round((dm.getRate()) * 10) / 10.0);
+			}
 			result.status = true;
 			result.data = "success";
 			result.object = list;
@@ -219,6 +221,9 @@ public class DaumMovieController {
 		try {
 			Paging paging = new Paging(title, page * 30);
 			List<DaumMovie> list = daumMovieService.getLimit30(paging);
+			for(DaumMovie dm : list) {
+				dm.setRate(Math.round((dm.getRate()) * 10) / 10.0);
+			}
 			result.status = true;
 			result.data = "success";
 			result.object = list;
@@ -239,6 +244,9 @@ public class DaumMovieController {
 		final BasicResponse result = new BasicResponse();
 		try {
 			List<DaumMovie> list = daumMovieService.getLimit10ByScore();
+			for(DaumMovie dm : list) {
+				dm.setRate(Math.round((dm.getRate()) * 10) / 10.0);
+			}
 			String title = "실시간 인기있는 영화 TOP 10";
 			SearchMovie10 movies = new SearchMovie10();
 			movies.setMovies(list);
@@ -271,6 +279,9 @@ public class DaumMovieController {
 			SearchMovie10 movies = new SearchMovie10();
 			movies.setMovies(list);
 			movies.setTitle(title);
+			for(DaumMovie dm : movies.getMovies()) {
+				dm.setRate(Math.round((dm.getRate()) * 10) / 10.0);
+			}
 			result.status = true;
 			result.data = "success";
 			result.object = movies;
@@ -306,6 +317,7 @@ public class DaumMovieController {
 				list = daumMovieService.getKoreaMovieByGenre(genreKorea[m[i]]);
 				for(DaumMovie tmp : list) {
 					tmp.setOverview("");
+					tmp.setRate(Math.round((tmp.getRate()) * 10) / 10.0);
 				}
 				if(genreKorea[m[i]].equals("멜로")) {
 					res.put("mt"+i, "로맨스/멜로");					
@@ -351,6 +363,7 @@ public class DaumMovieController {
 				list = daumMovieService.getForeignMovieByGenre(genreForeign[m[i]]);
 				for(DaumMovie tmp : list) {
 					tmp.setOverview("");
+					tmp.setRate(Math.round((tmp.getRate()) * 10) / 10.0);
 				}
 				res.put("mg"+i, list);
 				res.put("mt"+i, genreForeign[m[i]]);
