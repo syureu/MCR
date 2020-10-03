@@ -134,7 +134,7 @@ export default {
   float:left;
 }
 .mid-nav{
-  grid-area:mc;
+  
   
 }
 .mid-nav input{
@@ -167,7 +167,6 @@ export default {
 }
 
 .sub-nav {
-  grid-area: sb;
   padding: 0 3.5vw 0 3.5vw;
 }
 

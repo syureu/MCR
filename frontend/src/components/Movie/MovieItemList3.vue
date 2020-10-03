@@ -1,8 +1,8 @@
 <template>
     <div id="content">
         <h1 id="movies" style="font-family: 'Hanna', sans-serif;" v-text="name"></h1>
-        <div id="dynamicId1" class="carousel slide" data-ride="carousel">
-        <div id="ele" class="carousel-inner">
+        <div id="dynamicId3" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
                <div  class="carousel-item active" >
                     <div class="row" >
                     <div class="col" v-for="movie in movies1" :key="movie.id">
@@ -25,11 +25,11 @@
                </div>
     
         </div>
-     <a class="carousel-control-prev" href="#dynamicId1" role="button" data-slide="prev">
+     <a class="carousel-control-prev" href="#dynamicId3" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
     </a>
-  <a class="carousel-control-next" href="#dynamicId1" role="button" data-slide="next">
+  <a class="carousel-control-next" href="#dynamicId3" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
@@ -122,6 +122,9 @@ a :hover {
 .card-cover:hover{
     background-color: rgba(0,0,0,0.5);
         color: whitesmoke;
+}
+h1{
+    color:aliceblue;
 }
 
 

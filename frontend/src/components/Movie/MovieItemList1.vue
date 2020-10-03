@@ -123,6 +123,9 @@ a :hover {
     background-color: rgba(0,0,0,0.5);
         color: whitesmoke;
 }
+h1{
+    color:aliceblue;
+}
 
 
 </style>

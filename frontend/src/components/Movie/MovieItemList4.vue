@@ -1,15 +1,14 @@
 <template>
     <div id="content">
         <h1 id="movies" style="font-family: 'Hanna', sans-serif;" v-text="name"></h1>
-        <div id="dynamicId" class="carousel slide" data-ride="carousel">
-        <div id="ele" class="carousel-inner">
+        <div id="dynamicId4" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
                <div  class="carousel-item active" >
                     <div class="row" >
                     <div class="col" v-for="movie in movies1" :key="movie.id">
                         <a href=""><img :src="movie.posterPath" class="d-block" style="width:240px; height:350px"  alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
                         <div class="card-cover" @click="changeDeatil(movie.id)">
                             <h3 v-text="movie.title"></h3>
-                            <h2 v-text="movie.rate"></h2>
                         </div>
                     </div>
                     </div>
@@ -20,18 +19,17 @@
                         <a href=""><img :src="movie.posterPath" class="d-block" style="width:240px; height:350px" alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
                         <div class="card-cover" @click="changeDeatil(movie.id)">
                             <h3 v-text="movie.title"></h3>
-                            <h2 v-text="movie.rate"></h2>
                         </div>
                     </div>
                     </div>
                </div>
     
         </div>
-     <a class="carousel-control-prev" href="#dynamicId" role="button" data-slide="prev">
+     <a class="carousel-control-prev" href="#dynamicId4" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
     </a>
-  <a class="carousel-control-next" href="#dynamicId" role="button" data-slide="next">
+  <a class="carousel-control-next" href="#dynamicId4" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
@@ -62,6 +60,21 @@ export default {
          
             this.$router.push(`/feedDetail/${id}`)
         },
+        changeimg(){
+            var menuBtn1 = document.getElementById("ele").firstElementChild;
+            var menuBtn2 = document.getElementById("ele").lastElementChild;
+            if(menuBtn1.className=="carousel-item active"){
+                menuBtn1.className="carousel-item"
+                menuBtn2.className="carousel-item active"
+            }
+            else{
+                menuBtn1.className="carousel-item active"
+                menuBtn2.className="carousel-item"
+            }
+           
+            
+            console.log(menuBtn1);
+        }
     },computed:{
 
     }
@@ -95,7 +108,7 @@ a :hover {
 .card-cover{
     position: absolute;
         top: 0;
-        left: 0;
+        left: 15px;
         width: 100%;
         height: 100%;
         background-color: transparent;

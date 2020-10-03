@@ -60,21 +60,7 @@ export default {
          
             this.$router.push(`/feedDetail/${id}`)
         },
-        changeimg(){
-            var menuBtn1 = document.getElementById("ele").firstElementChild;
-            var menuBtn2 = document.getElementById("ele").lastElementChild;
-            if(menuBtn1.className=="carousel-item active"){
-                menuBtn1.className="carousel-item"
-                menuBtn2.className="carousel-item active"
-            }
-            else{
-                menuBtn1.className="carousel-item active"
-                menuBtn2.className="carousel-item"
-            }
-           
-            
-            console.log(menuBtn1);
-        }
+      
     },computed:{
 
     }
@@ -122,6 +108,9 @@ a :hover {
 .card-cover:hover{
     background-color: rgba(0,0,0,0.5);
         color: whitesmoke;
+}
+h1{
+    color:aliceblue;
 }
 
 

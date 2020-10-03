@@ -1,7 +1,18 @@
 <template>
     <div id ="revListcontainer">
+        
         <vue-confirm-dialog></vue-confirm-dialog>
-        <div id="app">
+        <div id="app" style="margin-top:7vh;">
+            <div style="width:100%;">
+                <div style="width:48%; float:left;">
+                    <h1 style="float:left; padding:2vw; font-size:3vw;">긍정적 리뷰</h1>
+                </div>
+                <div style="width:48%; float:right;">
+                    <h1 style="float:left; padding:2vw; font-size:3vw;">부정적 리뷰</h1>
+
+                </div>
+            </div>
+            <div style="clear:both;"></div>
         <div class ="wordDiv" style="float:left;">
         <wordcloud
       :data="defaultWords"

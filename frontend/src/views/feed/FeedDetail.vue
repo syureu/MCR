@@ -949,7 +949,7 @@ section {
   border-radius: 10px;
   background: #fff;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
-  padding: 3.5vh 3.0vw;
+  padding: 8vh 4.5vw;
   width: 100%;
 }
 
@@ -960,7 +960,7 @@ section {
 }
 
 .why-us .icon-boxes .icon-box h4 {
-  font-size: 2vw;
+  font-size: 1.6vw;
   font-weight: 700;
   margin: 0 0 3vh 0;
 }

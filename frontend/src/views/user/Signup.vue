@@ -25,9 +25,10 @@
                             placeholder="ID를 입력하세요."
                             type="text"
                             :rules="[rules.required]" >
-                   <button class="" type="button" style="position: absolute; left: 50%; transform: translateX(-50%);" @click="check_id">ID 중복체크</button>
+                   <button class="" type="button" style="position: relative; margin-top:5px; margin-bottom:10px; border-radius: .25rem; float:right; transform: translateX(-50%);" @click="check_id">ID 중복체크</button>
                   
                 </div>
+                <div style="clear:both;"></div>
                 <div class="form-group">
                     <label for="password" style="color: white">비밀번호</label>
                     <input  class="form-control pb_height-50 " 
