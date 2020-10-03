@@ -16,6 +16,7 @@
          <a href="" @click="searchKeywords"><i class="fas fa-search sub-nav-logo"></i></a>
         </div>
       </nav>
+      <Chartmovie/>
       <nav class="sub-nav">
         <div v-if="!isLoggedIn">
         <!-- <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a> -->
@@ -27,16 +28,19 @@
                     <a  @click="logout">로그아웃</a>
 
         </div>
-      </nav>      
+      </nav>
+         <!-- Modal -->     
     </div>
 </template>
 <script>
 
 import LoginModal from '@/components/modal/LoginModal.vue'
+import Chartmovie from '@/components/navbar/Chartmovie.vue'
 export default {
     name : 'Navbar',
     components:{
-      LoginModal
+      LoginModal,
+      Chartmovie
     },
     data(){
       return {

@@ -18,18 +18,21 @@
     </ul>
   </div> -->
   <div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <span class="cursor_test" @click="gotomovie" data-toggle="modal" data-target="#exampleModal12">▼ Box Office</span>
      <div class="rolling_box">
+       
       <ul id ="rolling_box">
+        
         <li class="card_sliding" id ="first"><p></p></li>
         <li class="" id ="second"><p></p></li>
         <li class="" id ="third"><p></p></li>
       </ul>
+     
     </div>
+
+
+
+
     </div>
       
 
@@ -45,7 +48,8 @@ export default {
   data () {
     return {
       items: [],
-      rollingData: [],
+      rollingData: ['',],
+     
     }
   },
   created () {
@@ -58,6 +62,7 @@ export default {
       
       })
       setTimeout(() => {
+       
         this.rollingData = [
                             this.items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice[0].movieNm._text,
                             this.items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice[1].movieNm._text,
@@ -71,16 +76,23 @@ export default {
                             this.items.boxOfficeResult.dailyBoxOfficeList.dailyBoxOffice[9].movieNm._text
                             
                           ]    
-      }, 2000);
-      console.log(this.items)
+                        
+      }, 2500);
+  
       
+  },
+  methods: {
+    gotomovie(){
+      
+        console.log(document.getElementById('rolling_box').children[listCnt].children[0].innerHTML)
+    }
   },
   mounted () {
     
         
       
     
-        let timer = 2000 // 롤링되는 주기 입니다 (1000 => 1초)
+        let timer = 2500 // 롤링되는 주기 입니다 (1000 => 1초)
 
         let first = document.getElementById('first'),
             second = document.getElementById('second'),
@@ -143,7 +155,7 @@ export default {
                 listCnt = 0
             }
 
-            console.log(listCnt)
+
         }, timer);
   }
 }
@@ -151,29 +163,39 @@ export default {
 
 </script>
 <style scoped>
+.cursor_test {cursor: pointer;}
+span{
+  color: white;
+}
+span:hover {color: red; text-decoration: underline;}
+ul{
+   list-style:none;
+
+   }
+
 .rolling_box{
-            width: 24vw;
-            height: 7vh;
+            width: 14vw;
+            height: 5vh;
             text-align: center;
-            border: 1px solid #848484;
+          
         }
 
         .rolling_box ul {
-            width: 100%;
+            
             height: 100%;
             overflow: hidden;
             position: relative;
         }
 
         .rolling_box ul li {
-            width: 100%;
+           
             height: 100%;
             transition: .5s;
             position:absolute;
             transition: top .75s;
             top: 100%;
             z-index: 1;
-            background-color: #ffffff;
+            background-color: black;
         }
 
         .card_sliding{
@@ -187,8 +209,9 @@ export default {
         }
 
         .rolling_box ul li p {
-            font-size: 20px;
-            line-height: 30px;
+          color: aliceblue;
+            font-size: 1vw;
+            line-height: 5vh;
             font-weight: bold;
         }
 
