@@ -1,6 +1,5 @@
 import main from './views/main.vue'
 import FeedDetail from './views/feed/FeedDetail.vue'
-import Chartmovie from './views/feed/Chartmovie.vue'
 import Signup from './views/user/Signup.vue'
 import Qna from './views/qna/Qna.vue'
 import Home from './views/home.vue'
@@ -49,11 +48,7 @@ export default [
         name : 'Mypage',
         component : Mypage
     },
-    {
-        path : '/Chartmovie',
-        name : 'Chartmovie',
-        component : Chartmovie
-    },
+
     {
         path: '/search/:keyword',
         name: 'Search',
