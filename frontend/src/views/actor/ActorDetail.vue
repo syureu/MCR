@@ -7,7 +7,7 @@
   <header id="header">
     <div class="d-flex flex-column">
       <div class="netflixLogo">
-        <a id="logo" href="/"><img src="../../assets/logo.png" alt="Logo Image"></a>
+        <a id="logo" href="/home"><img src="../../assets/logo.png" alt="Logo Image"></a>
       </div>
       <div class="profile">
         <img :src="getImgUrl" alt="" class="img-fluid rounded-circle">
