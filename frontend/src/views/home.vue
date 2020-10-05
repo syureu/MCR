@@ -86,7 +86,6 @@ export default {
             params : {page:`${this.page}`}
     })
        .then(res=> {
-         console.log(res)
          setTimeout(()=>{
            if(res.data.object.movies.length===30){
              this.recommandMovie = this.recommandMovie.concat(res.data.object.movies);
@@ -103,6 +102,10 @@ export default {
         
        })
     },
+     changeDeatil(id){
+            this.$router.push(`/feedDetail/${id}`)
+        }
+    
     },
     mounted(){
         axios.get(`${URL.BASE_URL}/mcr/daummovie/searchrank`,{
