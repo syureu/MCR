@@ -4,8 +4,9 @@
             <div class="location" id="home">
             <MovieItemList2 :name="recommandMovie2.title" :movies1="recommandMovie2.Movie1" :movies2="recommandMovie2.Movie2"/>
             <MovieItemList1 :name="recommandMovie1.title" :movies1="recommandMovie1.Movie1" :movies2="recommandMovie1.Movie2"/>
+            <MovieItemList v-if="isNull" :name="recommandMovie3.title" :movies1="recommandMovie3.Movie1" :movies2="recommandMovie3.Movie2"/>
              <div class="card-list">
-                <h1 style="font-family: 'Hanna', sans-serif;">평점순 영화리스트</h1>
+                <h1 style="font-family: 'Hanna', sans-serif;">MCR 인기영화</h1>
          <div class="search-result-card col-12 col-md-6 col-xl-2 font-kor" v-for="movie in recommandMovie" :key="movie.id">
                 <div @click="changeDeatil(movie.movieId)" class="card-img">
                   <img :src="movie.imgUrl"  alt="영화 이미지"  />
@@ -28,7 +29,7 @@
     </div>
 </template>
 <script>
-// import MovieItemList from '@/components/Movie/MovieItemList.vue'
+import MovieItemList from '@/components/Movie/MovieItemList.vue'
 import MovieItemList1 from '@/components/Movie/MovieItemList1.vue'
 import MovieItemList2 from '@/components/Movie/MovieItemList2.vue'
 import InfiniteLoading from 'vue-infinite-loading'
@@ -39,7 +40,7 @@ import URL from '@/util/http-common.js'
 export default {
     name : 'Home',
     components:{        
-        // MovieItemList,
+        MovieItemList,
         MovieItemList1,
         MovieItemList2,
         InfiniteLoading
@@ -66,7 +67,8 @@ export default {
                 Movie2:[],
 
             },
-            page:0
+            page:0,
+            isNull:true
             
         }
     },
@@ -132,7 +134,42 @@ export default {
                 }
             })
         }
-        
+      axios.get(`${URL.BASE_URL}/mcr/recommand/similarity/${this.$store.getters.getUserData.userinfo.userNo}`)
+      .then(res => {
+          if(res.object.length!=0){
+              this.recommandMovie3.title=res.data.recommendMent
+                 for(let i in res.data.list){
+                    if(i<5){
+                        if(res.data.list[i]["posterPath"]==null){
+                            res.data.list[i]["posterPath"]="https://lh3.googleusercontent.com/proxy/9wQzg7yuLhQhSzSpg7Th3FJP6TuMm1QA-B1wCaoCsedHu-Qu6BPlfnM7PFJhpiguuV1AlHeKSpFx3nKyej0--MYp-P3MXpq1Tz0gy0uJI1nK85hOVQlHRv6__qE";
+                        }
+                        this.recommandMovie3.Movie1.push({
+                            "id":res.data.list[i]["id"],
+                            "posterPath":res.data.list[i]["posterPath"],
+                            "title":res.data.list[i]["title"]
+                        })
+                    }
+                   else{
+                        if(res.data.list[i]["posterPath"]==null){
+                            res.data.list[i]["posterPath"]="https://lh3.googleusercontent.com/proxy/9wQzg7yuLhQhSzSpg7Th3FJP6TuMm1QA-B1wCaoCsedHu-Qu6BPlfnM7PFJhpiguuV1AlHeKSpFx3nKyej0--MYp-P3MXpq1Tz0gy0uJI1nK85hOVQlHRv6__qE";
+                        }
+                        this.recommandMovie3.Movie2.push({
+                            "id":res.data.list[i]["id"],
+                            "posterPath":res.data.list[i]["posterPath"],
+                            "title":res.data.list[i]["title"]
+                        })
+                    }
+                }
+          }
+          else{
+              this.isNull=false
+          }
+
+      }) 
+      .catch(err=>{
+          this.isNull=false
+         console.log(err)
+      }) 
       axios.get(`${URL.BASE_URL}/mcr/daummovie/likerank`)
             .then(res => {
                 this.recommandMovie1.title= res.data.object.title
