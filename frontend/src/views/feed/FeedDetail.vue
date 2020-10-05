@@ -2705,6 +2705,14 @@ section {
   text-decoration: none;
 }
 
+.team .member .member-info h4{
+  width:150px;
+}
+
+.team .member .member-info span{
+  width:150px;
+}
+
 @media screen and (max-width: 995px) {
   .member-img img{
     width: 130px;
