@@ -100,6 +100,7 @@ public class RecommendController {
                 return new ResponseEntity<>(recommendService.recommendBySimilarity(usersPreferMovie), HttpStatus.OK);
             } else {
                 // 추천 불가능하면 No Content
+                System.out.println(userNo + "번 회원의 " + usersPreferMovie.getMovieId() + "는 추천이 불가능 합니다.");
                 return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
             }
         } catch (NothingToPrefException e) {
