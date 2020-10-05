@@ -42,8 +42,8 @@ public class DaumMovieServiceImpl implements DaumMovieService{
 	}
 
 	@Override
-	public List<DaumMovie> getLimit10ByScore() {
-		return daumMovieDao.selectLimit10ByScore();
+	public List<DaumMovie> getLimit10ByScore(int page) {
+		return daumMovieDao.selectLimit10ByScore(page);
 	}
 
 	@Override
@@ -59,6 +59,11 @@ public class DaumMovieServiceImpl implements DaumMovieService{
 	@Override
 	public List<DaumMovie> getForeignMovieByGenre(String genre) {
 		return daumMovieDao.selectForeignMovieByGenre(genre);
+	}
+
+	@Override
+	public int getDaumMovieIdByTitle(String title) {
+		return daumMovieDao.selectDaumMovieIdByTitle(title);
 	}
 
 }

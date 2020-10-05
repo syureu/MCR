@@ -165,6 +165,27 @@ public class DaumMovieController {
 		response = new ResponseEntity<>(result, HttpStatus.OK);
 		return response;
 	}
+	
+	@ApiOperation(value="해당 영화 ID를 리턴합니다.")
+	@GetMapping("/returnidbytitle")
+	public Object SelectDaumMovieByTitle(@RequestParam String title) {
+		ResponseEntity response = null;
+		System.out.println("제목넣으면 아이디 호출 진입");
+		final BasicResponse result = new BasicResponse();
+		//여기서 카운트올리세요
+		try {
+			int movieId = daumMovieService.getDaumMovieIdByTitle(title);
+			result.status = true;
+			result.data = "success";
+			result.object = movieId;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.status = true;
+			result.data = "fail";
+		}
+		response = new ResponseEntity<>(result, HttpStatus.OK);
+		return response;
+	}
 
 	@ApiOperation(value="해당 영화 정보를 리턴합니다.")
 	@PostMapping("/upscore")
@@ -238,16 +259,16 @@ public class DaumMovieController {
 
 	@ApiOperation(value="영화 검색 10위를 가져옵니다.")
 	@GetMapping("/searchrank")
-	public Object getSearchRank() {
+	public Object getSearchRank(@RequestParam int page) {
 		List<Object> obj = new ArrayList<Object>();
 		ResponseEntity response = null;
 		final BasicResponse result = new BasicResponse();
 		try {
-			List<DaumMovie> list = daumMovieService.getLimit10ByScore();
+			List<DaumMovie> list = daumMovieService.getLimit10ByScore(page);
 			for(DaumMovie dm : list) {
 				dm.setRate(Math.round((dm.getRate()) * 10) / 10.0);
 			}
-			String title = "실시간 인기있는 영화 TOP 10";
+			String title = "실시간 인기있는 영화들";
 			SearchMovie10 movies = new SearchMovie10();
 			movies.setMovies(list);
 			movies.setTitle(title);

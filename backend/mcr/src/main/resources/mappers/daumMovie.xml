@@ -91,7 +91,7 @@
 			#{page}, 30
 	</select>
 	
-	<select id="selectLimit10ByScore" resultType="DaumMovie">
+	<select id="selectLimit10ByScore" parameterType="Integer" resultType="DaumMovie">
 		select 
 			* 
 		from 
@@ -99,7 +99,16 @@
 		order by
 			score desc 
 		limit 
-			10
+			#{page}, 30
+	</select>
+	
+	<select id="selectDaumMovieIdByTitle" parameterType="String" resultType="Integer">
+		select
+			movie_id
+		from
+			daum_movie
+		where
+			movie_name = #{title}
 	</select>
 	
 	<select id="selectKoreaMovieByGenre" parameterType="String" resultType="DaumMovie">

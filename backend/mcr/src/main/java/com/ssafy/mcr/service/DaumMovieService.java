@@ -10,9 +10,10 @@ public interface DaumMovieService {
 	public void updateDaumMovieRate(DaumMovie daumMovie);
 	public void addScore(DaumMovie daumMovie);
 	public DaumMovie getDaumMovieBymovieId(int movieId);
+	public int getDaumMovieIdByTitle(String title);
 	public List<DaumMovie> getDaumMovieByTitle(String title);
 	public List<DaumMovie> getLimit30(Paging paging);
-	public List<DaumMovie> getLimit10ByScore();
+	public List<DaumMovie> getLimit10ByScore(int page);
 	public List<DaumMovie> getKoreaMovieByGenre(String genre);
 	public List<DaumMovie> getForeignMovieByGenre(String genre);
 }
