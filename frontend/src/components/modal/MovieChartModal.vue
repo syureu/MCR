@@ -50,7 +50,6 @@ export default {
         }
         )
         .then(res => {
-            console.log(res.data.object[0].movieId)
            this.moN = res.data.object[0].movieId
            this.gogo()
         
@@ -62,8 +61,7 @@ export default {
         })
      },
      gogo() {
-         console.log(this.moN)
-         console.log(this.$router.push({name: 'FeedDetail', params: {movieId: this.moN}}))
+         this.$router.push({name: 'FeedDetail', params: {movieId: this.moN}})
          this.modalclose()
          location.reload()
          
