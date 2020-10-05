@@ -106,6 +106,7 @@ public class RecommendController {
         } catch (NothingToPrefException e) {
             // 선호하는 영화가 없을 경우
             // 클라이언트에서 추천할게 없다고 반응할 수 있도록 No Content 처리
+            System.out.println(userNo + "는 선호하는 영화가 없어 보입니다.");
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (UnknownEnvironmentException e) {
             e.printStackTrace();

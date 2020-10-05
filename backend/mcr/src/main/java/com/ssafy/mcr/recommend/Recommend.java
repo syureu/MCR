@@ -146,8 +146,10 @@ public class Recommend {
             list.add(rv1);
         }
 
+        System.out.println(dm);
+
         return new RecommendListV1(
-                dm.getMovieName() + " 와 유사한 추천 영화",
+                dm.getMovieName() + " 과/와 유사한 추천 영화",
                 list
         );
     }
