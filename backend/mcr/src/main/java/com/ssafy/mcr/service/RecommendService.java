@@ -59,13 +59,26 @@ public class RecommendService {
     }
 
     public String getUsersRandomGenreByUsersPrefer(Integer userNo) throws NothingToPrefException {
+        DaumMovie dm = getUsersRandomMovieByUsersPrefer(userNo);
+        String[] genreList = dm.getGenre().split("/");
+        return genreList[(int) (Math.random() * genreList.length)];
+    }
+
+    public DaumMovie getUsersRandomMovieByUsersPrefer(Integer userNo) throws NothingToPrefException {
         DaumMovie dm = recommendDao.selectUsersRandomPreferMovie(userNo);
-        if(dm == null) {
+        if (dm == null) {
             // 선호하는 영화를 단 하나도 지정하지 않았을 경우
             throw new NothingToPrefException();
         } else {
-            String[] genreList = dm.getGenre().split("/");
-            return genreList[(int)(Math.random() * genreList.length)];
+            return dm;
         }
+    }
+
+    public boolean canRecommendBySimilarity(int movieId) throws UnknownEnvironmentException, IOException {
+        return recommend.canRecommendBySimilarity(movieId);
+    }
+
+    public RecommendListV1 recommendBySimilarity(DaumMovie dm) throws UnknownEnvironmentException, IOException {
+        return recommend.recommendBySimilarity(dm);
     }
 }

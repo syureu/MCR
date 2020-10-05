@@ -1,9 +1,11 @@
 package com.ssafy.mcr.controller;
 
+import com.ssafy.mcr.dto.DaumMovie;
 import com.ssafy.mcr.dto.RecommendListV1;
 import com.ssafy.mcr.exception.NothingToPrefException;
 import com.ssafy.mcr.exception.UnknownEnvironmentException;
 import com.ssafy.mcr.service.RecommendService;
+import io.swagger.models.auth.In;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -83,6 +85,31 @@ public class RecommendController {
             // 선호하는 영화가 없을 경우
             // 사용자의 요소와 관계없이 영화 추천
             return simpleRecommend();
+        }
+    }
+
+    @GetMapping("/similarity/random/{userNo}")
+    public ResponseEntity<RecommendListV1> similarityRecommendByUserNo(@PathVariable Integer userNo) {
+        DaumMovie usersPreferMovie;
+        try {
+            usersPreferMovie = recommendService.getUsersRandomMovieByUsersPrefer(userNo);
+            // if pass, 선호하는 영화가 하나라도 있음
+            // 이 영화가 유사도 추천이 가능한 영화 인가?
+            boolean isCanRecommendBySimilarity = recommendService.canRecommendBySimilarity(usersPreferMovie.getMovieId());
+            if(isCanRecommendBySimilarity) {
+                return new ResponseEntity<>(recommendService.recommendBySimilarity(usersPreferMovie), HttpStatus.OK);
+            } else {
+                // 추천 불가능하면 No Content
+                return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+            }
+        } catch (NothingToPrefException e) {
+            // 선호하는 영화가 없을 경우
+            // 클라이언트에서 추천할게 없다고 반응할 수 있도록 No Content 처리
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (UnknownEnvironmentException e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (IOException e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

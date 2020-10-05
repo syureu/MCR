@@ -8,4 +8,7 @@ import sys
 md = pd.read_csv('../resources/daum_movie_description_qualified.csv')
 md = md.reset_index()
 indices = pd.Series(md.index, index=md['movie_id'])
-print(indices.get(int(sys.argv[1])))
+if indices.get(int(sys.argv[1])) is not None:
+    print(sys.argv[1])
+else:
+    print(None)

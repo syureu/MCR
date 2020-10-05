@@ -1,5 +1,6 @@
 package com.ssafy.mcr.recommend;
 
+import com.ssafy.mcr.dto.DaumMovie;
 import com.ssafy.mcr.dto.RecommendListV1;
 import com.ssafy.mcr.dto.RecommendV1;
 import com.ssafy.mcr.exception.UnknownEnvironmentException;
@@ -115,4 +116,39 @@ public class Recommend {
     }
 
 
+    public boolean canRecommendBySimilarity(int movieId) throws UnknownEnvironmentException, IOException {
+        List<String> command = new ArrayList<>();
+        command.add("python");
+        command.add("daum_movie_description_before_isin.py");
+        command.add(Integer.toString(movieId));
+        String[] retList = execPython(command);
+
+        if (retList[0].equals("None")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public RecommendListV1 recommendBySimilarity(DaumMovie dm) throws UnknownEnvironmentException, IOException {
+        List<String> command = new ArrayList<>();
+        command.add("python");
+        command.add("daum_movie_description.py");
+        command.add(Integer.toString(dm.getMovieId()));
+        String[] retList = execPython(command);
+        List<RecommendV1> list = new ArrayList<>();
+        for (int i = 0; i < retList.length / 3; ++i) {
+            RecommendV1 rv1 = new RecommendV1(
+                    Long.parseLong(retList[i]),
+                    (retList[i + (retList.length / 3 * 2)]).equals("null") ? null : retList[i + (retList.length / 3 * 2)],
+                    retList[i + (retList.length / 3)]
+            );
+            list.add(rv1);
+        }
+
+        return new RecommendListV1(
+                "추천 알고리즘이 선택한 " + dm.getMovieName() + " 와 유사한 추천 영화",
+                list
+        );
+    }
 }
