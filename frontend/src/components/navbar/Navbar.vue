@@ -4,7 +4,7 @@
 
 		<div class="header-tophny editContent">
 			<header id="site-header" class="hny-header-top">
-				<div class="container">
+				<div class="container" style="margin-left :0 ; margin-right:0;">
 					<div class="d-grid nav-mobile-block header-align">
 						<div class="logo">
 							<h1><a id="logo" v-if="!isLoggedIn" href="/"><img src="../../assets/logo.png" alt="Logo Image"></a>
@@ -760,8 +760,8 @@ pre code {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
+  margin-left : 0;
+  margin-right: 0;
 }
 
 @media (min-width: 576px) {
@@ -796,8 +796,6 @@ pre code {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
 }
 
 @media (min-width: 576px) {

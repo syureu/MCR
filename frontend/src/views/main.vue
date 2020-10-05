@@ -1,7 +1,5 @@
 <template>
     <div class="main-container">
-        <br>
-        <br>
         <div>
             <Content />
         </div> 
