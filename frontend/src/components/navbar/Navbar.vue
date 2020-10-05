@@ -4,7 +4,7 @@
 
 		<div class="header-tophny editContent">
 			<header id="site-header" class="hny-header-top">
-				<div class="container">
+				<div class="container" style="margin-left :0 ; margin-right:0;">
 					<div class="d-grid nav-mobile-block header-align">
 						<div class="logo">
 							<h1><a id="logo" v-if="!isLoggedIn" href="/"><img src="../../assets/logo.png" alt="Logo Image"></a>
@@ -17,7 +17,7 @@
 							<input type="checkbox" id="drop">
 							<ul class="menu" style="background-color: black;">
 								<li class="propClone"><a @click="MoveKoreaMove" style="color: white">한국 영화</a></li>
-								<li class="propClone"><a href="#" style="color: white">외국 영화</a></li>
+								<li class="propClone"><a @click="MoveforeignMove" style="color: white">외국 영화</a></li>
 								<li class="propClone" v-if="!isLoggedIn"><a href="#" @click="changeLogin" style="color: white">로그인</a></li>				
 								<li class="propClone" v-if="!isLoggedIn"><a href="#" @click="signup" style="color: white">회원가입</a></li>
                 <li class="propClone" v-if="isLoggedIn"><a  @click="changeMypage" style="color: white">마이페이지</a></li>				
@@ -30,7 +30,7 @@
                
             <div class="search-right" v-if="isLoggedIn">
               
-                <input style="display:inline-block" type="text" placeholder="영화를 검색하세요" v-model="searchKeyword"  @keyup.enter="searchKeywords" />
+                <input style="background-color: #302e2e; color: #fff; border-radius: 7px; border:0; display:inline-block" type="text" placeholder="영화를 검색하세요" v-model="searchKeyword"  @keyup.enter="searchKeywords" />
                 <a href="" @click="searchKeywords" style="color: white; display:inline-block;" ><i class="fas fa-search" style="color: white"></i></a>
                 
               <!-- /search popup -->
@@ -73,7 +73,7 @@ export default {
       }
     },watch:{
         searchKeyword(){
-          return this.searchKeyword = this.searchKeyword.replace(/[!{}@?#$%^&*()_+'";,.<>[/?:=-]/g,'')
+          return this.searchKeyword = this.searchKeyword.replace(/[!{}@\]\\|?#$%^&*()_+'";,.<>[`~/?:=-]/g,'')
         }
     },
 
@@ -93,7 +93,7 @@ export default {
       logout(){
         this.$session.remove('jwstoken')
         this.$store.commit('logout')
-        this.$router.push({name: 'Main'})
+        this.$router.push({name: 'main'})
       },
       changeMypage(){
         this.$router.push({name:'Mypage'})
@@ -760,8 +760,8 @@ pre code {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
+  margin-left : 0;
+  margin-right: 0;
 }
 
 @media (min-width: 576px) {
@@ -796,8 +796,6 @@ pre code {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
 }
 
 @media (min-width: 576px) {

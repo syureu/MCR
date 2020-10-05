@@ -118,12 +118,12 @@
 			<section id="two" class="main style2" style="background-color: black; border-top: 1px solid white">
 				<div class="container">
 					<div class="row gtr-150">
-						<div class="scroll-c col-6 col-12-medium" style="overflow-y:auto; height: 560px;">
+						<div id="moviescroll" class="scroll-c col-6 col-12-medium" style="overflow-y:auto;">
 							<ul class="major-icons">
 								<p v-if="this.movie_like.length == 0">좋아하는 영화 정보가 없어요, 영화에 좋아요를 눌러보세요</p>
 								<li v-for="movie in movie_like" :key="movie.movieId">
 									<img :src="movie.imgUrl" width="130" height="150" alt="" @click="$router.push({name: 'FeedDetail', params: {movieId: movie.movieId}})" >
-									<h4 style="width:130px; margin:0 auto; display:flex; align-items: center; justify-content: center; ">{{ movie.title }}</h4>  
+									<h4 style="margin:0 auto; display:flex; align-items: center; justify-content: center; ">{{ movie.title }}</h4>  
 								</li>
 								
 							</ul>
@@ -157,13 +157,13 @@
 							
 							
 						</div>
-						<div class="scroll-c col-6 col-12-medium" style="overflow-y:auto; height: 760px">
+						<div id="actorscroll" class="scroll-c col-6 col-12-medium" style="overflow-y:auto;">
 							<ul class="major-icons">
 								<p v-if="this.actor_like.length == 0">좋아하는 배우 정보가 없어요, 배우에 좋아요를 눌러보세요</p>
 								<li v-for="actor in actor_like" :key="actor.actorId">
-									<img v-if="actor.imgUrl==''" width="150" height="150" src="https://png.pngtree.com/png-vector/20191001/ourlarge/pngtree-man-icon-isolated-on-abstract-background-png-image_1769021.jpg"  alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
-									<img v-else :src="actor.imgUrl" width="150" height="150" alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
-									<h4 style="width:130px; margin:0 auto; display:flex; align-items: center;
+									<img v-if="actor.imgUrl==''" width="130" height="150" src="https://png.pngtree.com/png-vector/20191001/ourlarge/pngtree-man-icon-isolated-on-abstract-background-png-image_1769021.jpg"  alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
+									<img v-else :src="actor.imgUrl" width="130" height="150" alt="" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" />
+									<h4 style="margin:0 auto; display:flex; align-items: center;
   justify-content: center; ">{{ actor.actorName }}</h4>
 								
 								</li>
@@ -671,7 +671,7 @@ mark {
 			display: block;
 			line-height: 1.75em;
 			padding: 1em 1.5em;
-			overflow-x: auto;
+			overflow-x: hidden;
 		}
 
 	.align-left {
@@ -2963,7 +2963,7 @@ mark {
 
 	.table-wrapper {
 		-webkit-overflow-scrolling: touch;
-		overflow-x: auto;
+		overflow-x: hidden;
 	}
 
 	table {
@@ -3653,4 +3653,236 @@ mark {
 
 
 	}
+
+	#two .container .row .scroll-c .major-icons li h4{
+		width: 130px;
+	}
+
+	#actorscroll{
+		height: 760px;
+	}
+
+	#moviescroll{
+		height:560px;
+	}
+
+	@media screen and (max-width: 1140px) {
+		body {
+			margin-top: 40px;
+		}
+	
+	}
+
+	@media screen and (max-width: 980px) {
+		body {
+			margin-top: 0px;
+		}
+	
+	}
+
+	@media screen and (max-width: 738px) {
+		body {
+			margin-top: 40px;
+		}
+	
+	}
+
+	@media screen and (max-width: 550px) {
+		#two .container .row .scroll-c .major-icons li img{
+			width: 110px;
+			height: 127px;
+		}
+
+		#two .container .row .scroll-c .major-icons li h4{
+			width: 110px;
+			font-size: 12px;
+		}
+	
+	}
+
+	@media screen and (max-width: 435px) {
+		#two .container .row .scroll-c .major-icons li img{
+			width: 90px;
+			height: 103px;
+		}
+
+		#two .container .row .scroll-c .major-icons li h4{
+			width: 90px;
+			font-size: 10px;
+		}
+	
+	}
+
+	@media screen and (max-width: 750px) {
+		body {
+			margin-top: 0px;
+		}
+
+		#header h1 , #one .major h2, #two .major h2 {
+			font-size: 35px;
+		}
+
+		#header p, #one p, #two p {
+			font-size: 15px;
+		}
+
+		#header h2 {
+			font-size: 25px;
+		}
+	}
+
+	@media screen and (max-width: 735px) {
+		body {
+			margin-top: 40px;
+		}
+	}
+
+	@media screen and (max-width: 635px) {
+	
+		#header h1, #one .major h2, #two .major h2{
+			font-size: 30px;
+		}
+
+		#header p, #one p, #two p {
+			font-size: 12px;
+		}
+
+		#header h2 {
+			margin-top: 8px;
+			font-size: 20px;
+		}
+	}
+
+	@media screen and (max-width: 550px) {
+	
+		#header h1, #one .major h2, #two .major h2 {
+			font-size: 22px;
+		}
+
+		#header p, #one p, #two p {
+			font-size: 9px;
+		}
+
+		#header h2 {
+			margin-top: 8px;
+			font-size: 15px;
+		}
+	}
+
+	@media screen and (max-width: 435px) {
+	
+		#header h1, #one .major h2, #two .major h2 {
+			font-size: 17px;
+		}
+
+		#header p, #one p, #two p {
+			font-size: 7px;
+		}
+
+		#header h2 {
+			margin-top: 8px;
+			font-size: 12px;
+		}
+	}
+
+	@media screen and (max-width: 980px) {
+	
+		#actorscroll {
+			height :660px;
+		}
+
+		#moviescroll {
+			height: 530px;
+		}
+	}
+
+	@media screen and (max-width: 730px) {
+	
+		#actorscroll {
+			height :645px;
+		}
+
+		#moviescroll {
+			height: 475px;
+		}
+	}
+
+	@media screen and (max-width: 650px) {
+	
+		#actorscroll {
+			height :580px;
+		}
+
+		#moviescroll {
+			height: 470px;
+		}
+	}
+
+	@media screen and (max-width: 650px) {
+	
+		#actorscroll {
+			height :530px;
+		}
+
+		#moviescroll {
+			height: 450px;
+		}
+	}
+
+	@media screen and (max-width: 620px) {
+	
+		#actorscroll {
+			height :510px;
+		}
+
+		#moviescroll {
+			height: 430px;
+		}
+	}
+
+	@media screen and (max-width: 550px) {
+	
+		#actorscroll {
+			height :460px;
+		}
+
+		#moviescroll {
+			height: 380px;
+		}
+	}
+
+	@media screen and (max-width: 500px) {
+	
+		#actorscroll {
+			height :430px;
+		}
+
+		#moviescroll {
+			height: 350px;
+		}
+	}
+
+	@media screen and (max-width: 450px) {
+	
+		#actorscroll {
+			height :380px;
+		}
+
+		#moviescroll {
+			height: 330px;
+		}
+	}
+
+	@media screen and (max-width: 400px) {
+	
+		#actorscroll {
+			height :350px;
+		}
+
+		#moviescroll {
+			height: 320px;
+		}
+	}
+
+	
 </style>

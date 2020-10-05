@@ -140,6 +140,7 @@ export default {
         border: 2px solid skyblue;
         margin : 2vh 2vw 2vh 2vw; 
         padding : 3vh 3vw 3vh 1.5vw;
+        
     }
     #revcontainer{
         background-color : #fff9f7;
