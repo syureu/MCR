@@ -147,9 +147,9 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4 style="width:150px; margin:0 auto; display:flex; align-items: center;
+                <h4 style=" margin:0 auto; display:flex; align-items: center;
   justify-content: center;">{{ actor.actorName }}</h4>
-                <span style="width:150px;">{{ actor.casting }}</span>
+                <span style="">{{ actor.casting }}</span>
               </div>
             </div>
           </div>
@@ -1719,6 +1719,7 @@ section {
   font-weight: 600;
   font-family: "Poppins", sans-serif;
   margin-bottom: 20px;
+  width:130px;
 }
 
 .pricing h4 sup {
@@ -1731,6 +1732,7 @@ section {
   color: #bababa;
   font-size: 16px;
   font-weight: 300;
+  width: 130px;
 }
 
 .pricing ul {
