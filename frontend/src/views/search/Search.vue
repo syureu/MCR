@@ -54,7 +54,6 @@ export default {
           }
        })
        .then(res=> {
-         console.log(res)
          setTimeout(()=>{
            if(res.data.object.length===30){
              this.Movie = this.Movie.concat(res.data.object);
@@ -81,11 +80,8 @@ export default {
           }
         })
         .then(res=>{
-          console.log(this.page)
-          console.log(res)
           this.Movie=res.data.object
           
-          console.log(this.Movie)
           if(this.Movie.length==0){
             this.isNull=false
           }

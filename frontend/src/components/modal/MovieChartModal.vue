@@ -67,8 +67,7 @@ export default {
         })
      },
      gogo() {
-         console.log(this.moN)
-         console.log(this.$router.push({name: 'FeedDetail', params: {movieId: this.moN}}))
+         this.$router.push({name: 'FeedDetail', params: {movieId: this.moN}})
          this.modalclose()
          location.reload()
          

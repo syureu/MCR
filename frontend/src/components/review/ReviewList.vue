@@ -49,7 +49,7 @@
                 <div class ="revName">
                     {{ review.writer }} 
                 </div>    
-                    <StarRating class="starR" :star-size="20" v-model="review.rate"  v-bind:max-rating="10" :show-rating="F" :read-only="true"/> {{ review.rate }} / 10
+                    <i class="fas fa-star" style="color:yellow; float:left; margin-right:5px; margin-left:10px; margin-top:5px;"></i>&nbsp;<p style="font-size:1.5vw; float:left;"> {{ review.rate }} / 10 </p>
                 
                 </div>
                 <br>
@@ -79,7 +79,7 @@
                 <div class="firstLine">
                 <div class ="revName">
                     {{ review.writer }}
-                </div> <StarRating class="starR" v-model="review.rate" :star-size="20" v-bind:max-rating="10"  :show-rating="F" :read-only="true"/> {{ review.rate }} / 10
+                </div> <i class="fas fa-star" style="color:yellow; float:left; margin-left:5px; margin-top:5px;"></i>&nbsp; <p style="font-size:1.5vw; float:left;">{{ review.rate }} / 10</p>
                 </div>
                 <br>
                 <div class ="revContent">
@@ -110,14 +110,12 @@
 <script>
 
 import axios from 'axios'
-import StarRating from 'vue-star-rating';
 import HTTP from "@/util/http-common.js"
 import wordcloud from 'vue-wordcloud'
 
 export default {
     name: 'app',
     components: {
-        StarRating,
         wordcloud,
     },
     props: ['movieNo']
@@ -184,8 +182,6 @@ export default {
             this.userno = 0;
         } else {
             this.userno = this.$store.getters.getUserData.userinfo.userNo
-            console.log("123123123312")
-            console.log(this.userno)
         }
         axios.get(`${HTTP.BASE_URL}/mcr/daumreview/pos`,
             {
@@ -343,12 +339,6 @@ export default {
     }   
 
     
-    
-    .starR{
-        margin-left: 1.5vw;
-        margin-right: 1.5vw;
-        float:left;
-    }
 
     #checkdiv{
         clear: both;
@@ -405,5 +395,16 @@ export default {
     box-shadow: inset 0px 0px 5px white;
   }
 
+
+@media screen and (max-width: 405px) {
+    .btn-cover .page-btn{
+        width: 9vw;
+        height: 3vh;
+        font-size: 1vw;
+    }
+
+
+
+}  
 
 </style>

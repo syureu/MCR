@@ -72,8 +72,7 @@ export default {
                 menuBtn2.className="carousel-item"
             }
            
-            
-            console.log(menuBtn1);
+        
         }
     },computed:{
 
