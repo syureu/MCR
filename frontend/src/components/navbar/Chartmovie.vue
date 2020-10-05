@@ -21,7 +21,7 @@
     <span class="cursor_test" @click="changeModal()" >▼ Box Office</span>
      <div class="rolling_box">
        <MovieChartModal v-if="Modal" @close="changeLogin" @change="changeModal" :rolling="this.rollingData"/>
-      <ul id ="rolling_box">
+      <ul id ="rolling_box" style="padding-left: 0">
         
         <li class="card_sliding" id ="first"><p></p></li>
         <li class="" id ="second"><p></p></li>
@@ -186,7 +186,7 @@ ul{
    }
 
 .rolling_box{
-            width: 14vw;
+            width: 10vw;
             height: 5vh;
             text-align: center;
           
@@ -205,6 +205,7 @@ ul{
             transition: .5s;
             position:absolute;
             transition: top .75s;
+            overflow: hidden;
             top: 100%;
             z-index: 1;
             background-color: black;
@@ -222,7 +223,7 @@ ul{
 
         .rolling_box ul li p {
           color: aliceblue;
-            font-size: 1vw;
+            font-size: 100%;
             line-height: 5vh;
             font-weight: bold;
         }

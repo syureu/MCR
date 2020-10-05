@@ -13,7 +13,7 @@
 						<input type="checkbox" id="nav">
 						<label class="nav" for="nav"></label>
 						<nav>
-							<label for="drop" class="toggle" style="background-color: white;">Menu</label>
+							<label for="drop" class="toggle" style="background-color: black; color: white;">Menu</label>
 							<input type="checkbox" id="drop">
 							<ul class="menu" style="background-color: black;">
 								<li class="propClone"><a @click="MoveKoreaMove" style="color: white">한국 영화</a></li>
@@ -2902,7 +2902,7 @@ fieldset:disabled a.btn {
 
 .btn-primary.disabled,
 .btn-primary:disabled {
-  color: #fff;
+  color: gray;
   background-color: var(--primary-color);
   border-color: var(--primary-color);
 }
@@ -2910,7 +2910,7 @@ fieldset:disabled a.btn {
 .btn-primary:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled).active,
 .show>.btn-primary.dropdown-toggle {
-  color: #fff;
+  color: gray;
   background-color: var(--primary-color);
   border-color: var(--primary-color);
 }
@@ -14805,6 +14805,7 @@ a.link-style:hover:before {
   }
 
   .w3l-header-nav .toggle:hover {
+    color: red;
     opacity: 0.8;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;

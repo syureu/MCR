@@ -6,7 +6,7 @@
         <div id="line1"  v-if="onlogin">
         <label id="lab" for="" >내평점</label> <button id="togglebtn" @click="changetoggle">{{ name }}</button>
         </div>
-        <div id="incontainer" v-if="toggle==true" >
+        <div id="incontainer" v-if="toggle==true" class="fi" >
         <StarRating class="starR" style="float:left;" v-model="revitem.rate"  :star-size="25" v-bind:max-rating="10" :show-rating="temp"/> 
         <button @click="zerorating" style="float:left; background-color: transparent; border:0; margin-left: 5px; margin-top:5px;">0점</button>
         <textarea id="revcontent" v-model="revitem.content"></textarea>
@@ -16,7 +16,12 @@
         </div>
     </div>
 </template>
-
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $( document ).ready( function() {
+        $( 'div.fi' ).fadeIn( 2000 );
+      } );
+    </script>
 <script>
 import URL from "@/util/http-common.js"
 import axios from 'axios'
