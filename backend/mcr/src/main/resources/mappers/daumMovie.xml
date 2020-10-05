@@ -96,6 +96,10 @@
 			* 
 		from 
 			daum_movie 
+		where
+			img_url is not null
+			and adult = false
+			and count > 0
 		order by
 			score desc 
 		limit 

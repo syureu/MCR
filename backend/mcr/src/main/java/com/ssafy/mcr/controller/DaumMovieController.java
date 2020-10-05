@@ -264,7 +264,7 @@ public class DaumMovieController {
 		ResponseEntity response = null;
 		final BasicResponse result = new BasicResponse();
 		try {
-			List<DaumMovie> list = daumMovieService.getLimit10ByScore(page);
+			List<DaumMovie> list = daumMovieService.getLimit10ByScore(30 * page);
 			for(DaumMovie dm : list) {
 				dm.setRate(Math.round((dm.getRate()) * 10) / 10.0);
 			}
