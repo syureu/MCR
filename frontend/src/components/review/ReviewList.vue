@@ -49,7 +49,7 @@
                 <div class ="revName">
                     {{ review.writer }} 
                 </div>    
-                    <i class="fas fa-star" style="color:yellow; float:left; margin-right:5px; margin-left:10px; margin-top:5px;"></i>&nbsp;<p style="font-size:1.5vw; float:left;"> {{ review.rate }} / 10 </p>
+                    <i id="staricon" class="fas fa-star" style="color:yellow; float:left; "></i>&nbsp;<p style="font-size:1.5vw; float:left;"> {{ review.rate }} / 10 </p>
                 
                 </div>
                 <br>
@@ -79,7 +79,7 @@
                 <div class="firstLine">
                 <div class ="revName">
                     {{ review.writer }}
-                </div> <i class="fas fa-star" style="color:yellow; float:left; margin-left:5px; margin-top:5px;"></i>&nbsp; <p style="font-size:1.5vw; float:left;">{{ review.rate }} / 10</p>
+                </div> <i id="staricon1" class="fas fa-star" style="color:yellow; float:left;"></i>&nbsp; <p style="font-size:1.5vw; float:left;">{{ review.rate }} / 10</p>
                 </div>
                 <br>
                 <div class ="revContent">
@@ -395,6 +395,13 @@ export default {
     box-shadow: inset 0px 0px 5px white;
   }
 
+#staricon {
+    margin-right:10px; margin-left:10px; margin-top:5px;
+}
+
+#staricon1{
+    margin-right:10px; margin-left:10px; margin-top:5px;
+}
 
 @media screen and (max-width: 405px) {
     .btn-cover .page-btn{
@@ -405,6 +412,46 @@ export default {
 
 
 
-}  
+}
+
+@media screen and (max-width: 1100px) {
+    #staricon {
+        margin-top:3px !important;
+    }
+
+    #staricon1 {
+        margin-top:3px !important;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    #staricon {
+        margin-top:2px !important;
+    }
+
+    #staricon1 {
+        margin-top:2px !important;
+    }
+}
+
+@media screen and (max-width: 880px) {
+    #staricon {
+        margin-top:1px !important;
+    }
+
+    #staricon1 {
+        margin-top:1px !important;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    #staricon {
+        margin-top:0px !important;
+    }
+
+    #staricon1 {
+        margin-top:0px !important;
+    }
+}
 
 </style>
