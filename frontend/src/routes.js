@@ -8,6 +8,8 @@ import Mypage from './views/user/Mypage.vue'
 import Search from './views/search/Search.vue'
 import MovieKorea from './views/Detailhome/MovieKorea.vue'
 import Error from './views/error/Error.vue'
+import Movieforeign from './views/Detailhome/Movieforeign.vue'
+
 export default [
  
     {
@@ -62,6 +64,11 @@ export default [
         path: '*',
         name: 'Error',
         component: Error
-    }
+    },
+    {
+        path: '/Movieforeign',
+        name: 'Movieforeign',
+        component : Movieforeign
+    },
   
 ]

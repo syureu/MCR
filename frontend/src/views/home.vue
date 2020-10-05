@@ -2,19 +2,36 @@
     <div class="main-container"> 
         <br>
             <div class="location" id="home">
-            <MovieItemList :name="recommandMovie.title" :movies1="recommandMovie.Movie1" :movies2="recommandMovie.Movie2"/>
             <MovieItemList2 :name="recommandMovie2.title" :movies1="recommandMovie2.Movie1" :movies2="recommandMovie2.Movie2"/>
             <MovieItemList1 :name="recommandMovie1.title" :movies1="recommandMovie1.Movie1" :movies2="recommandMovie1.Movie2"/>
-            <div>
+             <div class="card-list">
+                <h1 style="font-family: 'Hanna', sans-serif;">평점순 영화리스트</h1>
+         <div class="search-result-card col-12 col-md-6 col-xl-2 font-kor" v-for="movie in recommandMovie" :key="movie.id">
+                <div @click="changeDeatil(movie.movieId)" class="card-img">
+                  <img :src="movie.imgUrl"  alt="영화 이미지"  />
+                  <div class="card-cover"  >
+                <h2 v-text="movie.movieName"></h2>
+                <h2 v-text="movie.rate"></h2>
+                
+               </div>
+                </div>
           
-            </div>
+         </div>
+         <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+          <div slot="no-more" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px;">목록의 끝입니다 :)</div>
+        </infinite-loading>
+         
+         
+        
+        </div>
         </div>
     </div>
 </template>
 <script>
-import MovieItemList from '@/components/Movie/MovieItemList.vue'
+// import MovieItemList from '@/components/Movie/MovieItemList.vue'
 import MovieItemList1 from '@/components/Movie/MovieItemList1.vue'
 import MovieItemList2 from '@/components/Movie/MovieItemList2.vue'
+import InfiniteLoading from 'vue-infinite-loading'
 
 import axios from 'axios'
 import URL from '@/util/http-common.js'
@@ -22,18 +39,14 @@ import URL from '@/util/http-common.js'
 export default {
     name : 'Home',
     components:{        
-        MovieItemList,
+        // MovieItemList,
         MovieItemList1,
         MovieItemList2,
+        InfiniteLoading
     },
     data(){
         return {
-            recommandMovie:{
-                title:"",
-                Movie1:[],
-                Movie2:[],
-
-            },
+            recommandMovie:[],
             recommandMovie1:{
                 title:"",
                 Movie1:[],
@@ -53,7 +66,7 @@ export default {
                 Movie2:[],
 
             },
-            genre:["액션",]
+            page:0
             
         }
     },
@@ -67,7 +80,46 @@ export default {
         }
        
     },
-  
+    methods:{
+         infiniteHandler($state){
+           axios.get(`${URL.BASE_URL}/mcr/daummovie/searchrank`,{
+            params : {page:`${this.page}`}
+    })
+       .then(res=> {
+         console.log(res)
+         setTimeout(()=>{
+           if(res.data.object.movies.length===30){
+             this.recommandMovie = this.recommandMovie.concat(res.data.object.movies);
+             $state.loaded();
+              this.page+=1;
+              
+           }else{
+             $state.complete();
+           }
+         },500)
+       })
+       .catch(err=>{
+         console.log(err);
+        
+       })
+    },
+    },
+    mounted(){
+        axios.get(`${URL.BASE_URL}/mcr/daummovie/searchrank`,{
+            params : {page : 0}
+    })
+        .then(res=>{
+          this.recommandMovie=res.data.object.movies
+          if(this.recommandMovie.length==0){
+            this.isNull=false
+          }
+          
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+        this.page+=1;
+    },
     created(){
          if (!this.$store.getters.isLoggedIn) {
             this.$router.push({
@@ -77,42 +129,10 @@ export default {
                 }
             })
         }
-        axios.get(`${URL.BASE_URL}/mcr/daummovie/searchrank/`)
-            .then(res => {
-                console.log(res)
-                this.recommandMovie.title= res.data.object.title
-                for(let i in res.data.object.movies){
-                    if(i<5){
-                        if(res.data.object.movies[i]["imgUrl"]==null){
-                            res.data.object.movies[i]["imgUrl"]="https://lh3.googleusercontent.com/proxy/rLr6HPTpU3xktj1vwyVQZbTIb6W4uZbltlg0nIv-R9-tSm651mY8zxxRGowtL5ahjWa9q5xT91-lQ_NjnE4TySKxTh1Wvvppbv8-8Q";
-                        }
-                        this.recommandMovie.Movie1.push({
-                            "id":res.data.object.movies[i]["movieId"],
-                            "posterPath":res.data.object.movies[i]["imgUrl"],
-                            "title":res.data.object.movies[i]["movieName"],
-                            
-                        })
-                    }
-                   else{
-                        if(res.data.object.movies[i]["imgUrl"]==null){
-                            res.data.object.movies[i]["imgUrl"]="https://lh3.googleusercontent.com/proxy/rLr6HPTpU3xktj1vwyVQZbTIb6W4uZbltlg0nIv-R9-tSm651mY8zxxRGowtL5ahjWa9q5xT91-lQ_NjnE4TySKxTh1Wvvppbv8-8Q";
-                        }
-                        this.recommandMovie.Movie2.push({
-                            "id":res.data.object.movies[i]["movieId"],
-                            "posterPath":res.data.object.movies[i]["imgUrl"],
-                            "title":res.data.object.movies[i]["movieName"],
-                      
-                        })
-                    }
-                }
         
-      })
-      .catch(err => {
-        alert(err)
-      })
       axios.get(`${URL.BASE_URL}/mcr/daummovie/likerank`)
             .then(res => {
-                console.log(res)
+               
                 this.recommandMovie1.title= res.data.object.title
                 for(let i in res.data.object.movies){
                     if(i<5){
@@ -141,9 +161,8 @@ export default {
       .catch(err => {
         alert(err)
       })
-       axios.get(`${URL.BASE_URL}/mcr/recommend/${this.$store.getters.getUserData.userinfo.userNo}`)
+       axios.get(`${URL.BASE_URL}/mcr/recommend/simple/random/${this.$store.getters.getUserData.userinfo.userNo}`)
             .then(res => {
-                console.log(res)
                 this.recommandMovie2.title= res.data.recommendMent
                 for(let i in res.data.list){
                     if(i<5){
@@ -187,6 +206,46 @@ export default {
   box-sizing: border-box;
   line-height: 1.4;
 }
+.search-result-card {
+        display: inline-block;
+        padding: 10px;
+       
+    }
+.card-cover {
+      font-family: 'Hanna', sans-serif;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height:100%;
+        background-color: transparent;
+        color: transparent;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+       
+    }
+    .card-cover:hover {
+        background-color: rgba(0,0,0,0.5);
+        color: whitesmoke;
+    }
+    .card-img {
+        position: relative;
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+    }
+    .card-img img{
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+    .card-list {
+        margin-top: 30px;
+    }
 @media (max-width: 2520px) {
     .main-container{
         margin:2vh 0 0 0;
