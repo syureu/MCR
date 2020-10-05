@@ -88,7 +88,7 @@ public class Recommend {
             list.add(rv1);
         }
         return new RecommendListV1(
-                "추천 알고리즘이 선택한 우수한 영화",
+                "우수한 영화",
                 list
         );
     }
@@ -109,7 +109,7 @@ public class Recommend {
             list.add(rv1);
         }
         return new RecommendListV1(
-                "추천 알고리즘이 선택한 " + genre + " 장르의 추천 영화",
+                genre + " 장르의 추천 영화",
                 list
         );
 
@@ -147,7 +147,7 @@ public class Recommend {
         }
 
         return new RecommendListV1(
-                "추천 알고리즘이 선택한 " + dm.getMovieName() + " 와 유사한 추천 영화",
+                dm.getMovieName() + " 와 유사한 추천 영화",
                 list
         );
     }
