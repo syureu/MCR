@@ -73,7 +73,6 @@ export default {
             }
            
             
-            console.log(menuBtn1);
         }
     },computed:{
 

@@ -79,7 +79,6 @@ export default {
         }
         axios.get(`${URL.BASE_URL}/mcr/daummovie/searchrank/`)
             .then(res => {
-                console.log(res)
                 this.recommandMovie.title= res.data.object.title
                 for(let i in res.data.object.movies){
                     if(i<5){
@@ -112,7 +111,6 @@ export default {
       })
       axios.get(`${URL.BASE_URL}/mcr/daummovie/likerank`)
             .then(res => {
-                console.log(res)
                 this.recommandMovie1.title= res.data.object.title
                 for(let i in res.data.object.movies){
                     if(i<5){
@@ -143,7 +141,6 @@ export default {
       })
        axios.get(`${URL.BASE_URL}/mcr/recommend/${this.$store.getters.getUserData.userinfo.userNo}`)
             .then(res => {
-                console.log(res)
                 this.recommandMovie2.title= res.data.recommendMent
                 for(let i in res.data.list){
                     if(i<5){

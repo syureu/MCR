@@ -91,8 +91,6 @@ export default {
   },
   methods: {
     gotomovie(){
-      
-        console.log(document.getElementById('rolling_box').children[listCnt].children[0].innerHTML)
     },
      changeLogin () {
           this.Modal = !this.Modal

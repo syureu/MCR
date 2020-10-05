@@ -7,8 +7,8 @@
         <label id="lab" for="" >내평점</label> <button id="togglebtn" @click="changetoggle">{{ name }}</button>
         </div>
         <div id="incontainer" v-if="toggle==true" >
-        <StarRating class="starR" style="float:left;" v-model="revitem.rate"  :star-size="40" v-bind:max-rating="10" :show-rating="temp"/> 
-        <button @click="zerorating" style="float:left; background-color: transparent; border:0; margin-left: 5px; margin-top:10px;">0점</button>
+        <StarRating class="starR" style="float:left;" v-model="revitem.rate"  :star-size="25" v-bind:max-rating="10" :show-rating="temp"/> 
+        <button @click="zerorating" style="float:left; background-color: transparent; border:0; margin-left: 5px; margin-top:5px;">0점</button>
         <textarea id="revcontent" v-model="revitem.content"></textarea>
         <button v-if="this.revcheck == true" class="revbutton" @click="updaterev" >수정</button>
         <button v-else class="revbutton" @click="writerev">작성</button>
@@ -81,18 +81,12 @@ export default {
         } else{
             this.onlogin = true;
         }
-        console.log(this.revitem.userNo)
-        console.log("aaaa")
         this.revitem.userNo = this.$store.getters.getUserData.userinfo.userNo
-        console.log(this.revitem.userNo)
-        console.log("bbbb")
         axios.get(`${URL.BASE_URL}/mcr/daumreview/check`, 
         {
             params: {movieId: this.movieId , userNo: this.$store.getters.getUserData.userinfo.userNo}
         })  
         .then(res => {
-            console.log("asdfafasdfadsfsdf")
-            console.log(res)
             if(res.data.object != null){
                 this.revcheck = true;
                 this.revitem = {
@@ -147,7 +141,7 @@ export default {
         font-family: 'Hanna', sans-serif;
     }
     #revcontent {
-            width: 90%;
+            width: 85%;
             height: 16vh;
             resize: none;
             margin-top : 4vh;
@@ -187,8 +181,4 @@ export default {
         background-color: skyblue;
     }
 
-
-    .starR{
-
-    }
 </style>
