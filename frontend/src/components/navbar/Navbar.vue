@@ -73,7 +73,7 @@ export default {
       }
     },watch:{
         searchKeyword(){
-          return this.searchKeyword = this.searchKeyword.replace(/[!{}@?#$%^&*()_+'";,.<>[/?:=-]/g,'')
+          return this.searchKeyword = this.searchKeyword.replace(/[!{}@\]\\|?#$%^&*()_+'";,.<>[`~/?:=-]/g,'')
         }
     },
 
