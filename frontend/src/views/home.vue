@@ -134,9 +134,10 @@ export default {
                 }
             })
         }
-      axios.get(`${URL.BASE_URL}/mcr/recommand/similarity/${this.$store.getters.getUserData.userinfo.userNo}`)
+      axios.get(`${URL.BASE_URL}/mcr/recommend/similarity/random/${this.$store.getters.getUserData.userinfo.userNo}`)
       .then(res => {
-          if(res.object.length!=0){
+          console.log(res)
+          if(res.status===200){
               this.recommandMovie3.title=res.data.recommendMent
                  for(let i in res.data.list){
                     if(i<5){
@@ -236,9 +237,7 @@ export default {
 </script>
 <style scoped>
 .main-container  {
- 
-  margin: 0%;
-  padding: 5%;
+     margin-left:2%;
   background-color: black;
   color: var(--light);
   font-family: Arial, Helvetica, sans-serif;
@@ -285,48 +284,6 @@ export default {
     .card-list {
         margin-top: 30px;
     }
-@media (max-width: 2520px) {
-    .main-container{
-        margin:2vh 0 0 0;
-    }
-}
-@media(max-width: 2260px){
-    .main-container{
-        margin: 3vh 0 0 0;
-    }
-}
-@media(max-width: 2240px){
-    .main-container{
-        margin: 4vh 0 0 0;
-    }
-}
-@media(max-width: 1900px){
-    .main-container{
-        margin: 5vh 0 0 0;
-    }
-}
 
-@media(max-width: 1395px){
-    .main-container{
-        margin: 6vh 0 0 0;
-    }
-}
-@media(max-width: 1150px){
-    .main-container{
-        margin: 7vh 0 0 0;
-    }
-}
-
-@media(max-width: 805px){
-    .main-container{
-        margin: 8vh 0 0 0;
-    }
-}
-
-@media(max-width: 540px){
-    .main-container{
-        margin: 9vh 0 0 0;
-    }
-}
 
 </style>
