@@ -4,7 +4,7 @@
         <div id="dynamicId4" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
                <div  class="carousel-item active" >
-                    <div class="row" >
+                    <div class="row">
                     <div class="col" v-for="movie in movies1" :key="movie.id">
                         <a href=""><img :src="movie.posterPath" class="d-block" style="width:240px; height:350px"  alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
                         <div class="card-cover" @click="changeDeatil(movie.id)">
