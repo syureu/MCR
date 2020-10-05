@@ -1,65 +1,120 @@
 <template>
-        <div class="col" >
-          <a href=""><img :src="movie.posterPath" class="d-block" style="width:300px" alt="영화 이미지" @click="changeDeatil"/></a>
-        <!-- <div class="choosebox">
-            <i v-if="!movie.follow" class="far fa-heart" @click="follow" ></i>
-            <i v-else class="fas fa-heart"></i>
-            <i class="far fa-thumbs-down" style="margin-left:10px"></i>
-            <label for="toggle" />
-            <i class="fas fa-bars" id="toggle"></i>
-            
-        </div> -->
+    <div id="content">
+        <h1 id="movies" style="font-family: 'Hanna', sans-serif;" v-text="name"></h1>
+        <div id="dynamicId" class="carousel slide" data-ride="carousel">
+        <div id="ele" class="carousel-inner">
+               <div  class="carousel-item active" >
+                    <div class="row" >
+                    <div class="col" v-for="movie in movies1" :key="movie.id">
+                        <a href=""><img :src="movie.posterPath" class="d-block" style="width:240px; height:350px"  alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
+                        <div class="card-cover" @click="changeDeatil(movie.id)">
+                            <h3 v-text="movie.title"></h3>
+                            <h2 v-text="movie.rate"></h2>
+                        </div>
+                    </div>
+                    </div>
+               </div>
+               <div class="carousel-item">
+                    <div class="row">
+                    <div class="col" v-for="movie in movies2" :key="movie.id">
+                        <a href=""><img :src="movie.posterPath" class="d-block" style="width:240px; height:350px" alt="영화 이미지" @click="changeDeatil(movie.id)"/></a>
+                        <div class="card-cover" @click="changeDeatil(movie.id)">
+                            <h3 v-text="movie.title"></h3>
+                            <h2 v-text="movie.rate"></h2>
+                        </div>
+                    </div>
+                    </div>
+               </div>
+    
         </div>
+     <a class="carousel-control-prev" href="#dynamicId" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+    </a>
+  <a class="carousel-control-next" href="#dynamicId" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+        </div>
+    </div>
 </template>
 <script>
+
+// import MovieItem from './MovieItem'
 export default {
-    data(){
-      return {
-        showbox:false,
-       
-      }
-
+    components:{
+        // MovieItem
     },
-    
     props:{
-        movie : Object
+        name : String,
+        movies1 : Array,
+        movies2 : Array,
     },
-    methods:{
-        follow(){
-          this.movie.follow=!this.movie.follow
-        },
-        showchooseBox(){
-          this.showbox = !this.showbox
-
-      },
-        changeDeatil(){
-            this.$router.push(`/feedDetail/${this.movie.no}`)
+    data() {
+        return {
+            show:true,
+            test: [],
+            test1: [],            
         }
+    },
+    methods: {
+        changeDeatil(id){
+         
+            this.$router.push(`/feedDetail/${id}`)
+        },
+    },computed:{
+
     }
 }
 </script>
 <style scoped>
- .fa-bars{
-  margin-left:65%;
-  
+.carousel-control-prev{
+    width:2%;
 }
-.fa-heart{
-  color:red;
+.carousel-control-next{
+    
+    width:2%;
+}
+.content h1 {
+  margin-top: 160px;  
+
 }
 a {
   transition: transform .3s; 
-  /* display:flex;  */
+
 }
-#movies:hover {
+a :hover {
   transition: transform .3s;
   -ms-transform: scale(1.3);
   -webkit-transform: scale(1.3);  
   transform: scale(1.3);
+  opacity: 0.5;
+  
 
 }
-img {
-    display:inline-block;
-  max-width: 100%;
-  border-radius: 2px;
+.card-cover{
+    position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        color: transparent;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Hanna', sans-serif;
 }
+
+
+.card-cover:hover{
+    background-color: rgba(0,0,0,0.5);
+        color: whitesmoke;
+}
+h1{
+    color:aliceblue;
+}
+
+
 </style>
