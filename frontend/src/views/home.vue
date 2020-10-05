@@ -135,7 +135,6 @@ export default {
         
       axios.get(`${URL.BASE_URL}/mcr/daummovie/likerank`)
             .then(res => {
-               
                 this.recommandMovie1.title= res.data.object.title
                 for(let i in res.data.object.movies){
                     if(i<5){
