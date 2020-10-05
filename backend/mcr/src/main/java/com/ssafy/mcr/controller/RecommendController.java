@@ -107,8 +107,10 @@ public class RecommendController {
             // 클라이언트에서 추천할게 없다고 반응할 수 있도록 No Content 처리
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (UnknownEnvironmentException e) {
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (IOException e) {
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
