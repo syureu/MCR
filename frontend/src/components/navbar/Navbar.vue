@@ -24,8 +24,11 @@
 								<li class="propClone" v-if="isLoggedIn"><a  @click="logout" style="color: white">로그아웃</a></li>
 								<!--//search-right-->
 								<li class="propClone mt-lg-0 mt-4">
-                  <Chartmovie/>
-            <div class="search-right">
+                  <div v-if="isLoggedIn">
+                    <Chartmovie/>
+                  </div>
+               
+            <div class="search-right" v-if="isLoggedIn">
               
                 <input style="display:inline-block" type="text" placeholder="영화를 검색하세요" v-model="searchKeyword"  @keyup.enter="searchKeywords" />
                 <a href="" @click="searchKeywords" style="color: white; display:inline-block;" ><i class="fas fa-search" style="color: white"></i></a>
