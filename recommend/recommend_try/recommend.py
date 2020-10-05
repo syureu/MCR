@@ -19,6 +19,8 @@ from surprise.model_selection import cross_validate
 
 #import warnings; warnings.simplefilter('ignore')
 
+"""
+
 md = pd.read_json('../resources/tmpdata.json')
 print(md.head())
 
@@ -112,9 +114,11 @@ def build_chart(genre, percentile=0.5):
 
 print(build_chart('Science Fiction').head(15))
 
-print()
-print("CBF")
-print()
+"""
+
+# print()
+# print("CBF")
+# print()
 
 mydata = pd.read_csv('../resources/tmdb_movies_202009151556.csv')
 mydataid = mydata[mydata['id'].notnull()]['id'].astype('int')
@@ -123,22 +127,22 @@ mymd = mydata
 mymd['id'] = mydata['id'].astype('int')
 smd = mymd[mymd['id'].isin(mydataid)]
 
-print(smd.shape)
-print(smd)
-print()
+# print(smd.shape)
+# print(smd)
+# print()
 
 smd['tagline'] = smd['tagline'].fillna('')
 smd['description'] = smd['overview'] + smd['tagline']
 smd['description'] = smd['description'].fillna('')
 
-print(smd)
-print()
+# print(smd)
+# print()
 
 tf = TfidfVectorizer(analyzer='word', ngram_range=(1, 2),
                      min_df=0, stop_words='english')
 tfidf_matrix = tf.fit_transform(smd['description'])
 
-print(tfidf_matrix.shape)
+# print(tfidf_matrix.shape)
 print(tfidf_matrix)
 print()
 
@@ -148,6 +152,8 @@ print(cosine_sim[0])
 smd = smd.reset_index()
 titles = smd['title']
 indices = pd.Series(smd.index, index=smd['title'])
+print(titles)
+print(indices)
 
 
 def get_recommendations(title):
