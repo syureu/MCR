@@ -17,7 +17,7 @@
 							<input type="checkbox" id="drop">
 							<ul class="menu" style="background-color: black;">
 								<li class="propClone"><a @click="MoveKoreaMove" style="color: white">한국 영화</a></li>
-								<li class="propClone"><a href="#" style="color: white">외국 영화</a></li>
+								<li class="propClone"><a @click="MoveforeignMove" style="color: white">외국 영화</a></li>
 								<li class="propClone" v-if="!isLoggedIn"><a href="#" @click="changeLogin" style="color: white">로그인</a></li>				
 								<li class="propClone" v-if="!isLoggedIn"><a href="#" @click="signup" style="color: white">회원가입</a></li>
                 <li class="propClone" v-if="isLoggedIn"><a  @click="changeMypage" style="color: white">마이페이지</a></li>				
@@ -93,7 +93,7 @@ export default {
       logout(){
         this.$session.remove('jwstoken')
         this.$store.commit('logout')
-        this.$router.push({name: 'Main'})
+        this.$router.push({name: 'main'})
       },
       changeMypage(){
         this.$router.push({name:'Mypage'})

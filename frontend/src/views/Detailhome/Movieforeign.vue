@@ -68,8 +68,7 @@ export default {
         }
         axios.get(`${URL.BASE_URL}/mcr/daummovie/foreignmovie`)
             .then(res => {
-                console.log(res.data.object)
-                this.recommandMovie.title= res.data.object[0]["mt0"]+"장르"
+                this.recommandMovie.title= res.data.object[0]["mt0"]+" 장르"
                 for(let i in res.data.object[0]["mg0"]){
                     if(i<5){
                         if(res.data.object[0]["mg0"][i]["imgUrl"]==null){
@@ -208,8 +207,7 @@ export default {
 </script>
 <style scoped>
     #container{
-        margin: 0%;
-        padding: 5%;
+         margin-left:2%;
         background-color: black;
         color: var(--light);
         font-family: Arial, Helvetica, sans-serif;
@@ -217,47 +215,5 @@ export default {
         line-height: 1.4;
     }
 
-@media (max-width: 2520px) {
-    #container{
-        margin:2vh 0 0 0;
-    }
-}
-@media(max-width: 2260px){
-    #container{
-        margin: 3vh 0 0 0;
-    }
-}
-@media(max-width: 2240px){
-    #container{
-        margin: 4vh 0 0 0;
-    }
-}
-@media(max-width: 1900px){
-    #container{
-        margin: 5vh 0 0 0;
-    }
-}
 
-@media(max-width: 1395px){
-    #container{
-        margin: 6vh 0 0 0;
-    }
-}
-@media(max-width: 1150px){
-    #container{
-        margin: 7vh 0 0 0;
-    }
-}
-
-@media(max-width: 805px){
-    #container{
-        margin: 8vh 0 0 0;
-    }
-}
-
-@media(max-width: 540px){
-    #container{
-        margin: 9vh 0 0 0;
-    }
-}
 </style>
