@@ -324,6 +324,7 @@ figure {
 }
 
 img {
+  width: 20vw;
   vertical-align: middle;
   border-style: none;
 }
@@ -14578,7 +14579,7 @@ a.link-style:hover:before {
 }
 
 .w3l-header-nav #logo a img {
-  height: 30px;
+  height: 10vh;
 }
 
 .w3l-header-nav nav:after {

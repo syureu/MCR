@@ -44,15 +44,20 @@ export default {
     },
     methods: {
      gotomovie(title1) {
-         axios.get(`${HTTP.BASE_URL}/mcr/daummovie/bytitle` ,
+         axios.get(`${HTTP.BASE_URL}/mcr/daummovie/returnidbytitle` ,
         {
                 params: { title: title1 }
         }
         )
         .then(res => {
-            console.log(res.data.object[0].movieId)
-           this.moN = res.data.object[0].movieId
-           this.gogo()
+           this.moN = res.data.object
+           if(res.data.object == null){
+             alert('아직 영화가 업데이트되지 않았습니다.')
+           }
+           else{
+            this.gogo()
+           }
+           
         
           
         })
