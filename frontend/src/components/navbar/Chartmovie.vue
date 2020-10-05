@@ -186,7 +186,7 @@ ul{
    }
 
 .rolling_box{
-            width: 14vw;
+            width: 200px;
             height: 5vh;
             text-align: center;
           
@@ -208,6 +208,7 @@ ul{
             top: 100%;
             z-index: 1;
             background-color: black;
+            overflow:hidden;
         }
 
         .card_sliding{
@@ -234,4 +235,5 @@ ul{
         .after_slide {
             transform: translateY(0);
         }
+
 </style>
