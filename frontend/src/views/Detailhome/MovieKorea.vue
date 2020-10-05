@@ -68,7 +68,6 @@ export default {
         }
         axios.get(`${URL.BASE_URL}/mcr/daummovie/koreamovie`)
             .then(res => {
-                console.log(res.data.object)
                 this.recommandMovie.title= res.data.object[0]["mt0"]+"장르"
                 for(let i in res.data.object[0]["mg0"]){
                     if(i<5){

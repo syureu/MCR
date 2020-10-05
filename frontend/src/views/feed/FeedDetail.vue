@@ -147,9 +147,9 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4 style="width:130px; margin:0 auto; display:flex; align-items: center;
+                <h4 style="width:150px; margin:0 auto; display:flex; align-items: center;
   justify-content: center;">{{ actor.actorName }}</h4>
-                <span>{{ actor.casting }}</span>
+                <span style="width:150px;">{{ actor.casting }}</span>
               </div>
             </div>
           </div>
@@ -311,13 +311,11 @@ export default {
 			const movieTrailer = require( 'movie-trailer' )
 			this.trailerURL1 = 'https://www.youtube.com/embed/'
 			movieTrailer( res.data.object.movieName , ( error, response) => {
-        console.log('여기')
-        console.log(response)
        if(response == null){
           this.not_video = true
         }
 				this.trailerURL1 = this.trailerURL1 + response.substr(32)
-            })
+        })
  
 
         
@@ -348,7 +346,6 @@ export default {
 					}
 				})
             }
-            console.log(res)
             this.actorList = res.data.object
        
         }).catch(err => {
@@ -1665,7 +1662,7 @@ section {
 }
 
 .team .member .member-info {
-  padding: 25px 15px;
+  text-align:center;
 }
 
 .team .member .member-info h4 {
@@ -2705,5 +2702,75 @@ section {
   color: #fff;
   text-decoration: none;
 }
+
+@media screen and (max-width: 995px) {
+  .member-img img{
+    width: 130px;
+    height: 180px;
+  }
+  .team .member .member-info h4{
+    width:130px;
+  }
+
+  .team .member .member-info span{
+    width:130px;
+  }
+
+}
+
+@media screen and (max-width: 765px) {
+  .member-img img{
+    width: 100px;
+    height: 138px;
+  }
+
+  .team .member .member-info h4 {
+    font-size: 13px;
+    width: 100px;
+  }
+
+  .team .member .member-info span {
+    font-size: 11px;
+    width: 100px;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .member-img img{
+    width: 80px;
+    height: 110px;
+  }
+
+
+
+  .team .member .member-info h4 {
+    font-size: 10px;
+    width: 80px;
+  }
+
+  .team .member .member-info span {
+    font-size: 8px;
+    width: 80px;
+  }
+}
+
+@media screen and (max-width: 405px) {
+  .member-img img{
+    width: 65px;
+    height: 89px;
+  }
+
+  .team .member .member-info h4 {
+    font-size: 8px;
+    width: 65px;
+  }
+
+  .team .member .member-info span {
+    font-size: 6.5px;
+    width:65px;
+  }
+}
+
+
 
 </style>
