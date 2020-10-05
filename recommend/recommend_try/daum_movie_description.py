@@ -8,7 +8,7 @@ import sys
 count = 10
 pd.set_option("display.max_colwidth", 500)
 
-md = pd.read_csv('../resources/daum_movie_description_qualified.csv')
+md = pd.read_csv('../resources/daum_movie_description_qualified_big.csv')
 md['nouns_string'] = md['nouns_string'].fillna('')
 tf = TfidfVectorizer(min_df=1)
 tfidf_matrix = tf.fit_transform(md['nouns_string'])

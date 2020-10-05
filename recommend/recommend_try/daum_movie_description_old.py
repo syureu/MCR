@@ -16,15 +16,13 @@ from konlpy.utils import pprint
 
 import datetime as dt
 
-"""
-
 print("1. 실행시작")
 print(dt.datetime.now())
 print()
 
 kkma = Kkma()
 
-md = pd.read_csv('../resources/daum_movie_202009281326.csv')
+md = pd.read_csv('../resources/daum_movie_202010042105.csv')
 
 print("2. 로딩 끝 - 빈 줄거리 제거 시작")
 print(dt.datetime.now())
@@ -52,16 +50,16 @@ print(" ".join(kkma.nouns(md['overview'][0])))
 md['nouns_string'] = md.apply(
     lambda x: " ".join(kkma.nouns(x['overview'])), axis=1)
 
-md.to_csv('../resources/daum_movie_description_qualified.csv')
+md.to_csv('../resources/daum_movie_description_qualified_big.csv')
 
 print("4. 한글 명사 분석 완료 - tfidf 행렬 생성 시작")
 print(dt.datetime.now())
 print()
 
+"""
+
 print(md)
 print()
-
-"""
 
 print("파일 로딩중")
 print(dt.datetime.now())
@@ -118,3 +116,5 @@ print()
 
 print("함수 수행 완료")
 print(dt.datetime.now())
+
+"""
