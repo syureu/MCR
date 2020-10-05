@@ -6,6 +6,7 @@ from konlpy.utils import pprint
 import sys
 
 count = 10
+pd.set_option("display.max_colwidth", 500)
 
 md = pd.read_csv('../resources/daum_movie_description_qualified.csv')
 md['nouns_string'] = md['nouns_string'].fillna('')
