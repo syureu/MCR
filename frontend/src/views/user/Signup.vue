@@ -78,7 +78,7 @@
         <button
         @click="checkform"
         class=" ml-5"
-        style="background-color: black"        
+        style="background-color: transparent;"        
        
         >
           <h2 style="color: white">가입</h2>

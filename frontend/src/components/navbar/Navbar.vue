@@ -30,7 +30,7 @@
                
             <div class="search-right" v-if="isLoggedIn">
               
-                <input style="display:inline-block" type="text" placeholder="영화를 검색하세요" v-model="searchKeyword"  @keyup.enter="searchKeywords" />
+                <input style="background-color: #302e2e; color: #fff; border-radius: 7px; border:0; display:inline-block" type="text" placeholder="영화를 검색하세요" v-model="searchKeyword"  @keyup.enter="searchKeywords" />
                 <a href="" @click="searchKeywords" style="color: white; display:inline-block;" ><i class="fas fa-search" style="color: white"></i></a>
                 
               <!-- /search popup -->
