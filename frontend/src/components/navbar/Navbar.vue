@@ -4,8 +4,8 @@
         <a id="logo" v-if="!isLoggedIn" href="/"><img src="../../assets/logo.png" alt="Logo Image"></a>
         <a id="logo" v-if="isLoggedIn" href="/home"><img src="../../assets/logo.png" alt="Logo Image"></a>
       </div>      
-      <nav class="main-nav">              
         <LoginModal v-if="loginModal" @close="changeLogin" @change="changeModal"/>
+      <nav class="main-nav">              
         <a @click="MoveKoreaMove">한국 영화</a>
         <a @click="MoveforeignMove">외국 영화</a>
       </nav>
@@ -38,15 +38,15 @@
           <span class="navbar-toggler-icon" ></span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" @click="MoveKoreaMove">한국 영화</a>
-            <a class="dropdown-item" @click="MoveforeignMove">외국 영화</a>
-        
         <div v-if="!isLoggedIn">
+        
         <!-- <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a> -->
-        <a class="dropdown-item" href="#" @click="changeLogin">로그인</a>
-        <a class="dropdown-item" href="#" @click="signup">회원가입</a>
+        <a class="dropdown-item"  @click="changeModal">로그인</a>
+        <a class="dropdown-item"  @click="signup">회원가입</a>
         </div>
         <div v-else>
+                    <a class="dropdown-item" @click="MoveKoreaMove">한국 영화</a>
+                    <a class="dropdown-item" @click="MoveforeignMove">외국 영화</a>
                     <a class="dropdown-item"  @click="changeMypage">마이페이지</a>
                     <a class="dropdown-item" @click="logout">로그아웃</a>
 
@@ -171,10 +171,7 @@ export default {
   padding: 0 2.5vw 0 1vw;
   float:left;
 }
-.mid-nav{
-  
-  
-}
+
 .mid-nav input{
   display:inline;
   background-color:rgb(48, 46, 46);
@@ -228,9 +225,7 @@ export default {
    .sub-nav {
      display:none;
    }
-   .chart{
-     
-   }
+  
    
    .mobile-nav{
      background: transparent;
