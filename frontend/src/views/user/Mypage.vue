@@ -3666,6 +3666,10 @@ mark {
 		height:560px;
 	}
 
+	body {
+		margin-top: 40px;
+	}
+
 	@media screen and (max-width: 1140px) {
 		body {
 			margin-top: 40px;
@@ -3733,7 +3737,7 @@ mark {
 
 	@media screen and (max-width: 735px) {
 		body {
-			margin-top: 40px;
+			margin-top: 60px;
 		}
 	}
 

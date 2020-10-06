@@ -135,7 +135,7 @@ export default {
 }
 .navbar{
   font-family: 'Hanna', sans-serif;
-  height: 150px;
+  height: 120px;
   padding: 2vh 2vw 2vh 2vw;
   position: fixed;
   top: 0;
