@@ -201,7 +201,6 @@ export default {
             }
             else if(document.getElementsByName("radio_answer")[1].checked == true){
                 this.gender = document.getElementsByName("radio_answer")[1].value
-                alert(document.getElementsByName("radio_answer")[1].value)
             }
         if(this.re_id == false  || this.id!=this.id2){
             alert('아이디 중복체크 해주세요!')
@@ -231,7 +230,7 @@ export default {
              userid: this.userid,
              pw : this.password
            }
-        this.$router.push({name:'Home'})
+        this.$router.push({name:'main'})
       })
       .catch(error => {
           console.log(this.id)
