@@ -17,7 +17,7 @@
       </li>
     </ul>
   </div> -->
-  <div style="display:inline-block;">
+  <div style="display:inline-block">
     <span class="cursor_test" @click="changeModal()" >▼ Box Office</span>
      <div class="rolling_box">
        <MovieChartModal v-if="Modal" @close="changeLogin" @change="changeModal" :rolling="this.rollingData"/>
