@@ -1,6 +1,11 @@
 <template>
     <div id="container">
         <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br><br>
          <div class="location" id="home">
             <MovieItemList :name="recommandMovie.title" :movies1="recommandMovie.Movie1" :movies2="recommandMovie.Movie2"/>
             <MovieItemList1 :name="recommandMovie1.title" :movies1="recommandMovie1.Movie1" :movies2="recommandMovie1.Movie2"/>

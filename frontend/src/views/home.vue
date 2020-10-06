@@ -3,6 +3,10 @@
             <div class="location" id="home">
                 <br>
                 <br>
+                <br>
+                <br>
+                <br>
+                <br><br>
             <MovieItemList2 :name="recommandMovie2.title" :movies1="recommandMovie2.Movie1" :movies2="recommandMovie2.Movie2"/>
             <MovieItemList1 :name="recommandMovie1.title" :movies1="recommandMovie1.Movie1" :movies2="recommandMovie1.Movie2"/>
             <MovieItemList v-if="isNull" :name="recommandMovie3.title" :movies1="recommandMovie3.Movie1" :movies2="recommandMovie3.Movie2"/>
