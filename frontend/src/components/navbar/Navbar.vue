@@ -7,7 +7,7 @@
       <nav class="main-nav">              
         <LoginModal v-if="loginModal" @close="changeLogin" @change="changeModal"/>
         <a @click="MoveKoreaMove">한국 영화</a>
-        <a href="#">외국 영화</a>
+        <a @click="MoveforeignMove">외국 영화</a>
       </nav>
       <nav class="mid-nav" v-if="isLoggedIn">
         <div class="box">
@@ -135,7 +135,7 @@ export default {
 }
 .navbar{
   font-family: 'Hanna', sans-serif;
-  height: 16vh;
+  height: 150px;
   padding: 2vh 2vw 2vh 2vw;
   position: fixed;
   top: 0;
