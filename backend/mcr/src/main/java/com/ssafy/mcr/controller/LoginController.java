@@ -51,7 +51,10 @@ public class LoginController {
 			JSONObject jsonObject = new JSONObject();
 //			jsonObject.put("jwtToken",
 //					jwtTokenProvider.createToken(user.getId(), Collections.singletonList(user.getRole())));
-			jsonObject.put("userinfo", userService.getUserbyId(loginData.getUserid()));
+			User tmp = userService.getUserbyId(loginData.getUserid());
+			tmp.setUserid("");
+			tmp.setPw("");
+			jsonObject.put("userinfo", tmp);
 			response.setHeader("jwsToken", jwtTokenProvider.createToken(user.getUserid(), Collections.singletonList(user.getRole())));
 			System.out.println(response.getHeader("jwsToken"));
 			result.status = true;

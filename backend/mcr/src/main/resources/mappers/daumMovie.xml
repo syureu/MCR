@@ -46,6 +46,14 @@
             )
 	</insert>
 	
+	<update id="updateDaumMovieRate" parameterType="DaumMovie">
+		update daum_movie
+		set rate = #{rate},
+			count = #{count}
+		where
+			movie_id = #{movieId}
+	</update>
+	
 	<!-- id으로 select 처리 -->
 	<select id="selectDaumMovieBymovieId" parameterType="Integer" resultType="DaumMovie">
 		select 
@@ -64,6 +72,96 @@
 		where
 			movie_name LIKE CONCAT('%',#{title},'%') 
 			OR movie_name_en LIKE CONCAT('%',#{title},'%') 
-		</select>
+	</select>
+	
+	<select id="selectLimit30" parameterType="Paging" resultType="DaumMovie">
+		select 
+			* 
+		from 
+			daum_movie 
+		where
+			movie_name LIKE CONCAT('%',#{title},'%') 
+			OR movie_name_en LIKE CONCAT('%',#{title},'%')
+			and img_url is not null
+			and adult = false
+			and count > 0
+		order by
+			count desc, score desc, movie_opening_date desc 
+		limit 
+			#{page}, 30
+	</select>
+	
+	<select id="selectLimit10ByScore" parameterType="Integer" resultType="DaumMovie">
+		select 
+			* 
+		from 
+			daum_movie 
+		where
+			img_url is not null
+			and adult = false
+			and count > 0
+		order by
+			score desc 
+		limit 
+			#{page}, 30
+	</select>
+	
+	<select id="selectDaumMovieIdByTitle" parameterType="String" resultType="Integer">
+		select
+			movie_id
+		from
+			daum_movie
+		where
+			movie_name = #{title}
+	</select>
+	
+	<select id="selectKoreaMovieByGenre" parameterType="String" resultType="DaumMovie">
+		select 
+			* 
+		from 
+			daum_movie 
+		where
+			genre like CONCAT('%',#{genre},'%')
+			and img_url is not null
+			and adult = false
+			and count > 0
+			and movie_opening_date is not null
+			and running_time is not null
+			and nation like '%한국%'
+		order by
+			score desc, rate desc, movie_opening_date desc
+		limit 
+			10
+	</select>
+	
+	<select id="selectForeignMovieByGenre" parameterType="String" resultType="DaumMovie">
+		select 
+			* 
+		from 
+			daum_movie 
+		where
+			genre like CONCAT('%',#{genre},'%')
+			and img_url is not null
+			and adult = false
+			and count > 0
+			and movie_opening_date is not null
+			and running_time is not null
+			and nation not like '%한국%'
+		order by
+			score desc, rate desc, movie_opening_date desc
+		limit 
+			10	
+	</select>
+	
+	<update id="upScore" parameterType="DaumMovie">
+		update
+			daum_movie
+		set
+			score = #{score}
+		where
+			movie_id = #{movieId}
+	</update>
+	
+	
 </mapper>
 

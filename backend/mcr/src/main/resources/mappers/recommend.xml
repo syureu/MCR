@@ -4,7 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.mcr.dao.RecommendDao">
 
+
     <!-- List<RecommendV1> selectRecommendV1() -->
+    <!--
     <select id="selectRecommendV1" resultType="RecommendV1">
         select
             id,
@@ -17,5 +19,20 @@
         limit
             10
     </select>
-</mapper>
+    -->
 
+    <!-- DaumMovie selectUsersRandomPreferMovie(Integer userNo); -->
+    <select id="selectUsersRandomPreferMovie" resultType="DaumMovie" parameterType="Integer">
+        select
+            daum_movie.movie_name, daum_movie.movie_name_en, daum_movie.movie_id, daum_movie.rate, daum_movie.genre, daum_movie.movie_opening_date, daum_movie.running_time, daum_movie.overview, daum_movie.img_url, daum_movie.nation, daum_movie.score, daum_movie.adult, daum_movie.count
+        FROM
+            daum_movie, daum_user_movie
+        where
+            daum_movie.movie_id = daum_user_movie.movie_id and
+            daum_user_movie.user_no = #{userNo}
+        order by
+            rand()
+        LIMIT
+            1;
+    </select>
+</mapper>

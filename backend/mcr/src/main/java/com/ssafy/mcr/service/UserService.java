@@ -12,5 +12,6 @@ public interface UserService {
 	public void modifyUser(User user);
 	public void deleteUser(String userId, String pw);
 	public User getUserbyId(String id);
+	public User getUserbyNo(int userNo);
 	public User getUserbyIdandPwd(String id,String password);
 }

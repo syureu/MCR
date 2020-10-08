@@ -11,6 +11,20 @@ public class DaumMovie {
 	private String overview;
 	private String imgUrl;
 	private String nation;
+	private int score;
+	private int count;
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
 	public String getNation() {
 		return nation;
 	}
@@ -75,7 +89,6 @@ public class DaumMovie {
 	public String toString() {
 		return "DaumMovie [movieName=" + movieName + ", movieNameEn=" + movieNameEn + ", movieId=" + movieId + ", rate="
 				+ rate + ", genre=" + genre + ", movieOpeningDate=" + movieOpeningDate + ", runningTime=" + runningTime
-				+ ", overview=" + overview + ", imgUrl=" + imgUrl + ", nation=" + nation + "]";
+				+ ", overview=" + overview + ", imgUrl=" + imgUrl + ", nation=" + nation + ", score=" + score + "]";
 	}
-	
 }

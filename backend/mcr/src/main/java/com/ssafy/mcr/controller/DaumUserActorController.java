@@ -72,10 +72,12 @@ public class DaumUserActorController {
 		try {
 			if(daumUserActorService.addDaumUserActor(daumUserActor)==0) {
 				daumUserActorService.deletDaumUserActor(daumUserActor.getUserNo(), daumUserActor.getPersonId());
+				System.out.println("삭제");
 			}else { //입력
 			}
 			result.status = true;
 			result.data = "success";
+			result.object = daumUserActor;
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -163,6 +165,30 @@ public class DaumUserActorController {
 		response = new ResponseEntity<>(result, HttpStatus.OK);
 		return response;
 	}
+	
+//	@GetMapping("/check")
+//	public Object rank10() {
+//		ResponseEntity response = null;
+//		System.out.println("검색 진입");
+//		final BasicResponse result = new BasicResponse();
+//		try {
+//			DaumUserActor dua = daumUserActorService.checkLike(userNo, personId);
+//			int check = 0;
+//			if(dua != null) {
+//				check = 1;
+//			}
+//			result.status = true;
+//			result.data = "success";
+//			result.object = check;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			result.status = true;
+//			result.data = "fail";
+//		}
+//		response = new ResponseEntity<>(result, HttpStatus.OK);
+//		return response;
+//	}
+	
 
 }
 
