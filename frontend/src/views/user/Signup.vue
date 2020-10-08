@@ -25,9 +25,10 @@
                             placeholder="ID를 입력하세요."
                             type="text"
                             :rules="[rules.required]" >
-                   <button class="" type="button" style="position: absolute; left: 50%; transform: translateX(-50%);" @click="check_id">ID 중복체크</button>
+                   <button class="" type="button" style="position: relative; margin-top:5px; margin-bottom:10px; border-radius: .25rem; float:right; transform: translateX(-50%);" @click="check_id">ID 중복체크</button>
                   
                 </div>
+                <div style="clear:both;"></div>
                 <div class="form-group">
                     <label for="password" style="color: white">비밀번호</label>
                     <input  class="form-control pb_height-50 " 
@@ -77,7 +78,7 @@
         <button
         @click="checkform"
         class=" ml-5"
-        style="background-color: black"        
+        style="background-color: transparent;"        
        
         >
           <h2 style="color: white">가입</h2>
@@ -200,7 +201,6 @@ export default {
             }
             else if(document.getElementsByName("radio_answer")[1].checked == true){
                 this.gender = document.getElementsByName("radio_answer")[1].value
-                alert(document.getElementsByName("radio_answer")[1].value)
             }
         if(this.re_id == false  || this.id!=this.id2){
             alert('아이디 중복체크 해주세요!')
@@ -230,7 +230,7 @@ export default {
              userid: this.userid,
              pw : this.password
            }
-        this.$router.push({name:'Home'})
+        this.$router.push({name:'main'})
       })
       .catch(error => {
           console.log(this.id)
@@ -307,7 +307,7 @@ export default {
 
     .bg{
         background-color: black !important;
-        background-image: url('../../assets/images/img01.jpg');
+        background-image: url('../../assets/images/01.jpg');
     }
     .mouse-wrap, .scroll-wrap {
     position: absolute;

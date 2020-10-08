@@ -6,16 +6,22 @@
         <div id="line1"  v-if="onlogin">
         <label id="lab" for="" >내평점</label> <button id="togglebtn" @click="changetoggle">{{ name }}</button>
         </div>
-        <div id="incontainer" v-if="toggle==true" >
-        <StarRating v-model="revitem.rate" v-bind:max-rating="10" :show-rating="temp"/>
+        <div id="incontainer" v-if="toggle==true" class="fi" >
+        <StarRating class="starR" style="float:left;" v-model="revitem.rate"  :star-size="25" v-bind:max-rating="10" :show-rating="temp"/> 
+        <button @click="zerorating" style="float:left; background-color: transparent; border:0; margin-left: 5px; margin-top:5px;">0점</button>
         <textarea id="revcontent" v-model="revitem.content"></textarea>
-        <button v-if="this.revcheck == true" class="revbutton" >수정</button>
+        <button v-if="this.revcheck == true" class="revbutton" @click="updaterev" >수정</button>
         <button v-else class="revbutton" @click="writerev">작성</button>
         </div>
         </div>
     </div>
 </template>
-
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $( document ).ready( function() {
+        $( 'div.fi' ).fadeIn( 2000 );
+      } );
+    </script>
 <script>
 import URL from "@/util/http-common.js"
 import axios from 'axios'
@@ -36,6 +42,7 @@ export default {
             revcheck: false,
             movieId: this.movieNo,
             revitem: {
+                userNo: 9999,
                 writer: "",
                 content: "",
                 rate: 0,
@@ -55,43 +62,45 @@ export default {
         writerev() {
             axios.post(`${URL.BASE_URL}/mcr/daumreview/`, this.revitem)
             .then(res => {
-                console.log("리뷰 작성 완료")
                 console.log(res)
+                alert("리뷰 작성 완료")
+                location.reload()
             })
+        },
+        updaterev() {
+            axios.put(`${URL.BASE_URL}/mcr/daumreview/update`, this.revitem)
+            .then(res => {
+                alert("리뷰 수정 완료")
+                console.log(res)
+                location.reload()
+
+            })
+        },
+        zerorating() {
+            this.revitem.rate = 0;
         }
     },
     created() {
-        console.log(this.$store.getters.getUserData.userinfo)
         if(this.$store.getters.getUserData == null){
             this.onlogin = false;
         } else{
             this.onlogin = true;
         }
-
-        let daumReview = {
-            movieId: this.movieId,
-            writer: this.$store.getters.getUserData.userinfo.userid,
-            
-        }   
-
-        this.revitem.writer= this.$store.getters.getUserData.userinfo.userid;
-
-        console.log(daumReview)
-
-        axios.post(`${URL.BASE_URL}/mcr/daumreview/check`, daumReview)  
+        this.revitem.userNo = this.$store.getters.getUserData.userinfo.userNo
+        axios.get(`${URL.BASE_URL}/mcr/daumreview/check`, 
+        {
+            params: {movieId: this.movieId , userNo: this.$store.getters.getUserData.userinfo.userNo}
+        })  
         .then(res => {
-            console.log(res)
             if(res.data.object != null){
                 this.revcheck = true;
-                console.log("res 확인")
-                console.log(res)
                 this.revitem = {
                     content: res.data.object.content,
                     rate: res.data.object.rate,
                     movieId: res.data.object.movieId,
+                    writer: res.data.object.writer,
+                    userNo: res.data.object.userNo
                 }
-                console.log("res 확인")
-                console.log(res)
             } 
         })
         .catch(err => {
@@ -131,13 +140,14 @@ export default {
         border: 2px solid skyblue;
         margin : 2vh 2vw 2vh 2vw; 
         padding : 3vh 3vw 3vh 1.5vw;
+        
     }
     #revcontainer{
         background-color : #fff9f7;
         font-family: 'Hanna', sans-serif;
     }
     #revcontent {
-            width: 90%;
+            width: 85%;
             height: 16vh;
             resize: none;
             margin-top : 4vh;
@@ -176,4 +186,5 @@ export default {
     #hr1{
         background-color: skyblue;
     }
+
 </style>

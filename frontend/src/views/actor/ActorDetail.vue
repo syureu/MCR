@@ -7,7 +7,7 @@
   <header id="header">
     <div class="d-flex flex-column">
       <div class="netflixLogo">
-        <a id="logo" href="/"><img src="../../assets/logo.png" alt="Logo Image"></a>
+        <a id="logo" href="/home"><img src="../../assets/logo.png" alt="Logo Image"></a>
       </div>
       <div class="profile">
         <img :src="getImgUrl" alt="" class="img-fluid rounded-circle">
@@ -122,7 +122,7 @@
 
         <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
 
-          <div class="col-lg-3 col-md-6 portfolio-item filter-web" v-for="movie in movieInfo" :key="movie.movieId">
+          <div class="col-lg-3 col-md-6 portfolio-item filter-web" v-for="movie in movieInfo" :key="movie.movieId" >
             <div class="portfolio-wrap" @click="$router.push({name: 'FeedDetail', params: {movieId: movie.movieId}})">
               <img  v-if="movie.imgUrl==''" src="https://png.pngtree.com/png-vector/20191001/ourlarge/pngtree-man-icon-isolated-on-abstract-background-png-image_1769021.jpg" @click="$router.push({name: 'ActorDetail', params: {personId: actor.personId}})" class="img-fluid" alt="">
               <img width=100% v-else :src="movie.imgUrl"  class="img-fluid" alt="">
@@ -206,6 +206,9 @@ export default {
         }
     },
     computed: {
+        isLoggedIn() {
+            return this.$store.getters.isLoggedIn
+        },
         getImgUrl() {
           return   `${this.actorDetail.imgUrl}`
         },
@@ -221,10 +224,10 @@ export default {
             };
             axios.post(`${HTTP.BASE_URL}/mcr/daumuseractor`, like)
             .then(res => {
-              console.log(res)
+              console.log(res.data)
             })
             .catch(res => {
-              console.log(res)
+              console.log(res.data)
             })
           }
           else {
@@ -249,11 +252,19 @@ export default {
 
     },
     created() {
+        if (!this.$store.getters.isLoggedIn) {
+            this.$router.push({
+                name: 'Error',
+                query: {
+                    status: 401
+                }
+            })
+        }
         if(this.$store.getters.getUserData == null){
             this.userno = 0;
         } else{
             this.userno = this.$store.getters.getUserData.userinfo.userNo
-            console.log(this.userno)
+        
         }
         axios.get(`${HTTP.BASE_URL}/mcr/daumactor` ,
         {
@@ -261,7 +272,7 @@ export default {
         }
         )
         .then(res => {
-             console.log(res.data.object.actorName)
+       
             if (res.data === 'fail') {
                 this.$router.push({
                     name: 'Error',
@@ -278,7 +289,7 @@ export default {
                 sex: res.data.object.gender,
                 imgUrl: res.data.object.imgUrl,
             }
-            console.log(this.actorDetail)
+          
         })
         .catch(err => {
         //     this.$router.push({
@@ -296,7 +307,8 @@ export default {
         })
         .then(res => {
             this.movieInfo = res.data.object
-            console.log(res)
+            console.log(this.movieInfo)
+           
         })
 
 

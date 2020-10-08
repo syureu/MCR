@@ -6,25 +6,18 @@
 
             <div class="modal-header">
                 <slot name="header">
-                <h3>로그인</h3> 
+                <h3>Box ofiice 순위</h3> 
                 <button type="button" class="close" style="color:white;" data-dismiss="modal" @click="modalclose">×</button>
                 </slot>
             </div>
-            <div class="modal-body">
-                <div class="form">
-                    <label class="input-label" style="font-" for="inputname">아이디</label>
-                    <input type="text" id="inputname" placeholder="아이디를 입력하세요." @keyup.esc="$emit('close')" v-model="userid">                
-                </div>
-                <div class="form">
-                    <label class="input-label" for="inputpassword">비밀번호</label>
-                    <input type="password" id="inputpassword" placeholder="패스워드를 입력하세요." v-model="password" @keyup.esc="$emit('close')" @keyup.enter="login">    
-                </div>
+            <div class="" v-for="(movie, index) in rolling" :key="movie.movieId">
+                <ul>
+        
+                    <li @click="gotomovie(movie)"><p style="color: white">  {{ index + 1}} .  {{ movie }} </p></li>
+                    
+                </ul>
             </div>
 
-            <div class="modal-footer">
-                <div style="color:red;" v-if="errorData.userid" v-text="errorData.userid"></div>  
-                <button class="modal-default-button" @click="login">확인</button>
-                </div>
             </div>
         </div>
         </div>
@@ -35,54 +28,50 @@
 <script>
 // import * as EmailValidator from 'email-validator'
 import axios from 'axios'
-import URL from '@/util/http-common.js'
+import HTTP from "@/util/http-common.js"
 export default {
+    props : {
+    rolling : Object
+    },
     name : 'LoginModal',
     data() {
         return{ 
-            userid:"",
-            password:"",
+            moN:"",
             errorData:{
               userid : false,
             }
         }
     },
     methods: {
-      formcheck(){
-        if(this.userid=== "" ||this.password=== ""){
-          this.errorData.userid = "아이디 , 비밀번호를 확인해주세요."
-          return ;
+     gotomovie(title1) {
+         axios.get(`${HTTP.BASE_URL}/mcr/daummovie/returnidbytitle` ,
+        {
+                params: { title: title1 }
         }
+        )
+        .then(res => {
+           this.moN = res.data.object
+           if(res.data.object == null){
+             alert('아직 영화가 업데이트되지 않았습니다.')
+           }
+           else{
+            this.gogo()
+           }
+           
         
-        else this.errorData.userid = false
-        
-      },
-      login(){
-          this.formcheck();   
-           let loginData={
-             userid: this.userid,
-             pw : this.password
-           } 
-      axios.post(`${URL.BASE_URL}/mcr/login`, loginData)
-      .then(res => {
-        if (res.data.data === "success") {
           
-          this.$session.set('jwstoken', res.headers.jwstoken)
-          this.$store.commit('login', res.data.object)
-          this.modalclose()
-          this.$router.push('/home')
-        }
-        else {
+        })
+        .catch(err => {
+   
+            console.log(err)
+        })
+     },
+     gogo() {
+         this.$router.push({name: 'FeedDetail', params: {movieId: this.moN}})
+         this.modalclose()
+         location.reload()
          
-           this.errorData.userid = "아이디 , 비밀번호를 확인해주세요."
-          return ;
-        }
-      })
-      .catch(err => {
-        alert(err)
-      })
-    },
-
+     },
     modalclose () {
       this.$emit('close')
     },
@@ -91,6 +80,12 @@ export default {
 </script>
 
 <style scoped>
+ul{
+   list-style:none;
+   padding-left:0px;
+   }
+li:hover {background-color: gray; cursor: pointer;}
+
   .modal-mask {
     position: fixed;
     z-index: 9998;

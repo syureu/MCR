@@ -16,7 +16,7 @@
               
          
         <button @click="signup"
-        style="background-color: black"   
+        style="background-color: transparent;"   
         >
           <h2 style="color: white;">지금 가입하기</h2>
         </button>
@@ -64,7 +64,7 @@ button{
 
     .bg{
         background-color: black !important;
-        background-image: url('../../assets/images/img01.jpg');
+        background-image: url('../../assets/images/05.jpg');
     }
     .mouse-wrap, .scroll-wrap {
     position: absolute;

@@ -1,8 +1,8 @@
 <template>
     <div class="app">
-            <h1 v-text="title"></h1>
+            <h1 v-text="title" style="font-family: 'Hanna', sans-serif;"></h1>
         <div v-if="!isNull">
-            <h3 class="result">해당검색결과가 없습니다.</h3>
+            <h3 class="result" style="font-family: 'Hanna', sans-serif;">해당검색결과가 없습니다.</h3>
         </div>
         <div class="card-list">
          <div class="search-result-card col-12 col-md-6 col-xl-2 font-kor" v-for="movie in Movie" :key="movie.id">
@@ -54,7 +54,6 @@ export default {
           }
        })
        .then(res=> {
-         console.log(res)
          setTimeout(()=>{
            if(res.data.object.length===30){
              this.Movie = this.Movie.concat(res.data.object);
@@ -81,11 +80,8 @@ export default {
           }
         })
         .then(res=>{
-          console.log(this.page)
-          console.log(res)
           this.Movie=res.data.object
           
-          console.log(this.Movie)
           if(this.Movie.length==0){
             this.isNull=false
           }
@@ -106,7 +102,7 @@ export default {
 }
 .app{
     background:black;
-    padding-top:100px;
+    padding-top:150px;
 }
  h1 {
   margin-left:100px;
@@ -119,6 +115,7 @@ export default {
        
     }
     .card-cover {
+      font-family: 'Hanna', sans-serif;
         position: absolute;
         top: 0;
         left: 0;

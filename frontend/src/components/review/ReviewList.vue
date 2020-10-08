@@ -1,6 +1,18 @@
 <template>
     <div id ="revListcontainer">
-        <div id="app">
+        
+        <vue-confirm-dialog></vue-confirm-dialog>
+        <div id="app" style="margin-top:7vh;">
+            <div style="width:100%;">
+                <div style="width:48%; float:left;">
+                    <h1 style="float:left; padding:2vw; font-size:3vw;">긍정적 리뷰</h1>
+                </div>
+                <div style="width:48%; float:right;">
+                    <h1 style="float:left; padding:2vw; font-size:3vw;">부정적 리뷰</h1>
+
+                </div>
+            </div>
+            <div style="clear:both;"></div>
         <div class ="wordDiv" style="float:left;">
         <wordcloud
       :data="defaultWords"
@@ -33,11 +45,11 @@
       <div style="clear:both;"></div>
         <div id ="positiveRev"> 
             <div class = "revitem" v-for="review in paginatedData" :key="review.writer" >
-                <div>
+                <div class="firstLine">
                 <div class ="revName">
                     {{ review.writer }} 
                 </div>    
-                    <StarRating class="starR" v-model="review.rate" v-bind:max-rating="10" :star-size="starsize" :show-rating="F" :read-only="true"/> {{ review.rate }} / 10
+                    <i id="staricon" class="fas fa-star" style="color:yellow; float:left; "></i>&nbsp;<p style="font-size:1.5vw; float:left;"> {{ review.rate }} / 10 </p>
                 
                 </div>
                 <br>
@@ -46,7 +58,7 @@
                 </div>
                 <br>
                 <div class="revDate">
-                    {{ review.regtime }}
+                    {{ review.regtime }} <button v-if="userno == review.userNo" @click="delrev" style="color: black; background-color: #fff9f7; -webkit-transition-duration: 0.4s; margin-left: 1vw; transition-duration: 0.4s; border: 0; outline: 0;">삭제하기</button>
                 </div>
             </div>
             <div class="btn-cover">
@@ -54,7 +66,7 @@
         이전
       </button>
       <span class="page-count">{{ pageNum + 1 }} / {{ pageCount }} 페이지</span>
-      <button :disabled="pageNum >= pageCount - 1" @click="nextPage" class="page-btn">
+      <button  :disabled="pageNum >= pageCount - 1" @click="nextPage" class="page-btn">
         다음
       </button>
     </div>
@@ -64,10 +76,10 @@
         
         <div id ="negativeRev">
             <div class = "revitem" v-for="review in paginatedData1" :key="review.writer">
-                <div>
+                <div class="firstLine">
                 <div class ="revName">
                     {{ review.writer }}
-                </div> <StarRating class="starR" v-model="review.rate" v-bind:max-rating="10" :star-size="starsize" :show-rating="F" :read-only="true"/> {{ review.rate }} / 10
+                </div> <i id="staricon1" class="fas fa-star" style="color:yellow; float:left;"></i>&nbsp; <p style="font-size:1.5vw; float:left;">{{ review.rate }} / 10</p>
                 </div>
                 <br>
                 <div class ="revContent">
@@ -75,15 +87,15 @@
                 </div>
                 <br>
                 <div class="revDate">
-                    {{ review.regtime }}
+                    {{ review.regtime }}  <button v-if="userno==review.userNo" @click="delrev" style="color: black; background-color: #fff9f7; -webkit-transition-duration: 0.4s; margin-left: 1vw; transition-duration: 0.4s; border: 0; outline: 0;">삭제하기</button>
                 </div>
             </div>
             <div class="btn-cover">
-      <button :disabled="pageNum1 === 0" @click="prevPage1" class="page-btn">
+      <button  :disabled="pageNum1 === 0" @click="prevPage1" class="page-btn">
         이전
       </button>
       <span class="page-count">{{ pageNum1 + 1 }} / {{ pageCount1 }} 페이지</span>
-      <button :disabled="pageNum1 >= pageCount1 - 1" @click="nextPage1" class="page-btn">
+      <button  :disabled="pageNum1 >= pageCount1 - 1" @click="nextPage1" class="page-btn">
         다음
       </button>
     </div>
@@ -98,24 +110,22 @@
 <script>
 
 import axios from 'axios'
-import StarRating from 'vue-star-rating';
 import HTTP from "@/util/http-common.js"
 import wordcloud from 'vue-wordcloud'
 
 export default {
     name: 'app',
     components: {
-        StarRating,
         wordcloud,
     },
     props: ['movieNo']
     ,
     data() {
         return {
+            booleanValue: false,
             paddingNum: 5,
             F: false,
-            starsize: 20,
-            userno: "",
+            userno: 0,
             movieId: this.movieNo,
             pageNum: 0,
             pageSize: 5,
@@ -171,7 +181,7 @@ export default {
         if(this.$store.getters.getUserData == null) {
             this.userno = 0;
         } else {
-            this.userno = this.$store.getters.getUserData.userinfo.userno
+            this.userno = this.$store.getters.getUserData.userinfo.userNo
         }
         axios.get(`${HTTP.BASE_URL}/mcr/daumreview/pos`,
             {
@@ -264,6 +274,34 @@ export default {
     prevPage1 () {
       this.pageNum1 -= 1;
     },
+    delrev() {
+        this.handleClick()
+    },
+    handleClick(){
+        this.$confirm({
+            message: `리뷰를 삭제하시겠습니까?`,
+            button: {
+                no: '아니요',
+                yes: '삭제'
+            },
+            callback: confirm => {
+             
+                if(confirm){
+                    axios.delete(`${HTTP.BASE_URL}/mcr/daumreview/`,
+                    {
+                        params: {movieId: this.movieId , userNo: this.userno}
+                    })
+                
+                    alert("삭제 되었습니다.")
+                    setTimeout(() => {
+                        this.$router.go()
+                        this.$router.push({name: "FeedDetail", params: {movieId: this.movieId }})
+                    }, 1000);
+                }
+            }
+        })
+    }
+
     }
 }
 </script>
@@ -300,12 +338,6 @@ export default {
         font-size : 1.5vw;
     }   
 
-    .starR{
-        float:left;
-        margin-left: 1.5vw;
-        margin-right: 1.5vw;
-    }
-
     
 
     #checkdiv{
@@ -317,11 +349,13 @@ export default {
     .btn-cover {
   margin-top: 1.5rem;
   text-align: center;
+  font-size: 2vw;
   
 }
 .btn-cover .page-btn {
-  width: 5rem;
-  height: 2rem;
+  width: 8vw;
+  height: 5vh;
+  font-size: 1.5vw;
   letter-spacing: 0.5px;
   border-radius: 8px;
   color: skyblue;
@@ -332,17 +366,92 @@ export default {
   padding: 0 1rem;
 }
 .revContent{
-    white-space: normal;
     line-height: 1.2;
     height: 3.6em;
     width:95%;
     display: inline-block;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    overflow-y:auto;
+    padding-right:1vw;
     font-size: 1.2vw;
+    word-break:break-all;
 }
 .wordDiv{
     width:45%;
     height: 50vh;
 }
+
+.revContent::-webkit-scrollbar {
+    width: 10px;
+  }
+  .revContent::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  .revContent::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+
+#staricon {
+    margin-right:10px; margin-left:10px; margin-top:5px;
+}
+
+#staricon1{
+    margin-right:10px; margin-left:10px; margin-top:5px;
+}
+
+@media screen and (max-width: 405px) {
+    .btn-cover .page-btn{
+        width: 9vw;
+        height: 3vh;
+        font-size: 1vw;
+    }
+
+
+
+}
+
+@media screen and (max-width: 1100px) {
+    #staricon {
+        margin-top:3px !important;
+    }
+
+    #staricon1 {
+        margin-top:3px !important;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    #staricon {
+        margin-top:2px !important;
+    }
+
+    #staricon1 {
+        margin-top:2px !important;
+    }
+}
+
+@media screen and (max-width: 880px) {
+    #staricon {
+        margin-top:1px !important;
+    }
+
+    #staricon1 {
+        margin-top:1px !important;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    #staricon {
+        margin-top:0px !important;
+    }
+
+    #staricon1 {
+        margin-top:0px !important;
+    }
+}
+
 </style>
